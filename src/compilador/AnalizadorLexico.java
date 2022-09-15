@@ -1,7 +1,7 @@
 package compilador;
 //package accion_semantica;
 
-import compilador.MatrixEstados;
+//import compilador.MatrixEstados;
 
 public class AnalizadorLexico {
   public static void main(String[] args) {
