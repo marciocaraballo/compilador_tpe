@@ -1,5 +1,7 @@
 package accion_semantica;
 
-public class AccionSemantica {
+public interface AccionSemantica {
+
+  int ejecutar();
 
 }
