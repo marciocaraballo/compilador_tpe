@@ -45,18 +45,23 @@ public class AnalizadorLexico {
 	
 	public int getToken() {
 		
-		char inputCaracter = 0;
+		int inputCaracter = 0;
 		
-		try {
-			inputCaracter = (char) lector_archivo.read();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		/* -1 indica end of file */
+		while (inputCaracter != -1) {
+			try {
+				inputCaracter = lector_archivo.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			int columna = obtenerColumnaCaracter((char)inputCaracter);
+			
+			System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + columna + " original " + inputCaracter);
 		}
 		
-		int columna = obtenerColumnaCaracter(inputCaracter);
-		
-		System.out.println("Estado: " + estado_actual + " Input: " + inputCaracter + " proximo estado: " + columna);
+		System.out.println("Se alcanzo el end of file");
 		
 		//@TODO return next token
 		return 0;
