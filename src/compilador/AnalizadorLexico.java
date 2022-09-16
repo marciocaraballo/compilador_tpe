@@ -1,6 +1,7 @@
 package compilador;
 
 import java.io.BufferedReader;
+import java.lang.Character;
 import java.io.IOException;
 
 public class AnalizadorLexico {
@@ -18,6 +19,23 @@ public class AnalizadorLexico {
 	
 	/** Determinar que columna de la matriz corresponde al char leido */
 	private int obtenerColumnaCaracter(char input) {
+		
+		/* minusculas l = columna 1 */
+		if (Character.isLowerCase(input)) {
+			return 1;
+		}
+		
+		/* mayusculas L = columna 0 */
+		if (Character.isUpperCase(input)) {
+			return 0;
+		}
+		
+		/* digito d = columna 2 */
+		if (Character.isDigit(input)) {
+			return 2;
+		}
+		
+		/* @TODO faltan todas las posibles columnas por char */
 		return 0;
 	}
 	
@@ -27,16 +45,18 @@ public class AnalizadorLexico {
 	
 	public int getToken() {
 		
-		char input = 0;
+		char inputCaracter = 0;
 		
 		try {
-			input = (char) lector_archivo.read();
+			inputCaracter = (char) lector_archivo.read();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(matrixEstados.getEstadoSiguiente(1, 1));
+		int columna = obtenerColumnaCaracter(inputCaracter);
+		
+		System.out.println("Estado: " + estado_actual + " Input: " + inputCaracter + " proximo estado: " + columna);
 		
 		//@TODO return next token
 		return 0;
