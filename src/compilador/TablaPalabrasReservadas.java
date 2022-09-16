@@ -40,7 +40,11 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put("continue", 10);
 	}
 	
-	public int getToken(String palabraReservada) {
-		return palabras_reservadas.get(palabraReservada);
+	/* Se devuelve -1 si la palabra ingresada no es palabra reservada */
+	public int getToken(String palabra) {
+		if (palabras_reservadas.containsKey(palabra)) {
+			return palabras_reservadas.get(palabra);
+		}
+		return -1;
 	}
 }
