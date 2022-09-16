@@ -5,6 +5,8 @@ import java.util.HashMap;
 /**
  * Palabras reservadas
  * 
+ * Comunes
+ * 
  * if 0
  * then 1 
  * else 2 
@@ -13,6 +15,9 @@ import java.util.HashMap;
  * fun 5 
  * return 6 
  * break 7
+ * 
+ * Especificas
+ * 
  * do 8
  * until 9
  * continue 10
