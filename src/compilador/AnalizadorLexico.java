@@ -4,6 +4,8 @@ public class AnalizadorLexico {
 	
 	private MatrixEstados matrixEstados = new MatrixEstados();
 	
+	private int estado_actual = 0;
+	
 	public AnalizadorLexico() {};
 	
 	public int getToken() {
