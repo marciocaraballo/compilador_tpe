@@ -40,9 +40,6 @@ public class MatrixEstados {
   /**
    * A partir de un estado inicial y un valor de columna, obtener el proximo estado
    * 
-   * @TODO deberia tomar el char leido y no column, falta hacer la asociacion de char leido
-   * a alguna columna
-   * 
    * @param initialState 
    * @param column
    * @return
