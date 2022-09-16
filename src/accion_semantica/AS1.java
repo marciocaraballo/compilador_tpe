@@ -8,7 +8,7 @@ package accion_semantica;
  */
 public class AS1 implements AccionSemantica {
 	@Override
-	public int ejecutar(char nextCharacter, String lexema) {	
+	public int ejecutar(char nextCharacter, StringBuffer lexema) {	
 		return (int)nextCharacter;
 	}
 }

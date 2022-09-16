@@ -14,10 +14,13 @@ public class AnalizadorLexico {
 	
 	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
+	
 	/** Acumula el lexema leido hasta el momento */
-	private String lexema = new String(" ");
+	private StringBuffer lexema = new StringBuffer(" ");
+	
 	/** Mantiene la linea del programa leia hasta el momento */
 	private int linea_actual = 0;
+	
 	/** Referencia al Reader de archivo de codigo */
 	private BufferedReader lector_archivo = null;
 	
@@ -82,7 +85,7 @@ public class AnalizadorLexico {
 			/* -1 es un estado final en la matrix */
 			/* @TODO manejarlo con AS */
 			if (estado_actual == -1) {
-				System.out.println("Se reconoce un token para " + lexema + "con el token " + tokenLexema);
+				System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 				estado_actual = 0;
 			}
 		}
