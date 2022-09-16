@@ -16,8 +16,8 @@ public class AnalizadorLexico {
 	/** Referencia al Reader de archivo de codigo */
 	private BufferedReader lector_archivo = null;
 	
-	/** Determinar que columna corresponde al char leido */
-	private int columnaInput(char input) {
+	/** Determinar que columna de la matriz corresponde al char leido */
+	private int obtenerColumnaCaracter(char input) {
 		return 0;
 	}
 	
