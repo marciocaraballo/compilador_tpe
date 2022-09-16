@@ -16,7 +16,7 @@ public class AnalizadorLexico {
 	private int estado_actual = 0;
 	
 	/** Acumula el lexema leido hasta el momento */
-	private StringBuffer lexema = new StringBuffer(" ");
+	private StringBuilder lexema = new StringBuilder("");
 	
 	/** Mantiene la linea del programa leia hasta el momento */
 	private int linea_actual = 0;

@@ -7,9 +7,9 @@ package accion_semantica;
 public class AS2 implements AccionSemantica {
 
 	@Override
-	public int ejecutar(char nextCharacter, StringBuffer lexema) {
+	public int ejecutar(char nextCharacter, StringBuilder lexema) {
 		
-		lexema = new StringBuffer(" ");
+		lexema.setLength(0);
 		lexema.append(nextCharacter);
 		
 		return -1;		

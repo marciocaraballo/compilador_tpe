@@ -7,8 +7,8 @@ package accion_semantica;
 public class AS3 implements AccionSemantica {
 
 	@Override
-	public int ejecutar(char nextCharacter, StringBuffer lexema) {
-			
+	public int ejecutar(char nextCharacter, StringBuilder lexema) {
+		
 		lexema.append(nextCharacter);
 		
 		return -1;

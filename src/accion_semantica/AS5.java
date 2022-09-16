@@ -3,7 +3,7 @@ package accion_semantica;
 public class AS5 implements AccionSemantica {
 
 	@Override
-	public int ejecutar(char nextCharacter, StringBuffer lexema) {
+	public int ejecutar(char nextCharacter, StringBuilder lexema) {
 		
 		int cte = Integer.parseInt(lexema.toString());
 		

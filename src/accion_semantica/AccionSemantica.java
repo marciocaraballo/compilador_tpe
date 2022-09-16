@@ -8,6 +8,6 @@ public interface AccionSemantica {
 	TablaPalabrasReservadas TPR = new TablaPalabrasReservadas();
 	TablaDeSimbolos TS = new TablaDeSimbolos();
 
-	public abstract int ejecutar(char nextCharacter, StringBuffer lexema);
+	public abstract int ejecutar(char nextCharacter, StringBuilder lexema);
 
 }
