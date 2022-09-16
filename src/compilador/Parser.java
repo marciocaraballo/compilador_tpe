@@ -9,7 +9,6 @@ public class Parser {
   public static void main(String[] args) { 
     
     String archivo_a_leer = args[0];
-
     System.out.println("Se va a leer archivo " + archivo_a_leer);
 
     BufferedReader reader = null;
@@ -19,16 +18,11 @@ public class Parser {
   		// TODO Auto-generated catch block
   		e.printStackTrace();
   	}
+  	
+  	AnalizadorLexico lexico = new AnalizadorLexico(reader);
 
-    char firstChar = 0;  
-  	try {
-  		firstChar = (char) reader.read();
-  	} catch (IOException e) {
-  		// TODO Auto-generated catch block
-  		e.printStackTrace();
-  	}
-
-    	System.out.println(firstChar);
-    }
+    int token = lexico.getToken();
   
+    System.out.println("Un token: " + token);
+  }
 }

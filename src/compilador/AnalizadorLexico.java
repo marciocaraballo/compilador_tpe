@@ -1,6 +1,7 @@
 package compilador;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 public class AnalizadorLexico {
 	
@@ -15,11 +16,25 @@ public class AnalizadorLexico {
 	/** Referencia al Reader de archivo de codigo */
 	private BufferedReader lector_archivo = null;
 	
+	/** Determinar que columna corresponde al char leido */
+	private int columnaInput(char input) {
+		return 0;
+	}
+	
 	public AnalizadorLexico(BufferedReader lector) {
 		lector_archivo = lector;
 	};
 	
 	public int getToken() {
+		
+		char input = 0;
+		
+		try {
+			input = (char) lector_archivo.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println(matrixEstados.getEstadoSiguiente(1, 1));
 		
