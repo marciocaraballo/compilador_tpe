@@ -2,6 +2,6 @@ package accion_semantica;
 
 public interface AccionSemantica {
 
-  int ejecutar();
+  public abstract int ejecutar();
 
 }

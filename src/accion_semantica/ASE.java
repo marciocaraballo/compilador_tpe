@@ -1,6 +1,10 @@
 package accion_semantica;
 
-public class AS1 implements AccionSemantica {
+/**
+ * Accion semantica para error handling
+ *
+ */
+public class ASE implements AccionSemantica {
 
 	@Override
 	public int ejecutar() {

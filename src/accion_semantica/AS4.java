@@ -1,6 +1,6 @@
 package accion_semantica;
 
-public class AS1 implements AccionSemantica {
+public class AS4 implements AccionSemantica {
 
 	@Override
 	public int ejecutar() {
