@@ -1,15 +1,19 @@
 package accion_semantica;
 
+/**
+ * Inicializar string, y añadir caracter leido
+ *
+ */
 public class AS2 implements AccionSemantica {
 
 	@Override
-	public int ejecutar(String nextCharacter, String lexema) {
-		
+	public int ejecutar(char nextCharacter, String lexema) {
 		
 		lexema = "";
-		lexema.concat(nextCharacter);
+		lexema += nextCharacter;
+		
+		//probar con append si no anda
 		
 		return -1;		
 	}
-
 }

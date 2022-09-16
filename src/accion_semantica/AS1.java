@@ -1,13 +1,14 @@
 package accion_semantica;
 
+/**
+ * Reconocer literal y devuelve el token.
+ * 
+ * Ejemplo: Para un '+' devuelve el ascii asociado
+ *
+ */
 public class AS1 implements AccionSemantica {
-
 	@Override
-	public int ejecutar(String nextCharacter, String lexema) {
-		
-		
-		return TPR.getToken(nextCharacter);
-		
+	public int ejecutar(char nextCharacter, String lexema) {	
+		return (int)nextCharacter;
 	}
-
 }

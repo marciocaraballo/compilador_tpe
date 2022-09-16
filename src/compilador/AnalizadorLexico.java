@@ -2,11 +2,15 @@ package compilador;
 
 import java.io.BufferedReader;
 import java.lang.Character;
+
+import accion_semantica.AccionSemantica;
+
 import java.io.IOException;
 
 public class AnalizadorLexico {
 	
 	private MatrixEstados matrixEstados = new MatrixEstados();
+	private MatrixAccionesSemanticas matrixAS = new MatrixAccionesSemanticas();
 	
 	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
@@ -68,13 +72,17 @@ public class AnalizadorLexico {
 			
 			System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
 			
+			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
+			
+			int tokenLexema = as.ejecutar((char)inputCaracter, lexema);
+			
 			/* Guardo el proximo estado */
 			estado_actual = proximoEstado;
 			
 			/* -1 es un estado final en la matrix */
 			/* @TODO manejarlo con AS */
 			if (estado_actual == -1) {
-				System.out.println("Se reconoce un token");
+				System.out.println("Se reconoce un token para " + lexema + "con el token " + tokenLexema);
 				estado_actual = 0;
 			}
 		}

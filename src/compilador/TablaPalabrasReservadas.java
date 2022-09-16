@@ -41,7 +41,6 @@ public class TablaPalabrasReservadas {
 	}
 	
 	/* Se devuelve -1 si la palabra ingresada no es palabra reservada */
-	
 	public int getToken(String palabra) {
 		if (palabras_reservadas.containsKey(palabra)) {
 			return palabras_reservadas.get(palabra);
