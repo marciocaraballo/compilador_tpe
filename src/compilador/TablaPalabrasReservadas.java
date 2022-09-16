@@ -40,7 +40,7 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put("continue", 10);
 	}
 	
-	
+	/* Se devuelve -1 si la palabra ingresada no es palabra reservada */
 	
 	public int getToken(String palabra) {
 		if (palabras_reservadas.containsKey(palabra)) {
