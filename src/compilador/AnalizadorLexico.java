@@ -83,7 +83,6 @@ public class AnalizadorLexico {
 			estado_actual = proximoEstado;
 			
 			/* -1 es un estado final en la matrix */
-			/* @TODO manejarlo con AS */
 			if (estado_actual == -1) {
 				System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 				estado_actual = 0;
