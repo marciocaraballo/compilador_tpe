@@ -35,6 +35,11 @@ public class AnalizadorLexico {
 			return 2;
 		}
 		
+		/* blank space = columna 24 */
+		if (input == ' ') {
+			return 24;
+		}
+		
 		/* @TODO faltan todas las posibles columnas por char */
 		return 0;
 	}
@@ -56,9 +61,22 @@ public class AnalizadorLexico {
 				e.printStackTrace();
 			}
 			
-			int columna = obtenerColumnaCaracter((char)inputCaracter);
+			/* Obtengo la columna del char leido */
+			int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
+			/* Determino el proximo estado */
+			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 			
-			System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + columna + " original " + inputCaracter);
+			System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
+			
+			/* Guardo el proximo estado */
+			estado_actual = proximoEstado;
+			
+			/* -1 es un estado final en la matrix */
+			/* @TODO manejarlo con AS */
+			if (estado_actual == -1) {
+				System.out.println("Se reconoce un token");
+				estado_actual = 0;
+			}
 		}
 		
 		System.out.println("Se alcanzo el end of file");

@@ -4,8 +4,6 @@ public class MatrixEstados {
 	/**
 	 * Representacion de la matrix de estados. 
 	 * 
-	 * Consideraciones
-	 * 
 	 * Estado final F se representa con -1
 	 * Estado de error E se representa con -2
 	 * 
