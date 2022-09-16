@@ -10,8 +10,8 @@ public class AnalizadorLexico {
 	
 	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
-	/** Acumula el token leido hasta el momento */
-	private String token_actual = new String(" ");
+	/** Acumula el lexema leido hasta el momento */
+	private String lexema = new String(" ");
 	/** Mantiene la linea del programa leia hasta el momento */
 	private int linea_actual = 0;
 	/** Referencia al Reader de archivo de codigo */

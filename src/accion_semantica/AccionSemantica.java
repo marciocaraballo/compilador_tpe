@@ -1,7 +1,13 @@
 package accion_semantica;
 
-public interface AccionSemantica {
+import compilador.TablaDeSimbolos;
+import compilador.TablaPalabrasReservadas;
 
-  public abstract int ejecutar();
+public interface AccionSemantica {
+	
+	TablaPalabrasReservadas TPR = new TablaPalabrasReservadas();
+	TablaDeSimbolos TS = new TablaDeSimbolos();
+
+	public abstract int ejecutar(String nextCharacter, String lexema);
 
 }
