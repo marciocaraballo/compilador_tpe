@@ -26,6 +26,8 @@ public class TablaPalabrasReservadas {
 
 	private HashMap<String, Integer> palabras_reservadas = new HashMap<String, Integer>(); 
 	
+	public static final int NO_ENCONTRADO = -1;
+	
 	public TablaPalabrasReservadas() {
 		palabras_reservadas.put("if", 0);
 		palabras_reservadas.put("then", 1);
@@ -45,6 +47,6 @@ public class TablaPalabrasReservadas {
 		if (palabras_reservadas.containsKey(palabra)) {
 			return palabras_reservadas.get(palabra);
 		}
-		return -1;
+		return NO_ENCONTRADO;
 	}
 }

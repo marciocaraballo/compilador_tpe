@@ -2,17 +2,51 @@ package compilador;
 
 import java.util.HashMap;
 
+/**
+ * La tabla de simbolos se indexara por el lexema
+ * Cada uno podra tener asociada otro hashmap para
+ * atributos, indexados por alguna key identificadora
+ *
+ */
 public class TablaDeSimbolos {
 	
-	private HashMap<String, Integer> tabla_simbolos = new HashMap<String, Integer>(); 
+	private HashMap<String, HashMap<String, Object>> tabla_simbolos = new HashMap<String, HashMap<String, Object>>();
 	
-	private int baseToken = 100;
-	
+	/* Tokens identificables posibles que se agregan */
+	public static final int IDENTIFICADOR = 257;
+    public static final int CONSTANTE = 258;
+    public static final int CADENA = 259;
+    
+    /* Keys atributos */
+	public static final String TOKEN = "token";
+    
 	public TablaDeSimbolos() {};
 
-	public void put(String lexema) {
-		tabla_simbolos.put(lexema, baseToken);
-		baseToken++;
+	/* Agrega un lexema que se reconoce como identificador */
+	public void putIdentificador(String lexema) {
+		
+		HashMap<String, Object> atributos = new HashMap<String, Object>();
+		atributos.put(TOKEN, IDENTIFICADOR);
+		
+		tabla_simbolos.put(lexema, atributos);
+	}
+	
+	/* Agrega un lexema que se reconoce como constante */
+	public void putConstante(String lexema) {
+		
+		HashMap<String, Object> atributos = new HashMap<String, Object>();
+		atributos.put(TOKEN, CONSTANTE);
+		
+		tabla_simbolos.put(lexema, atributos);
+	}
+	
+	/* Agrega un lexema que se reconoce como cadena de caracteres */
+	public void putCadena(String lexema) {
+		
+		HashMap<String, Object> atributos = new HashMap<String, Object>();
+		atributos.put(TOKEN, CADENA);
+		
+		tabla_simbolos.put(lexema, atributos);
 	}
 	
 	public boolean has(String lexema) {
@@ -20,6 +54,9 @@ public class TablaDeSimbolos {
 	}
 	
 	public int getToken(String lexema) {
-		return tabla_simbolos.get(lexema);
+		
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+		
+		return (int)atributos.get(TOKEN);
 	}
 }

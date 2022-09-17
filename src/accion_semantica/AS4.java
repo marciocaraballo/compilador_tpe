@@ -1,5 +1,8 @@
 package accion_semantica;
 
+import compilador.TablaDeSimbolos;
+import compilador.TablaPalabrasReservadas;
+
 /**
  * -Devolver a la entrada el último carácter leído 
 	-Verificar tamaño de cadena
@@ -16,7 +19,11 @@ package accion_semantica;
  *	ID es token 100
  *
  */
-public class AS4 implements AccionSemantica {
+public class AS4 extends AccionSemantica {
+
+	public AS4(TablaPalabrasReservadas TPR, TablaDeSimbolos TS) {
+		super(TPR, TS);
+	}
 
 	@Override
 	public int ejecutar(char nextCharacter, StringBuilder lexema) {
@@ -28,27 +35,16 @@ public class AS4 implements AccionSemantica {
 		}
 		
 		// ver si es palabra reservada
-		if (TPR.getToken(lexema.toString()) != -1) {
-			
+		if (TPR.getToken(lexema.toString()) != TPR.NO_ENCONTRADO) {
 			return TPR.getToken(lexema.toString());
-			
 		} else {
-			return 100;
-		}
-		
-		/*
-		else {
-			if (TS.get() != -1)
-				return TS.get();
-			else {
-				TS.add()
-				return TS.get();
+			//ver si esta en TS
+			if (TS.has(lexema.toString())) {
+				return TS.getToken(lexema.toString());
+			} else {
+				TS.putIdentificador(lexema.toString());
+				return TS.getToken(lexema.toString());
 			}
-		}*/
-		
-		
-		//return 0;
-		
+		}
 	}
-
 }

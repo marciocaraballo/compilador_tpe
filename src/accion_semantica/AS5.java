@@ -1,6 +1,13 @@
 package accion_semantica;
 
-public class AS5 implements AccionSemantica {
+import compilador.TablaDeSimbolos;
+import compilador.TablaPalabrasReservadas;
+
+public class AS5 extends AccionSemantica {
+
+	public AS5(TablaPalabrasReservadas TPR, TablaDeSimbolos TS) {
+		super(TPR, TS);
+	}
 
 	@Override
 	public int ejecutar(char nextCharacter, StringBuilder lexema) {

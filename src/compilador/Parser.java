@@ -19,7 +19,8 @@ public class Parser {
   		e.printStackTrace();
   	}
   	
-  	AnalizadorLexico lexico = new AnalizadorLexico(reader);
+  	TablaDeSimbolos ts = new TablaDeSimbolos();
+  	AnalizadorLexico lexico = new AnalizadorLexico(reader, ts);
 
     int token = lexico.getToken();
   

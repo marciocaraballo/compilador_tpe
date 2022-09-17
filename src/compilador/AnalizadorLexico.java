@@ -10,7 +10,7 @@ import java.io.IOException;
 public class AnalizadorLexico {
 	
 	private MatrixEstados matrixEstados = new MatrixEstados();
-	private MatrixAccionesSemanticas matrixAS = new MatrixAccionesSemanticas();
+	private MatrixAccionesSemanticas matrixAS = null;
 	
 	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
@@ -51,8 +51,9 @@ public class AnalizadorLexico {
 		return 0;
 	}
 	
-	public AnalizadorLexico(BufferedReader lector) {
+	public AnalizadorLexico(BufferedReader lector, TablaDeSimbolos ts) {
 		lector_archivo = lector;
+		matrixAS = new MatrixAccionesSemanticas(ts);
 	};
 	
 	public int getToken() {
