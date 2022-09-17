@@ -42,6 +42,7 @@ public class AS4 extends AccionSemantica {
 			if (TS.has(lexema.toString())) {
 				return TS.getToken(lexema.toString());
 			} else {
+				// no esta -> se agrega identificador en TS
 				TS.putIdentificador(lexema.toString());
 				return TS.getToken(lexema.toString());
 			}
