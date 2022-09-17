@@ -3,6 +3,12 @@ package accion_semantica;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
+/**
+ * 
+ * Concatena caracter leido con el lexema actual y devuelve el TOKEN
+ *
+ */
+
 public class AS7 extends AccionSemantica {
 
 	public AS7(TablaPalabrasReservadas TPR, TablaDeSimbolos TS) {
@@ -11,8 +17,10 @@ public class AS7 extends AccionSemantica {
 
 	@Override
 	public int ejecutar(char nextCharacter, StringBuilder lexema) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		lexema.append(nextCharacter);
+		return TPR.getToken(lexema.toString());
+		
 	}
 
 
