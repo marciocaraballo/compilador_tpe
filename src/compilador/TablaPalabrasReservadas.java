@@ -58,6 +58,10 @@ public class TablaPalabrasReservadas {
 		return NO_ENCONTRADO;
 	}
 	
+	/**
+	 * @TODO dejamos esto? Es para palabras reservadas que 
+	 * son consideradas identificadores
+	 */
 	public boolean isPalabraReservada(int token) {
 		return token == 0 || 
 				token == 1 ||
@@ -67,10 +71,6 @@ public class TablaPalabrasReservadas {
 				token == 5 ||
 				token == 6 ||
 				token == 7 ||
-				token == 8 ||
-				token == 9 ||
-				token == 10 ||
-				token == 11 ||
 				token == 12 ||
 				token == 13 ||
 				token == 14;

@@ -175,8 +175,8 @@ public class AnalizadorLexico {
 		while (estado_actual != -1) {	
 			if (tokenLexema != TablaDeSimbolos.IDENTIFICADOR &&
 					tokenLexema != TablaDeSimbolos.CADENA &&
-					tokenLexema != TablaDeSimbolos.CONSTANTE /*&&*/
-					/*!tpr.isPalabraReservada(tokenLexema)*/) {
+					tokenLexema != TablaDeSimbolos.CONSTANTE &&
+					!tpr.isPalabraReservada(tokenLexema)) {
 				
 				try {
 					inputCaracter = lector_archivo.read();
