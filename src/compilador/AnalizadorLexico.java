@@ -27,6 +27,7 @@ public class AnalizadorLexico {
 	
 	private int tokenLexema = -1;
 	private int inputCaracter = 0;
+	private int linea = 0;
 	
 	/** Determinar que columna de la matriz corresponde al char leido */
 	private int obtenerColumnaCaracter(char input) {
@@ -184,6 +185,10 @@ public class AnalizadorLexico {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			
+			if ((char)inputCaracter == '\n') {
+				linea++;
 			}
 			
 			if (inputCaracter != -1) {

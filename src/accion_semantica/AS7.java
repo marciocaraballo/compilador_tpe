@@ -18,7 +18,9 @@ public class AS7 extends AccionSemantica {
 	@Override
 	public int ejecutar(char nextCharacter, StringBuilder lexema) {
 		
-		return TPR.getToken(lexema.toString());
+		lexema.setLength(0);
+		lexema.append(nextCharacter);
+		return (int)nextCharacter;
 		
 	}
 
