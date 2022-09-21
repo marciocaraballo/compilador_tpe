@@ -24,9 +24,7 @@ public class MatrixAccionesSemanticas {
 	
 	private AccionSemantica[][] matrixAccionesSemanticas = new AccionSemantica[25][25];
 
-	public MatrixAccionesSemanticas(TablaDeSimbolos ts) {
-		
-		TablaPalabrasReservadas tpr = new TablaPalabrasReservadas();
+	public MatrixAccionesSemanticas(TablaDeSimbolos ts, TablaPalabrasReservadas tpr) {
 		
 		AS1 AS1 = new AS1(tpr, ts);
 		AS2 AS2 = new AS2(tpr, ts);

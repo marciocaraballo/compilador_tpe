@@ -11,6 +11,7 @@ public class AnalizadorLexico {
 	
 	private MatrixEstados matrixEstados = new MatrixEstados();
 	private MatrixAccionesSemanticas matrixAS = null;
+	private TablaPalabrasReservadas tpr = new TablaPalabrasReservadas(); 
 	
 	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
@@ -23,6 +24,8 @@ public class AnalizadorLexico {
 	
 	/** Referencia al Reader de archivo de codigo */
 	private BufferedReader lector_archivo = null;
+	
+	private int tokenLexema = -1;
 	
 	/** Determinar que columna de la matriz corresponde al char leido */
 	private int obtenerColumnaCaracter(char input) {
@@ -158,7 +161,7 @@ public class AnalizadorLexico {
 	
 	public AnalizadorLexico(BufferedReader lector, TablaDeSimbolos ts) {
 		lector_archivo = lector;
-		matrixAS = new MatrixAccionesSemanticas(ts);
+		matrixAS = new MatrixAccionesSemanticas(ts, tpr);
 	};
 	
 	public int getToken() {
@@ -166,33 +169,43 @@ public class AnalizadorLexico {
 		int inputCaracter = 0;
 		
 		/* -1 indica end of file */
-		while (inputCaracter != -1) {
-			try {
-				inputCaracter = lector_archivo.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		while (inputCaracter != -1) {	
+			if (tokenLexema != TablaDeSimbolos.IDENTIFICADOR &&
+					tokenLexema != TablaDeSimbolos.CADENA &&
+					tokenLexema != TablaDeSimbolos.CONSTANTE /*&&*/
+					/*!tpr.isPalabraReservada(tokenLexema)*/) {
+				
+				try {
+					inputCaracter = lector_archivo.read();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
-			/* Obtengo la columna del char leido */
-			int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
-			/* Determino el proximo estado */
-			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
-			
-			System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
-			
-			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
-			
-			int tokenLexema = as.ejecutar((char)inputCaracter, lexema);
-			
-			/* Guardo el proximo estado */
-			estado_actual = proximoEstado;
-			
-			/* -1 es un estado final en la matrix */
-			if (estado_actual == -1) {
-				System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
-				estado_actual = 0;
+			if (inputCaracter != -1) {
+				/* Obtengo la columna del char leido */
+				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
+				/* Determino el proximo estado */
+				int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
+				
+				System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
+				
+				AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
+				
+				tokenLexema = as.ejecutar((char)inputCaracter, lexema);
+				
+				/* Guardo el proximo estado */
+				estado_actual = proximoEstado;
+				
+				/* -1 es un estado final en la matrix */
+				if (estado_actual == -1) {
+					System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+					estado_actual = 0;
+				}
 			}
+			
+			
 		}
 		
 		System.out.println("Se alcanzo el end of file");

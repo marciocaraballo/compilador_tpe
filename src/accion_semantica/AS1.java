@@ -16,6 +16,8 @@ public class AS1 extends AccionSemantica {
 
 	@Override
 	public int ejecutar(char nextCharacter, StringBuilder lexema) {	
+		lexema.setLength(0);
+		lexema.append(nextCharacter);
 		return (int)nextCharacter;
 	}
 }
