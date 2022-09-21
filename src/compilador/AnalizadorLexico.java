@@ -173,11 +173,14 @@ public class AnalizadorLexico {
 	public int getToken() {
 		
 		/* -1 indica que se llego a un token valido */
+		/**
+		 * Revisar esta sarasa pero ANDA
+		 */
 		while (estado_actual != -1) {	
 			if (tokenLexema != TablaDeSimbolos.IDENTIFICADOR &&
 					tokenLexema != TablaDeSimbolos.CADENA &&
 					tokenLexema != TablaDeSimbolos.CONSTANTE &&
-					!tpr.isPalabraReservada(tokenLexema)) {
+					!tpr.isPalabraReservada(tokenLexema) && tokenLexema != 61) {
 				
 				try {
 					inputCaracter = lector_archivo.read();

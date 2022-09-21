@@ -16,14 +16,7 @@ public class AS7 extends AccionSemantica {
 	}
 
 	@Override
-	public int ejecutar(char nextCharacter, StringBuilder lexema) {
-		
-		lexema.setLength(0);
-		lexema.append(nextCharacter);
-		return (int)nextCharacter;
-		
+	public int ejecutar(char nextCharacter, StringBuilder lexema) {	
+		return (int)lexema.charAt(0);
 	}
-
-
-
 }
