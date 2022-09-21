@@ -22,8 +22,12 @@ public class Parser {
   	TablaDeSimbolos ts = new TablaDeSimbolos();
   	AnalizadorLexico lexico = new AnalizadorLexico(reader, ts);
 
-    int token = lexico.getToken();
-  
-    System.out.println("Un token: " + token);
+  	while (lexico.hasNext()) {
+  		int token = lexico.getToken();
+  	  
+  	    System.out.println("Un token: " + token);
+  	}
+  	
+    
   }
 }

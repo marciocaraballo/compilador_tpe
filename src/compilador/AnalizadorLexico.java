@@ -26,6 +26,7 @@ public class AnalizadorLexico {
 	private BufferedReader lector_archivo = null;
 	
 	private int tokenLexema = -1;
+	private int inputCaracter = 0;
 	
 	/** Determinar que columna de la matriz corresponde al char leido */
 	private int obtenerColumnaCaracter(char input) {
@@ -164,12 +165,14 @@ public class AnalizadorLexico {
 		matrixAS = new MatrixAccionesSemanticas(ts, tpr);
 	};
 	
+	public boolean hasNext() {
+		return inputCaracter != -1;
+	}
+	
 	public int getToken() {
 		
-		int inputCaracter = 0;
-		
-		/* -1 indica end of file */
-		while (inputCaracter != -1) {	
+		/* -1 indica que se llego a un token valido */
+		while (estado_actual != -1) {	
 			if (tokenLexema != TablaDeSimbolos.IDENTIFICADOR &&
 					tokenLexema != TablaDeSimbolos.CADENA &&
 					tokenLexema != TablaDeSimbolos.CONSTANTE /*&&*/
@@ -197,20 +200,20 @@ public class AnalizadorLexico {
 				
 				/* Guardo el proximo estado */
 				estado_actual = proximoEstado;
-				
-				/* -1 es un estado final en la matrix */
-				if (estado_actual == -1) {
-					System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
-					estado_actual = 0;
-				}
 			}
-			
-			
 		}
 		
-		System.out.println("Se alcanzo el end of file");
+		/* -1 es un estado final en la matrix */
+		if (estado_actual == -1) {
+			System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+			estado_actual = 0;
+		}
 		
-		//@TODO return next token
-		return 0;
+		return tokenLexema;
+//		
+//		System.out.println("Se alcanzo el end of file");
+//		
+//		//@TODO return next token
+//		return 0;
 	}
 }
