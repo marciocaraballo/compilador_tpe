@@ -21,10 +21,9 @@ public class AS6 extends AccionSemantica {
 	public int ejecutar(char nextCharacter, StringBuilder lexema) {
 		
 		//Devolver nextCharacter
+		lexema.append(nextCharacter);
 		
-		TPR.getToken(lexema.toString());
-		
-		return 0;
+		return TPR.getToken(lexema.toString());
 	}
 
 

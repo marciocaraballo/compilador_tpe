@@ -45,6 +45,6 @@ public class MatrixEstados {
    * @return
    */
   public int getEstadoSiguiente(int initialState, int column) {
-    return this.matrixEstados[initialState][column];
+	  return this.matrixEstados[initialState][column];
   }
 }
