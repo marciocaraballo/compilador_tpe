@@ -20,14 +20,13 @@ public class AnalizadorLexico {
 	private StringBuilder lexema = new StringBuilder("");
 	
 	/** Mantiene la linea del programa leia hasta el momento */
-	private int linea_actual = 0;
 	
 	/** Referencia al Reader de archivo de codigo */
-	private BufferedReader lector_archivo = null;
 	
 	private int tokenLexema = -1;
-	private int inputCaracter = 0;
-	private int linea = 0;
+	private static int inputCaracter = 0;
+	
+	private BufferedReader reader;
 	
 	/** Determinar que columna de la matriz corresponde al char leido */
 	private int obtenerColumnaCaracter(char input) {
@@ -161,67 +160,50 @@ public class AnalizadorLexico {
 		return -1;
 	}
 	
-	public AnalizadorLexico(BufferedReader lector, TablaDeSimbolos ts) {
-		lector_archivo = lector;
+	public AnalizadorLexico(BufferedReader reader, TablaDeSimbolos ts) throws IOException {
+		this.reader = reader;
+		inputCaracter = reader.read();
 		matrixAS = new MatrixAccionesSemanticas(ts, tpr);
 	};
-	
-	public boolean hasNext() {
-		return inputCaracter != -1;
-	}
 	
 	public int getToken() {
 		
 		/* -1 indica que se llego a un token valido */
-		/**
-		 * Revisar esta sarasa pero ANDA
-		 */
-		while (estado_actual != -1) {	
-			if (tokenLexema != TablaDeSimbolos.IDENTIFICADOR &&
-					tokenLexema != TablaDeSimbolos.CADENA &&
-					tokenLexema != TablaDeSimbolos.CONSTANTE &&
-					!tpr.isPalabraReservada(tokenLexema) && tokenLexema != 61) {
-				
-				try {
-					inputCaracter = lector_archivo.read();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if ((char)inputCaracter == '\n') {
-				linea++;
-			}
-			
-			if (inputCaracter != -1) {
-				/* Obtengo la columna del char leido */
-				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
+
+		while (estado_actual != -1 && estado_actual != -2) {
+				/* Obtengo la columna del char leido */	
 				/* Determino el proximo estado */
-				int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 				
-				System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
+				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
 				
-				AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
+				if (columnaCaracter != -1) {
+					
+					int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
+					
+					System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
+					
+					AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
+					
+					tokenLexema = as.ejecutar(reader, lexema, (char) inputCaracter);
+					
+					/* Guardo el proximo estado */
+					
+					estado_actual = proximoEstado;
+				}
 				
-				tokenLexema = as.ejecutar((char)inputCaracter, lexema);
+				else 
+					return -1;
 				
-				/* Guardo el proximo estado */
-				estado_actual = proximoEstado;
-			}
 		}
 		
 		/* -1 es un estado final en la matrix */
-		if (estado_actual == -1) {
-			System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
-			estado_actual = 0;
-		}
+		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+		estado_actual = 0;
 		
 		return tokenLexema;
-//		
-//		System.out.println("Se alcanzo el end of file");
-//		
-//		//@TODO return next token
-//		return 0;
+	}
+
+	public static void modifPos(char nextCharacter) {
+		inputCaracter = nextCharacter;
 	}
 }

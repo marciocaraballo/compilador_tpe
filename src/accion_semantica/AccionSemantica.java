@@ -1,5 +1,7 @@
 package accion_semantica;
 
+import java.io.BufferedReader;
+
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -13,5 +15,5 @@ public abstract class AccionSemantica {
 		this.TS = TS;
 	}
 
-	public abstract int ejecutar(char nextCharacter, StringBuilder lexema);
+	public abstract int ejecutar(BufferedReader reader, StringBuilder lexema, char inputCaracter);
 }

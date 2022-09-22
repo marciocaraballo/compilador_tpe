@@ -6,12 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Parser {
-  public static void main(String[] args) { 
+  public static void main(String[] args) throws IOException { 
     
     String archivo_a_leer = args[0];
     System.out.println("Se va a leer archivo " + archivo_a_leer);
-
+    
     BufferedReader reader = null;
+    
   	try {
   		reader = new BufferedReader(new FileReader(archivo_a_leer));
   	} catch (FileNotFoundException e) {
@@ -19,15 +20,18 @@ public class Parser {
   		e.printStackTrace();
   	}
   	
+    
   	TablaDeSimbolos ts = new TablaDeSimbolos();
   	AnalizadorLexico lexico = new AnalizadorLexico(reader, ts);
-
-  	while (lexico.hasNext()) {
-  		int token = lexico.getToken();
-  	  
-  	    System.out.println("Un token: " + token);
-  	}
   	
-    
+  	int token = 0;
+  	
+  	//VER CASO CUANDO UN CARACTER QUE DEBE SER TENIDO EN CUENTA ES EL ULTIMO DEL ARCHIVO, RETORNA -1
+  	
+	while (token != -1) {
+		token = lexico.getToken();
+		System.out.println("Un token: " + token);
+	}	
   }
+  
 }

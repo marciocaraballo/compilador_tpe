@@ -1,5 +1,7 @@
 package accion_semantica;
 
+import java.io.BufferedReader;
+
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -22,7 +24,7 @@ public class AS8 extends AccionSemantica {
 	}
 
 	@Override
-	public int ejecutar(char nextCharacter, StringBuilder lexema) {
+	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
 		
 		//Devolver nextCharacter a la entrada
 		
@@ -32,15 +34,11 @@ public class AS8 extends AccionSemantica {
 		if (!(2.2250738585072014D-308 < double_&& double_< 1.7976931348623157D+308 && 
 			-1.7976931348623157D+308 < double_ && double_ < -2.2250738585072014D-308)) {
 			
-			//Devolvemos Error?
-			
 		}
-		
 		
 		// Buscamos en la TS, si existe el lexema, devolvemos el token.
 		if (TS.has(lexema.toString()))
 			return TS.getToken(lexema.toString());
-		
 		
 		// Si no existe, lo agregamos a TS y luego devolvemos el Token
 		

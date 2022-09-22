@@ -1,5 +1,7 @@
 package accion_semantica;
 
+import java.io.BufferedReader;
+
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -26,16 +28,18 @@ public class AS4 extends AccionSemantica {
 	}
 
 	@Override
-	public int ejecutar(char nextCharacter, StringBuilder lexema) {
-		
-		//nextCharacter no se usaria aca, devolver a la entrada?
+	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
 		
 		if (lexema.length() > 25) {
-			//Warning?
+			System.out.println("WARNING --> Has superado la cantidad maxima de caracteres para un identificador(25), se eliminaran los"
+							+  " caracteres que estan mas alla de la posicion 25 ");
+			//System.out.println(lexema.substring(0, 25));
 		}
 		
+		lexema.setLength(25);
+		
 		// ver si es palabra reservada
-		if (TPR.getToken(lexema.toString()) != TPR.NO_ENCONTRADO) {
+		if (TPR.getToken(lexema.toString()) != -1) {
 			return TPR.getToken(lexema.toString());
 		} else {
 			//ver si esta en TS

@@ -35,6 +35,7 @@ public class MatrixAccionesSemanticas {
 		AS7 AS7 = new AS7(tpr, ts);
 		AS8 AS8 = new AS8(tpr, ts);
 		AS9 AS9 = new AS9(tpr, ts);
+		AS10 AS10 = new AS10(tpr, ts);
 		ASE ASE = new ASE(tpr, ts);
 															/*L*/ /*l*/ /*d*/ /*"D"*/ /*“_”*/ /*"+"*/ /*"-"*/ /*"{"*/ /*"}"*/ /*"("*/ /*")"*/ /*";"*/ /*"/"*/ /*"*"*/ /*","*/ /*"="*/ /*">"*/ /*"<"*/ /*":"*/ /*"!"*/ /*"."*/ /*"'"*/ /*tab*/ /*bl*/ /*nl*/ /*"$"*/
 		matrixAccionesSemanticas[0] = new AccionSemantica[]{ AS2,  AS2,  AS2,    AS2,   ASE,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS2,    AS2,    AS2,    ASE,    ASE,    AS2,    AS2,    AS9,   AS9,   AS9,   null};
@@ -45,7 +46,7 @@ public class MatrixAccionesSemanticas {
 		matrixAccionesSemanticas[5] = new AccionSemantica[]{ AS7,  AS7,  AS7,    AS7,   AS7,    AS7,	 AS7,    AS7,    AS7, 	 AS7,    AS7,    AS7,    AS7,    AS7,    AS7,    AS6,    AS7,    AS3,    AS7,    AS7,    AS7,    AS7,    AS7,   AS7,   AS7,   null};
 		matrixAccionesSemanticas[6] = new AccionSemantica[]{ AS3,  AS3,  AS3,    AS3,   AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,   AS3,   AS3,   null}; 
 		matrixAccionesSemanticas[7] = new AccionSemantica[]{ AS3,  AS3,  AS3,    AS3,   AS3,    AS3,    AS3,    AS3,    AS3,    AS3,	 AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS9,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,   AS3,   AS3,   null};
-		matrixAccionesSemanticas[8] = new AccionSemantica[]{ AS3,  AS3,  AS3,    AS3,   AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS6,    AS3,   AS3,   AS8,   null};
+		matrixAccionesSemanticas[8] = new AccionSemantica[]{ AS3,  AS3,  AS3,    AS3,   AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS3,    AS10,    AS3,   AS3,   ASE,   null};
 		matrixAccionesSemanticas[9] = new AccionSemantica[]{ ASE , ASE,  AS3,    ASE,   ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,   ASE,   ASE,   null};
 		matrixAccionesSemanticas[10] = new AccionSemantica[]{AS8,  AS8,  AS3,    AS3,   AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,    AS8,   AS8,   AS8,   null};
 		matrixAccionesSemanticas[11] = new AccionSemantica[]{ASE,  ASE,  AS3,    ASE,   ASE,    AS3,    AS3,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,   ASE,   ASE,   null};
