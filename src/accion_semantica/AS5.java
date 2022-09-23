@@ -2,6 +2,7 @@ package accion_semantica;
 
 import java.io.BufferedReader;
 
+import compilador.Logger;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -18,8 +19,8 @@ import compilador.TablaPalabrasReservadas;
 
 public class AS5 extends AccionSemantica {
 
-	public AS5(TablaPalabrasReservadas TPR, TablaDeSimbolos TS) {
-		super(TPR, TS);
+	public AS5(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger logger) {
+		super(TPR, TS, logger);
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class AS5 extends AccionSemantica {
 		System.out.println(cte);
 		
 		if (cte < 0 || cte > (Math.pow(2, 16) - 1)) {
-			System.out.println("WARNING --> Se supero el maximo valor de la constante");
+			logger.logWarning("Se supero el maximo valor de la constante");
 			cte = (int) (Math.pow(2, 16) - 1);
 			
 			lexema.setLength(0);
@@ -45,7 +46,6 @@ public class AS5 extends AccionSemantica {
 			return TS.getToken(lexema.toString());
 		}
 		else {
-			
 		// Si no existe dentro de TS, lo agregamos
 			TS.putConstante(lexema.toString());
 			return TS.getToken(lexema.toString());

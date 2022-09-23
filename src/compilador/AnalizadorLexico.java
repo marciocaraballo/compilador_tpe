@@ -12,6 +12,7 @@ public class AnalizadorLexico {
 	private MatrixEstados matrixEstados = new MatrixEstados();
 	private MatrixAccionesSemanticas matrixAS = null;
 	private TablaPalabrasReservadas tpr = new TablaPalabrasReservadas(); 
+	private Logger logger = null;
 	
 	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
@@ -164,10 +165,11 @@ public class AnalizadorLexico {
 		return -1;
 	}
 	
-	public AnalizadorLexico(BufferedReader reader, TablaDeSimbolos ts) throws IOException {
+	public AnalizadorLexico(BufferedReader reader, TablaDeSimbolos ts, Logger lgr) throws IOException {
 		this.reader = reader;
 		inputCaracter = reader.read();
-		matrixAS = new MatrixAccionesSemanticas(ts, tpr);
+		logger = lgr;
+		matrixAS = new MatrixAccionesSemanticas(ts, tpr, logger);
 	};
 	
 	public int getToken() {
@@ -181,6 +183,11 @@ public class AnalizadorLexico {
 				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
 				
 				if (columnaCaracter != -1) {
+					
+					
+					if ((char)inputCaracter == '\n') {
+						logger.incrementarLinea();
+					}
 					
 					int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 					

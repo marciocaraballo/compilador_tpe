@@ -21,8 +21,9 @@ public class Parser {
   		e.printStackTrace();
   	}
   	
+  	Logger logger = new Logger();
   	TablaDeSimbolos ts = new TablaDeSimbolos();
-  	AnalizadorLexico lexico = new AnalizadorLexico(reader, ts);
+  	AnalizadorLexico lexico = new AnalizadorLexico(reader, ts, logger);
   	
   	int token = 0;
   	

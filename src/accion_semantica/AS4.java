@@ -2,6 +2,7 @@ package accion_semantica;
 
 import java.io.BufferedReader;
 
+import compilador.Logger;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -23,16 +24,16 @@ import compilador.TablaPalabrasReservadas;
  */
 public class AS4 extends AccionSemantica {
 
-	public AS4(TablaPalabrasReservadas TPR, TablaDeSimbolos TS) {
-		super(TPR, TS);
+	public AS4(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger logger) {
+		super(TPR, TS, logger);
 	}
 
 	@Override
 	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
 		
 		if (lexema.length() > 25) {
-			System.out.println("WARNING --> Has superado la cantidad maxima de caracteres para un identificador(25), se eliminaran los"
-							+  " caracteres que estan mas alla de la posicion 25 ");
+			logger.logWarning("Has superado la cantidad maxima de caracteres para un identificador(25), se eliminaran los"
+					+  " caracteres que estan mas alla de la posicion 25 ");
 			//System.out.println(lexema.substring(0, 25));
 			lexema.setLength(25);
 		}
