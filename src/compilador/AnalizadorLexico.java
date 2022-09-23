@@ -32,7 +32,7 @@ public class AnalizadorLexico {
 	private int obtenerColumnaCaracter(char input) {
 		
 		/* mayusculas L = columna 0 */
-		if (Character.isUpperCase(input)) {
+		if (Character.isUpperCase(input) && input != 'D') {
 			return 0;
 		}
 		
@@ -156,6 +156,10 @@ public class AnalizadorLexico {
 			return 24;
 		}
 		
+		if (input == '$') {
+			return 25;
+		}
+		
 		/* Char desconocido -> deberia ir a error? */
 		return -1;
 	}
@@ -188,12 +192,12 @@ public class AnalizadorLexico {
 					
 					/* Guardo el proximo estado */
 					
-					estado_actual = proximoEstado;
+					if (proximoEstado != -2)
+						estado_actual = proximoEstado;
 				}
 				
-				else 
+				else
 					return -1;
-				
 		}
 		
 		/* -1 es un estado final en la matrix */

@@ -34,9 +34,8 @@ public class AS4 extends AccionSemantica {
 			System.out.println("WARNING --> Has superado la cantidad maxima de caracteres para un identificador(25), se eliminaran los"
 							+  " caracteres que estan mas alla de la posicion 25 ");
 			//System.out.println(lexema.substring(0, 25));
+			lexema.setLength(25);
 		}
-		
-		lexema.setLength(25);
 		
 		// ver si es palabra reservada
 		if (TPR.getToken(lexema.toString()) != -1) {

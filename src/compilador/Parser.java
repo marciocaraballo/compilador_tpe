@@ -11,6 +11,7 @@ public class Parser {
     String archivo_a_leer = args[0];
     System.out.println("Se va a leer archivo " + archivo_a_leer);
     
+ 
     BufferedReader reader = null;
     
   	try {
@@ -20,7 +21,6 @@ public class Parser {
   		e.printStackTrace();
   	}
   	
-    
   	TablaDeSimbolos ts = new TablaDeSimbolos();
   	AnalizadorLexico lexico = new AnalizadorLexico(reader, ts);
   	
