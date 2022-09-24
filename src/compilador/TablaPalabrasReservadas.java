@@ -2,30 +2,6 @@ package compilador;
 
 import java.util.HashMap;
 
-/**
- * Palabras reservadas
- * 
- * Comunes
- * 
- * if 0
- * then 1 
- * else 2 
- * end-if 3 
- * out 4 
- * fun 5 
- * return 6 
- * break 7
- * := 8
- * >= 9
- * <= 10
- * =! 11
- * 
- * Especificas
- * 
- * do 12
- * until 13
- * continue 14
- */
 public class TablaPalabrasReservadas {
 
 	private HashMap<String, Integer> palabras_reservadas = new HashMap<String, Integer>(); 

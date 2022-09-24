@@ -14,16 +14,10 @@ public class AnalizadorLexico {
 	private TablaPalabrasReservadas tpr = new TablaPalabrasReservadas(); 
 	private Logger logger = null;
 	
-	/** Se asume que se inicia en el estado 0 */
 	private int estado_actual = 0;
 	
 	/** Acumula el lexema leido hasta el momento */
 	private StringBuilder lexema = new StringBuilder("");
-	
-	/** Mantiene la linea del programa leia hasta el momento */
-	
-	/** Referencia al Reader de archivo de codigo */
-	
 	private int tokenLexema = -1;
 	private static int inputCaracter = 0;
 	
@@ -173,17 +167,12 @@ public class AnalizadorLexico {
 	};
 	
 	public int getToken() {
-		
-		/* -1 indica que se llego a un token valido */
 
 		while (estado_actual != -1 && estado_actual != -2) {
-				/* Obtengo la columna del char leido */	
-				/* Determino el proximo estado */
 				
 				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
 				
 				if (columnaCaracter != -1) {
-					
 					
 					if ((char)inputCaracter == '\n') {
 						logger.incrementarLinea();
@@ -197,8 +186,6 @@ public class AnalizadorLexico {
 					
 					tokenLexema = as.ejecutar(reader, lexema, (char) inputCaracter);
 					
-					/* Guardo el proximo estado */
-					
 					if (proximoEstado != -2)
 						estado_actual = proximoEstado;
 				}
@@ -207,7 +194,6 @@ public class AnalizadorLexico {
 					return -1;
 		}
 		
-		/* -1 es un estado final en la matrix */
 		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		estado_actual = 0;
 		

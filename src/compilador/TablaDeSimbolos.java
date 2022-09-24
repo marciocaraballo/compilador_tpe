@@ -6,7 +6,6 @@ import java.util.HashMap;
  * La tabla de simbolos se indexara por el lexema
  * Cada uno podra tener asociada otro hashmap para
  * atributos, indexados por alguna key identificadora
- *
  */
 public class TablaDeSimbolos {
 	
