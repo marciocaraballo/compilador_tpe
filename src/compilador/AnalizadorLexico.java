@@ -174,7 +174,7 @@ public class AnalizadorLexico {
 				
 				if (columnaCaracter != -1) {
 					
-					if ((char)inputCaracter == '\n') {
+					if (inputAsChar == '\n') {
 						logger.incrementarLinea();
 					}
 					

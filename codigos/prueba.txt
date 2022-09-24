@@ -1,2 +1,2 @@
-.. asdasdas 12 
 int a =: 15;
+int c =: 'sarasa';
