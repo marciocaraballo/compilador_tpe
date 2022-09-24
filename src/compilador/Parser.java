@@ -31,7 +31,7 @@ public class Parser {
 		
 		//VER CASO CUANDO UN CARACTER QUE DEBE SER TENIDO EN CUENTA ES EL ULTIMO DEL ARCHIVO, RETORNA -1
 		
-		while (token != -1) {
+		while (token != 65535) {
 			token = lexico.getToken();
 			System.out.println("Un token: " + token);
 			}	
