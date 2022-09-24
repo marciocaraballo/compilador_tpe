@@ -13,12 +13,11 @@ public class TablaDeSimbolos {
 	
 	private HashMap<String, HashMap<String, Object>> tabla_simbolos = new HashMap<String, HashMap<String, Object>>();
 	
-	/* Tokens identificables posibles que se agregan */
 	public static final int IDENTIFICADOR = 257;
     public static final int CONSTANTE = 258;
     public static final int CADENA = 259;
     
-    /* Keys atributos */
+    /* Keys de atributos */
 	public static final String TOKEN = "token";
     
 	public TablaDeSimbolos() {};

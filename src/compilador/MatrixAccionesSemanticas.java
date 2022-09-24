@@ -36,13 +36,6 @@ public class MatrixAccionesSemanticas {
 		matrixAccionesSemanticas[13] = new AccionSemantica[]{ASE,  ASE,  AS3,    ASE,   ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,    ASE,   ASE,   ASE,   ASE, ASE};
 	} 
 
-	/**
-	* A partir de un estado inicial y un valor de columna, obtener la AS a ejecutar
-	* 
-	* @param initialState 
-	* @param column
-	* @return AccionSemantica
-	*/
 	public AccionSemantica getAccionSemantica(int initialState, int column) {
 		return this.matrixAccionesSemanticas[initialState][column];
 	}
