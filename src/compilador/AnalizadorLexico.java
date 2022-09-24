@@ -167,8 +167,10 @@ public class AnalizadorLexico {
 	public int getToken() {
 
 		while (estado_actual != MatrixEstados.F && estado_actual != MatrixEstados.E) {
+			
+				char inputAsChar = (char)inputCaracter;
 				
-				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
+				int columnaCaracter = obtenerColumnaCaracter(inputAsChar);
 				
 				if (columnaCaracter != -1) {
 					
@@ -178,11 +180,11 @@ public class AnalizadorLexico {
 					
 					int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 					
-					System.out.println("Estado: " + estado_actual + " Input: " + (char)inputCaracter + " proximo estado: " + proximoEstado);
+					System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
 					
 					AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 					
-					tokenLexema = as.ejecutar(reader, lexema, (char) inputCaracter);
+					tokenLexema = as.ejecutar(reader, lexema, inputAsChar);
 					
 					if (proximoEstado != MatrixEstados.E)
 						estado_actual = proximoEstado;
