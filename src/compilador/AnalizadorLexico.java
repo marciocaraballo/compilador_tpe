@@ -214,7 +214,6 @@ public class AnalizadorLexico {
 		return inputCaracter != -1;
 	}
 	
-	//REVISAR: inputCaracter es int pero nextCharacter es char, puede traer problemas la conversion
 	public static void modifPos(int nextCharInt) {
 		inputCaracter = nextCharInt;
 	}
