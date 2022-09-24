@@ -1,6 +1,5 @@
 package compilador;
 
-import java.io.BufferedReader;
 import java.lang.Character;
 
 import accion_semantica.AccionSemantica;
@@ -23,7 +22,7 @@ public class AnalizadorLexico {
 	
 	private int obtenerColumnaCaracter(int inputCaracter) {
 		
-		/* EOF -> $ */
+		/* EOF -> $ columna 25 */
 		if (inputCaracter == -1) {
 			return 25;
 		}
@@ -180,30 +179,30 @@ public class AnalizadorLexico {
 			
 			inputCaracter = fileHelper.nextChar();
 			
-				char inputAsChar = (char)inputCaracter;
+			char inputAsChar = (char)inputCaracter;
+			
+			int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
+			
+			if (columnaCaracter != -1) {
 				
-				int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
-				
-				if (columnaCaracter != -1) {
-					
-					if (inputAsChar == '\n') {
-						logger.incrementarLinea();
-					}
-					
-					int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
-					
-					System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
-					
-					AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
-					
-					tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
-					
-					if (proximoEstado != MatrixEstados.E)
-						estado_actual = proximoEstado;
+				if (inputAsChar == '\n') {
+					logger.incrementarLinea();
 				}
 				
-				else
-					return -1;
+				int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
+				
+				System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
+				
+				AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
+				
+				tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
+				
+				if (proximoEstado != MatrixEstados.E)
+					estado_actual = proximoEstado;
+			}
+			
+			else
+				return -1;
 		}
 		
 		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);

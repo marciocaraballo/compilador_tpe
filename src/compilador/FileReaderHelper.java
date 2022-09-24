@@ -11,14 +11,18 @@ public class FileReaderHelper {
 	
 	public FileReaderHelper() {};
 	
-	public void open(String filePath) throws FileNotFoundException {
-		reader = new BufferedReader(new FileReader(filePath));
+	public void open(String filePath) {
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**  
 	 * Lee el siguiente char y marca la posicion original
 	 * En el caso de que necesitemos volver al input original
-	 * @throws IOException 
 	 */
 	public int nextChar() {
 		
