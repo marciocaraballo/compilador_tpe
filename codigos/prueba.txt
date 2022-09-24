@@ -1,2 +1,2 @@
 int a =: 15;
-int c =: 'sarasa';
+int c =: 12;

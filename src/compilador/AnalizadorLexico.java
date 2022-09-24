@@ -153,6 +153,11 @@ public class AnalizadorLexico {
 			return 25;
 		}
 		
+		/* carriage return */
+		if (input == '\r') {
+			return 26;
+		}
+		
 		/* Char desconocido -> deberia ir a error? */
 		return -1;
 	}
