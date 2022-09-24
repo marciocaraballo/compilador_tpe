@@ -1,6 +1,8 @@
 package compilador;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * La tabla de simbolos se indexara por el lexema
@@ -57,5 +59,26 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
 		
 		return (int)atributos.get(TOKEN);
+	}
+
+	public void print() {
+		System.out.println("Tabla de Simbolos");
+		Set<String> keys = tabla_simbolos.keySet();
+		Iterator<String> keysIterator = keys.iterator();
+		
+		while(keysIterator.hasNext()) {
+			String lexema = keysIterator.next();
+			System.out.println("Lexema: " + lexema);
+			HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+			
+			Set<String> attributesKeys = attributes.keySet();
+			Iterator<String> attributesIterator = attributesKeys.iterator();
+			
+			while(attributesIterator.hasNext()) {
+				String attributeKey = attributesIterator.next();
+				Object attributeValue = attributes.get(attributeKey);
+				System.out.println("Atributo: " + attributeKey + " Valor: " + attributeValue.toString());
+			}
+		} 
 	}
 }
