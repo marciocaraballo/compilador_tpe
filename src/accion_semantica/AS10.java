@@ -1,9 +1,6 @@
 package accion_semantica;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
-import compilador.AnalizadorLexico;
+import compilador.FileReaderHelper;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -14,23 +11,10 @@ public class AS10 extends AccionSemantica{
 	}
 
 	@Override
-	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
+	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
-		char aux = nextCharacter;
-		int nextCharInt = 0;
+		lexema.append(nextCharacter);
 		
-		try {
-			nextCharInt = reader.read();
-			nextCharacter = (char) nextCharInt;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		AnalizadorLexico.modifPos(nextCharInt);
-		
-		
-		lexema.append(aux);
 		if (TS.has(lexema.toString()))
 			return TS.getToken(lexema.toString());
 		else {
@@ -38,7 +22,4 @@ public class AS10 extends AccionSemantica{
 			return TS.getToken(lexema.toString());
 		}
 	}
-	
-	
-
 }

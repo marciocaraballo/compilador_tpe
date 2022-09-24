@@ -1,7 +1,6 @@
 package accion_semantica;
 
-import java.io.BufferedReader;
-
+import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
@@ -23,5 +22,5 @@ public abstract class AccionSemantica {
 		this.logger = lgr;
 	}
 
-	public abstract int ejecutar(BufferedReader reader, StringBuilder lexema, char inputCaracter);
+	public abstract int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char inputCaracter);
 }

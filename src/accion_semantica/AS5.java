@@ -1,7 +1,6 @@
 package accion_semantica;
 
-import java.io.BufferedReader;
-
+import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
@@ -24,11 +23,9 @@ public class AS5 extends AccionSemantica {
 	}
 
 	@Override
-	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
+	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
 		int cte = Integer.parseInt(lexema.toString());
-		
-		System.out.println(cte);
 		
 		if (cte < 0 || cte > (Math.pow(2, 16) - 1)) {
 			logger.logWarning("Se supero el maximo valor de la constante");
@@ -36,17 +33,15 @@ public class AS5 extends AccionSemantica {
 			
 			lexema.setLength(0);
 			lexema.append(cte);
-			
-			System.out.println(lexema);
-			
 		}
 		
-		// Si existe lexema dentro de TS devolvemos el token
+		//Devuelve el input a la entrada
+		fileHelper.reset();
+		
 		if (TS.has(lexema.toString())) {
 			return TS.getToken(lexema.toString());
 		}
 		else {
-		// Si no existe dentro de TS, lo agregamos
 			TS.putConstante(lexema.toString());
 			return TS.getToken(lexema.toString());
 		}

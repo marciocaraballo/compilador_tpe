@@ -8,7 +8,8 @@ import accion_semantica.AccionSemantica;
 import java.io.IOException;
 
 public class AnalizadorLexico {
-	
+
+	private FileReaderHelper fileHelper = null;
 	private MatrixEstados matrixEstados = new MatrixEstados();
 	private MatrixAccionesSemanticas matrixAS = null;
 	private TablaPalabrasReservadas tpr = new TablaPalabrasReservadas(); 
@@ -18,9 +19,7 @@ public class AnalizadorLexico {
 	
 	private StringBuilder lexema = new StringBuilder("");
 	private int tokenLexema = -1;
-	private static int inputCaracter = 0;
-	
-	private BufferedReader reader;
+	private int inputCaracter = 0;
 	
 	private int obtenerColumnaCaracter(int inputCaracter) {
 		
@@ -165,20 +164,23 @@ public class AnalizadorLexico {
 		return -1;
 	}
 	
-	public AnalizadorLexico(BufferedReader reader, TablaDeSimbolos ts, Logger lgr) throws IOException {
-		this.reader = reader;
-		inputCaracter = reader.read();
+	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr) throws IOException {
+		this.fileHelper = fileHelper;
 		logger = lgr;
 		matrixAS = new MatrixAccionesSemanticas(ts, tpr, logger);
 	};
+	
+	public boolean hasNext() {
+		return inputCaracter != -1;
+	}
 	
 	public int getToken() {
 
 		while (estado_actual != MatrixEstados.F && estado_actual != MatrixEstados.E) {
 			
+			inputCaracter = fileHelper.nextChar();
+			
 				char inputAsChar = (char)inputCaracter;
-				
-				System.out.println("Int: " + inputCaracter + " char: " + inputAsChar);
 				
 				int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
 				
@@ -190,11 +192,11 @@ public class AnalizadorLexico {
 					
 					int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 					
-					//System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
+					System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
 					
 					AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 					
-					tokenLexema = as.ejecutar(reader, lexema, inputAsChar);
+					tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
 					
 					if (proximoEstado != MatrixEstados.E)
 						estado_actual = proximoEstado;
@@ -208,13 +210,5 @@ public class AnalizadorLexico {
 		estado_actual = 0;
 		
 		return tokenLexema;
-	}
-
-	public boolean hasNext() {
-		return inputCaracter != -1;
-	}
-	
-	public static void modifPos(int nextCharInt) {
-		inputCaracter = nextCharInt;
 	}
 }

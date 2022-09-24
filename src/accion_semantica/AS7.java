@@ -1,7 +1,6 @@
 package accion_semantica;
 
-import java.io.BufferedReader;
-
+import compilador.FileReaderHelper;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
@@ -18,9 +17,7 @@ public class AS7 extends AccionSemantica {
 	}
 
 	@Override
-	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {	
-		
+	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {	
 		return (int) lexema.charAt(0);
-		
 	}
 }

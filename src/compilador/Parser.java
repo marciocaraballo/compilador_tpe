@@ -1,8 +1,5 @@
 package compilador;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class Parser {
@@ -14,18 +11,13 @@ public class Parser {
 		String archivo_a_leer = args[0];
 		System.out.println("Se va a leer archivo " + archivo_a_leer);
 		
-		BufferedReader reader = null;
+		FileReaderHelper fileHelper = new FileReaderHelper();
 		
-		try {
-			reader = new BufferedReader(new FileReader(archivo_a_leer));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		fileHelper.open(archivo_a_leer);
 		
 		Logger logger = new Logger();
 		TablaDeSimbolos ts = new TablaDeSimbolos();
-		AnalizadorLexico lexico = new AnalizadorLexico(reader, ts, logger);
+		AnalizadorLexico lexico = new AnalizadorLexico(fileHelper, ts, logger);
 		
 		while (lexico.hasNext()) {
 			System.out.println("Un token: " + lexico.getToken());
