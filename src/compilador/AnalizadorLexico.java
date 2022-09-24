@@ -16,14 +16,12 @@ public class AnalizadorLexico {
 	
 	private int estado_actual = 0;
 	
-	/** Acumula el lexema leido hasta el momento */
 	private StringBuilder lexema = new StringBuilder("");
 	private int tokenLexema = -1;
 	private static int inputCaracter = 0;
 	
 	private BufferedReader reader;
 	
-	/** Determinar que columna de la matriz corresponde al char leido */
 	private int obtenerColumnaCaracter(char input) {
 		
 		/* mayusculas L = columna 0 */
@@ -168,7 +166,7 @@ public class AnalizadorLexico {
 	
 	public int getToken() {
 
-		while (estado_actual != -1 && estado_actual != -2) {
+		while (estado_actual != MatrixEstados.F && estado_actual != MatrixEstados.E) {
 				
 				int columnaCaracter = obtenerColumnaCaracter((char)inputCaracter);
 				
@@ -186,7 +184,7 @@ public class AnalizadorLexico {
 					
 					tokenLexema = as.ejecutar(reader, lexema, (char) inputCaracter);
 					
-					if (proximoEstado != -2)
+					if (proximoEstado != MatrixEstados.E)
 						estado_actual = proximoEstado;
 				}
 				
