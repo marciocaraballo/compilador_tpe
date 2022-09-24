@@ -27,16 +27,11 @@ public class Parser {
 		TablaDeSimbolos ts = new TablaDeSimbolos();
 		AnalizadorLexico lexico = new AnalizadorLexico(reader, ts, logger);
 		
-		int token = 0;
-		
-		//VER CASO CUANDO UN CARACTER QUE DEBE SER TENIDO EN CUENTA ES EL ULTIMO DEL ARCHIVO, RETORNA -1
-		
-		while (token != 65535) {
-			token = lexico.getToken();
-			System.out.println("Un token: " + token);
-			}	
+		while (lexico.hasNext()) {
+			System.out.println("Un token: " + lexico.getToken());
+		}	
 			
-			ts.print();
-		  }
+		ts.print();
+		}
 	}
 }
