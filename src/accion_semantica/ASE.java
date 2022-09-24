@@ -10,6 +10,8 @@ import compilador.TablaPalabrasReservadas;
 
 /**
  * Accion semantica para error handling
+ * 
+ * REVISAR el tema de la cconversion de int a char
  */
 public class ASE extends AccionSemantica {
 
@@ -19,6 +21,7 @@ public class ASE extends AccionSemantica {
 	
 	@Override
 	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
+		int nextCharInt = 0;
 		String aux = "";
 		if (lexema.length() != 0)
 			aux = lexema.substring(lexema.length() - 1);
@@ -32,13 +35,14 @@ public class ASE extends AccionSemantica {
 			
 			while (!Character.isDigit(nextCharacter)) {
 				try {
-					nextCharacter = (char) reader.read();
+					nextCharInt = reader.read();
+					nextCharacter = (char)nextCharInt;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}	
-			AnalizadorLexico.modifPos(nextCharacter);
+			AnalizadorLexico.modifPos(nextCharInt);
 			
 		}
 		
@@ -47,13 +51,14 @@ public class ASE extends AccionSemantica {
 			
 			while (!Character.isDigit(nextCharacter)) {
 				try {
-					nextCharacter = (char) reader.read();
+					nextCharInt = reader.read();
+					nextCharacter = (char)nextCharInt;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}	
-			AnalizadorLexico.modifPos(nextCharacter);
+			AnalizadorLexico.modifPos(nextCharInt);
 		}
 		
 		else if (aux.equals("D")) {
@@ -63,14 +68,15 @@ public class ASE extends AccionSemantica {
 			
 			while (nextCharacter != '+' && nextCharacter != '-' && !Character.isDigit(nextCharacter)) {
 				try {
-					nextCharacter = (char) reader.read();
+					nextCharInt = reader.read();
+					nextCharacter = (char)nextCharInt;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			
-			AnalizadorLexico.modifPos(nextCharacter);
+			AnalizadorLexico.modifPos(nextCharInt);
 		}
 		
 		else if (nextCharacter == '_') {
@@ -78,13 +84,14 @@ public class ASE extends AccionSemantica {
 							 + "de un identificador o una cadena de caracteres, se descartara el caracter");
 			
 			try {
-				nextCharacter = (char) reader.read();
+				nextCharInt = reader.read();
+				nextCharacter = (char)nextCharInt;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			AnalizadorLexico.modifPos(nextCharacter);
+			AnalizadorLexico.modifPos(nextCharInt);
 		}
 		
 		else if (nextCharacter == '!' || nextCharacter == ':') {
@@ -93,19 +100,20 @@ public class ASE extends AccionSemantica {
 							 + "despues de \"=\", o dentro de una cadena, se descartara el caracter");
 			
 			try {
-				nextCharacter = (char) reader.read();
+				nextCharInt = reader.read();
+				nextCharacter = (char)nextCharInt;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			AnalizadorLexico.modifPos(nextCharacter);
+			AnalizadorLexico.modifPos(nextCharInt);
 			
 		}
 		
 		else if (nextCharacter == '\n') {
 			logger.logWarning("Cadena de caracteres no puede contener saltos de linea");
-			AnalizadorLexico.modifPos('\'');
+			AnalizadorLexico.modifPos((int)'\'');
 		}
 		
 		else

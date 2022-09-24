@@ -22,15 +22,17 @@ public class AS2 extends AccionSemantica {
 		
 		lexema.setLength(0);
 		lexema.append(nextCharacter);
+		int nextCharInt = 0;
 		
 		try {
-			nextCharacter = (char) reader.read();
+			nextCharInt = reader.read();
+			nextCharacter = (char) nextCharInt;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		AnalizadorLexico.modifPos(nextCharacter);
+		AnalizadorLexico.modifPos(nextCharInt);
 
 		return -1;		
 	}

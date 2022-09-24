@@ -22,7 +22,14 @@ public class AnalizadorLexico {
 	
 	private BufferedReader reader;
 	
-	private int obtenerColumnaCaracter(char input) {
+	private int obtenerColumnaCaracter(int inputCaracter) {
+		
+		/* EOF -> $ */
+		if (inputCaracter == -1) {
+			return 25;
+		}
+		
+		char input = (char)inputCaracter;
 		
 		/* mayusculas L = columna 0 */
 		if (Character.isUpperCase(input) && input != 'D') {
@@ -149,10 +156,6 @@ public class AnalizadorLexico {
 			return 24;
 		}
 		
-		if (input == '$') {
-			return 25;
-		}
-		
 		/* carriage return */
 		if (input == '\r') {
 			return 26;
@@ -175,7 +178,9 @@ public class AnalizadorLexico {
 			
 				char inputAsChar = (char)inputCaracter;
 				
-				int columnaCaracter = obtenerColumnaCaracter(inputAsChar);
+				System.out.println("Int: " + inputCaracter + " char: " + inputAsChar);
+				
+				int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
 				
 				if (columnaCaracter != -1) {
 					
@@ -185,7 +190,7 @@ public class AnalizadorLexico {
 					
 					int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 					
-					System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
+					//System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
 					
 					AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 					
@@ -207,7 +212,7 @@ public class AnalizadorLexico {
 
 	
 	//REVISAR: inputCaracter es int pero nextCharacter es char, puede traer problemas la conversion
-	public static void modifPos(char nextCharacter) {
-		inputCaracter = nextCharacter;
+	public static void modifPos(int nextCharInt) {
+		inputCaracter = nextCharInt;
 	}
 }

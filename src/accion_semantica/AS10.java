@@ -17,15 +17,17 @@ public class AS10 extends AccionSemantica{
 	public int ejecutar(BufferedReader reader , StringBuilder lexema, char nextCharacter) {
 		
 		char aux = nextCharacter;
+		int nextCharInt = 0;
 		
 		try {
-			nextCharacter = (char) reader.read();
+			nextCharInt = reader.read();
+			nextCharacter = (char) nextCharInt;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		AnalizadorLexico.modifPos(nextCharacter);
+		AnalizadorLexico.modifPos(nextCharInt);
 		
 		
 		lexema.append(aux);

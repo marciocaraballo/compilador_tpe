@@ -24,14 +24,17 @@ public class AS9 extends AccionSemantica {
 		
 		lexema.setLength(0); 
 		
+		int nextCharInt = 0;
+		
 		try {
-			nextCharacter = (char) reader.read();
+			nextCharInt = reader.read();
+			nextCharacter = (char) nextCharInt;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		AnalizadorLexico.modifPos(nextCharacter);
+		AnalizadorLexico.modifPos(nextCharInt);
 		
 		return -1;
 	}

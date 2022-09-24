@@ -28,14 +28,17 @@ public class AS6 extends AccionSemantica {
 		//Devolver nextCharacter
 		lexema.append(nextCharacter);
 		
+		int nextCharInt = 0;
+		
 		try {
-			nextCharacter = (char) reader.read();
+			nextCharInt = reader.read();
+			nextCharacter = (char) nextCharInt;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		AnalizadorLexico.modifPos(nextCharacter);
+		AnalizadorLexico.modifPos(nextCharInt);
 		
 		return TPR.getToken(lexema.toString());
 	}
