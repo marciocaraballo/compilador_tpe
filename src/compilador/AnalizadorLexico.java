@@ -198,6 +198,8 @@ public class AnalizadorLexico {
 		return tokenLexema;
 	}
 
+	
+	//REVISAR: inputCaracter es int pero nextCharacter es char, puede traer problemas la conversion
 	public static void modifPos(char nextCharacter) {
 		inputCaracter = nextCharacter;
 	}
