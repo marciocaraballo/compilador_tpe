@@ -2,7 +2,7 @@ package compilador;
 
 public class Logger {
 	
-	private int linea = 0;
+	private int linea = 1;
 	
 	public Logger() {}
 	
