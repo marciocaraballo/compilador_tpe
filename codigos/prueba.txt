@@ -1,1 +1,1 @@
-int d =: 'sarasa';
+int test_ =: 'sarasa';

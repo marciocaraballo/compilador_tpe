@@ -175,7 +175,7 @@ public class AnalizadorLexico {
 	
 	public int getToken() {
 
-		while (estado_actual != MatrixEstados.F && estado_actual != MatrixEstados.E) {
+		while (estado_actual != MatrixEstados.F) {
 			
 			inputCaracter = fileHelper.nextChar();
 			
@@ -197,8 +197,11 @@ public class AnalizadorLexico {
 				
 				tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
 				
-				if (proximoEstado != MatrixEstados.E)
+				if (proximoEstado != MatrixEstados.E) {
 					estado_actual = proximoEstado;
+				} else {
+					estado_actual = 0;
+				}
 			}
 			
 			else
