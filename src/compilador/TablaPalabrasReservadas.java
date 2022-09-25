@@ -21,11 +21,12 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put(">=", 9);
 		palabras_reservadas.put("<=", 10);
 		palabras_reservadas.put("=!", 11);
-		palabras_reservadas.put("do", 12);
-		palabras_reservadas.put("until", 13);
-		palabras_reservadas.put("continue", 14);
-		palabras_reservadas.put("f64", 15);
-		palabras_reservadas.put("ui16", 16);
+		palabras_reservadas.put("when", 12);
+		palabras_reservadas.put("do", 13);
+		palabras_reservadas.put("until", 14);
+		palabras_reservadas.put("continue", 15);
+		palabras_reservadas.put("f64", 16);
+		palabras_reservadas.put("ui16", 17);
 	}
 	
 	public int getToken(String palabra) {
