@@ -1,3 +1,8 @@
-+!=
-'sar
-asa'
+fun f1 (ui16 y) : ui16
+{
+	ui16 x;
+	x =: y;
+	return (x);
+}
+
+f1();
