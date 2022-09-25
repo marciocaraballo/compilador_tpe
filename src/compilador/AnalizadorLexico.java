@@ -4,8 +4,6 @@ import java.lang.Character;
 
 import accion_semantica.AccionSemantica;
 
-import java.io.IOException;
-
 public class AnalizadorLexico {
 
 	private FileReaderHelper fileHelper = null;
@@ -163,7 +161,7 @@ public class AnalizadorLexico {
 		return -1;
 	}
 	
-	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr) throws IOException {
+	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr) {
 		this.fileHelper = fileHelper;
 		logger = lgr;
 		matrixAS = new MatrixAccionesSemanticas(ts, tpr, logger);
