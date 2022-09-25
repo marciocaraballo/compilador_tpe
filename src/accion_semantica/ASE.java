@@ -7,6 +7,9 @@ import compilador.TablaPalabrasReservadas;
 
 /**
  * Accion semantica para error handling
+ * En caso de detectar un error, el token reconocido hasta el momento se
+ * descarta y se informara por pantalla. Luego, se podra seguir 
+ * leyendo caracteres y reconociendo errores
  */
 public class ASE extends AccionSemantica {
 
