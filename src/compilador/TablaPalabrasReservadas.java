@@ -27,6 +27,7 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put("continue", 15);
 		palabras_reservadas.put("f64", 16);
 		palabras_reservadas.put("ui16", 17);
+		palabras_reservadas.put("defer", 18);
 	}
 	
 	public int getToken(String palabra) {
