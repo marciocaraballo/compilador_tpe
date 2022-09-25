@@ -65,6 +65,10 @@ public class TablaDeSimbolos {
 		Set<String> keys = tabla_simbolos.keySet();
 		Iterator<String> keysIterator = keys.iterator();
 		
+		if (!keysIterator.hasNext()) {
+			System.out.println("No hay simbolos detectados");
+		}
+		
 		while(keysIterator.hasNext()) {
 			String lexema = keysIterator.next();
 			System.out.println("Lexema: " + lexema);
