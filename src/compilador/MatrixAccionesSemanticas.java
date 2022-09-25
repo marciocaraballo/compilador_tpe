@@ -19,7 +19,7 @@ public class MatrixAccionesSemanticas {
 		AS9 AS9 = new AS9(tpr, ts);
 		AS10 AS10 = new AS10(tpr, ts);
 		ASE ASE = new ASE(tpr, ts, logger);
-															/*L*/ /*l*/ /*d*/ /*"D"*/ /*“_”*/ /*"+"*/ /*"-"*/ /*"{"*/ /*"}"*/ /*"("*/ /*")"*/ /*";"*/ /*"/"*/ /*"*"*/ /*","*/ /*"="*/ /*">"*/ /*"<"*/ /*":"*/ /*"!"*/ /*"."*/ /*"'"*/ /*tab*/ /*bl*/ /*nl*/ /*"$"*/ /*cr*/ /*others*/
+															/*L*/ /*l*/ /*d*/ /*"D"*/ /*“_”*/ /*"+"*/ /*"-"*/ /*"{"*/ /*"}"*/ /*"("*/ /*")"*/ /*";"*/ /*"/"*/ /*"*"*/ /*","*/ /*"="*/ /*">"*/ /*"<"*/ /*":"*/ /*"!"*/ /*"."*/ /*"'"*/ /*tab*/ /*bl*/ /*nl*/ /*eof*/ /*cr*/ /*others*/
 		matrixAccionesSemanticas[0] = new AccionSemantica[]{ AS2,  AS2,  AS2,    AS2,    ASE,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS1,    AS2,    AS2,    AS2,    ASE,    ASE,    AS2,    AS2,    AS9,   AS9,   AS9,    AS1,	  AS9,		ASE};
 		matrixAccionesSemanticas[1] = new AccionSemantica[]{ AS3,  AS3,  AS3,    AS3,    AS3,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,    AS4,   AS4,   AS4,    AS4,   AS4,		ASE};
 		matrixAccionesSemanticas[2] = new AccionSemantica[]{ AS4,  AS4,  AS3,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS5,    AS3,    AS5,    AS5,   AS5,   AS5,    AS5,   AS5,		ASE};	
