@@ -194,7 +194,7 @@ public class AnalizadorLexico {
 			tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
 			
 			//Se llega a un estado final que deberia reconocer token pero hay error
-			//de rango, luego se ignora
+			//de rango, luego se ignora el token y se vuelve al inicio
 			if (proximoEstado == MatrixEstados.F && tokenLexema == -1) {
 				estado_actual = 0;
 			} else {
@@ -208,6 +208,7 @@ public class AnalizadorLexico {
 		
 		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		estado_actual = 0;
+		lexema.setLength(0);
 		
 		return tokenLexema;
 	}
