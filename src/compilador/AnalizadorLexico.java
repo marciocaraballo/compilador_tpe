@@ -193,10 +193,16 @@ public class AnalizadorLexico {
 			
 			tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
 			
-			if (proximoEstado != MatrixEstados.E) {
-				estado_actual = proximoEstado;
-			} else {
+			//Se llega a un estado final que deberia reconocer token pero hay error
+			//de rango, luego se ignora
+			if (proximoEstado == MatrixEstados.F && tokenLexema == -1) {
 				estado_actual = 0;
+			} else {
+				if (proximoEstado != MatrixEstados.E) {
+					estado_actual = proximoEstado;
+				} else {
+					estado_actual = 0;
+				}
 			}
 		}
 		

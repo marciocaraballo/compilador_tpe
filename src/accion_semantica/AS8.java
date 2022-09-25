@@ -25,8 +25,9 @@ public class AS8 extends AccionSemantica {
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 
-		if (lexema.charAt(0) == '.')
+		if (lexema.charAt(0) == '.') {
 			lexema.insert(0, '0');
+		}
 		
 		String aux = lexema.toString().replace('D', 'E');
 		
@@ -36,11 +37,14 @@ public class AS8 extends AccionSemantica {
 		fileHelper.reset();
 		
 		// Verificar rango
-		if (!(2.2250738585072014E-308 < double_&& double_< 1.7976931348623157E+308 || 
+		if (!(2.2250738585072014E-308 < double_ && double_< 1.7976931348623157E+308 || 
 			-1.7976931348623157E+308 < double_ && double_ < -2.2250738585072014E-308)) {
 			
+			logger.logError("Rango invalido para la constante: " + double_ + ", se descarta" );
+			
 			lexema.setLength(0);
-			lexema.append('0');
+			
+			return -1;
 		}
 		
 		if (TS.has(lexema.toString())) {
