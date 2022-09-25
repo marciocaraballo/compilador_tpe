@@ -1,1 +1,3 @@
-int test_ =: 'sarasa';
+int test_ 
+=: 'sarasa';
+!#
