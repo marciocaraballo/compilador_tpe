@@ -1,4 +1,2 @@
-int d =: 70000;
-a b c d eeeee
-;
-when
+'sar
+asa'

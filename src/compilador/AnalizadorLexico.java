@@ -132,7 +132,7 @@ public class AnalizadorLexico {
 			return 20;
 		}
 		
-		/* caracter ' = columna 21, hay que escapar */
+		/* caracter ' = columna 21 */
 		if (input == '\'') {
 			return 21;
 		}
@@ -147,7 +147,7 @@ public class AnalizadorLexico {
 			return 23;
 		}
 		
-		/* blank space = columna 24 */
+		/* new line = columna 24 */
 		if (input == '\n') {
 			return 24;
 		}
@@ -187,7 +187,7 @@ public class AnalizadorLexico {
 			
 			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 			
-			System.out.println("Estado: " + estado_actual + " Input: " + inputAsChar + " proximo estado: " + proximoEstado);
+			System.out.println("Estado: " + estado_actual + ", Input: " + inputAsChar + ", columna: " + columnaCaracter + ", proximo estado: " + proximoEstado);
 			
 			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 			
