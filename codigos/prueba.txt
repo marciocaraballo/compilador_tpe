@@ -1,5 +1,1 @@
-int a =: 15;
-int c =: 12;
 int d =: 'sarasa';
-int e := 1;
-if (e = 5) {}
