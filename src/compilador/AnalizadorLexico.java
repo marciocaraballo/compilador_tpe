@@ -206,6 +206,11 @@ public class AnalizadorLexico {
 			}
 		}
 		
+		//Se llego al EOF, no se reconocen mas tokens
+		if (inputCaracter == -1) {
+			return -1;
+		}
+		
 		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		estado_actual = 0;
 		lexema.setLength(0);
