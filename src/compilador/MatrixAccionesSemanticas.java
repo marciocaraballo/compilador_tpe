@@ -15,7 +15,7 @@ public class MatrixAccionesSemanticas {
 		AS5 AS5 = new AS5(tpr, ts, logger);
 		AS6 AS6 = new AS6(tpr, ts);
 		AS7 AS7 = new AS7(tpr, ts);
-		AS8 AS8 = new AS8(tpr, ts);
+		AS8 AS8 = new AS8(tpr, ts, logger);
 		AS9 AS9 = new AS9(tpr, ts);
 		AS10 AS10 = new AS10(tpr, ts);
 		ASE ASE = new ASE(tpr, ts, logger);
