@@ -1,3 +1,9 @@
+%token ID CTE CADENA IF THEN ELSE ENDIF OUT FUN RETURN BREAK ASIGNACION COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_DISTINTO
+WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST 
+%start programa
+
+%%
+
 programa: 
 	nombre_programa bloque_sentencias
 ;
@@ -37,7 +43,7 @@ funcion:
 
 encabezado_funcion:
 	FUN ID '(' ')' ':' tipo |
-	FUN ID '(' lista_de_parametros ')' ':' <tipo>
+	FUN ID '(' lista_de_parametros ')' ':' tipo
 ;
 
 cuerpo_funcion:
@@ -63,7 +69,7 @@ lista_declaracion_constantes:
 ;
 
 declaracion_constante:
-	nombre_de_constante =: valor_de_constante
+	nombre_de_constante ASIGNACION valor_de_constante
 ;
 
 nombre_constante:
@@ -118,7 +124,7 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID =: expresion
+	ID ASIGNACION expresion
 ; 
 
 sentencia_when:
@@ -140,7 +146,16 @@ sentencias_ejecutables:
 ;
 
 condicion:
-	expresion COMP expresion
+	expresion comparador expresion
+;
+
+comparador:
+	COMP_MAYOR_IGUAL |
+	COMP_MENOR_IGUAL |
+	COMP_DISTINTO |
+	'>' |
+	'<' |
+	'='
 ;
 
 expresion:
@@ -179,5 +194,7 @@ factor:
 ;
 	
 tipo:
-	UI16 |
-	F64
+	UINT16 |
+	DOUBLE64
+	
+%%

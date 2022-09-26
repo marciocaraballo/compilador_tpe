@@ -1,4 +1,3 @@
-if then else
 fun f1 (ui16 y) : ui16
 {
 	ui16 x;
