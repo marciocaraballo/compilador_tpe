@@ -55,7 +55,7 @@ encabezado_funcion:
 ;
 
 cuerpo_funcion:
-	sentencias RETURN'(' expresion ')';
+	sentencias RETURN'(' expresion ')'';'
 ;
 
 lista_de_parametros:
