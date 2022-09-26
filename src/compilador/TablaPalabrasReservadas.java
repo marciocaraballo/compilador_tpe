@@ -9,26 +9,26 @@ public class TablaPalabrasReservadas {
 	public static final int NO_ENCONTRADO = -1;
 	
 	public TablaPalabrasReservadas() {
-		palabras_reservadas.put("if", 0);
-		palabras_reservadas.put("then", 1);
-		palabras_reservadas.put("else", 2);
-		palabras_reservadas.put("end_if", 3);
-		palabras_reservadas.put("out", 4);
-		palabras_reservadas.put("fun", 5);
-		palabras_reservadas.put("return", 6);
-		palabras_reservadas.put("break", 7);
-		palabras_reservadas.put("=:", 8);
-		palabras_reservadas.put(">=", 9);
-		palabras_reservadas.put("<=", 10);
-		palabras_reservadas.put("=!", 11);
-		palabras_reservadas.put("when", 12);
-		palabras_reservadas.put("do", 13);
-		palabras_reservadas.put("until", 14);
-		palabras_reservadas.put("continue", 15);
-		palabras_reservadas.put("f64", 16);
-		palabras_reservadas.put("ui16", 17);
-		palabras_reservadas.put("defer", 18);
-		palabras_reservadas.put("const", 19);
+		palabras_reservadas.put("if", 260);
+		palabras_reservadas.put("then", 261);
+		palabras_reservadas.put("else", 262);
+		palabras_reservadas.put("end_if", 263);
+		palabras_reservadas.put("out", 264);
+		palabras_reservadas.put("fun", 265);
+		palabras_reservadas.put("return", 266);
+		palabras_reservadas.put("break", 267);
+		palabras_reservadas.put("=:", 268);
+		palabras_reservadas.put(">=", 269);
+		palabras_reservadas.put("<=", 270);
+		palabras_reservadas.put("=!", 271);
+		palabras_reservadas.put("when", 272);
+		palabras_reservadas.put("do", 273);
+		palabras_reservadas.put("until", 274);
+		palabras_reservadas.put("continue", 275);
+		palabras_reservadas.put("f64", 276);
+		palabras_reservadas.put("ui16", 277);
+		palabras_reservadas.put("defer", 278);
+		palabras_reservadas.put("const", 279);
 	}
 	
 	public int getToken(String palabra) {

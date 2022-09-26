@@ -6,6 +6,8 @@ import accion_semantica.AccionSemantica;
 
 public class AnalizadorLexico {
 
+	private ParserVal yylval = null;
+	
 	private FileReaderHelper fileHelper = null;
 	private MatrixEstados matrixEstados = new MatrixEstados();
 	private MatrixAccionesSemanticas matrixAS = null;
@@ -161,7 +163,8 @@ public class AnalizadorLexico {
 		return 27;
 	}
 	
-	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr) {
+	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr, ParserVal yylval) {
+		this.yylval = yylval;
 		this.fileHelper = fileHelper;
 		logger = lgr;
 		matrixAS = new MatrixAccionesSemanticas(ts, tpr, logger);
@@ -187,7 +190,7 @@ public class AnalizadorLexico {
 			
 			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 			
-			System.out.println("Estado: " + estado_actual + ", Input: " + inputAsChar + ", columna: " + columnaCaracter + ", proximo estado: " + proximoEstado);
+			//System.out.println("Estado: " + estado_actual + ", Input: " + inputAsChar + ", columna: " + columnaCaracter + ", proximo estado: " + proximoEstado);
 			
 			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 			
@@ -207,9 +210,11 @@ public class AnalizadorLexico {
 		}
 		
 		//Se llego al EOF, no se reconocen mas tokens
-		if (inputCaracter == -1) {
-			return -1;
+		if (!hasNext()) {
+			return 0;
 		}
+		
+		this.yylval = new ParserVal(lexema.toString());
 		
 		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		estado_actual = 0;

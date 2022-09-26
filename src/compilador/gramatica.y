@@ -198,7 +198,18 @@ tipo:
 	
 %%
 
-public static void main(String[] args) throws IOException {
+public static AnalizadorLexico lexico = null;
+
+public int yylex() {
+	return lexico.yylex();
+}
+
+public void yyerror(String error) {
+	System.out.println(error);
+}
+
+
+public static void main(String[] args) {
 	if (args.length == 0) {
 		System.err.println("No se especifico ningun archivo de codigo");
 	} else {
@@ -209,9 +220,12 @@ public static void main(String[] args) throws IOException {
 		
 		fileHelper.open(archivo_a_leer);
 		
+		Parser parser = new Parser();
 		Logger logger = new Logger();
 		TablaDeSimbolos ts = new TablaDeSimbolos();
-		AnalizadorLexico lexico = new AnalizadorLexico(fileHelper, ts, logger);
+		lexico = new AnalizadorLexico(fileHelper, ts, logger, parser.yyval);
+		
+        parser.run();
 		
 		while (lexico.hasNext()) {
 			System.out.println("Token detectado: " + lexico.yylex());

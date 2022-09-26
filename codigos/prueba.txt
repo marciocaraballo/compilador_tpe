@@ -1,8 +1,12 @@
-fun f1 (ui16 y) : ui16
-{
-	ui16 x;
-	x =: y;
-	return (x);
-}
+programa1 {
 
-f1();
+	ui16 a;
+	ui16 b;
+	ui16 c;
+	f64 d;
+	
+	b =: 3;
+	d =: 0.0;
+	
+	out('Hola mundo!');
+}
