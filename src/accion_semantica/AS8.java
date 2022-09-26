@@ -26,8 +26,6 @@ public class AS8 extends AccionSemantica {
 		String formattedDouble = lexema.toString().replace('D', 'E');
 		
 		Double parsedDouble = Double.parseDouble(formattedDouble);
-
-		System.out.println(parsedDouble);
 		
 		//devolver char a la entrada
 		fileHelper.reset();
