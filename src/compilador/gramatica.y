@@ -51,7 +51,7 @@ encabezado_funcion:
 ;
 
 cuerpo_funcion:
-	sentencias '(' retorno ')';
+	sentencias RETURN'(' expresion ')';
 ;
 
 lista_de_parametros:
@@ -127,8 +127,8 @@ sentencia_when:
 ;
 
 seleccion:
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion END_IF |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion END_IF
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF |
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF
 ;
 
 bloque_sentencias_ejecutables_seleccion:
@@ -180,7 +180,7 @@ parametro_real:
 ;
 
 imprimir:
-	out '(' CADENA ')'
+	OUT '(' CADENA ')'
 ;
 
 factor:

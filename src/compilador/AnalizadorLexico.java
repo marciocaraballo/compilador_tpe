@@ -171,7 +171,7 @@ public class AnalizadorLexico {
 		return inputCaracter != -1;
 	}
 	
-	public int getToken() {
+	public int yylex() {
 
 		while (estado_actual != MatrixEstados.F) {
 			
