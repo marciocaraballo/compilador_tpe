@@ -33,7 +33,7 @@ sentencia_declarativa:
 ;
 
 lista_de_variables:
-	ID ',' lista_de_variables;
+	ID ',' lista_de_variables |
 	ID
 ;
 
@@ -52,7 +52,7 @@ cuerpo_funcion:
 
 lista_de_parametros:
 	parametro |
-	parametro, parametro
+	parametro ',' parametro
 ;
 
 parametro:
@@ -69,16 +69,7 @@ lista_declaracion_constantes:
 ;
 
 declaracion_constante:
-	nombre_de_constante ASIGNACION valor_de_constante
-;
-
-nombre_constante:
-	ID
-;
-
-valor_de_constante:
-	integer |
-	double
+	ID ASIGNACION CTE
 ;
 
 sentencia_ejecutable:
@@ -177,7 +168,7 @@ invocacion_funcion:
 
 lista_de_parametros_reales:
 	parametro_real |
-	parametro_real, lista_de_parametros_reales
+	parametro_real ',' lista_de_parametros_reales
 ;
 
 parametro_real:
