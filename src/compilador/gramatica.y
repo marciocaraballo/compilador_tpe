@@ -101,7 +101,7 @@ sentencia_ejecutable_do:
 
 sentencia_break:
 	BREAK |
-	etiqueta ':' BREAK
+	BREAK ':' etiqueta
 ;
 
 sentencia_do:

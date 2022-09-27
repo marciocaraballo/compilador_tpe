@@ -4,9 +4,11 @@ programa1 {
 	
 	ui16 e;
 	f64 f;
-	
-	do {
+
+	outer: do {
 		e =: 2;
-		f =: 2.0;
-	} until (antony>barijho);
+		f =: 6.6;
+		break :outer;
+		continue;
+	} until (e>f);
 }
