@@ -227,10 +227,6 @@ public static void main(String[] args) {
 		lexico = new AnalizadorLexico(fileHelper, ts, logger, parser.yyval);
 		
         parser.run();
-		
-		while (lexico.hasNext()) {
-			System.out.println("Token detectado: " + lexico.yylex());
-		}	
 			
 		ts.print();
 	}

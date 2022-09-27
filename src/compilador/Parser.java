@@ -469,15 +469,11 @@ public static void main(String[] args) {
 		lexico = new AnalizadorLexico(fileHelper, ts, logger, parser.yyval);
 		
         parser.run();
-		
-		while (lexico.hasNext()) {
-			System.out.println("Token detectado: " + lexico.yylex());
-		}	
 			
 		ts.print();
 	}
 }
-//#line 409 "Parser.java"
+//#line 405 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -635,7 +631,7 @@ case 45:
 //#line 126 ".\gramatica.y"
 { logger.logSuccess("Asignacion detectada"); }
 break;
-//#line 562 "Parser.java"
+//#line 558 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

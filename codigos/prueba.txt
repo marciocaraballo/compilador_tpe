@@ -3,10 +3,9 @@ sarasa de prueba >>
 programa1 {
 	
 	f64 d;
-	ui16 e;
 	
-	d =: 0.0;
-	e =: 2;
-	
-	const c1 =:10, x=:5.22;
+	do {
+		ui16 e;
+		f64 f;
+	} until (e>=d);
 }
