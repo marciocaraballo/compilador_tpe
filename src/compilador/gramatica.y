@@ -123,7 +123,7 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion
+	ID ASIGNACION expresion { logger.logSuccess("Asignacion detectada"); }
 ; 
 
 sentencia_when:

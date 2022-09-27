@@ -1,9 +1,8 @@
 programa1 {
 	
-	fun f1 (ui16 y) : ui16
-	{
-		ui16 x;
-		x =: y;
-		return (x);
-	}
+	f64 d;
+	ui16 e;
+	
+	d =: 0.0;
+	e =: 2;
 }
