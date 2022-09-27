@@ -1,13 +1,9 @@
 programa1 {
 	
-	fun f3 () : f64
+	fun f1 (ui16 y) : ui16
 	{
-		f64 t;
-		t =: 1.2;
-		if (t > 0.0) then
-			return (t);
-		else
-			return (t + 1.2);
-		end_if;
+		ui16 x;
+		x =: y;
+		return (x);
 	}
 }

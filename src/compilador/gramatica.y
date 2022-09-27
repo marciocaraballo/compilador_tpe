@@ -199,13 +199,14 @@ tipo:
 %%
 
 public static AnalizadorLexico lexico = null;
+public static Logger logger = null;
 
 public int yylex() {
 	return lexico.yylex();
 }
 
 public void yyerror(String error) {
-	System.out.println(error);
+	logger.logError(error);
 }
 
 
@@ -221,7 +222,7 @@ public static void main(String[] args) {
 		fileHelper.open(archivo_a_leer);
 		
 		Parser parser = new Parser();
-		Logger logger = new Logger();
+		logger = new Logger();
 		TablaDeSimbolos ts = new TablaDeSimbolos();
 		lexico = new AnalizadorLexico(fileHelper, ts, logger, parser.yyval);
 		
