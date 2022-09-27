@@ -13,7 +13,7 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 %%
 
 programa: 
-	nombre_programa bloque_sentencias
+	nombre_programa bloque_sentencias { logger.logSuccess("Programa correcto detectado"); }
 ;
 
 nombre_programa: 
@@ -124,7 +124,7 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion { logger.logSuccess("Asignacion detectada"); }
+	ID ASIGNACION expresion { logger.logSuccess("Asignacion correcta detectada"); }
 ; 
 
 sentencia_when:

@@ -629,11 +629,15 @@ boolean doaction;
     switch(yyn)
       {
 //########## USER-SUPPLIED ACTIONS ##########
+case 1:
+//#line 16 ".\gramatica.y"
+{ logger.logSuccess("Programa correcto detectado"); }
+break;
 case 46:
 //#line 127 ".\gramatica.y"
-{ logger.logSuccess("Asignacion detectada"); }
+{ logger.logSuccess("Asignacion correcta detectada"); }
 break;
-//#line 560 "Parser.java"
+//#line 564 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
