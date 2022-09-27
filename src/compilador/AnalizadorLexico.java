@@ -216,7 +216,8 @@ public class AnalizadorLexico {
 		
 		this.yylval = new ParserVal(lexema.toString());
 		
-		System.out.println("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+		logger.logSuccess("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+		
 		estado_actual = 0;
 		lexema.setLength(0);
 		

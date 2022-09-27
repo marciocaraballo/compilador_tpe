@@ -15,7 +15,7 @@ public class Logger {
 	}
 	
 	public void logWarning(String warning) {
-		System.out.println(YELLOW + "[WARNING] Linea " + linea + ": " + warning +ANSI_RESET);
+		System.out.println(YELLOW + "[WARNING] Linea " + linea + ": " + warning + ANSI_RESET);
 	}
 	
 	public void logSuccess(String success) {
