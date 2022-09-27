@@ -5,10 +5,5 @@ programa1 {
 	ui16 e;
 	f64 f;
 
-	outer: do {
-		e =: 2;
-		f =: 6.6;
-		break :outer;
-		continue;
-	} until (e>f);
+	f =: -6.6;
 }

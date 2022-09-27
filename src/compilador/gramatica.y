@@ -191,7 +191,12 @@ imprimir:
 
 factor:
 	ID |
-	CTE
+	constante
+;
+
+constante:
+	CTE |
+	'-' CTE { logger.logWarning("Constante negativa, hay que invertir en TS"); }
 ;
 	
 tipo:
