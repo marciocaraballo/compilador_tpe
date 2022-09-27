@@ -94,7 +94,7 @@ sentencia_ejecutable:
 ;
 
 sentencia_ejecutable_do:
-	sentencia_ejecutable |
+	asignacion ';' |
 	sentencia_break ';' |
 	CONTINUE ';'
 ;
@@ -119,7 +119,8 @@ bloque_sentencias_ejecutables_do:
 ;
 
 sentencias_ejecutables_do:
-	sentencia_ejecutable_do sentencias_ejecutables_do
+	sentencia_ejecutable_do |
+	sentencias_ejecutables_do sentencia_ejecutable_do
 ;
 
 asignacion:
@@ -141,7 +142,8 @@ bloque_sentencias_ejecutables_seleccion:
 ;
 
 sentencias_ejecutables:
-	sentencia_ejecutable sentencias_ejecutables
+	sentencia_ejecutable |
+	sentencias_ejecutables sentencia_ejecutable
 ;
 
 condicion:
@@ -176,7 +178,7 @@ invocacion_funcion:
 
 lista_de_parametros_reales:
 	parametro_real |
-	parametro_real ',' lista_de_parametros_reales
+	lista_de_parametros_reales ',' parametro_real
 ;
 
 parametro_real:

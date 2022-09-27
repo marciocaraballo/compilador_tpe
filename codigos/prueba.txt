@@ -2,10 +2,11 @@
 sarasa de prueba >>
 programa1 {
 	
-	f64 d;
+	ui16 e;
+	f64 f;
 	
 	do {
-		ui16 e;
-		f64 f;
-	} until (e>=d);
+		e =: 2;
+		f =: 2.0;
+	} until (antony>barijho);
 }
