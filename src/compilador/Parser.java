@@ -462,9 +462,20 @@ public static TablaDeSimbolos ts = null;
 
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
-		ts.swapLexemas(constante, "-"+constante);
+		
+		String formattedDouble = constante.toString().replace('D', 'E');
+		
+		Double parsedDouble = Double.parseDouble(formattedDouble);
+		
+		if (!(parsedDouble == 0.0 ||
+			(-1.7976931348623157E+308 < parsedDouble && parsedDouble < -2.2250738585072014E-308)
+			)){
+			logger.logError("[Parser] Rango invalido para la constante: " + constante );
+		} else {
+			ts.swapLexemas(constante, "-"+constante);
+		}
 	} else {
-		logger.logError("[Lexico] No se admiten ui16 con valores negativos: " + "-"+constante);
+		logger.logError("[Parser] No se admiten ui16 con valores negativos: " + "-"+constante);
 	}
 }	
 

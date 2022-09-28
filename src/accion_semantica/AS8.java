@@ -30,9 +30,8 @@ public class AS8 extends AccionSemantica {
 		//devolver char a la entrada
 		fileHelper.reset();
 		
-		if (!(parsedDouble == 0.0 ||
-			(2.2250738585072014E-308 < parsedDouble && parsedDouble < 1.7976931348623157E+308) ||
-			(-1.7976931348623157E+308 < parsedDouble && parsedDouble < -2.2250738585072014E-308)
+		if (!(parsedDouble == 0.0 || 
+			(2.2250738585072014E-308 < parsedDouble && parsedDouble < 1.7976931348623157E+308)
 			)) {
 
 			logger.logError("[Lexico] Rango invalido para la constante: " + lexema.toString() + ", se descarta" );
