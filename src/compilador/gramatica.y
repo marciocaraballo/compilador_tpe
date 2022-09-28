@@ -196,7 +196,7 @@ factor:
 
 constante:
 	CTE |
-	'-' CTE { logger.logWarning("Constante negativa, hay que invertir en TS"); }
+	'-' CTE { constanteConSigno($2.sval); }
 ;
 	
 tipo:
@@ -207,15 +207,20 @@ tipo:
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
+public static TablaDeSimbolos ts = null;
+
+public void constanteConSigno(String constante) {
+	logger.logWarning("Constante negativa, hay que invertir en TS: " + constante);
+	ts.swapLexemas(constante, "-"+constante);
+}	
 
 public int yylex() {
-	return lexico.yylex();
+	return lexico.yylex(yylval);
 }
 
 public void yyerror(String error) {
 	logger.logError(error);
 }
-
 
 public static void main(String[] args) {
 	if (args.length == 0) {
@@ -230,8 +235,8 @@ public static void main(String[] args) {
 		
 		Parser parser = new Parser();
 		logger = new Logger();
-		TablaDeSimbolos ts = new TablaDeSimbolos();
-		lexico = new AnalizadorLexico(fileHelper, ts, logger, parser.yyval);
+		ts = new TablaDeSimbolos();
+		lexico = new AnalizadorLexico(fileHelper, ts, logger);
 		
         parser.run();
 			

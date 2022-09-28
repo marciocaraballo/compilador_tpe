@@ -6,7 +6,7 @@ import accion_semantica.AccionSemantica;
 
 public class AnalizadorLexico {
 
-	private ParserVal yylval = null;
+	//private ParserVal yylval = null;
 	
 	private FileReaderHelper fileHelper = null;
 	private MatrixEstados matrixEstados = new MatrixEstados();
@@ -163,8 +163,7 @@ public class AnalizadorLexico {
 		return 27;
 	}
 	
-	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr, ParserVal yylval) {
-		this.yylval = yylval;
+	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr) {
 		this.fileHelper = fileHelper;
 		logger = lgr;
 		matrixAS = new MatrixAccionesSemanticas(ts, tpr, logger);
@@ -174,7 +173,7 @@ public class AnalizadorLexico {
 		return inputCaracter != -1;
 	}
 	
-	public int yylex() {
+	public int yylex(ParserVal yylval) {
 
 		while (estado_actual != MatrixEstados.F) {
 			
@@ -214,7 +213,7 @@ public class AnalizadorLexico {
 			return 0;
 		}
 		
-		this.yylval = new ParserVal(lexema.toString());
+		yylval.sval = lexema.toString();
 		
 		logger.logSuccess("Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		

@@ -60,6 +60,15 @@ public class TablaDeSimbolos {
 		return (int)atributos.get(TOKEN);
 	}
 
+	public void swapLexemas(String lexemaOriginal, String lexemaModificado) {
+		
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexemaOriginal); 
+		
+		tabla_simbolos.remove(lexemaOriginal);
+		
+		tabla_simbolos.put(lexemaModificado, attributes);
+	}
+	
 	public void print() {
 		System.out.println("Tabla de Simbolos");
 		Set<String> keys = tabla_simbolos.keySet();

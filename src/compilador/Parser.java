@@ -446,15 +446,20 @@ final static String yyrule[] = {
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
+public static TablaDeSimbolos ts = null;
+
+public void constanteConSigno(String constante) {
+	logger.logWarning("Constante negativa, hay que invertir en TS: " + constante);
+	ts.swapLexemas(constante, "-"+constante);
+}	
 
 public int yylex() {
-	return lexico.yylex();
+	return lexico.yylex(yylval);
 }
 
 public void yyerror(String error) {
 	logger.logError(error);
 }
-
 
 public static void main(String[] args) {
 	if (args.length == 0) {
@@ -469,15 +474,15 @@ public static void main(String[] args) {
 		
 		Parser parser = new Parser();
 		logger = new Logger();
-		TablaDeSimbolos ts = new TablaDeSimbolos();
-		lexico = new AnalizadorLexico(fileHelper, ts, logger, parser.yyval);
+		ts = new TablaDeSimbolos();
+		lexico = new AnalizadorLexico(fileHelper, ts, logger);
 		
         parser.run();
 			
 		ts.print();
 	}
 }
-//#line 409 "Parser.java"
+//#line 414 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -641,9 +646,9 @@ case 46:
 break;
 case 76:
 //#line 199 ".\gramatica.y"
-{ logger.logWarning("Constante negativa, hay que invertir en TS"); }
+{ constanteConSigno(val_peek(0).sval); }
 break;
-//#line 570 "Parser.java"
+//#line 575 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
