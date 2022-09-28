@@ -27,8 +27,8 @@ public class AS5 extends AccionSemantica {
 		
 		int cte = Integer.parseInt(lexema.toString());
 		
-		if (cte < 0 || cte > (Math.pow(2, 16) - 1)) {
-			logger.logError("Se supero el maximo valor para la constante: " + cte + ", se descarta" );
+		if (cte > (Math.pow(2, 16) - 1)) {
+			logger.logError("[Lexico] Se supero el maximo valor para la constante: " + cte + ", se descarta" );
 			
 			lexema.setLength(0);
 			

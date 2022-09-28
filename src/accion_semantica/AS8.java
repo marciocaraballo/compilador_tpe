@@ -35,7 +35,7 @@ public class AS8 extends AccionSemantica {
 			(-1.7976931348623157E+308 < parsedDouble && parsedDouble < -2.2250738585072014E-308)
 			)) {
 
-			logger.logError("Rango invalido para la constante: " + lexema.toString() + ", se descarta" );
+			logger.logError("[Lexico] Rango invalido para la constante: " + lexema.toString() + ", se descarta" );
 			lexema.setLength(0);
 			
 			return -1;

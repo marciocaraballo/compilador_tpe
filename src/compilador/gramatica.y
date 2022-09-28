@@ -13,7 +13,8 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 %%
 
 programa: 
-	nombre_programa bloque_sentencias { logger.logSuccess("[Parser] Programa correcto detectado"); }
+	nombre_programa bloque_sentencias { logger.logSuccess("[Parser] Programa correcto detectado"); } |
+	bloque_sentencias { logger.logError("[Parser] Se esperaba nombre del programa"); }
 ;
 
 nombre_programa: 
@@ -46,7 +47,8 @@ lista_de_variables:
 ;
 
 funcion: 
-	encabezado_funcion '{' cuerpo_funcion '}'
+	encabezado_funcion '{' cuerpo_funcion '}' |
+	encabezado_funcion cuerpo_funcion '}' { logger.logError("[Parser] Se esperaba { en la funcion"); }
 ;
 
 encabezado_funcion:
@@ -60,7 +62,13 @@ cuerpo_funcion:
 
 lista_de_parametros:
 	parametro |
-	parametro ',' parametro
+	parametro ',' parametro |
+	parametro ',' parametro ',' lista_parametros_exceso { logger.logError("[Parser] Hay mas de 2 parametros en la funcion"); }
+;
+
+lista_parametros_exceso: 
+	parametro |
+	parametro ',' lista_parametros_exceso 
 ;
 
 parametro:
@@ -124,7 +132,8 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion { logger.logSuccess("[Parser] Asignacion detectada"); }
+	ID ASIGNACION expresion { logger.logSuccess("[Parser] Asignacion detectada"); } |
+	ID ASIGNACION {logger.logError("[Parser] Asignacion incorrecta porque falta la expresion");}
 ; 
 
 sentencia_when:
