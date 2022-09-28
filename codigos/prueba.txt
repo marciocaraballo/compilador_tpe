@@ -1,23 +1,20 @@
 << este programa es 
 sarasa de prueba >>
 programa1 {
-
-	do {
-		b =: c;
+	
+	fun f1 (ui16 y) : ui16
+	{
+		ui16 x;
 		x =: y;
-		continue;
 		
-		if (a>=0) then {
-			caca =: 1;
-			caca2 =: 2;
+		if (a>=b) then {
+			b =: 2;
+			x =: y;
 		}
 		end_if;
 		
-		do {
-			caca3 =: 2;
-			caca4 =: 1.2;
-		} until(b>=0);
-		
-	} until(a>=b);
-
+		return (y);
+	}
+	
+	d =: f1(id) + f1(3) / f1(4);
 }

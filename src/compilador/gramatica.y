@@ -162,14 +162,19 @@ comparador:
 expresion:
 	expresion '+' termino |
 	expresion '-' termino |
-	termino |
-	invocacion_funcion
+	termino
 ;
 
 termino:
 	termino '*' factor |
 	termino '/' factor |
 	factor
+;
+
+factor:
+	ID |
+	constante |
+	invocacion_funcion
 ;
 
 invocacion_funcion:
@@ -182,16 +187,12 @@ lista_de_parametros_reales:
 ;
 
 parametro_real:
-	factor
+	ID |
+	constante
 ;
 
 imprimir:
 	OUT '(' CADENA ')' { logger.logSuccess("[Parser] Sentencia out detectada"); }
-;
-
-factor:
-	ID |
-	constante
 ;
 
 constante:
