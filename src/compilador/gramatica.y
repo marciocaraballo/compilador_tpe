@@ -13,7 +13,7 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 %%
 
 programa: 
-	nombre_programa bloque_sentencias { logger.logSuccess("Programa correcto detectado"); }
+	nombre_programa bloque_sentencias { logger.logSuccess("[Parser] Programa correcto detectado"); }
 ;
 
 nombre_programa: 
@@ -105,8 +105,8 @@ sentencia_break:
 ;
 
 sentencia_do:
-	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("Sentencia do until correcta detectada"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("Sentencia do until con etiqueta correcta detectada"); }
+	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until correcta detectada"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until con etiqueta correcta detectada"); }
 ;
 
 etiqueta:
@@ -124,7 +124,7 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion { logger.logSuccess("Asignacion correcta detectada"); }
+	ID ASIGNACION expresion { logger.logSuccess("[Parser] Asignacion correcta detectada"); }
 ; 
 
 sentencia_when:

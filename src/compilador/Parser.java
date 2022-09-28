@@ -638,19 +638,19 @@ boolean doaction;
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
 //#line 16 ".\gramatica.y"
-{ logger.logSuccess("Programa correcto detectado"); }
+{ logger.logSuccess("[Parser] Programa correcto detectado"); }
 break;
 case 39:
 //#line 108 ".\gramatica.y"
-{ logger.logSuccess("Sentencia do until correcta detectada"); }
+{ logger.logSuccess("[Parser] Sentencia do until correcta detectada"); }
 break;
 case 40:
 //#line 109 ".\gramatica.y"
-{ logger.logSuccess("Sentencia do until con etiqueta correcta detectada"); }
+{ logger.logSuccess("[Parser] Sentencia do until con etiqueta correcta detectada"); }
 break;
 case 46:
 //#line 127 ".\gramatica.y"
-{ logger.logSuccess("Asignacion correcta detectada"); }
+{ logger.logSuccess("[Parser] Asignacion correcta detectada"); }
 break;
 case 76:
 //#line 199 ".\gramatica.y"

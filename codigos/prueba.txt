@@ -12,5 +12,5 @@ programa1 {
 		f =: -7.6;
 		f =: -8.6;
 		break :outer;
-	} until (f>=0);
+	} until (f>=0.1);
 }
