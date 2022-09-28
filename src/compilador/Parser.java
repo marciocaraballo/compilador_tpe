@@ -640,6 +640,14 @@ case 1:
 //#line 16 ".\gramatica.y"
 { logger.logSuccess("Programa correcto detectado"); }
 break;
+case 39:
+//#line 108 ".\gramatica.y"
+{ logger.logSuccess("Sentencia do until correcta detectada"); }
+break;
+case 40:
+//#line 109 ".\gramatica.y"
+{ logger.logSuccess("Sentencia do until con etiqueta correcta detectada"); }
+break;
 case 46:
 //#line 127 ".\gramatica.y"
 { logger.logSuccess("Asignacion correcta detectada"); }
@@ -648,7 +656,7 @@ case 76:
 //#line 199 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 575 "Parser.java"
+//#line 583 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -105,8 +105,8 @@ sentencia_break:
 ;
 
 sentencia_do:
-	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')'
+	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("Sentencia do until correcta detectada"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("Sentencia do until con etiqueta correcta detectada"); }
 ;
 
 etiqueta:
