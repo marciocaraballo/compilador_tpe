@@ -21,7 +21,7 @@ public class ASE extends AccionSemantica {
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
 		lexema.append(nextCharacter);
-		logger.logError("Lexema no reconocido: " + lexema.toString() + ", se descarta.");
+		logger.logError("[Lexico] Lexema no reconocido: " + lexema.toString() + ", se descarta.");
 		lexema.setLength(0);
 		
 		return -1;
