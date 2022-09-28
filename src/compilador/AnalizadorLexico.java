@@ -5,8 +5,6 @@ import java.lang.Character;
 import accion_semantica.AccionSemantica;
 
 public class AnalizadorLexico {
-
-	//private ParserVal yylval = null;
 	
 	private FileReaderHelper fileHelper = null;
 	private MatrixEstados matrixEstados = new MatrixEstados();

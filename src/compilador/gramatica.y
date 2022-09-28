@@ -94,7 +94,7 @@ sentencia_ejecutable:
 ;
 
 sentencia_ejecutable_do:
-	asignacion ';' |
+	sentencia_ejecutable |
 	sentencia_break ';' |
 	CONTINUE ';'
 ;
