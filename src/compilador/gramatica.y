@@ -35,9 +35,9 @@ sentencia:
 ;
 
 sentencia_declarativa:
-	tipo lista_de_variables ';' |
-	funcion |
-	declaracion_constantes ';'
+	tipo lista_de_variables ';' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
+	funcion { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
+	declaracion_constantes ';' { logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
 ;
 
 lista_de_variables:
@@ -105,8 +105,8 @@ sentencia_break:
 ;
 
 sentencia_do:
-	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until correcta detectada"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until con etiqueta correcta detectada"); }
+	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until con etiqueta detectada"); }
 ;
 
 etiqueta:
@@ -124,16 +124,16 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion { logger.logSuccess("[Parser] Asignacion correcta detectada"); }
+	ID ASIGNACION expresion { logger.logSuccess("[Parser] Asignacion detectada"); }
 ; 
 
 sentencia_when:
-	WHEN '(' condicion ')' THEN bloque_sentencias
+	WHEN '(' condicion ')' THEN bloque_sentencias { logger.logSuccess("[Parser] Sentencia when detectada"); }
 ;
 
 seleccion:
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
 ;
 
 bloque_sentencias_ejecutables_seleccion:
@@ -186,7 +186,7 @@ parametro_real:
 ;
 
 imprimir:
-	OUT '(' CADENA ')'
+	OUT '(' CADENA ')' { logger.logSuccess("[Parser] Sentencia out detectada"); }
 ;
 
 factor:

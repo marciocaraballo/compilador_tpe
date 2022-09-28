@@ -640,23 +640,51 @@ case 1:
 //#line 16 ".\gramatica.y"
 { logger.logSuccess("[Parser] Programa correcto detectado"); }
 break;
+case 8:
+//#line 38 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
+break;
+case 9:
+//#line 39 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+break;
+case 10:
+//#line 40 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
+break;
 case 39:
 //#line 108 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Sentencia do until correcta detectada"); }
+{ logger.logSuccess("[Parser] Sentencia do until detectada"); }
 break;
 case 40:
 //#line 109 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Sentencia do until con etiqueta correcta detectada"); }
+{ logger.logSuccess("[Parser] Sentencia do until con etiqueta detectada"); }
 break;
 case 46:
 //#line 127 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Asignacion correcta detectada"); }
+{ logger.logSuccess("[Parser] Asignacion detectada"); }
+break;
+case 47:
+//#line 131 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia when detectada"); }
+break;
+case 48:
+//#line 135 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia if then detectada"); }
+break;
+case 49:
+//#line 136 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia if then else detectada"); }
+break;
+case 72:
+//#line 189 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia out detectada"); }
 break;
 case 76:
 //#line 199 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 583 "Parser.java"
+//#line 611 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
