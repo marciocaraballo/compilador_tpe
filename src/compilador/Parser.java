@@ -449,8 +449,11 @@ public static Logger logger = null;
 public static TablaDeSimbolos ts = null;
 
 public void constanteConSigno(String constante) {
-	logger.logWarning("Constante negativa, hay que invertir en TS: " + constante);
-	ts.swapLexemas(constante, "-"+constante);
+	if (constante.contains(".")) {
+		ts.swapLexemas(constante, "-"+constante);
+	} else {
+		logger.logError("[Lexico] No se admiten ui16 con valores negativos: " + "-"+constante);
+	}
 }	
 
 public int yylex() {
@@ -482,7 +485,7 @@ public static void main(String[] args) {
 		ts.print();
 	}
 }
-//#line 414 "Parser.java"
+//#line 417 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -684,7 +687,7 @@ case 76:
 //#line 199 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 611 "Parser.java"
+//#line 614 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

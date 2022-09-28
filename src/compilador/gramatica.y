@@ -210,8 +210,11 @@ public static Logger logger = null;
 public static TablaDeSimbolos ts = null;
 
 public void constanteConSigno(String constante) {
-	logger.logWarning("Constante negativa, hay que invertir en TS: " + constante);
-	ts.swapLexemas(constante, "-"+constante);
+	if (constante.contains(".")) {
+		ts.swapLexemas(constante, "-"+constante);
+	} else {
+		logger.logError("[Lexico] No se admiten ui16 con valores negativos: " + "-"+constante);
+	}
 }	
 
 public int yylex() {

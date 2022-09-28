@@ -5,12 +5,5 @@ programa1 {
 	ui16 e;
 	f64 f;
 
-	f =: -6.6;
-	
-	outer: do {
-		f =: -6.6;
-		f =: -7.6;
-		f =: -8.6;
-		break :outer;
-	} until (f>=0.1);
+	f =: 1.976931348623157E+308;
 }
