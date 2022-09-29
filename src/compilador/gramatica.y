@@ -201,7 +201,8 @@ parametro_real:
 ;
 
 imprimir:
-	OUT '(' CADENA ')' { logger.logSuccess("[Parser] Sentencia out detectada"); }
+	OUT '(' CADENA ')' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
+	OUT '(' ID ')' { logger.logSuccess("[Parser] Sentencia out detectada"); }
 ;
 
 constante:

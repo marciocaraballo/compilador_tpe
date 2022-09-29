@@ -1,5 +1,25 @@
 << este programa es 
 sarasa de prueba >>
 programa1 {
-	d =: -1.7976931348623155D+308;
+	fun f1 (ui16 y) : ui16
+	{
+		ui16 x;
+		
+		fun f2 (ui16 z) : ui16 {
+			ui16 y;
+			
+			fun f3 (ui16 z) : ui16 {
+				ui16 y;
+				
+				return (y);
+			}
+			
+			return (y);
+		}
+		
+		x =: y;
+		return (x);
+	}
+	
+	out(x);
 }
