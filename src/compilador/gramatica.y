@@ -93,8 +93,8 @@ sentencia_ejecutable:
 	DEFER asignacion |
 	seleccion ';' |
 	DEFER seleccion ';' |
-	imprimir ';' |
-	DEFER imprimir ';' |
+	imprimir |
+	DEFER imprimir |
 	sentencia_when |
 	DEFER sentencia_when |
 	sentencia_do ';' |
@@ -207,13 +207,15 @@ parametro_real:
 ;
 
 imprimir:
-	OUT '(' CADENA ')' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
-	OUT '(' ID ')' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
-	OUT '(' ')' { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); } |
-	OUT CADENA ')' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
-	OUT '(' CADENA { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); } |
-	OUT ID ')' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
-	OUT '(' ID { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); }
+	OUT '(' CADENA ')' ';' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
+	OUT '(' ID ')' ';' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
+	OUT '(' ')'  ';' { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); } |
+	OUT CADENA ')'  ';' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
+	OUT '(' CADENA  ';' { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); } |
+	OUT ID ')'  ';' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
+	OUT '(' ID  ';' { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); } |
+	OUT '(' CADENA ')' { logger.logError("[Parser] Se espera un ; al final de la sentencia out"); } |
+	OUT '(' ID ')' { logger.logError("[Parser] Se espera un ; al final de la sentencia out"); }
 ;
 
 constante:
