@@ -87,7 +87,10 @@ lista_declaracion_constantes:
 ;
 
 declaracion_constante:
-	ID ASIGNACION CTE
+	ID ASIGNACION CTE |
+	ID ASIGNACION { logger.logError("[Parser] Se esperaba una constante del lado derecho de la asignacion"); } |
+	ID CTE { logger.logError("[Parser] Se esperaba el simbolo asignacion en la declaracion de constantes"); } |
+	ID { logger.logError("[Parser] Se esperaba una asignacion en la declaracion de constantes"); }
 ;
 
 sentencia_ejecutable:
