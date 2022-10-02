@@ -95,8 +95,8 @@ sentencia_ejecutable:
 	DEFER seleccion ';' |
 	imprimir ';' |
 	DEFER imprimir ';' |
-	sentencia_when ';' |
-	DEFER sentencia_when ';' |
+	sentencia_when |
+	DEFER sentencia_when |
 	sentencia_do ';' |
 	DEFER sentencia_do ';'
 ;
@@ -138,7 +138,12 @@ asignacion:
 ; 
 
 sentencia_when:
-	WHEN '(' condicion ')' THEN bloque_sentencias { logger.logSuccess("[Parser] Sentencia when detectada"); }
+	WHEN '(' condicion ')' THEN bloque_sentencias ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN condicion ')' THEN bloque_sentencias ';' { logger.logSuccess("[Parser] Se esperaba un ( en la condicion de la sentencia when"); } |
+	WHEN '(' condicion THEN bloque_sentencias ';' { logger.logSuccess("[Parser] Se esperaba un ) en la condicion de la sentencia when"); } |
+	WHEN '(' condicion ')' bloque_sentencias ';' { logger.logSuccess("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
+	WHEN '(' ')' bloque_sentencias ';' { logger.logSuccess("[Parser] Se esperaba una condicion en la sentencia when"); }
+	WHEN '(' condicion ')' bloque_sentencias { logger.logSuccess("[Parser] Se esperaba un ; al final de la sentencia when"); }
 ;
 
 seleccion:
