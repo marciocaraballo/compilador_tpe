@@ -108,13 +108,16 @@ sentencia_ejecutable:
 
 sentencia_ejecutable_do:
 	sentencia_ejecutable |
-	sentencia_break ';' |
+	sentencia_break |
 	sentencia_continue
 ;
 
 sentencia_break:
-	BREAK |
-	BREAK ':' etiqueta
+	BREAK ';' { logger.logSuccess("[Parser] Sentencia break detectada"); } |
+	BREAK ':' etiqueta ';' { logger.logSuccess("[Parser] Sentencia break con etiqueta detectada"); }  |
+	BREAK { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
+	BREAK ':' etiqueta { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
+	BREAK ':' ';' { logger.logError("[Parser] Se esperaba una etiqueta len la sentencia break"); } 
 ;
 
 sentencia_continue:
