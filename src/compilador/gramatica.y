@@ -72,7 +72,8 @@ lista_parametros_exceso:
 ;
 
 parametro:
-	tipo ID
+	tipo ID |
+	ID { logger.logError("[Parser] Se espereaba un tipo para el parametro"); }
 ;
 
 declaracion_constantes:
