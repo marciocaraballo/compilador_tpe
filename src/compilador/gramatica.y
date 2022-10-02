@@ -42,8 +42,9 @@ sentencia_declarativa:
 
 sentencia_declarativa_variables:
 	tipo lista_de_variables ';' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
-	tipo lista_de_variables { logger.logSuccess("[Parser] Se esperaba un ; al final de la lista de variables"); } |
-	lista_de_variables ';' { logger.logSuccess("[Parser] Se esperaba un tipo para la lista de variables"); }
+	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un ; al final de la lista de variables"); } |
+	lista_de_variables ';' { logger.logError("[Parser] Se esperaba un tipo para la lista de variables"); } |
+	tipo ';' { logger.logError("[Parser] Se esperaba una variable o lista de variables"); }
 ;
 
 lista_de_variables:
