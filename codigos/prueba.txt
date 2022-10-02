@@ -1,5 +1,7 @@
 << este programa es 
 sarasa de prueba >>
 programa1 {
-
+	f64 a;
+	
+	a =: 1.2250738585072014D-308;
 }

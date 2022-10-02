@@ -30,14 +30,16 @@ public class AS8 extends AccionSemantica {
 		//devolver char a la entrada
 		fileHelper.reset();
 		
-		if (!(parsedDouble == 0.0 || 
-			(2.2250738585072014E-308 < parsedDouble && parsedDouble < 1.7976931348623157E+308)
-			)) {
-
-			logger.logError("[Lexico] Rango invalido para la constante: " + lexema.toString() + ", se descarta" );
+		if (parsedDouble != 0 && (parsedDouble > 1.7976931348623157E+308 || 2.2250738585072014E-308 < parsedDouble)) {
+			logger.logWarning("[Lexico] Rango invalido para la constante: " + lexema.toString() + ", se trunca al rango permitido");
 			lexema.setLength(0);
-			
-			return -1;
+			//double es mayor que el maximo permitido
+			if (parsedDouble > 1.7976931348623157E+308) {
+				lexema.append("1.7976931348623157D+308");
+			} else {
+				//double es menor que el minimo permitido
+				lexema.append("2.2250738585072014D-308");
+			}
 		}
 		
 		if (TS.has(lexema.toString())) {
