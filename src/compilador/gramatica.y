@@ -13,16 +13,14 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 %%
 
 programa: 
-	nombre_programa bloque_sentencias { logger.logSuccess("[Parser] Programa correcto detectado"); } |
-	bloque_sentencias { logger.logError("[Parser] Se esperaba nombre del programa"); }
+	nombre_programa '{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
+	'{' sentencias '}' { logger.logError("[Parser] Se esperaba nombre del programa"); } |
+	nombre_programa sentencias '}' { logger.logError("[Parser] Se esperaba un { antes de las sentencias del programa"); } | 
+	nombre_programa '{' sentencias { logger.logError("[Parser] Se esperaba un } al final de las sentencias del programa"); }
 ;
 
 nombre_programa: 
 	ID
-;
-
-bloque_sentencias: 
-	'{' sentencias '}'
 ;
 
 sentencias: 
@@ -166,12 +164,17 @@ asignacion:
 ; 
 
 sentencia_when:
-	WHEN '(' condicion ')' THEN bloque_sentencias ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
-	WHEN condicion ')' THEN bloque_sentencias ';' { logger.logError("[Parser] Se esperaba un ( en la condicion de la sentencia when"); } |
-	WHEN '(' condicion THEN bloque_sentencias ';' { logger.logError("[Parser] Se esperaba un ) en la condicion de la sentencia when"); } |
-	WHEN '(' condicion ')' bloque_sentencias ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
-	WHEN '(' ')' bloque_sentencias ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
-	WHEN '(' condicion ')' bloque_sentencias { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
+	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN condicion ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba un ( en la condicion de la sentencia when"); } |
+	WHEN '(' condicion THEN '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba un ) en la condicion de la sentencia when"); } |
+	WHEN '(' condicion ')' '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
+	WHEN '(' ')' '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
+	WHEN '(' condicion ')' '{' bloque_sentencias_when '}' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
+;
+
+bloque_sentencias_when:
+	sentencia |	
+	sentencia sentencias
 ;
 
 seleccion:
