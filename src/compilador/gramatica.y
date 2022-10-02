@@ -167,11 +167,9 @@ asignacion:
 
 sentencia_when:
 	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
-	WHEN condicion ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba un ( en la condicion de la sentencia when"); } |
-	WHEN '(' condicion THEN '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba un ) en la condicion de la sentencia when"); } |
 	WHEN '(' condicion ')' '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
-	WHEN '(' ')' '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
-	WHEN '(' condicion ')' '{' bloque_sentencias_when '}' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
+	WHEN '(' ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
+	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when '}' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
 ;
 
 bloque_sentencias_when:
