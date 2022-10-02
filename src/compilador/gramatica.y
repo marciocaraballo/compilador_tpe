@@ -109,12 +109,17 @@ sentencia_ejecutable:
 sentencia_ejecutable_do:
 	sentencia_ejecutable |
 	sentencia_break ';' |
-	CONTINUE ';'
+	sentencia_continue
 ;
 
 sentencia_break:
 	BREAK |
 	BREAK ':' etiqueta
+;
+
+sentencia_continue:
+	CONTINUE ';' { logger.logSuccess("[Parser] Sentencia continue detectada"); } |
+	CONTINUE { logger.logError("[Parser] Se esperaba un ; al final de la sentencia continue"); }
 ;
 
 sentencia_do:
