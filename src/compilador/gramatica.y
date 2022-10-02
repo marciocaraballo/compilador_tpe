@@ -181,7 +181,9 @@ seleccion:
 
 bloque_sentencias_ejecutables_seleccion:
 	sentencia_ejecutable |	
-	'{' sentencias_ejecutables '}'
+	'{' sentencias_ejecutables '}' |
+	sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaba un { para el bloque de sentencias en la sentencia if"); } |
+	'{' sentencias_ejecutables { logger.logError("[Parser] Se esperaba un } para el bloque de sentencias en la sentencia if"); }
 ;
 
 sentencias_ejecutables:
