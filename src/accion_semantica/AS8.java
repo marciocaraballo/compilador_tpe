@@ -30,7 +30,7 @@ public class AS8 extends AccionSemantica {
 		//devolver char a la entrada
 		fileHelper.reset();
 		
-		if (parsedDouble != 0 && (parsedDouble > 1.7976931348623157E+308 || 2.2250738585072014E-308 < parsedDouble)) {
+		if (parsedDouble != 0 && (parsedDouble > 1.7976931348623157E+308 || parsedDouble < 2.2250738585072014E-308)) {
 			logger.logWarning("[Lexico] Rango invalido para la constante: " + lexema.toString() + ", se trunca al rango permitido");
 			lexema.setLength(0);
 			//double es mayor que el maximo permitido

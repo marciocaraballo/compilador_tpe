@@ -647,9 +647,27 @@ public static TablaDeSimbolos ts = null;
 
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
-		ts.swapLexemas(constante, "-"+constante);
+		
+		String negConstante = "-"+constante;
+		
+		Double parsedDouble = Double.parseDouble(negConstante.replace('D', 'E'));
+		
+		if (parsedDouble < -2.2250738585072014E-308 && -1.7976931348623157E+308 > parsedDouble) {
+			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
+			
+			if (-1.7976931348623157E+308 < parsedDouble) {
+				negConstante = new String("-1.7976931348623157D+308");
+			} else {
+				negConstante =  new String("-2.2250738585072014D-308");
+			}
+		}
+		
+		ts.swapLexemas(constante, negConstante);
 	} else {
-		logger.logError("[Lexico] No se admiten ui16 con valores negativos: " + "-"+constante);
+		//se recibio un uint que fue aceptado por el lexico pero resulta ser negativo
+		logger.logWarning("[Parser] No se admiten ui16 con valores negativos: " + "-"+constante + ", se trunca a 0");
+		
+		ts.swapLexemas(constante, "0");
 	}
 }	
 
@@ -682,7 +700,7 @@ public static void main(String[] args) {
 		ts.print();
 	}
 }
-//#line 614 "Parser.java"
+//#line 632 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1060,7 +1078,7 @@ case 126:
 //#line 260 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 987 "Parser.java"
+//#line 1005 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
