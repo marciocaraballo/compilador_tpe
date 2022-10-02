@@ -38,7 +38,7 @@ sentencia:
 sentencia_declarativa:
 	tipo lista_de_variables ';' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
 	funcion { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
-	declaracion_constantes ';' { logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
+	declaracion_constantes { logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
 ;
 
 lista_de_variables:
@@ -76,7 +76,9 @@ parametro:
 ;
 
 declaracion_constantes:
-	CONST lista_declaracion_constantes
+	CONST lista_declaracion_constantes ';' |
+	CONST lista_declaracion_constantes { logger.logError("[Parser] Se esperaba ; al final de la declaracion de constantes"); } |
+	CONST ';' { logger.logError("[Parser] Se esperaba una lista de declaracion de constantes"); }
 ;
 
 lista_declaracion_constantes:
