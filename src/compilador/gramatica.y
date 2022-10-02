@@ -53,17 +53,24 @@ lista_de_variables:
 ;
 
 funcion: 
-	encabezado_funcion '{' cuerpo_funcion '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
-	encabezado_funcion cuerpo_funcion '}' { logger.logError("[Parser] Se esperaba { en la funcion"); }
+	encabezado_funcion '{' cuerpo_funcion '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
 encabezado_funcion:
 	FUN ID '(' ')' ':' tipo |
-	FUN ID '(' lista_de_parametros ')' ':' tipo
+	FUN ID '(' lista_de_parametros ')' ':' tipo |
+	FUN ID '(' ')' ':' |
+	FUN '(' ')' ':' tipo |
+	FUN ID ')' ':' tipo |
+	FUN ID '(' ':' tipo |
+	FUN ID '(' lista_de_parametros ')' ':' |
+	FUN '(' lista_de_parametros ')' ':' tipo |
+	FUN ID lista_de_parametros ')' ':' tipo |
+	FUN ID '(' lista_de_parametros ':' tipo
 ;
 
 cuerpo_funcion:
-	sentencias RETURN'(' expresion ')'';'
+	sentencias RETURN'(' expresion ')' ';'
 ;
 
 lista_de_parametros:
