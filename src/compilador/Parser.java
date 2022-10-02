@@ -802,14 +802,6 @@ case 2:
 //#line 17 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba nombre del programa"); }
 break;
-case 10:
-//#line 40 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-break;
-case 11:
-//#line 41 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
-break;
 case 12:
 //#line 45 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
@@ -822,6 +814,10 @@ case 14:
 //#line 47 ".\gramatica.y"
 { logger.logSuccess("[Parser] Se esperaba un tipo para la lista de variables"); }
 break;
+case 17:
+//#line 56 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+break;
 case 18:
 //#line 57 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba { en la funcion"); }
@@ -833,6 +829,10 @@ break;
 case 28:
 //#line 82 ".\gramatica.y"
 { logger.logError("[Parser] Se espereaba un tipo para el parametro"); }
+break;
+case 29:
+//#line 86 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
 break;
 case 30:
 //#line 87 ".\gramatica.y"
