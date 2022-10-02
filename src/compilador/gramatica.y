@@ -89,8 +89,8 @@ declaracion_constante:
 ;
 
 sentencia_ejecutable:
-	asignacion ';' |
-	DEFER asignacion ';' |
+	asignacion |
+	DEFER asignacion |
 	seleccion ';' |
 	DEFER seleccion ';' |
 	imprimir ';' |
@@ -132,8 +132,9 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion { logger.logSuccess("[Parser] Asignacion detectada"); } |
-	ID ASIGNACION {logger.logError("[Parser] Asignacion incorrecta porque falta la expresion");}
+	ID ASIGNACION expresion ';' { logger.logSuccess("[Parser] Asignacion detectada"); } |
+	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
+	ID ASIGNACION expresion { logger.logSuccess("[Parser] Se espera un ; al final de la asignacion"); }
 ; 
 
 sentencia_when:
