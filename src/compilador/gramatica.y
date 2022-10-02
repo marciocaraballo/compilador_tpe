@@ -14,9 +14,10 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 
 programa: 
 	nombre_programa '{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
-	'{' sentencias '}' { logger.logError("[Parser] Se esperaba nombre del programa"); } |
+	'{' sentencias '}' { logger.logError("[Parser] Se esperaba un identificador nombre del programa"); } |
 	nombre_programa sentencias '}' { logger.logError("[Parser] Se esperaba un { antes de las sentencias del programa"); } | 
-	nombre_programa '{' sentencias { logger.logError("[Parser] Se esperaba un } al final de las sentencias del programa"); }
+	nombre_programa '{' sentencias { logger.logError("[Parser] Se esperaba un } al final de las sentencias del programa"); } |
+	nombre_programa '{' '}' { logger.logError("[Parser] Se esperaban sentencias del programa"); }
 ;
 
 nombre_programa: 

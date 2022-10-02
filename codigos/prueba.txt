@@ -1,7 +1,5 @@
 << este programa es 
 sarasa de prueba >>
 programa1 {
-	ui16 a;
-	
-	a=:6;
+
 }
