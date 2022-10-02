@@ -208,7 +208,12 @@ parametro_real:
 
 imprimir:
 	OUT '(' CADENA ')' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
-	OUT '(' ID ')' { logger.logSuccess("[Parser] Sentencia out detectada"); }
+	OUT '(' ID ')' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
+	OUT '(' ')' { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); } |
+	OUT CADENA ')' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
+	OUT '(' CADENA { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); } |
+	OUT ID ')' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
+	OUT '(' ID { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); }
 ;
 
 constante:
