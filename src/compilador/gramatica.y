@@ -109,8 +109,8 @@ sentencia_ejecutable:
 	DEFER imprimir |
 	sentencia_when |
 	DEFER sentencia_when |
-	sentencia_do ';' |
-	DEFER sentencia_do ';'
+	sentencia_do |
+	DEFER sentencia_do
 ;
 
 sentencia_ejecutable_do:
@@ -124,7 +124,7 @@ sentencia_break:
 	BREAK ':' etiqueta ';' { logger.logSuccess("[Parser] Sentencia break con etiqueta detectada"); }  |
 	BREAK { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
 	BREAK ':' etiqueta { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
-	BREAK ':' ';' { logger.logError("[Parser] Se esperaba una etiqueta len la sentencia break"); } 
+	BREAK ':' ';' { logger.logError("[Parser] Se esperaba una etiqueta en la sentencia break"); } 
 ;
 
 sentencia_continue:
@@ -133,8 +133,16 @@ sentencia_continue:
 ;
 
 sentencia_do:
-	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logSuccess("[Parser] Sentencia do until con etiqueta detectada"); }
+	sentencia_do_simple |
+	etiqueta ':' sentencia_do_simple
+;
+
+sentencia_do_simple:
+	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); } |
+	DO bloque_sentencias_ejecutables_do UNTIL '(' ')' ';' { logger.logError("[Parser] Se esperaba una condicion para la sentencia do"); } |
+	DO bloque_sentencias_ejecutables_do UNTIL condicion ')' ';' { logger.logSuccess("[Parser] Se esperaba un ( en la condicion para la sentencia do"); } |
+	DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ';' { logger.logSuccess("[Parser] Se esperaba un ) en la condicion para la sentencia do"); }
 ;
 
 etiqueta:
