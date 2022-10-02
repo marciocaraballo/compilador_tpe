@@ -103,8 +103,8 @@ declaracion_constante:
 sentencia_ejecutable:
 	asignacion |
 	DEFER asignacion |
-	seleccion ';' |
-	DEFER seleccion ';' |
+	seleccion |
+	DEFER seleccion |
 	imprimir |
 	DEFER imprimir |
 	sentencia_when |
@@ -180,8 +180,8 @@ bloque_sentencias_when:
 ;
 
 seleccion:
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
 ;
 
 bloque_sentencias_ejecutables_seleccion:
