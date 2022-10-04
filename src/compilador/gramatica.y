@@ -62,12 +62,23 @@ funcion_sentencias_con_return:
 ;
 
 cuerpo_funcion_sentencias_con_return:
-	sentencias sentencia_ejecutable_con_return
+	sentencia_ejecutable_con_return
 ;
 
 sentencia_ejecutable_con_return:
+	seleccion_con_return |
 	sentencia_do_con_return sentencia_return |
 	DEFER sentencia_do_con_return sentencia_return
+;
+
+seleccion_con_return:
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';' sentencia_return { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
+;
+
+bloque_sentencias_ejecutables_seleccion_con_return:
+	sentencia_return |	
+	'{' sentencias_ejecutables sentencia_return '}'
 ;
 
 sentencia_do_con_return:
