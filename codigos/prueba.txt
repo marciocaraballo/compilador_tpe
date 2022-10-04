@@ -2,10 +2,10 @@
 sarasa de prueba >>
 programa1 {
 
-	fun f1 (ui16 y) : ui16
+	fun f1 (ui16 y) : i16
 	{
-		ui16 x;
+		i16 x;
 		x =: y;
-		return ();
+		return (x);
 	}
 }

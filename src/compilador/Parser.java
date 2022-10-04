@@ -820,7 +820,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE64",
 };
 
-//#line 346 ".\gramatica.y"
+//#line 347 ".\gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
@@ -1149,7 +1149,7 @@ case 60:
 break;
 case 64:
 //#line 148 ".\gramatica.y"
-{ logger.logError("[Parser] Se espereaba un tipo para el parametro"); }
+{ logger.logError("[Parser] Se esperaba un tipo valido para el parametro"); }
 break;
 case 65:
 //#line 152 ".\gramatica.y"
@@ -1233,7 +1233,7 @@ case 107:
 break;
 case 108:
 //#line 231 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Se espera un ; al final de la asignacion"); }
+{ logger.logError("[Parser] Se espera un ; al final de la asignacion"); }
 break;
 case 109:
 //#line 235 ".\gramatica.y"

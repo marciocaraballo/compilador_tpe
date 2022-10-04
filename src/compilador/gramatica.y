@@ -145,7 +145,7 @@ lista_parametros_exceso:
 
 parametro:
 	tipo ID |
-	ID { logger.logError("[Parser] Se espereaba un tipo para el parametro"); }
+	ID { logger.logError("[Parser] Se esperaba un tipo valido para el parametro"); }
 ;
 
 declaracion_constantes:
@@ -228,7 +228,7 @@ sentencias_ejecutables_do:
 asignacion:
 	ID ASIGNACION expresion ';' { logger.logSuccess("[Parser] Asignacion detectada"); } |
 	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
-	ID ASIGNACION expresion { logger.logSuccess("[Parser] Se espera un ; al final de la asignacion"); }
+	ID ASIGNACION expresion { logger.logError("[Parser] Se espera un ; al final de la asignacion"); }
 ; 
 
 sentencia_when:
@@ -341,7 +341,8 @@ constante:
 tipo:
 	UINT16 |
 	DOUBLE64
-	
+;
+
 %%
 
 public static AnalizadorLexico lexico = null;
