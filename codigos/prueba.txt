@@ -2,7 +2,7 @@
 sarasa de prueba >>
 programa1 {
 
-	fun f3() : ui16 
+	fun# f3() : ui16 
 	{
 		when (x  > 0) then {
 			return (x);

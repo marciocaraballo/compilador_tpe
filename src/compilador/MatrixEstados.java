@@ -8,7 +8,7 @@ public class MatrixEstados {
 	private int[][] matrixEstados = {
 			   /*L*/ /*l*/ /*d*/ /*"D"*/ /*“_”*/ /*"+"*/ /*"-"*/ /*"{"*/ /*"}"*/ /*"("*/ /*")"*/ /*";"*/ /*"/"*/ /*"*"*/ /*","*/ /*"="*/ /*">"*/ /*"<"*/ /*":"*/ /*"!"*/ /*"."*/ /*"'"*/ /*tab*/ /*bl*/ /*nl*/ /*"eof"*/  /*cr*/  /*others*/
 		/* 0*/ {  1,    1,    2,      1,      E,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      3,      4,      5,      F,      E,      9,      8,      0,     0,     0,        F,	  0,		  E},
-		/* 1*/ {  1,    1,    1,      1,      1,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,     F,     F,        F, 	  F,		  E},
+		/* 1*/ {  1,    1,    1,      1,      1,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,     F,     F,        F, 	  F,		  F},
 		/* 2*/ {  F,    F,    2,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,     10,      F,      F,     F,     F,        F,      F,		  E},
 		/* 3*/ {  F,    F,    F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,     F,     F,        F,      F,		  E},
 		/* 4*/ {  F,    F,    F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,      F,     F,     F,        F,      F,		  E},
