@@ -66,9 +66,21 @@ cuerpo_funcion_sentencias_con_return:
 ;
 
 sentencia_ejecutable_con_return:
+	sentencia_when_con_return |
+	DEFER sentencia_when_con_return |
 	seleccion_con_return |
+	DEFER seleccion_con_return |
 	sentencia_do_con_return sentencia_return |
 	DEFER sentencia_do_con_return sentencia_return
+;
+
+sentencia_when_con_return:
+	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
+;
+
+bloque_sentencias_when_con_return:
+	sentencia_return |
+	bloque_sentencias_when sentencia_return
 ;
 
 seleccion_con_return:
