@@ -1083,6 +1083,38 @@ case 39:
 //#line 102 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia do until detectada"); }
 break;
+case 44:
+//#line 113 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); }
+break;
+case 45:
+//#line 114 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); }
+break;
+case 46:
+//#line 115 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); }
+break;
+case 47:
+//#line 116 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ) luego del nombre para la funcion"); }
+break;
+case 48:
+//#line 117 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); }
+break;
+case 49:
+//#line 118 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); }
+break;
+case 50:
+//#line 119 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); }
+break;
+case 51:
+//#line 120 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ) luego del nombre para la funcion"); }
+break;
 case 56:
 //#line 134 ".\gramatica.y"
 { logger.logError("[Parser] Hay mas de 2 parametros en la funcion"); }
@@ -1311,7 +1343,7 @@ case 167:
 //#line 334 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1238 "Parser.java"
+//#line 1270 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -110,14 +110,14 @@ bloque_sentencias_ejecutables_do_con_return:
 encabezado_funcion:
 	FUN ID '(' ')' ':' tipo |
 	FUN ID '(' lista_de_parametros ')' ':' tipo |
-	FUN ID '(' ')' ':' |
-	FUN '(' ')' ':' tipo |
-	FUN ID ')' ':' tipo |
-	FUN ID '(' ':' tipo |
-	FUN ID '(' lista_de_parametros ')' ':' |
-	FUN '(' lista_de_parametros ')' ':' tipo |
-	FUN ID lista_de_parametros ')' ':' tipo |
-	FUN ID '(' lista_de_parametros ':' tipo
+	FUN ID '(' ')' ':' { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); } |
+	FUN '(' ')' ':' tipo { logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); } |
+	FUN ID ')' ':' tipo { logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); } |
+	FUN ID '(' ':' tipo { logger.logError("[Parser] Se esperaba un ) luego del nombre para la funcion"); } |
+	FUN ID '(' lista_de_parametros ')' ':' { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); } |
+	FUN '(' lista_de_parametros ')' ':' tipo { logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); } |
+	FUN ID lista_de_parametros ')' ':' tipo { logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); } |
+	FUN ID '(' lista_de_parametros ':' tipo { logger.logError("[Parser] Se esperaba un ) luego del nombre para la funcion"); }
 ;
 
 sentencia_return:
