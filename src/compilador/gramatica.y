@@ -121,7 +121,11 @@ encabezado_funcion:
 ;
 
 sentencia_return:
-	RETURN'(' expresion ')' ';'
+	RETURN '(' expresion ')' ';' |
+	RETURN '(' expresion ')' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia return"); } |
+	RETURN  expresion ')' { logger.logError("[Parser] Se esperaba un ( en la sentencia return"); } |
+	RETURN '(' expresion { logger.logError("[Parser] Se esperaba un ) en la sentencia return"); }  |
+	RETURN '(' ')' ';' { logger.logError("[Parser] Se esperaba una expresion en la sentencia return"); }
 ;
 
 cuerpo_funcion_return_simple:
