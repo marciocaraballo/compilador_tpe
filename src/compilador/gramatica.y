@@ -26,7 +26,7 @@ nombre_programa:
 
 sentencias: 
 	sentencia |
-	sentencia sentencias
+	sentencias sentencia
 ;
 
 sentencia:
@@ -37,6 +37,7 @@ sentencia:
 sentencia_declarativa:
 	sentencia_declarativa_variables |
 	funcion_return_simple |
+	funcion_sentencias_con_return |
 	declaracion_constantes
 ;
 
@@ -54,6 +55,33 @@ lista_de_variables:
 
 funcion_return_simple: 
 	encabezado_funcion '{' cuerpo_funcion_return_simple '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+;
+
+funcion_sentencias_con_return: 
+	encabezado_funcion '{' cuerpo_funcion_sentencias_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+;
+
+cuerpo_funcion_sentencias_con_return:
+	sentencias sentencia_ejecutable_con_return
+;
+
+sentencia_ejecutable_con_return:
+	sentencia_do_con_return sentencia_return |
+	DEFER sentencia_do_con_return sentencia_return
+;
+
+sentencia_do_con_return:
+	sentencia_do_simple_con_return |
+	etiqueta ':' sentencia_do_simple_con_return
+;
+
+sentencia_do_simple_con_return:
+	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
+;
+
+bloque_sentencias_ejecutables_do_con_return:
+	sentencia_return |	
+	'{' sentencias_ejecutables_do sentencia_return '}'
 ;
 
 encabezado_funcion:
