@@ -36,7 +36,7 @@ sentencia:
 
 sentencia_declarativa:
 	sentencia_declarativa_variables |
-	funcion |
+	funcion_return_simple |
 	declaracion_constantes
 ;
 
@@ -52,8 +52,8 @@ lista_de_variables:
 	ID
 ;
 
-funcion: 
-	encabezado_funcion '{' cuerpo_funcion '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+funcion_return_simple: 
+	encabezado_funcion '{' cuerpo_funcion_return_simple '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
 encabezado_funcion:
@@ -69,7 +69,7 @@ encabezado_funcion:
 	FUN ID '(' lista_de_parametros ':' tipo
 ;
 
-cuerpo_funcion:
+cuerpo_funcion_return_simple:
 	sentencias RETURN'(' expresion ')' ';'
 ;
 
