@@ -69,8 +69,12 @@ encabezado_funcion:
 	FUN ID '(' lista_de_parametros ':' tipo
 ;
 
+sentencia_return:
+	RETURN'(' expresion ')' ';'
+;
+
 cuerpo_funcion_return_simple:
-	sentencias RETURN'(' expresion ')' ';'
+	sentencias sentencia_return
 ;
 
 lista_de_parametros:
