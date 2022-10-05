@@ -161,6 +161,7 @@ lista_parametros_exceso:
 
 parametro:
 	tipo ID |
+	tipo | { logger.logError("[Parser] Se esperaba un identificador nombre para el parametro"); }
 	ID { logger.logError("[Parser] Se esperaba un tipo valido para el parametro"); }
 ;
 

@@ -2,6 +2,22 @@
 sarasa de prueba >>
 programa1 {
 
+	ui16 g;
+	
+	g =: 0;
+
+	do {
+		a =: a + b;
+		
+		do {
+			a =: a + b;
+				
+			if (c > 0) then
+				a =: b;
+			end_if;
+		} until(g > 0);
+	} until(g > 0);
+
 	fun f3 () : ui16
 	{
 		ui16 x;
