@@ -8,7 +8,11 @@ programa1 {
 		x =: 1.2;
 		
 		if (x > 0.0) then
-			return (x+1);
+			if (w > 0.0) then
+				return (x+1);
+			else
+				return (x+1);
+			end_if;
 		else
 			return (x+1);
 		end_if;
