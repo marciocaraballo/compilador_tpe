@@ -36,8 +36,7 @@ sentencia:
 
 sentencia_declarativa:
 	sentencia_declarativa_variables |
-	funcion_return_simple |
-	funcion_sentencias_con_return |
+	funcion_con_return |
 	declaracion_constantes
 ;
 
@@ -53,25 +52,38 @@ lista_de_variables:
 	ID
 ;
 
-funcion_return_simple: 
-	encabezado_funcion '{' cuerpo_funcion_return_simple '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+funcion_con_return:
+	encabezado_funcion '{' cuerpo_funcion_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
-funcion_sentencias_con_return: 
-	encabezado_funcion '{' cuerpo_funcion_sentencias_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+cuerpo_funcion_con_return:
+	sentencia_return |
+	sentencias_funcion_con_return sentencia_return
 ;
 
-cuerpo_funcion_sentencias_con_return:
-	sentencia_ejecutable_con_return
+sentencias_funcion_con_return:
+	sentencia_funcion_con_return |
+	sentencias_funcion_con_return sentencia_funcion_con_return
 ;
 
-sentencia_ejecutable_con_return:
+sentencia_funcion_con_return:
+	sentencia_declarativa |
+	sentencia_ejecutable |
 	sentencia_when_con_return |
 	DEFER sentencia_when_con_return |
-	seleccion_con_return |
-	DEFER seleccion_con_return |
-	sentencia_do_con_return sentencia_return |
-	DEFER sentencia_do_con_return sentencia_return
+	sentencia_do_con_return |
+	DEFER sentencia_do_con_return |
+	sentencia_seleccion_simple_con_return |
+	DEFER sentencia_seleccion_simple_con_return
+;
+
+sentencia_seleccion_simple_con_return:
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'
+;
+
+bloque_sentencias_ejecutables_seleccion_simple_con_return:
+	sentencia_return |	
+	'{' sentencias_ejecutables sentencia_return '}'
 ;
 
 sentencia_when_con_return:
@@ -81,16 +93,6 @@ sentencia_when_con_return:
 bloque_sentencias_when_con_return:
 	sentencia_return |
 	sentencias_when sentencia_return
-;
-
-seleccion_con_return:
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';' sentencia_return { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
-;
-
-bloque_sentencias_ejecutables_seleccion_con_return:
-	sentencia_return |	
-	'{' sentencias_ejecutables sentencia_return '}'
 ;
 
 sentencia_do_con_return:
@@ -126,15 +128,6 @@ sentencia_return:
 	RETURN  expresion ')' { logger.logError("[Parser] Se esperaba un ( en la sentencia return"); } |
 	RETURN '(' expresion { logger.logError("[Parser] Se esperaba un ) en la sentencia return"); }  |
 	RETURN '(' ')' ';' { logger.logError("[Parser] Se esperaba una expresion en la sentencia return"); }
-;
-
-cuerpo_funcion_return_simple:
-	sentencias_funcion sentencia_return
-;
-
-sentencias_funcion:
-	sentencia |
-	sentencias_funcion sentencia
 ;
 
 lista_de_parametros:

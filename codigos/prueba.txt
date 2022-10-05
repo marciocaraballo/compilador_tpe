@@ -2,15 +2,34 @@
 sarasa de prueba >>
 programa1 {
 
-	fun f1 (ui16 y) : ui16
+	fun f3 () : ui16
 	{
-		if (a = b) then {
-			a =: c;
-			return (a);
-		} else {
-			a =: c;
-			return (b);
-		}
+		ui16 x;
+		x =: 1.2;
+		
+		if (x > 0.0) then
+			return (x+1);
 		end_if;
+		
+		if (x > 0.0) then
+			return (x+1);
+		end_if;
+		
+		when (d = 0) then {
+			
+			if (a>=0)
+				a =: a+1;
+			else
+				b =: c+1;
+			end_if;
+			
+			return (1+1);
+		};
+		
+		do
+			return (2+2);
+		until (c>=0);
+		
+		return (x+1);
 	}
 }
