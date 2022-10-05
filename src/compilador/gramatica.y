@@ -71,21 +71,6 @@ sentencias_funcion_con_return:
 	sentencias_funcion_con_return sentencia_funcion_con_return
 ;
 
-cuerpo_funcion_sin_return:
-	sentencia_seleccion_compuesta_con_return |
-	sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return;
-;
-
-sentencia_seleccion_compuesta_con_return:
-		IF '(' condicion ')' THEN sentencia_return ELSE sentencia_return ENDIF ';' |
-		IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'
-;
-
-bloque_sentencias_ejecutables_seleccion_con_return:
-	sentencia_seleccion_compuesta_con_return |
-	'{' sentencia_seleccion_compuesta_con_return sentencia_funcion_con_return '}'
-;
-
 sentencia_funcion_con_return:
 	sentencia_declarativa |
 	sentencia_ejecutable |
@@ -95,6 +80,20 @@ sentencia_funcion_con_return:
 	DEFER sentencia_do_con_return |
 	sentencia_seleccion_simple_con_return |
 	DEFER sentencia_seleccion_simple_con_return
+;
+
+cuerpo_funcion_sin_return:
+	sentencia_seleccion_compuesta_con_return |
+	sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return;
+;
+
+sentencia_seleccion_compuesta_con_return:
+		IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'
+;
+
+bloque_sentencias_ejecutables_seleccion_con_return:
+	sentencia_return |
+	'{' sentencias_ejecutables sentencia_return '}'
 ;
 
 sentencia_seleccion_simple_con_return:
