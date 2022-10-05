@@ -80,7 +80,7 @@ sentencia_when_con_return:
 
 bloque_sentencias_when_con_return:
 	sentencia_return |
-	bloque_sentencias_when sentencia_return
+	sentencias_when sentencia_return
 ;
 
 seleccion_con_return:
@@ -129,7 +129,12 @@ sentencia_return:
 ;
 
 cuerpo_funcion_return_simple:
-	sentencias sentencia_return
+	sentencias_funcion sentencia_return
+;
+
+sentencias_funcion:
+	sentencia |
+	sentencias_funcion sentencia
 ;
 
 lista_de_parametros:
@@ -232,15 +237,15 @@ asignacion:
 ; 
 
 sentencia_when:
-	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
-	WHEN '(' condicion ')' '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
-	WHEN '(' ')' THEN '{' bloque_sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
-	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when '}' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
+	WHEN '(' condicion ')' THEN '{' sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN '(' condicion ')' '{' sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
+	WHEN '(' ')' THEN '{' sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
+	WHEN '(' condicion ')' THEN '{' sentencias_when '}' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
 ;
 
-bloque_sentencias_when:
-	sentencia |	
-	sentencia sentencias
+sentencias_when:
+	sentencia |
+	sentencia sentencias_when
 ;
 
 seleccion:
