@@ -1,0 +1,27 @@
+[Success] Linea 5: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 11: [Parser] Asignacion detectada
+[Success] Linea 14: [Parser] Asignacion detectada
+[Success] Linea 17: [Parser] Asignacion detectada
+[Success] Linea 18: [Parser] Sentencia if then detectada
+[Success] Linea 19: [Parser] Sentencia do until detectada
+[Success] Linea 20: [Parser] Sentencia do until detectada
+[Success] Linea 24: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 25: [Parser] Asignacion detectada
+[Success] Linea 31: [Parser] Asignacion detectada
+[Success] Linea 32: [Parser] Sentencia do until detectada
+[Success] Linea 35: [Parser] Asignacion detectada
+[Success] Linea 36: [Parser] Sentencia when detectada
+[Success] Linea 37: [Parser] Sentencia if then else detectada
+[Success] Linea 40: [Parser] Asignacion detectada
+[Success] Linea 42: [Parser] Asignacion detectada
+[Success] Linea 43: [Parser] Sentencia if then else detectada
+[Success] Linea 44: [Parser] Sentencia if then else detectada
+[Success] Linea 46: [Parser] Asignacion detectada
+[Success] Linea 47: [Parser] Sentencia if then else detectada
+[Success] Linea 49: [Parser] Asignacion detectada
+[Success] Linea 50: [Parser] Sentencia if then else detectada
+[Success] Linea 53: [Parser] Declaracion de funcion detectado
+[Success] Linea 55: [Parser] Asignacion detectada
+[Success] Linea 56: [Parser] Programa correcto detectado

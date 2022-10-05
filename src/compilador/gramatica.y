@@ -1,5 +1,6 @@
 %{
 package compilador;
+import java.io.File;
 %}
 
 %token ID CTE CADENA IF THEN ELSE ENDIF OUT FUN RETURN BREAK ASIGNACION COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_DISTINTO
@@ -368,6 +369,10 @@ public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
 public static TablaDeSimbolos ts = null;
 
+public void print(String valor){
+	System.out.println("VALORRRRRRR: " + valor);
+}
+
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
 		
@@ -419,7 +424,18 @@ public static void main(String[] args) {
 		lexico = new AnalizadorLexico(fileHelper, ts, logger);
 		
         parser.run();
-			
-		ts.print();
+
+		String path = new File(archivo_a_leer).getAbsolutePath().replaceAll(args[0],"");
+        
+        Output out = new Output(path);
+        
+        String printTs = ts.print();
+        
+        
+        out.saveFile("codigo-lexico.txt", logger.getLexico());
+		out.saveFile("codigo-sintetico.txt", logger.getSintactico());
+		out.saveFile("tabla-de-simbolos.txt", printTs);
+        
+		System.out.println(printTs);
 	}
 }

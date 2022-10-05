@@ -1,0 +1,4923 @@
+   0  $accept : programa $end
+
+   1  programa : nombre_programa '{' sentencias '}'
+   2           | '{' sentencias '}'
+   3           | nombre_programa sentencias '}'
+   4           | nombre_programa '{' sentencias
+   5           | nombre_programa '{' '}'
+
+   6  nombre_programa : ID
+
+   7  sentencias : sentencia
+   8             | sentencias sentencia
+
+   9  sentencia : sentencia_declarativa
+  10            | sentencia_ejecutable
+
+  11  sentencia_declarativa : sentencia_declarativa_variables
+  12                        | funcion_con_return
+  13                        | funcion_sin_return
+  14                        | declaracion_constantes
+
+  15  sentencia_declarativa_variables : tipo lista_de_variables ';'
+  16                                  | tipo lista_de_variables
+  17                                  | lista_de_variables ';'
+  18                                  | tipo ';'
+
+  19  lista_de_variables : ID ',' lista_de_variables
+  20                     | ID
+
+  21  funcion_con_return : encabezado_funcion '{' cuerpo_funcion_con_return '}'
+
+  22  funcion_sin_return : encabezado_funcion '{' cuerpo_funcion_sin_return '}'
+
+  23  cuerpo_funcion_con_return : sentencia_return
+  24                            | sentencias_funcion_con_return sentencia_return
+
+  25  sentencias_funcion_con_return : sentencia_funcion_con_return
+  26                                | sentencias_funcion_con_return sentencia_funcion_con_return
+
+  27  sentencia_funcion_con_return : sentencia_declarativa
+  28                               | sentencia_ejecutable
+  29                               | sentencia_when_con_return
+  30                               | DEFER sentencia_when_con_return
+  31                               | sentencia_do_con_return
+  32                               | DEFER sentencia_do_con_return
+  33                               | sentencia_seleccion_simple_con_return
+  34                               | DEFER sentencia_seleccion_simple_con_return
+
+  35  cuerpo_funcion_sin_return : sentencia_seleccion_compuesta_con_return
+  36                            | sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return
+
+  37  sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'
+
+  38  bloque_sentencias_ejecutables_seleccion_con_return : sentencia_return
+  39                                                     | '{' sentencias_ejecutables sentencia_return '}'
+
+  40  sentencia_seleccion_simple_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'
+
+  41  bloque_sentencias_ejecutables_seleccion_simple_con_return : sentencia_return
+  42                                                            | '{' sentencias_ejecutables sentencia_return '}'
+
+  43  sentencia_when_con_return : WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';'
+
+  44  bloque_sentencias_when_con_return : sentencia_return
+  45                                    | sentencias_when sentencia_return
+
+  46  sentencia_do_con_return : sentencia_do_simple_con_return
+  47                          | etiqueta ':' sentencia_do_simple_con_return
+
+  48  sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';'
+
+  49  bloque_sentencias_ejecutables_do_con_return : sentencia_return
+  50                                              | '{' sentencias_ejecutables_do sentencia_return '}'
+
+  51  encabezado_funcion : FUN ID '(' ')' ':' tipo
+  52                     | FUN ID '(' lista_de_parametros ')' ':' tipo
+  53                     | FUN ID '(' ')' ':'
+  54                     | FUN '(' ')' ':' tipo
+  55                     | FUN ID ')' ':' tipo
+  56                     | FUN ID '(' ':' tipo
+  57                     | FUN ID '(' lista_de_parametros ')' ':'
+  58                     | FUN '(' lista_de_parametros ')' ':' tipo
+  59                     | FUN ID lista_de_parametros ')' ':' tipo
+  60                     | FUN ID '(' lista_de_parametros ':' tipo
+
+  61  sentencia_return : RETURN '(' expresion ')' ';'
+  62                   | RETURN '(' expresion ')'
+  63                   | RETURN expresion ')'
+  64                   | RETURN '(' expresion
+  65                   | RETURN '(' ')' ';'
+
+  66  lista_de_parametros : parametro
+  67                      | parametro ',' parametro
+  68                      | parametro ',' parametro ',' lista_parametros_exceso
+
+  69  lista_parametros_exceso : parametro
+  70                          | parametro ',' lista_parametros_exceso
+
+  71  parametro : tipo ID
+  72            | tipo
+
+  73  $$1 :
+
+  74  parametro : $$1 ID
+
+  75  declaracion_constantes : CONST lista_declaracion_constantes ';'
+  76                         | CONST lista_declaracion_constantes
+  77                         | CONST ';'
+
+  78  lista_declaracion_constantes : declaracion_constante
+  79                               | declaracion_constante ',' lista_declaracion_constantes
+
+  80  declaracion_constante : ID ASIGNACION CTE
+  81                        | ID ASIGNACION
+  82                        | ID CTE
+  83                        | ID
+
+  84  sentencia_ejecutable : asignacion
+  85                       | DEFER asignacion
+  86                       | seleccion
+  87                       | DEFER seleccion
+  88                       | imprimir
+  89                       | DEFER imprimir
+  90                       | sentencia_when
+  91                       | DEFER sentencia_when
+  92                       | sentencia_do
+  93                       | DEFER sentencia_do
+
+  94  sentencia_ejecutable_do : sentencia_ejecutable
+  95                          | sentencia_break
+  96                          | sentencia_continue
+
+  97  sentencia_break : BREAK ';'
+  98                  | BREAK ':' etiqueta ';'
+  99                  | BREAK
+ 100                  | BREAK ':' etiqueta
+ 101                  | BREAK ':' ';'
+
+ 102  sentencia_continue : CONTINUE ';'
+ 103                     | CONTINUE
+
+ 104  sentencia_do : sentencia_do_simple
+ 105               | etiqueta ':' sentencia_do_simple
+
+ 106  sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' ';'
+ 107                      | DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')'
+ 108                      | DO bloque_sentencias_ejecutables_do UNTIL '(' ')' ';'
+ 109                      | DO bloque_sentencias_ejecutables_do UNTIL condicion ')' ';'
+ 110                      | DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ';'
+
+ 111  etiqueta : ID
+
+ 112  bloque_sentencias_ejecutables_do : sentencia_ejecutable_do
+ 113                                   | '{' sentencias_ejecutables_do '}'
+
+ 114  sentencias_ejecutables_do : sentencia_ejecutable_do
+ 115                            | sentencias_ejecutables_do sentencia_ejecutable_do
+
+ 116  asignacion : ID ASIGNACION expresion ';'
+ 117             | ID ASIGNACION ';'
+ 118             | ID ASIGNACION expresion
+
+ 119  sentencia_when : WHEN '(' condicion ')' THEN '{' sentencias_when '}' ';'
+ 120                 | WHEN '(' condicion ')' '{' sentencias_when '}' ';'
+
+ 121  $$2 :
+
+ 122  sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'
+
+ 123  sentencias_when : sentencia
+ 124                  | sentencia sentencias_when
+
+ 125  seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 126            | IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 127            | IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 128            | IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 129            | IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 130            | IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 131            | IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF
+ 132            | IF '(' condicion ')' THEN ENDIF ';'
+ 133            | IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 134            | IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 135            | IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 136            | IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 137            | IF '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'
+ 138            | IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'
+ 139            | IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF
+ 140            | IF '(' condicion ')' THEN ELSE ENDIF ';'
+
+ 141  bloque_sentencias_ejecutables_seleccion : sentencia_ejecutable
+ 142                                          | '{' sentencias_ejecutables '}'
+ 143                                          | sentencias_ejecutables '}'
+ 144                                          | '{' sentencias_ejecutables
+
+ 145  sentencias_ejecutables : sentencia_ejecutable
+ 146                         | sentencias_ejecutables sentencia_ejecutable
+
+ 147  condicion : expresion comparador expresion
+ 148            | expresion comparador
+
+ 149  $$3 :
+
+ 150  condicion : $$3 comparador expresion
+
+ 151  comparador : COMP_MAYOR_IGUAL
+ 152             | COMP_MENOR_IGUAL
+ 153             | COMP_DISTINTO
+ 154             | '>'
+ 155             | '<'
+ 156             | '='
+
+ 157  expresion : expresion '+' termino
+ 158            | expresion '-' termino
+ 159            | termino
+
+ 160  termino : termino '*' factor
+ 161          | termino '/' factor
+ 162          | factor
+
+ 163  factor : ID
+ 164         | constante
+ 165         | invocacion_funcion
+
+ 166  invocacion_funcion : ID '(' ')'
+ 167                     | ID '(' lista_de_parametros_reales ')'
+
+ 168  lista_de_parametros_reales : parametro_real
+ 169                             | lista_de_parametros_reales ',' parametro_real
+
+ 170  parametro_real : ID
+ 171                 | constante
+
+ 172  imprimir : OUT '(' CADENA ')' ';'
+ 173           | OUT '(' ID ')' ';'
+ 174           | OUT '(' ')' ';'
+ 175           | OUT CADENA ')' ';'
+ 176           | OUT '(' CADENA ';'
+ 177           | OUT ID ')' ';'
+ 178           | OUT '(' ID ';'
+ 179           | OUT '(' CADENA ')'
+ 180           | OUT '(' ID ')'
+
+ 181  constante : CTE
+ 182            | '-' CTE
+
+ 183  tipo : UINT16
+ 184       | DOUBLE64
+
+state 0
+	$accept : . programa $end  (0)
+
+	ID  shift 1
+	'{'  shift 2
+	.  error
+
+	programa  goto 3
+	nombre_programa  goto 4
+
+
+state 1
+	nombre_programa : ID .  (6)
+
+	.  reduce 6
+
+
+state 2
+	programa : '{' . sentencias '}'  (2)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	.  error
+
+	sentencias  goto 15
+	sentencia  goto 16
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 3
+	$accept : programa . $end  (0)
+
+	$end  accept
+
+
+state 4
+	programa : nombre_programa . '{' sentencias '}'  (1)
+	programa : nombre_programa . sentencias '}'  (3)
+	programa : nombre_programa . '{' sentencias  (4)
+	programa : nombre_programa . '{' '}'  (5)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	'{'  shift 33
+	.  error
+
+	sentencias  goto 34
+	sentencia  goto 16
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 5
+	lista_de_variables : ID . ',' lista_de_variables  (19)
+	lista_de_variables : ID .  (20)
+	etiqueta : ID .  (111)
+	asignacion : ID . ASIGNACION expresion ';'  (116)
+	asignacion : ID . ASIGNACION ';'  (117)
+	asignacion : ID . ASIGNACION expresion  (118)
+
+	ASIGNACION  shift 35
+	','  shift 36
+	';'  reduce 20
+	':'  reduce 111
+
+
+state 6
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF . '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (128)
+	seleccion : IF . '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF . '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF . '(' condicion ')' THEN ENDIF ';'  (132)
+	seleccion : IF . '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+	seleccion : IF . '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+	seleccion : IF . '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF . '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF . '(' condicion ')' THEN ELSE ENDIF ';'  (140)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	'('  shift 40
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 41
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 7
+	imprimir : OUT . '(' CADENA ')' ';'  (172)
+	imprimir : OUT . '(' ID ')' ';'  (173)
+	imprimir : OUT . '(' ')' ';'  (174)
+	imprimir : OUT . CADENA ')' ';'  (175)
+	imprimir : OUT . '(' CADENA ';'  (176)
+	imprimir : OUT . ID ')' ';'  (177)
+	imprimir : OUT . '(' ID ';'  (178)
+	imprimir : OUT . '(' CADENA ')'  (179)
+	imprimir : OUT . '(' ID ')'  (180)
+
+	ID  shift 48
+	CADENA  shift 49
+	'('  shift 50
+	.  error
+
+
+state 8
+	encabezado_funcion : FUN . ID '(' ')' ':' tipo  (51)
+	encabezado_funcion : FUN . ID '(' lista_de_parametros ')' ':' tipo  (52)
+	encabezado_funcion : FUN . ID '(' ')' ':'  (53)
+	encabezado_funcion : FUN . '(' ')' ':' tipo  (54)
+	encabezado_funcion : FUN . ID ')' ':' tipo  (55)
+	encabezado_funcion : FUN . ID '(' ':' tipo  (56)
+	encabezado_funcion : FUN . ID '(' lista_de_parametros ')' ':'  (57)
+	encabezado_funcion : FUN . '(' lista_de_parametros ')' ':' tipo  (58)
+	encabezado_funcion : FUN . ID lista_de_parametros ')' ':' tipo  (59)
+	encabezado_funcion : FUN . ID '(' lista_de_parametros ':' tipo  (60)
+
+	ID  shift 51
+	'('  shift 52
+	.  error
+
+
+state 9
+	sentencia_when : WHEN . '(' condicion ')' THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN . '(' condicion ')' '{' sentencias_when '}' ';'  (120)
+	sentencia_when : WHEN . '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	'('  shift 53
+	.  error
+
+
+state 10
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' ';'  (106)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' condicion ')'  (107)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' ')' ';'  (108)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL condicion ')' ';'  (109)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' condicion ';'  (110)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	BREAK  shift 55
+	WHEN  shift 9
+	DO  shift 10
+	CONTINUE  shift 56
+	DEFER  shift 13
+	'{'  shift 57
+	.  error
+
+	sentencia_ejecutable  goto 58
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_ejecutable_do  goto 59
+	sentencia_break  goto 60
+	sentencia_continue  goto 61
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_do  goto 62
+
+
+state 11
+	tipo : DOUBLE64 .  (184)
+
+	.  reduce 184
+
+
+state 12
+	tipo : UINT16 .  (183)
+
+	.  reduce 183
+
+
+state 13
+	sentencia_ejecutable : DEFER . asignacion  (85)
+	sentencia_ejecutable : DEFER . seleccion  (87)
+	sentencia_ejecutable : DEFER . imprimir  (89)
+	sentencia_ejecutable : DEFER . sentencia_when  (91)
+	sentencia_ejecutable : DEFER . sentencia_do  (93)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	.  error
+
+	etiqueta  goto 26
+	asignacion  goto 63
+	seleccion  goto 64
+	imprimir  goto 65
+	sentencia_when  goto 66
+	sentencia_do  goto 67
+	sentencia_do_simple  goto 32
+
+
+state 14
+	declaracion_constantes : CONST . lista_declaracion_constantes ';'  (75)
+	declaracion_constantes : CONST . lista_declaracion_constantes  (76)
+	declaracion_constantes : CONST . ';'  (77)
+
+	ID  shift 68
+	';'  shift 69
+	.  error
+
+	lista_declaracion_constantes  goto 70
+	declaracion_constante  goto 71
+
+
+state 15
+	programa : '{' sentencias . '}'  (2)
+	sentencias : sentencias . sentencia  (8)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	'}'  shift 72
+	.  error
+
+	sentencia  goto 73
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 16
+	sentencias : sentencia .  (7)
+
+	.  reduce 7
+
+
+state 17
+	sentencia : sentencia_declarativa .  (9)
+
+	.  reduce 9
+
+
+state 18
+	sentencia : sentencia_ejecutable .  (10)
+
+	.  reduce 10
+
+
+state 19
+	sentencia_declarativa : sentencia_declarativa_variables .  (11)
+
+	.  reduce 11
+
+
+state 20
+	sentencia_declarativa : funcion_con_return .  (12)
+
+	.  reduce 12
+
+
+state 21
+	sentencia_declarativa : funcion_sin_return .  (13)
+
+	.  reduce 13
+
+
+state 22
+	sentencia_declarativa : declaracion_constantes .  (14)
+
+	.  reduce 14
+
+
+state 23
+	sentencia_declarativa_variables : tipo . lista_de_variables ';'  (15)
+	sentencia_declarativa_variables : tipo . lista_de_variables  (16)
+	sentencia_declarativa_variables : tipo . ';'  (18)
+
+	ID  shift 74
+	';'  shift 75
+	.  error
+
+	lista_de_variables  goto 76
+
+
+state 24
+	sentencia_declarativa_variables : lista_de_variables . ';'  (17)
+
+	';'  shift 77
+	.  error
+
+
+state 25
+	funcion_con_return : encabezado_funcion . '{' cuerpo_funcion_con_return '}'  (21)
+	funcion_sin_return : encabezado_funcion . '{' cuerpo_funcion_sin_return '}'  (22)
+
+	'{'  shift 78
+	.  error
+
+
+state 26
+	sentencia_do : etiqueta . ':' sentencia_do_simple  (105)
+
+	':'  shift 79
+	.  error
+
+
+state 27
+	sentencia_ejecutable : asignacion .  (84)
+
+	.  reduce 84
+
+
+state 28
+	sentencia_ejecutable : seleccion .  (86)
+
+	.  reduce 86
+
+
+state 29
+	sentencia_ejecutable : imprimir .  (88)
+
+	.  reduce 88
+
+
+state 30
+	sentencia_ejecutable : sentencia_when .  (90)
+
+	.  reduce 90
+
+
+state 31
+	sentencia_ejecutable : sentencia_do .  (92)
+
+	.  reduce 92
+
+
+state 32
+	sentencia_do : sentencia_do_simple .  (104)
+
+	.  reduce 104
+
+
+state 33
+	programa : nombre_programa '{' . sentencias '}'  (1)
+	programa : nombre_programa '{' . sentencias  (4)
+	programa : nombre_programa '{' . '}'  (5)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	'}'  shift 80
+	.  error
+
+	sentencias  goto 81
+	sentencia  goto 16
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 34
+	programa : nombre_programa sentencias . '}'  (3)
+	sentencias : sentencias . sentencia  (8)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	'}'  shift 82
+	.  error
+
+	sentencia  goto 73
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 35
+	asignacion : ID ASIGNACION . expresion ';'  (116)
+	asignacion : ID ASIGNACION . ';'  (117)
+	asignacion : ID ASIGNACION . expresion  (118)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	';'  shift 83
+	.  error
+
+	expresion  goto 84
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 36
+	lista_de_variables : ID ',' . lista_de_variables  (19)
+
+	ID  shift 74
+	.  error
+
+	lista_de_variables  goto 85
+
+
+state 37
+	factor : ID .  (163)
+	invocacion_funcion : ID . '(' ')'  (166)
+	invocacion_funcion : ID . '(' lista_de_parametros_reales ')'  (167)
+
+	'('  shift 86
+	$end  reduce 163
+	ID  reduce 163
+	IF  reduce 163
+	THEN  reduce 163
+	ELSE  reduce 163
+	ENDIF  reduce 163
+	OUT  reduce 163
+	FUN  reduce 163
+	RETURN  reduce 163
+	BREAK  reduce 163
+	COMP_MAYOR_IGUAL  reduce 163
+	COMP_MENOR_IGUAL  reduce 163
+	COMP_DISTINTO  reduce 163
+	WHEN  reduce 163
+	DO  reduce 163
+	UNTIL  reduce 163
+	CONTINUE  reduce 163
+	DOUBLE64  reduce 163
+	UINT16  reduce 163
+	DEFER  reduce 163
+	CONST  reduce 163
+	'+'  reduce 163
+	'-'  reduce 163
+	'*'  reduce 163
+	'/'  reduce 163
+	'}'  reduce 163
+	';'  reduce 163
+	')'  reduce 163
+	'>'  reduce 163
+	'<'  reduce 163
+	'='  reduce 163
+
+
+state 38
+	constante : CTE .  (181)
+
+	.  reduce 181
+
+
+state 39
+	constante : '-' . CTE  (182)
+
+	CTE  shift 87
+	.  error
+
+
+state 40
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' . condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF '(' . condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' . condicion ')' THEN ENDIF ';'  (132)
+	seleccion : IF '(' . condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF '(' . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+	seleccion : IF '(' . condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' . condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' . condicion ')' THEN ELSE ENDIF ';'  (140)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 88
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 89
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 41
+	seleccion : IF condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (128)
+	seleccion : IF condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+
+	')'  shift 90
+	.  error
+
+
+state 42
+	condicion : expresion . comparador expresion  (147)
+	condicion : expresion . comparador  (148)
+	expresion : expresion . '+' termino  (157)
+	expresion : expresion . '-' termino  (158)
+
+	COMP_MAYOR_IGUAL  shift 91
+	COMP_MENOR_IGUAL  shift 92
+	COMP_DISTINTO  shift 93
+	'+'  shift 94
+	'-'  shift 95
+	'>'  shift 96
+	'<'  shift 97
+	'='  shift 98
+	.  error
+
+	comparador  goto 99
+
+
+state 43
+	condicion : $$3 . comparador expresion  (150)
+
+	COMP_MAYOR_IGUAL  shift 91
+	COMP_MENOR_IGUAL  shift 92
+	COMP_DISTINTO  shift 93
+	'>'  shift 96
+	'<'  shift 97
+	'='  shift 98
+	.  error
+
+	comparador  goto 100
+
+
+state 44
+	expresion : termino .  (159)
+	termino : termino . '*' factor  (160)
+	termino : termino . '/' factor  (161)
+
+	'*'  shift 101
+	'/'  shift 102
+	$end  reduce 159
+	ID  reduce 159
+	IF  reduce 159
+	THEN  reduce 159
+	ELSE  reduce 159
+	ENDIF  reduce 159
+	OUT  reduce 159
+	FUN  reduce 159
+	RETURN  reduce 159
+	BREAK  reduce 159
+	COMP_MAYOR_IGUAL  reduce 159
+	COMP_MENOR_IGUAL  reduce 159
+	COMP_DISTINTO  reduce 159
+	WHEN  reduce 159
+	DO  reduce 159
+	UNTIL  reduce 159
+	CONTINUE  reduce 159
+	DOUBLE64  reduce 159
+	UINT16  reduce 159
+	DEFER  reduce 159
+	CONST  reduce 159
+	'+'  reduce 159
+	'-'  reduce 159
+	'}'  reduce 159
+	';'  reduce 159
+	')'  reduce 159
+	'>'  reduce 159
+	'<'  reduce 159
+	'='  reduce 159
+
+
+state 45
+	termino : factor .  (162)
+
+	.  reduce 162
+
+
+state 46
+	factor : constante .  (164)
+
+	.  reduce 164
+
+
+state 47
+	factor : invocacion_funcion .  (165)
+
+	.  reduce 165
+
+
+state 48
+	imprimir : OUT ID . ')' ';'  (177)
+
+	')'  shift 103
+	.  error
+
+
+state 49
+	imprimir : OUT CADENA . ')' ';'  (175)
+
+	')'  shift 104
+	.  error
+
+
+state 50
+	imprimir : OUT '(' . CADENA ')' ';'  (172)
+	imprimir : OUT '(' . ID ')' ';'  (173)
+	imprimir : OUT '(' . ')' ';'  (174)
+	imprimir : OUT '(' . CADENA ';'  (176)
+	imprimir : OUT '(' . ID ';'  (178)
+	imprimir : OUT '(' . CADENA ')'  (179)
+	imprimir : OUT '(' . ID ')'  (180)
+
+	ID  shift 105
+	CADENA  shift 106
+	')'  shift 107
+	.  error
+
+
+state 51
+	encabezado_funcion : FUN ID . '(' ')' ':' tipo  (51)
+	encabezado_funcion : FUN ID . '(' lista_de_parametros ')' ':' tipo  (52)
+	encabezado_funcion : FUN ID . '(' ')' ':'  (53)
+	encabezado_funcion : FUN ID . ')' ':' tipo  (55)
+	encabezado_funcion : FUN ID . '(' ':' tipo  (56)
+	encabezado_funcion : FUN ID . '(' lista_de_parametros ')' ':'  (57)
+	encabezado_funcion : FUN ID . lista_de_parametros ')' ':' tipo  (59)
+	encabezado_funcion : FUN ID . '(' lista_de_parametros ':' tipo  (60)
+	$$1 : .  (73)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	'('  shift 108
+	')'  shift 109
+	ID  reduce 73
+
+	tipo  goto 110
+	lista_de_parametros  goto 111
+	parametro  goto 112
+	$$1  goto 113
+
+
+state 52
+	encabezado_funcion : FUN '(' . ')' ':' tipo  (54)
+	encabezado_funcion : FUN '(' . lista_de_parametros ')' ':' tipo  (58)
+	$$1 : .  (73)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	')'  shift 114
+	ID  reduce 73
+
+	tipo  goto 110
+	lista_de_parametros  goto 115
+	parametro  goto 112
+	$$1  goto 113
+
+
+state 53
+	sentencia_when : WHEN '(' . condicion ')' THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN '(' . condicion ')' '{' sentencias_when '}' ';'  (120)
+	sentencia_when : WHEN '(' . ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 116
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 117
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 54
+	etiqueta : ID .  (111)
+	asignacion : ID . ASIGNACION expresion ';'  (116)
+	asignacion : ID . ASIGNACION ';'  (117)
+	asignacion : ID . ASIGNACION expresion  (118)
+
+	ASIGNACION  shift 35
+	':'  reduce 111
+
+
+state 55
+	sentencia_break : BREAK . ';'  (97)
+	sentencia_break : BREAK . ':' etiqueta ';'  (98)
+	sentencia_break : BREAK .  (99)
+	sentencia_break : BREAK . ':' etiqueta  (100)
+	sentencia_break : BREAK . ':' ';'  (101)
+
+	';'  shift 118
+	':'  shift 119
+	ID  reduce 99
+	IF  reduce 99
+	OUT  reduce 99
+	RETURN  reduce 99
+	BREAK  reduce 99
+	WHEN  reduce 99
+	DO  reduce 99
+	UNTIL  reduce 99
+	CONTINUE  reduce 99
+	DEFER  reduce 99
+	'}'  reduce 99
+
+
+state 56
+	sentencia_continue : CONTINUE . ';'  (102)
+	sentencia_continue : CONTINUE .  (103)
+
+	';'  shift 120
+	ID  reduce 103
+	IF  reduce 103
+	OUT  reduce 103
+	RETURN  reduce 103
+	BREAK  reduce 103
+	WHEN  reduce 103
+	DO  reduce 103
+	UNTIL  reduce 103
+	CONTINUE  reduce 103
+	DEFER  reduce 103
+	'}'  reduce 103
+
+
+state 57
+	bloque_sentencias_ejecutables_do : '{' . sentencias_ejecutables_do '}'  (113)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	BREAK  shift 55
+	WHEN  shift 9
+	DO  shift 10
+	CONTINUE  shift 56
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 58
+	etiqueta  goto 26
+	sentencias_ejecutables_do  goto 121
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_ejecutable_do  goto 122
+	sentencia_break  goto 60
+	sentencia_continue  goto 61
+	sentencia_do_simple  goto 32
+
+
+state 58
+	sentencia_ejecutable_do : sentencia_ejecutable .  (94)
+
+	.  reduce 94
+
+
+state 59
+	bloque_sentencias_ejecutables_do : sentencia_ejecutable_do .  (112)
+
+	.  reduce 112
+
+
+state 60
+	sentencia_ejecutable_do : sentencia_break .  (95)
+
+	.  reduce 95
+
+
+state 61
+	sentencia_ejecutable_do : sentencia_continue .  (96)
+
+	.  reduce 96
+
+
+state 62
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do . UNTIL '(' condicion ')' ';'  (106)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do . UNTIL '(' condicion ')'  (107)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do . UNTIL '(' ')' ';'  (108)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do . UNTIL condicion ')' ';'  (109)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do . UNTIL '(' condicion ';'  (110)
+
+	UNTIL  shift 123
+	.  error
+
+
+state 63
+	sentencia_ejecutable : DEFER asignacion .  (85)
+
+	.  reduce 85
+
+
+state 64
+	sentencia_ejecutable : DEFER seleccion .  (87)
+
+	.  reduce 87
+
+
+state 65
+	sentencia_ejecutable : DEFER imprimir .  (89)
+
+	.  reduce 89
+
+
+state 66
+	sentencia_ejecutable : DEFER sentencia_when .  (91)
+
+	.  reduce 91
+
+
+state 67
+	sentencia_ejecutable : DEFER sentencia_do .  (93)
+
+	.  reduce 93
+
+
+state 68
+	declaracion_constante : ID . ASIGNACION CTE  (80)
+	declaracion_constante : ID . ASIGNACION  (81)
+	declaracion_constante : ID . CTE  (82)
+	declaracion_constante : ID .  (83)
+
+	CTE  shift 124
+	ASIGNACION  shift 125
+	$end  reduce 83
+	ID  reduce 83
+	IF  reduce 83
+	OUT  reduce 83
+	FUN  reduce 83
+	RETURN  reduce 83
+	WHEN  reduce 83
+	DO  reduce 83
+	DOUBLE64  reduce 83
+	UINT16  reduce 83
+	DEFER  reduce 83
+	CONST  reduce 83
+	'}'  reduce 83
+	';'  reduce 83
+	','  reduce 83
+
+
+state 69
+	declaracion_constantes : CONST ';' .  (77)
+
+	.  reduce 77
+
+
+state 70
+	declaracion_constantes : CONST lista_declaracion_constantes . ';'  (75)
+	declaracion_constantes : CONST lista_declaracion_constantes .  (76)
+
+	';'  shift 126
+	$end  reduce 76
+	ID  reduce 76
+	IF  reduce 76
+	OUT  reduce 76
+	FUN  reduce 76
+	RETURN  reduce 76
+	WHEN  reduce 76
+	DO  reduce 76
+	DOUBLE64  reduce 76
+	UINT16  reduce 76
+	DEFER  reduce 76
+	CONST  reduce 76
+	'}'  reduce 76
+
+
+state 71
+	lista_declaracion_constantes : declaracion_constante .  (78)
+	lista_declaracion_constantes : declaracion_constante . ',' lista_declaracion_constantes  (79)
+
+	','  shift 127
+	$end  reduce 78
+	ID  reduce 78
+	IF  reduce 78
+	OUT  reduce 78
+	FUN  reduce 78
+	RETURN  reduce 78
+	WHEN  reduce 78
+	DO  reduce 78
+	DOUBLE64  reduce 78
+	UINT16  reduce 78
+	DEFER  reduce 78
+	CONST  reduce 78
+	'}'  reduce 78
+	';'  reduce 78
+
+
+state 72
+	programa : '{' sentencias '}' .  (2)
+
+	.  reduce 2
+
+
+state 73
+	sentencias : sentencias sentencia .  (8)
+
+	.  reduce 8
+
+
+state 74
+	lista_de_variables : ID . ',' lista_de_variables  (19)
+	lista_de_variables : ID .  (20)
+
+	','  shift 36
+	$end  reduce 20
+	ID  reduce 20
+	IF  reduce 20
+	OUT  reduce 20
+	FUN  reduce 20
+	RETURN  reduce 20
+	WHEN  reduce 20
+	DO  reduce 20
+	DOUBLE64  reduce 20
+	UINT16  reduce 20
+	DEFER  reduce 20
+	CONST  reduce 20
+	'}'  reduce 20
+	';'  reduce 20
+
+
+state 75
+	sentencia_declarativa_variables : tipo ';' .  (18)
+
+	.  reduce 18
+
+
+state 76
+	sentencia_declarativa_variables : tipo lista_de_variables . ';'  (15)
+	sentencia_declarativa_variables : tipo lista_de_variables .  (16)
+
+	';'  shift 128
+	$end  reduce 16
+	ID  reduce 16
+	IF  reduce 16
+	OUT  reduce 16
+	FUN  reduce 16
+	RETURN  reduce 16
+	WHEN  reduce 16
+	DO  reduce 16
+	DOUBLE64  reduce 16
+	UINT16  reduce 16
+	DEFER  reduce 16
+	CONST  reduce 16
+	'}'  reduce 16
+
+
+state 77
+	sentencia_declarativa_variables : lista_de_variables ';' .  (17)
+
+	.  reduce 17
+
+
+state 78
+	funcion_con_return : encabezado_funcion '{' . cuerpo_funcion_con_return '}'  (21)
+	funcion_sin_return : encabezado_funcion '{' . cuerpo_funcion_sin_return '}'  (22)
+
+	ID  shift 5
+	IF  shift 129
+	OUT  shift 7
+	FUN  shift 8
+	RETURN  shift 130
+	WHEN  shift 131
+	DO  shift 132
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 133
+	CONST  shift 14
+	.  error
+
+	sentencia_declarativa  goto 134
+	sentencia_ejecutable  goto 135
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	cuerpo_funcion_con_return  goto 136
+	cuerpo_funcion_sin_return  goto 137
+	sentencia_return  goto 138
+	sentencias_funcion_con_return  goto 139
+	sentencia_funcion_con_return  goto 140
+	sentencia_when_con_return  goto 141
+	sentencia_do_con_return  goto 142
+	sentencia_seleccion_simple_con_return  goto 143
+	sentencia_seleccion_compuesta_con_return  goto 144
+	sentencia_do_simple_con_return  goto 145
+	etiqueta  goto 146
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 79
+	sentencia_do : etiqueta ':' . sentencia_do_simple  (105)
+
+	DO  shift 10
+	.  error
+
+	sentencia_do_simple  goto 147
+
+
+state 80
+	programa : nombre_programa '{' '}' .  (5)
+
+	.  reduce 5
+
+
+state 81
+	programa : nombre_programa '{' sentencias . '}'  (1)
+	programa : nombre_programa '{' sentencias .  (4)
+	sentencias : sentencias . sentencia  (8)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	'}'  shift 148
+	$end  reduce 4
+
+	sentencia  goto 73
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 82
+	programa : nombre_programa sentencias '}' .  (3)
+
+	.  reduce 3
+
+
+state 83
+	asignacion : ID ASIGNACION ';' .  (117)
+
+	.  reduce 117
+
+
+state 84
+	asignacion : ID ASIGNACION expresion . ';'  (116)
+	asignacion : ID ASIGNACION expresion .  (118)
+	expresion : expresion . '+' termino  (157)
+	expresion : expresion . '-' termino  (158)
+
+	'+'  shift 94
+	'-'  shift 95
+	';'  shift 149
+	$end  reduce 118
+	ID  reduce 118
+	IF  reduce 118
+	ELSE  reduce 118
+	ENDIF  reduce 118
+	OUT  reduce 118
+	FUN  reduce 118
+	RETURN  reduce 118
+	BREAK  reduce 118
+	WHEN  reduce 118
+	DO  reduce 118
+	UNTIL  reduce 118
+	CONTINUE  reduce 118
+	DOUBLE64  reduce 118
+	UINT16  reduce 118
+	DEFER  reduce 118
+	CONST  reduce 118
+	'}'  reduce 118
+
+
+state 85
+	lista_de_variables : ID ',' lista_de_variables .  (19)
+
+	.  reduce 19
+
+
+state 86
+	invocacion_funcion : ID '(' . ')'  (166)
+	invocacion_funcion : ID '(' . lista_de_parametros_reales ')'  (167)
+
+	ID  shift 150
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 151
+	.  error
+
+	constante  goto 152
+	lista_de_parametros_reales  goto 153
+	parametro_real  goto 154
+
+
+state 87
+	constante : '-' CTE .  (182)
+
+	.  reduce 182
+
+
+state 88
+	seleccion : IF '(' ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF '(' ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+
+	THEN  shift 155
+	.  error
+
+
+state 89
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' condicion . ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion . ')' THEN ENDIF ';'  (132)
+	seleccion : IF '(' condicion . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF '(' condicion . ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' condicion . ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion . ')' THEN ELSE ENDIF ';'  (140)
+
+	THEN  shift 156
+	')'  shift 157
+	.  error
+
+
+state 90
+	seleccion : IF condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (128)
+	seleccion : IF condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+
+	THEN  shift 158
+	.  error
+
+
+state 91
+	comparador : COMP_MAYOR_IGUAL .  (151)
+
+	.  reduce 151
+
+
+state 92
+	comparador : COMP_MENOR_IGUAL .  (152)
+
+	.  reduce 152
+
+
+state 93
+	comparador : COMP_DISTINTO .  (153)
+
+	.  reduce 153
+
+
+state 94
+	expresion : expresion '+' . termino  (157)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	.  error
+
+	termino  goto 159
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 95
+	expresion : expresion '-' . termino  (158)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	.  error
+
+	termino  goto 160
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 96
+	comparador : '>' .  (154)
+
+	.  reduce 154
+
+
+state 97
+	comparador : '<' .  (155)
+
+	.  reduce 155
+
+
+state 98
+	comparador : '=' .  (156)
+
+	.  reduce 156
+
+
+state 99
+	condicion : expresion comparador . expresion  (147)
+	condicion : expresion comparador .  (148)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	THEN  reduce 148
+	';'  reduce 148
+	')'  reduce 148
+
+	expresion  goto 161
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 100
+	condicion : $$3 comparador . expresion  (150)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	.  error
+
+	expresion  goto 162
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 101
+	termino : termino '*' . factor  (160)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	.  error
+
+	factor  goto 163
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 102
+	termino : termino '/' . factor  (161)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	.  error
+
+	factor  goto 164
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 103
+	imprimir : OUT ID ')' . ';'  (177)
+
+	';'  shift 165
+	.  error
+
+
+state 104
+	imprimir : OUT CADENA ')' . ';'  (175)
+
+	';'  shift 166
+	.  error
+
+
+state 105
+	imprimir : OUT '(' ID . ')' ';'  (173)
+	imprimir : OUT '(' ID . ';'  (178)
+	imprimir : OUT '(' ID . ')'  (180)
+
+	';'  shift 167
+	')'  shift 168
+	.  error
+
+
+state 106
+	imprimir : OUT '(' CADENA . ')' ';'  (172)
+	imprimir : OUT '(' CADENA . ';'  (176)
+	imprimir : OUT '(' CADENA . ')'  (179)
+
+	';'  shift 169
+	')'  shift 170
+	.  error
+
+
+state 107
+	imprimir : OUT '(' ')' . ';'  (174)
+
+	';'  shift 171
+	.  error
+
+
+state 108
+	encabezado_funcion : FUN ID '(' . ')' ':' tipo  (51)
+	encabezado_funcion : FUN ID '(' . lista_de_parametros ')' ':' tipo  (52)
+	encabezado_funcion : FUN ID '(' . ')' ':'  (53)
+	encabezado_funcion : FUN ID '(' . ':' tipo  (56)
+	encabezado_funcion : FUN ID '(' . lista_de_parametros ')' ':'  (57)
+	encabezado_funcion : FUN ID '(' . lista_de_parametros ':' tipo  (60)
+	$$1 : .  (73)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	')'  shift 172
+	':'  shift 173
+	ID  reduce 73
+
+	tipo  goto 110
+	lista_de_parametros  goto 174
+	parametro  goto 112
+	$$1  goto 113
+
+
+state 109
+	encabezado_funcion : FUN ID ')' . ':' tipo  (55)
+
+	':'  shift 175
+	.  error
+
+
+state 110
+	parametro : tipo . ID  (71)
+	parametro : tipo .  (72)
+
+	ID  shift 176
+	','  reduce 72
+	')'  reduce 72
+	':'  reduce 72
+
+
+state 111
+	encabezado_funcion : FUN ID lista_de_parametros . ')' ':' tipo  (59)
+
+	')'  shift 177
+	.  error
+
+
+state 112
+	lista_de_parametros : parametro .  (66)
+	lista_de_parametros : parametro . ',' parametro  (67)
+	lista_de_parametros : parametro . ',' parametro ',' lista_parametros_exceso  (68)
+
+	','  shift 178
+	')'  reduce 66
+	':'  reduce 66
+
+
+state 113
+	parametro : $$1 . ID  (74)
+
+	ID  shift 179
+	.  error
+
+
+state 114
+	encabezado_funcion : FUN '(' ')' . ':' tipo  (54)
+
+	':'  shift 180
+	.  error
+
+
+state 115
+	encabezado_funcion : FUN '(' lista_de_parametros . ')' ':' tipo  (58)
+
+	')'  shift 181
+	.  error
+
+
+state 116
+	sentencia_when : WHEN '(' ')' . THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	THEN  shift 182
+	.  error
+
+
+state 117
+	sentencia_when : WHEN '(' condicion . ')' THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN '(' condicion . ')' '{' sentencias_when '}' ';'  (120)
+
+	')'  shift 183
+	.  error
+
+
+state 118
+	sentencia_break : BREAK ';' .  (97)
+
+	.  reduce 97
+
+
+state 119
+	sentencia_break : BREAK ':' . etiqueta ';'  (98)
+	sentencia_break : BREAK ':' . etiqueta  (100)
+	sentencia_break : BREAK ':' . ';'  (101)
+
+	ID  shift 184
+	';'  shift 185
+	.  error
+
+	etiqueta  goto 186
+
+
+state 120
+	sentencia_continue : CONTINUE ';' .  (102)
+
+	.  reduce 102
+
+
+state 121
+	bloque_sentencias_ejecutables_do : '{' sentencias_ejecutables_do . '}'  (113)
+	sentencias_ejecutables_do : sentencias_ejecutables_do . sentencia_ejecutable_do  (115)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	BREAK  shift 55
+	WHEN  shift 9
+	DO  shift 10
+	CONTINUE  shift 56
+	DEFER  shift 13
+	'}'  shift 187
+	.  error
+
+	sentencia_ejecutable  goto 58
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_ejecutable_do  goto 188
+	sentencia_break  goto 60
+	sentencia_continue  goto 61
+	sentencia_do_simple  goto 32
+
+
+state 122
+	sentencias_ejecutables_do : sentencia_ejecutable_do .  (114)
+
+	.  reduce 114
+
+
+state 123
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL . '(' condicion ')' ';'  (106)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL . '(' condicion ')'  (107)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL . '(' ')' ';'  (108)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL . condicion ')' ';'  (109)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL . '(' condicion ';'  (110)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	'('  shift 189
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 190
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 124
+	declaracion_constante : ID CTE .  (82)
+
+	.  reduce 82
+
+
+state 125
+	declaracion_constante : ID ASIGNACION . CTE  (80)
+	declaracion_constante : ID ASIGNACION .  (81)
+
+	CTE  shift 191
+	$end  reduce 81
+	ID  reduce 81
+	IF  reduce 81
+	OUT  reduce 81
+	FUN  reduce 81
+	RETURN  reduce 81
+	WHEN  reduce 81
+	DO  reduce 81
+	DOUBLE64  reduce 81
+	UINT16  reduce 81
+	DEFER  reduce 81
+	CONST  reduce 81
+	'}'  reduce 81
+	';'  reduce 81
+	','  reduce 81
+
+
+state 126
+	declaracion_constantes : CONST lista_declaracion_constantes ';' .  (75)
+
+	.  reduce 75
+
+
+state 127
+	lista_declaracion_constantes : declaracion_constante ',' . lista_declaracion_constantes  (79)
+
+	ID  shift 68
+	.  error
+
+	lista_declaracion_constantes  goto 192
+	declaracion_constante  goto 71
+
+
+state 128
+	sentencia_declarativa_variables : tipo lista_de_variables ';' .  (15)
+
+	.  reduce 15
+
+
+state 129
+	sentencia_seleccion_compuesta_con_return : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+	sentencia_seleccion_simple_con_return : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF . '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (128)
+	seleccion : IF . '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF . '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF . '(' condicion ')' THEN ENDIF ';'  (132)
+	seleccion : IF . '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+	seleccion : IF . '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+	seleccion : IF . '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF . '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF . '(' condicion ')' THEN ELSE ENDIF ';'  (140)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	'('  shift 193
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 41
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 130
+	sentencia_return : RETURN . '(' expresion ')' ';'  (61)
+	sentencia_return : RETURN . '(' expresion ')'  (62)
+	sentencia_return : RETURN . expresion ')'  (63)
+	sentencia_return : RETURN . '(' expresion  (64)
+	sentencia_return : RETURN . '(' ')' ';'  (65)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	'('  shift 194
+	.  error
+
+	expresion  goto 195
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 131
+	sentencia_when_con_return : WHEN . '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';'  (43)
+	sentencia_when : WHEN . '(' condicion ')' THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN . '(' condicion ')' '{' sentencias_when '}' ';'  (120)
+	sentencia_when : WHEN . '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	'('  shift 196
+	.  error
+
+
+state 132
+	sentencia_do_simple_con_return : DO . bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';'  (48)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' ';'  (106)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' condicion ')'  (107)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' ')' ';'  (108)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL condicion ')' ';'  (109)
+	sentencia_do_simple : DO . bloque_sentencias_ejecutables_do UNTIL '(' condicion ';'  (110)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	RETURN  shift 130
+	BREAK  shift 55
+	WHEN  shift 9
+	DO  shift 10
+	CONTINUE  shift 56
+	DEFER  shift 13
+	'{'  shift 197
+	.  error
+
+	sentencia_ejecutable  goto 58
+	sentencia_return  goto 198
+	etiqueta  goto 26
+	bloque_sentencias_ejecutables_do_con_return  goto 199
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_ejecutable_do  goto 59
+	sentencia_break  goto 60
+	sentencia_continue  goto 61
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_do  goto 62
+
+
+state 133
+	sentencia_funcion_con_return : DEFER . sentencia_when_con_return  (30)
+	sentencia_funcion_con_return : DEFER . sentencia_do_con_return  (32)
+	sentencia_funcion_con_return : DEFER . sentencia_seleccion_simple_con_return  (34)
+	sentencia_ejecutable : DEFER . asignacion  (85)
+	sentencia_ejecutable : DEFER . seleccion  (87)
+	sentencia_ejecutable : DEFER . imprimir  (89)
+	sentencia_ejecutable : DEFER . sentencia_when  (91)
+	sentencia_ejecutable : DEFER . sentencia_do  (93)
+
+	ID  shift 54
+	IF  shift 200
+	OUT  shift 7
+	WHEN  shift 131
+	DO  shift 132
+	.  error
+
+	sentencia_when_con_return  goto 201
+	sentencia_do_con_return  goto 202
+	sentencia_seleccion_simple_con_return  goto 203
+	sentencia_do_simple_con_return  goto 145
+	etiqueta  goto 146
+	asignacion  goto 63
+	seleccion  goto 64
+	imprimir  goto 65
+	sentencia_when  goto 66
+	sentencia_do  goto 67
+	sentencia_do_simple  goto 32
+
+
+state 134
+	sentencia_funcion_con_return : sentencia_declarativa .  (27)
+
+	.  reduce 27
+
+
+state 135
+	sentencia_funcion_con_return : sentencia_ejecutable .  (28)
+
+	.  reduce 28
+
+
+state 136
+	funcion_con_return : encabezado_funcion '{' cuerpo_funcion_con_return . '}'  (21)
+
+	'}'  shift 204
+	.  error
+
+
+state 137
+	funcion_sin_return : encabezado_funcion '{' cuerpo_funcion_sin_return . '}'  (22)
+
+	'}'  shift 205
+	.  error
+
+
+state 138
+	cuerpo_funcion_con_return : sentencia_return .  (23)
+
+	.  reduce 23
+
+
+state 139
+	cuerpo_funcion_con_return : sentencias_funcion_con_return . sentencia_return  (24)
+	sentencias_funcion_con_return : sentencias_funcion_con_return . sentencia_funcion_con_return  (26)
+	cuerpo_funcion_sin_return : sentencias_funcion_con_return . sentencia_seleccion_compuesta_con_return  (36)
+
+	ID  shift 5
+	IF  shift 129
+	OUT  shift 7
+	FUN  shift 8
+	RETURN  shift 130
+	WHEN  shift 131
+	DO  shift 132
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 133
+	CONST  shift 14
+	.  error
+
+	sentencia_declarativa  goto 134
+	sentencia_ejecutable  goto 135
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencia_return  goto 206
+	sentencia_funcion_con_return  goto 207
+	sentencia_when_con_return  goto 141
+	sentencia_do_con_return  goto 142
+	sentencia_seleccion_simple_con_return  goto 143
+	sentencia_seleccion_compuesta_con_return  goto 208
+	sentencia_do_simple_con_return  goto 145
+	etiqueta  goto 146
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 140
+	sentencias_funcion_con_return : sentencia_funcion_con_return .  (25)
+
+	.  reduce 25
+
+
+state 141
+	sentencia_funcion_con_return : sentencia_when_con_return .  (29)
+
+	.  reduce 29
+
+
+state 142
+	sentencia_funcion_con_return : sentencia_do_con_return .  (31)
+
+	.  reduce 31
+
+
+state 143
+	sentencia_funcion_con_return : sentencia_seleccion_simple_con_return .  (33)
+
+	.  reduce 33
+
+
+state 144
+	cuerpo_funcion_sin_return : sentencia_seleccion_compuesta_con_return .  (35)
+
+	.  reduce 35
+
+
+state 145
+	sentencia_do_con_return : sentencia_do_simple_con_return .  (46)
+
+	.  reduce 46
+
+
+state 146
+	sentencia_do_con_return : etiqueta . ':' sentencia_do_simple_con_return  (47)
+	sentencia_do : etiqueta . ':' sentencia_do_simple  (105)
+
+	':'  shift 209
+	.  error
+
+
+state 147
+	sentencia_do : etiqueta ':' sentencia_do_simple .  (105)
+
+	.  reduce 105
+
+
+state 148
+	programa : nombre_programa '{' sentencias '}' .  (1)
+
+	.  reduce 1
+
+
+state 149
+	asignacion : ID ASIGNACION expresion ';' .  (116)
+
+	.  reduce 116
+
+
+state 150
+	parametro_real : ID .  (170)
+
+	.  reduce 170
+
+
+state 151
+	invocacion_funcion : ID '(' ')' .  (166)
+
+	.  reduce 166
+
+
+state 152
+	parametro_real : constante .  (171)
+
+	.  reduce 171
+
+
+state 153
+	invocacion_funcion : ID '(' lista_de_parametros_reales . ')'  (167)
+	lista_de_parametros_reales : lista_de_parametros_reales . ',' parametro_real  (169)
+
+	','  shift 210
+	')'  shift 211
+	.  error
+
+
+state 154
+	lista_de_parametros_reales : parametro_real .  (168)
+
+	.  reduce 168
+
+
+state 155
+	seleccion : IF '(' ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF '(' ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 215
+
+
+state 156
+	seleccion : IF '(' condicion THEN . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' condicion THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 216
+
+
+state 157
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion ')' . THEN ENDIF ';'  (132)
+	seleccion : IF '(' condicion ')' . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' condicion ')' . THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion ')' . THEN ELSE ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	THEN  shift 217
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 218
+
+
+state 158
+	seleccion : IF condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (128)
+	seleccion : IF condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 219
+
+
+state 159
+	expresion : expresion '+' termino .  (157)
+	termino : termino . '*' factor  (160)
+	termino : termino . '/' factor  (161)
+
+	'*'  shift 101
+	'/'  shift 102
+	$end  reduce 157
+	ID  reduce 157
+	IF  reduce 157
+	THEN  reduce 157
+	ELSE  reduce 157
+	ENDIF  reduce 157
+	OUT  reduce 157
+	FUN  reduce 157
+	RETURN  reduce 157
+	BREAK  reduce 157
+	COMP_MAYOR_IGUAL  reduce 157
+	COMP_MENOR_IGUAL  reduce 157
+	COMP_DISTINTO  reduce 157
+	WHEN  reduce 157
+	DO  reduce 157
+	UNTIL  reduce 157
+	CONTINUE  reduce 157
+	DOUBLE64  reduce 157
+	UINT16  reduce 157
+	DEFER  reduce 157
+	CONST  reduce 157
+	'+'  reduce 157
+	'-'  reduce 157
+	'}'  reduce 157
+	';'  reduce 157
+	')'  reduce 157
+	'>'  reduce 157
+	'<'  reduce 157
+	'='  reduce 157
+
+
+state 160
+	expresion : expresion '-' termino .  (158)
+	termino : termino . '*' factor  (160)
+	termino : termino . '/' factor  (161)
+
+	'*'  shift 101
+	'/'  shift 102
+	$end  reduce 158
+	ID  reduce 158
+	IF  reduce 158
+	THEN  reduce 158
+	ELSE  reduce 158
+	ENDIF  reduce 158
+	OUT  reduce 158
+	FUN  reduce 158
+	RETURN  reduce 158
+	BREAK  reduce 158
+	COMP_MAYOR_IGUAL  reduce 158
+	COMP_MENOR_IGUAL  reduce 158
+	COMP_DISTINTO  reduce 158
+	WHEN  reduce 158
+	DO  reduce 158
+	UNTIL  reduce 158
+	CONTINUE  reduce 158
+	DOUBLE64  reduce 158
+	UINT16  reduce 158
+	DEFER  reduce 158
+	CONST  reduce 158
+	'+'  reduce 158
+	'-'  reduce 158
+	'}'  reduce 158
+	';'  reduce 158
+	')'  reduce 158
+	'>'  reduce 158
+	'<'  reduce 158
+	'='  reduce 158
+
+
+state 161
+	condicion : expresion comparador expresion .  (147)
+	expresion : expresion . '+' termino  (157)
+	expresion : expresion . '-' termino  (158)
+
+	'+'  shift 94
+	'-'  shift 95
+	THEN  reduce 147
+	';'  reduce 147
+	')'  reduce 147
+
+
+state 162
+	condicion : $$3 comparador expresion .  (150)
+	expresion : expresion . '+' termino  (157)
+	expresion : expresion . '-' termino  (158)
+
+	'+'  shift 94
+	'-'  shift 95
+	THEN  reduce 150
+	';'  reduce 150
+	')'  reduce 150
+
+
+state 163
+	termino : termino '*' factor .  (160)
+
+	.  reduce 160
+
+
+state 164
+	termino : termino '/' factor .  (161)
+
+	.  reduce 161
+
+
+state 165
+	imprimir : OUT ID ')' ';' .  (177)
+
+	.  reduce 177
+
+
+state 166
+	imprimir : OUT CADENA ')' ';' .  (175)
+
+	.  reduce 175
+
+
+state 167
+	imprimir : OUT '(' ID ';' .  (178)
+
+	.  reduce 178
+
+
+state 168
+	imprimir : OUT '(' ID ')' . ';'  (173)
+	imprimir : OUT '(' ID ')' .  (180)
+
+	';'  shift 220
+	$end  reduce 180
+	ID  reduce 180
+	IF  reduce 180
+	ELSE  reduce 180
+	ENDIF  reduce 180
+	OUT  reduce 180
+	FUN  reduce 180
+	RETURN  reduce 180
+	BREAK  reduce 180
+	WHEN  reduce 180
+	DO  reduce 180
+	UNTIL  reduce 180
+	CONTINUE  reduce 180
+	DOUBLE64  reduce 180
+	UINT16  reduce 180
+	DEFER  reduce 180
+	CONST  reduce 180
+	'}'  reduce 180
+
+
+state 169
+	imprimir : OUT '(' CADENA ';' .  (176)
+
+	.  reduce 176
+
+
+state 170
+	imprimir : OUT '(' CADENA ')' . ';'  (172)
+	imprimir : OUT '(' CADENA ')' .  (179)
+
+	';'  shift 221
+	$end  reduce 179
+	ID  reduce 179
+	IF  reduce 179
+	ELSE  reduce 179
+	ENDIF  reduce 179
+	OUT  reduce 179
+	FUN  reduce 179
+	RETURN  reduce 179
+	BREAK  reduce 179
+	WHEN  reduce 179
+	DO  reduce 179
+	UNTIL  reduce 179
+	CONTINUE  reduce 179
+	DOUBLE64  reduce 179
+	UINT16  reduce 179
+	DEFER  reduce 179
+	CONST  reduce 179
+	'}'  reduce 179
+
+
+state 171
+	imprimir : OUT '(' ')' ';' .  (174)
+
+	.  reduce 174
+
+
+state 172
+	encabezado_funcion : FUN ID '(' ')' . ':' tipo  (51)
+	encabezado_funcion : FUN ID '(' ')' . ':'  (53)
+
+	':'  shift 222
+	.  error
+
+
+state 173
+	encabezado_funcion : FUN ID '(' ':' . tipo  (56)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	.  error
+
+	tipo  goto 223
+
+
+state 174
+	encabezado_funcion : FUN ID '(' lista_de_parametros . ')' ':' tipo  (52)
+	encabezado_funcion : FUN ID '(' lista_de_parametros . ')' ':'  (57)
+	encabezado_funcion : FUN ID '(' lista_de_parametros . ':' tipo  (60)
+
+	')'  shift 224
+	':'  shift 225
+	.  error
+
+
+state 175
+	encabezado_funcion : FUN ID ')' ':' . tipo  (55)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	.  error
+
+	tipo  goto 226
+
+
+state 176
+	parametro : tipo ID .  (71)
+
+	.  reduce 71
+
+
+state 177
+	encabezado_funcion : FUN ID lista_de_parametros ')' . ':' tipo  (59)
+
+	':'  shift 227
+	.  error
+
+
+state 178
+	lista_de_parametros : parametro ',' . parametro  (67)
+	lista_de_parametros : parametro ',' . parametro ',' lista_parametros_exceso  (68)
+	$$1 : .  (73)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	ID  reduce 73
+
+	tipo  goto 110
+	parametro  goto 228
+	$$1  goto 113
+
+
+state 179
+	parametro : $$1 ID .  (74)
+
+	.  reduce 74
+
+
+state 180
+	encabezado_funcion : FUN '(' ')' ':' . tipo  (54)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	.  error
+
+	tipo  goto 229
+
+
+state 181
+	encabezado_funcion : FUN '(' lista_de_parametros ')' . ':' tipo  (58)
+
+	':'  shift 230
+	.  error
+
+
+state 182
+	sentencia_when : WHEN '(' ')' THEN . '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	'{'  shift 231
+	.  error
+
+
+state 183
+	sentencia_when : WHEN '(' condicion ')' . THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN '(' condicion ')' . '{' sentencias_when '}' ';'  (120)
+
+	THEN  shift 232
+	'{'  shift 233
+	.  error
+
+
+state 184
+	etiqueta : ID .  (111)
+
+	.  reduce 111
+
+
+state 185
+	sentencia_break : BREAK ':' ';' .  (101)
+
+	.  reduce 101
+
+
+state 186
+	sentencia_break : BREAK ':' etiqueta . ';'  (98)
+	sentencia_break : BREAK ':' etiqueta .  (100)
+
+	';'  shift 234
+	ID  reduce 100
+	IF  reduce 100
+	OUT  reduce 100
+	RETURN  reduce 100
+	BREAK  reduce 100
+	WHEN  reduce 100
+	DO  reduce 100
+	UNTIL  reduce 100
+	CONTINUE  reduce 100
+	DEFER  reduce 100
+	'}'  reduce 100
+
+
+state 187
+	bloque_sentencias_ejecutables_do : '{' sentencias_ejecutables_do '}' .  (113)
+
+	.  reduce 113
+
+
+state 188
+	sentencias_ejecutables_do : sentencias_ejecutables_do sentencia_ejecutable_do .  (115)
+
+	.  reduce 115
+
+
+state 189
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' . condicion ')' ';'  (106)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' . condicion ')'  (107)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' . ')' ';'  (108)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' . condicion ';'  (110)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 235
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 236
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 190
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL condicion . ')' ';'  (109)
+
+	')'  shift 237
+	.  error
+
+
+state 191
+	declaracion_constante : ID ASIGNACION CTE .  (80)
+
+	.  reduce 80
+
+
+state 192
+	lista_declaracion_constantes : declaracion_constante ',' lista_declaracion_constantes .  (79)
+
+	.  reduce 79
+
+
+state 193
+	sentencia_seleccion_compuesta_con_return : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+	sentencia_seleccion_simple_con_return : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' . condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF '(' . condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' . condicion ')' THEN ENDIF ';'  (132)
+	seleccion : IF '(' . condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF '(' . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+	seleccion : IF '(' . condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' . condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' . condicion ')' THEN ELSE ENDIF ';'  (140)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 88
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 238
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 194
+	sentencia_return : RETURN '(' . expresion ')' ';'  (61)
+	sentencia_return : RETURN '(' . expresion ')'  (62)
+	sentencia_return : RETURN '(' . expresion  (64)
+	sentencia_return : RETURN '(' . ')' ';'  (65)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 239
+	.  error
+
+	expresion  goto 240
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 195
+	sentencia_return : RETURN expresion . ')'  (63)
+	expresion : expresion . '+' termino  (157)
+	expresion : expresion . '-' termino  (158)
+
+	'+'  shift 94
+	'-'  shift 95
+	')'  shift 241
+	.  error
+
+
+state 196
+	sentencia_when_con_return : WHEN '(' . condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';'  (43)
+	sentencia_when : WHEN '(' . condicion ')' THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN '(' . condicion ')' '{' sentencias_when '}' ';'  (120)
+	sentencia_when : WHEN '(' . ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 116
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 242
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 197
+	bloque_sentencias_ejecutables_do_con_return : '{' . sentencias_ejecutables_do sentencia_return '}'  (50)
+	bloque_sentencias_ejecutables_do : '{' . sentencias_ejecutables_do '}'  (113)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	BREAK  shift 55
+	WHEN  shift 9
+	DO  shift 10
+	CONTINUE  shift 56
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 58
+	etiqueta  goto 26
+	sentencias_ejecutables_do  goto 243
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_ejecutable_do  goto 122
+	sentencia_break  goto 60
+	sentencia_continue  goto 61
+	sentencia_do_simple  goto 32
+
+
+state 198
+	bloque_sentencias_ejecutables_do_con_return : sentencia_return .  (49)
+
+	.  reduce 49
+
+
+state 199
+	sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return . UNTIL '(' condicion ')' ';'  (48)
+
+	UNTIL  shift 244
+	.  error
+
+
+state 200
+	sentencia_seleccion_simple_con_return : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF . '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (128)
+	seleccion : IF . '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF . '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF . '(' condicion ')' THEN ENDIF ';'  (132)
+	seleccion : IF . '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+	seleccion : IF . '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+	seleccion : IF . '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF . '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF . '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF . '(' condicion ')' THEN ELSE ENDIF ';'  (140)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	'('  shift 245
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 41
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 201
+	sentencia_funcion_con_return : DEFER sentencia_when_con_return .  (30)
+
+	.  reduce 30
+
+
+state 202
+	sentencia_funcion_con_return : DEFER sentencia_do_con_return .  (32)
+
+	.  reduce 32
+
+
+state 203
+	sentencia_funcion_con_return : DEFER sentencia_seleccion_simple_con_return .  (34)
+
+	.  reduce 34
+
+
+state 204
+	funcion_con_return : encabezado_funcion '{' cuerpo_funcion_con_return '}' .  (21)
+
+	.  reduce 21
+
+
+state 205
+	funcion_sin_return : encabezado_funcion '{' cuerpo_funcion_sin_return '}' .  (22)
+
+	.  reduce 22
+
+
+state 206
+	cuerpo_funcion_con_return : sentencias_funcion_con_return sentencia_return .  (24)
+
+	.  reduce 24
+
+
+state 207
+	sentencias_funcion_con_return : sentencias_funcion_con_return sentencia_funcion_con_return .  (26)
+
+	.  reduce 26
+
+
+state 208
+	cuerpo_funcion_sin_return : sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return .  (36)
+
+	.  reduce 36
+
+
+state 209
+	sentencia_do_con_return : etiqueta ':' . sentencia_do_simple_con_return  (47)
+	sentencia_do : etiqueta ':' . sentencia_do_simple  (105)
+
+	DO  shift 132
+	.  error
+
+	sentencia_do_simple_con_return  goto 246
+	sentencia_do_simple  goto 147
+
+
+state 210
+	lista_de_parametros_reales : lista_de_parametros_reales ',' . parametro_real  (169)
+
+	ID  shift 150
+	CTE  shift 38
+	'-'  shift 39
+	.  error
+
+	constante  goto 152
+	parametro_real  goto 247
+
+
+state 211
+	invocacion_funcion : ID '(' lista_de_parametros_reales ')' .  (167)
+
+	.  reduce 167
+
+
+state 212
+	bloque_sentencias_ejecutables_seleccion : '{' . sentencias_ejecutables '}'  (142)
+	bloque_sentencias_ejecutables_seleccion : '{' . sentencias_ejecutables  (144)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 248
+	sentencias_ejecutables  goto 249
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 213
+	bloque_sentencias_ejecutables_seleccion : sentencia_ejecutable .  (141)
+	sentencias_ejecutables : sentencia_ejecutable .  (145)
+
+	ID  reduce 145
+	IF  reduce 145
+	ELSE  reduce 141
+	ENDIF  reduce 141
+	OUT  reduce 145
+	WHEN  reduce 145
+	DO  reduce 145
+	DEFER  reduce 145
+	'}'  reduce 145
+
+
+state 214
+	bloque_sentencias_ejecutables_seleccion : sentencias_ejecutables . '}'  (143)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (146)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'}'  shift 250
+	.  error
+
+	sentencia_ejecutable  goto 251
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 215
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (129)
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+
+	ELSE  shift 252
+	ENDIF  shift 253
+	.  error
+
+
+state 216
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (127)
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+
+	ELSE  shift 254
+	ENDIF  shift 255
+	.  error
+
+
+state 217
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion ')' THEN . ENDIF ';'  (132)
+	seleccion : IF '(' condicion ')' THEN . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion ')' THEN . ELSE ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	ELSE  shift 256
+	ENDIF  shift 257
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 258
+
+
+state 218
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (130)
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+
+	ELSE  shift 259
+	ENDIF  shift 260
+	.  error
+
+
+state 219
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (128)
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+
+	ELSE  shift 261
+	ENDIF  shift 262
+	.  error
+
+
+state 220
+	imprimir : OUT '(' ID ')' ';' .  (173)
+
+	.  reduce 173
+
+
+state 221
+	imprimir : OUT '(' CADENA ')' ';' .  (172)
+
+	.  reduce 172
+
+
+state 222
+	encabezado_funcion : FUN ID '(' ')' ':' . tipo  (51)
+	encabezado_funcion : FUN ID '(' ')' ':' .  (53)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	'{'  reduce 53
+
+	tipo  goto 263
+
+
+state 223
+	encabezado_funcion : FUN ID '(' ':' tipo .  (56)
+
+	.  reduce 56
+
+
+state 224
+	encabezado_funcion : FUN ID '(' lista_de_parametros ')' . ':' tipo  (52)
+	encabezado_funcion : FUN ID '(' lista_de_parametros ')' . ':'  (57)
+
+	':'  shift 264
+	.  error
+
+
+state 225
+	encabezado_funcion : FUN ID '(' lista_de_parametros ':' . tipo  (60)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	.  error
+
+	tipo  goto 265
+
+
+state 226
+	encabezado_funcion : FUN ID ')' ':' tipo .  (55)
+
+	.  reduce 55
+
+
+state 227
+	encabezado_funcion : FUN ID lista_de_parametros ')' ':' . tipo  (59)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	.  error
+
+	tipo  goto 266
+
+
+state 228
+	lista_de_parametros : parametro ',' parametro .  (67)
+	lista_de_parametros : parametro ',' parametro . ',' lista_parametros_exceso  (68)
+
+	','  shift 267
+	')'  reduce 67
+	':'  reduce 67
+
+
+state 229
+	encabezado_funcion : FUN '(' ')' ':' tipo .  (54)
+
+	.  reduce 54
+
+
+state 230
+	encabezado_funcion : FUN '(' lista_de_parametros ')' ':' . tipo  (58)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	.  error
+
+	tipo  goto 268
+
+
+state 231
+	sentencia_when : WHEN '(' ')' THEN '{' . sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	.  error
+
+	sentencia  goto 269
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencias_when  goto 270
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 232
+	sentencia_when : WHEN '(' condicion ')' THEN . '{' sentencias_when '}' ';'  (119)
+
+	'{'  shift 271
+	.  error
+
+
+state 233
+	sentencia_when : WHEN '(' condicion ')' '{' . sentencias_when '}' ';'  (120)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	.  error
+
+	sentencia  goto 269
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencias_when  goto 272
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 234
+	sentencia_break : BREAK ':' etiqueta ';' .  (98)
+
+	.  reduce 98
+
+
+state 235
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' ')' . ';'  (108)
+
+	';'  shift 273
+	.  error
+
+
+state 236
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion . ')' ';'  (106)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion . ')'  (107)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion . ';'  (110)
+
+	';'  shift 274
+	')'  shift 275
+	.  error
+
+
+state 237
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL condicion ')' . ';'  (109)
+
+	';'  shift 276
+	.  error
+
+
+state 238
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+	sentencia_seleccion_simple_con_return : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' condicion . ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion . ')' THEN ENDIF ';'  (132)
+	seleccion : IF '(' condicion . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF '(' condicion . ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' condicion . ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion . ')' THEN ELSE ENDIF ';'  (140)
+
+	THEN  shift 156
+	')'  shift 277
+	.  error
+
+
+state 239
+	sentencia_return : RETURN '(' ')' . ';'  (65)
+
+	';'  shift 278
+	.  error
+
+
+state 240
+	sentencia_return : RETURN '(' expresion . ')' ';'  (61)
+	sentencia_return : RETURN '(' expresion . ')'  (62)
+	sentencia_return : RETURN '(' expresion .  (64)
+	expresion : expresion . '+' termino  (157)
+	expresion : expresion . '-' termino  (158)
+
+	'+'  shift 94
+	'-'  shift 95
+	')'  shift 279
+	ELSE  reduce 64
+	ENDIF  reduce 64
+	UNTIL  reduce 64
+	'}'  reduce 64
+
+
+state 241
+	sentencia_return : RETURN expresion ')' .  (63)
+
+	.  reduce 63
+
+
+state 242
+	sentencia_when_con_return : WHEN '(' condicion . ')' THEN '{' bloque_sentencias_when_con_return '}' ';'  (43)
+	sentencia_when : WHEN '(' condicion . ')' THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN '(' condicion . ')' '{' sentencias_when '}' ';'  (120)
+
+	')'  shift 280
+	.  error
+
+
+state 243
+	bloque_sentencias_ejecutables_do_con_return : '{' sentencias_ejecutables_do . sentencia_return '}'  (50)
+	bloque_sentencias_ejecutables_do : '{' sentencias_ejecutables_do . '}'  (113)
+	sentencias_ejecutables_do : sentencias_ejecutables_do . sentencia_ejecutable_do  (115)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	RETURN  shift 130
+	BREAK  shift 55
+	WHEN  shift 9
+	DO  shift 10
+	CONTINUE  shift 56
+	DEFER  shift 13
+	'}'  shift 187
+	.  error
+
+	sentencia_ejecutable  goto 58
+	sentencia_return  goto 281
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_ejecutable_do  goto 188
+	sentencia_break  goto 60
+	sentencia_continue  goto 61
+	sentencia_do_simple  goto 32
+
+
+state 244
+	sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return UNTIL . '(' condicion ')' ';'  (48)
+
+	'('  shift 282
+	.  error
+
+
+state 245
+	sentencia_seleccion_simple_con_return : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' . condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (129)
+	seleccion : IF '(' . condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' . condicion ')' THEN ENDIF ';'  (132)
+	seleccion : IF '(' . condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF '(' . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+	seleccion : IF '(' . condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' . condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' . condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' . condicion ')' THEN ELSE ENDIF ';'  (140)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	')'  shift 88
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 283
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 246
+	sentencia_do_con_return : etiqueta ':' sentencia_do_simple_con_return .  (47)
+
+	.  reduce 47
+
+
+state 247
+	lista_de_parametros_reales : lista_de_parametros_reales ',' parametro_real .  (169)
+
+	.  reduce 169
+
+
+state 248
+	sentencias_ejecutables : sentencia_ejecutable .  (145)
+
+	.  reduce 145
+
+
+state 249
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables . '}'  (142)
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables .  (144)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (146)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'}'  shift 284
+	ELSE  reduce 144
+	ENDIF  reduce 144
+
+	sentencia_ejecutable  goto 251
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 250
+	bloque_sentencias_ejecutables_seleccion : sentencias_ejecutables '}' .  (143)
+
+	.  reduce 143
+
+
+state 251
+	sentencias_ejecutables : sentencias_ejecutables sentencia_ejecutable .  (146)
+
+	.  reduce 146
+
+
+state 252
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (135)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 285
+
+
+state 253
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (129)
+
+	';'  shift 286
+	.  error
+
+
+state 254
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 287
+
+
+state 255
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (127)
+
+	';'  shift 288
+	.  error
+
+
+state 256
+	seleccion : IF '(' condicion ')' THEN ELSE . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' THEN ELSE . ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	ENDIF  shift 289
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 290
+
+
+state 257
+	seleccion : IF '(' condicion ')' THEN ENDIF . ';'  (132)
+
+	';'  shift 291
+	.  error
+
+
+state 258
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ENDIF  (131)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion . ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+
+	ELSE  shift 292
+	ENDIF  shift 293
+	.  error
+
+
+state 259
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 294
+
+
+state 260
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (130)
+
+	';'  shift 295
+	.  error
+
+
+state 261
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (134)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 296
+
+
+state 262
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (128)
+
+	';'  shift 297
+	.  error
+
+
+state 263
+	encabezado_funcion : FUN ID '(' ')' ':' tipo .  (51)
+
+	.  reduce 51
+
+
+state 264
+	encabezado_funcion : FUN ID '(' lista_de_parametros ')' ':' . tipo  (52)
+	encabezado_funcion : FUN ID '(' lista_de_parametros ')' ':' .  (57)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	'{'  reduce 57
+
+	tipo  goto 298
+
+
+state 265
+	encabezado_funcion : FUN ID '(' lista_de_parametros ':' tipo .  (60)
+
+	.  reduce 60
+
+
+state 266
+	encabezado_funcion : FUN ID lista_de_parametros ')' ':' tipo .  (59)
+
+	.  reduce 59
+
+
+state 267
+	lista_de_parametros : parametro ',' parametro ',' . lista_parametros_exceso  (68)
+	$$1 : .  (73)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	ID  reduce 73
+
+	tipo  goto 110
+	parametro  goto 299
+	lista_parametros_exceso  goto 300
+	$$1  goto 113
+
+
+state 268
+	encabezado_funcion : FUN '(' lista_de_parametros ')' ':' tipo .  (58)
+
+	.  reduce 58
+
+
+state 269
+	sentencias_when : sentencia .  (123)
+	sentencias_when : sentencia . sentencias_when  (124)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	RETURN  reduce 123
+	'}'  reduce 123
+
+	sentencia  goto 269
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencias_when  goto 301
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 270
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when . '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	'}'  shift 302
+	.  error
+
+
+state 271
+	sentencia_when : WHEN '(' condicion ')' THEN '{' . sentencias_when '}' ';'  (119)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	.  error
+
+	sentencia  goto 269
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencias_when  goto 303
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 272
+	sentencia_when : WHEN '(' condicion ')' '{' sentencias_when . '}' ';'  (120)
+
+	'}'  shift 304
+	.  error
+
+
+state 273
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' ')' ';' .  (108)
+
+	.  reduce 108
+
+
+state 274
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ';' .  (110)
+
+	.  reduce 110
+
+
+state 275
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' . ';'  (106)
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' .  (107)
+
+	';'  shift 305
+	$end  reduce 107
+	ID  reduce 107
+	IF  reduce 107
+	ELSE  reduce 107
+	ENDIF  reduce 107
+	OUT  reduce 107
+	FUN  reduce 107
+	RETURN  reduce 107
+	BREAK  reduce 107
+	WHEN  reduce 107
+	DO  reduce 107
+	UNTIL  reduce 107
+	CONTINUE  reduce 107
+	DOUBLE64  reduce 107
+	UINT16  reduce 107
+	DEFER  reduce 107
+	CONST  reduce 107
+	'}'  reduce 107
+
+
+state 276
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL condicion ')' ';' .  (109)
+
+	.  reduce 109
+
+
+state 277
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion ')' . THEN ENDIF ';'  (132)
+	seleccion : IF '(' condicion ')' . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' condicion ')' . THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion ')' . THEN ELSE ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	THEN  shift 306
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 218
+
+
+state 278
+	sentencia_return : RETURN '(' ')' ';' .  (65)
+
+	.  reduce 65
+
+
+state 279
+	sentencia_return : RETURN '(' expresion ')' . ';'  (61)
+	sentencia_return : RETURN '(' expresion ')' .  (62)
+
+	';'  shift 307
+	ELSE  reduce 62
+	ENDIF  reduce 62
+	UNTIL  reduce 62
+	'}'  reduce 62
+
+
+state 280
+	sentencia_when_con_return : WHEN '(' condicion ')' . THEN '{' bloque_sentencias_when_con_return '}' ';'  (43)
+	sentencia_when : WHEN '(' condicion ')' . THEN '{' sentencias_when '}' ';'  (119)
+	sentencia_when : WHEN '(' condicion ')' . '{' sentencias_when '}' ';'  (120)
+
+	THEN  shift 308
+	'{'  shift 233
+	.  error
+
+
+state 281
+	bloque_sentencias_ejecutables_do_con_return : '{' sentencias_ejecutables_do sentencia_return . '}'  (50)
+
+	'}'  shift 309
+	.  error
+
+
+state 282
+	sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' . condicion ')' ';'  (48)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 310
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 283
+	sentencia_seleccion_simple_con_return : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (127)
+	seleccion : IF '(' condicion . ')' bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion . ')' THEN ENDIF ';'  (132)
+	seleccion : IF '(' condicion . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (133)
+	seleccion : IF '(' condicion . ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' condicion . ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion . ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion . ')' THEN ELSE ENDIF ';'  (140)
+
+	THEN  shift 156
+	')'  shift 311
+	.  error
+
+
+state 284
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables '}' .  (142)
+
+	.  reduce 142
+
+
+state 285
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (135)
+
+	ENDIF  shift 312
+	.  error
+
+
+state 286
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (129)
+
+	.  reduce 129
+
+
+state 287
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (133)
+
+	ENDIF  shift 313
+	.  error
+
+
+state 288
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (127)
+
+	.  reduce 127
+
+
+state 289
+	seleccion : IF '(' condicion ')' THEN ELSE ENDIF . ';'  (140)
+
+	';'  shift 314
+	.  error
+
+
+state 290
+	seleccion : IF '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (137)
+
+	ENDIF  shift 315
+	.  error
+
+
+state 291
+	seleccion : IF '(' condicion ')' THEN ENDIF ';' .  (132)
+
+	.  reduce 132
+
+
+state 292
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE . ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE . bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+
+	ID  shift 54
+	IF  shift 6
+	ENDIF  shift 316
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 317
+
+
+state 293
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (125)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF .  (131)
+
+	';'  shift 318
+	$end  reduce 131
+	ID  reduce 131
+	IF  reduce 131
+	ELSE  reduce 131
+	ENDIF  reduce 131
+	OUT  reduce 131
+	FUN  reduce 131
+	RETURN  reduce 131
+	BREAK  reduce 131
+	WHEN  reduce 131
+	DO  reduce 131
+	UNTIL  reduce 131
+	CONTINUE  reduce 131
+	DOUBLE64  reduce 131
+	UINT16  reduce 131
+	DEFER  reduce 131
+	CONST  reduce 131
+	'}'  reduce 131
+
+
+state 294
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (136)
+
+	ENDIF  shift 319
+	.  error
+
+
+state 295
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (130)
+
+	.  reduce 130
+
+
+state 296
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (134)
+
+	ENDIF  shift 320
+	.  error
+
+
+state 297
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (128)
+
+	.  reduce 128
+
+
+state 298
+	encabezado_funcion : FUN ID '(' lista_de_parametros ')' ':' tipo .  (52)
+
+	.  reduce 52
+
+
+state 299
+	lista_parametros_exceso : parametro .  (69)
+	lista_parametros_exceso : parametro . ',' lista_parametros_exceso  (70)
+
+	','  shift 321
+	')'  reduce 69
+	':'  reduce 69
+
+
+state 300
+	lista_de_parametros : parametro ',' parametro ',' lista_parametros_exceso .  (68)
+
+	.  reduce 68
+
+
+state 301
+	sentencias_when : sentencia sentencias_when .  (124)
+
+	.  reduce 124
+
+
+state 302
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' . ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	';'  shift 322
+	.  error
+
+
+state 303
+	sentencia_when : WHEN '(' condicion ')' THEN '{' sentencias_when . '}' ';'  (119)
+
+	'}'  shift 323
+	.  error
+
+
+state 304
+	sentencia_when : WHEN '(' condicion ')' '{' sentencias_when '}' . ';'  (120)
+
+	';'  shift 324
+	.  error
+
+
+state 305
+	sentencia_do_simple : DO bloque_sentencias_ejecutables_do UNTIL '(' condicion ')' ';' .  (106)
+
+	.  reduce 106
+
+
+state 306
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion ')' THEN . ENDIF ';'  (132)
+	seleccion : IF '(' condicion ')' THEN . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion ')' THEN . ELSE ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	ELSE  shift 256
+	ENDIF  shift 257
+	OUT  shift 7
+	RETURN  shift 130
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 325
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencia_return  goto 326
+	bloque_sentencias_ejecutables_seleccion_con_return  goto 327
+	sentencias_ejecutables  goto 214
+	bloque_sentencias_ejecutables_seleccion_simple_con_return  goto 328
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 258
+
+
+state 307
+	sentencia_return : RETURN '(' expresion ')' ';' .  (61)
+
+	.  reduce 61
+
+
+state 308
+	sentencia_when_con_return : WHEN '(' condicion ')' THEN . '{' bloque_sentencias_when_con_return '}' ';'  (43)
+	sentencia_when : WHEN '(' condicion ')' THEN . '{' sentencias_when '}' ';'  (119)
+
+	'{'  shift 329
+	.  error
+
+
+state 309
+	bloque_sentencias_ejecutables_do_con_return : '{' sentencias_ejecutables_do sentencia_return '}' .  (50)
+
+	.  reduce 50
+
+
+state 310
+	sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion . ')' ';'  (48)
+
+	')'  shift 330
+	.  error
+
+
+state 311
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (130)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion ')' . THEN ENDIF ';'  (132)
+	seleccion : IF '(' condicion ')' . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (136)
+	seleccion : IF '(' condicion ')' . THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' . THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion ')' . THEN ELSE ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	THEN  shift 331
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 212
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencias_ejecutables  goto 214
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 218
+
+
+state 312
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (135)
+
+	';'  shift 332
+	.  error
+
+
+state 313
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (133)
+
+	';'  shift 333
+	.  error
+
+
+state 314
+	seleccion : IF '(' condicion ')' THEN ELSE ENDIF ';' .  (140)
+
+	.  reduce 140
+
+
+state 315
+	seleccion : IF '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (137)
+
+	';'  shift 334
+	.  error
+
+
+state 316
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF . ';'  (138)
+
+	';'  shift 335
+	.  error
+
+
+state 317
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion . ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion . ENDIF  (139)
+
+	ENDIF  shift 336
+	.  error
+
+
+state 318
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (125)
+
+	.  reduce 125
+
+
+state 319
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (136)
+
+	';'  shift 337
+	.  error
+
+
+state 320
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (134)
+
+	';'  shift 338
+	.  error
+
+
+state 321
+	lista_parametros_exceso : parametro ',' . lista_parametros_exceso  (70)
+	$$1 : .  (73)
+
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	ID  reduce 73
+
+	tipo  goto 110
+	parametro  goto 299
+	lista_parametros_exceso  goto 339
+	$$1  goto 113
+
+
+state 322
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' . $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+	$$2 : .  (121)
+
+	.  reduce 121
+
+	$$2  goto 340
+
+
+state 323
+	sentencia_when : WHEN '(' condicion ')' THEN '{' sentencias_when '}' . ';'  (119)
+
+	';'  shift 341
+	.  error
+
+
+state 324
+	sentencia_when : WHEN '(' condicion ')' '{' sentencias_when '}' ';' .  (120)
+
+	.  reduce 120
+
+
+state 325
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' . sentencias_ejecutables sentencia_return '}'  (39)
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' . sentencias_ejecutables sentencia_return '}'  (42)
+	bloque_sentencias_ejecutables_seleccion : '{' . sentencias_ejecutables '}'  (142)
+	bloque_sentencias_ejecutables_seleccion : '{' . sentencias_ejecutables  (144)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 248
+	sentencias_ejecutables  goto 342
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 326
+	bloque_sentencias_ejecutables_seleccion_con_return : sentencia_return .  (38)
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : sentencia_return .  (41)
+
+	ELSE  reduce 38
+	ENDIF  reduce 41
+
+
+state 327
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return . ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+
+	ELSE  shift 343
+	.  error
+
+
+state 328
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return . ENDIF ';'  (40)
+
+	ENDIF  shift 344
+	.  error
+
+
+state 329
+	sentencia_when_con_return : WHEN '(' condicion ')' THEN '{' . bloque_sentencias_when_con_return '}' ';'  (43)
+	sentencia_when : WHEN '(' condicion ')' THEN '{' . sentencias_when '}' ';'  (119)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	RETURN  shift 130
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	.  error
+
+	sentencia  goto 269
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencia_return  goto 345
+	bloque_sentencias_when_con_return  goto 346
+	sentencias_when  goto 347
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 330
+	sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' . ';'  (48)
+
+	';'  shift 348
+	.  error
+
+
+state 331
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'  (40)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF ';'  (125)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (126)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ENDIF  (131)
+	seleccion : IF '(' condicion ')' THEN . ENDIF ';'  (132)
+	seleccion : IF '(' condicion ')' THEN . ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';'  (137)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';'  (138)
+	seleccion : IF '(' condicion ')' THEN . bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF  (139)
+	seleccion : IF '(' condicion ')' THEN . ELSE ENDIF ';'  (140)
+
+	ID  shift 54
+	IF  shift 6
+	ELSE  shift 256
+	ENDIF  shift 257
+	OUT  shift 7
+	RETURN  shift 130
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'{'  shift 349
+	.  error
+
+	sentencia_ejecutable  goto 213
+	sentencia_return  goto 350
+	sentencias_ejecutables  goto 214
+	bloque_sentencias_ejecutables_seleccion_simple_con_return  goto 328
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+	bloque_sentencias_ejecutables_seleccion  goto 258
+
+
+state 332
+	seleccion : IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (135)
+
+	.  reduce 135
+
+
+state 333
+	seleccion : IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (133)
+
+	.  reduce 133
+
+
+state 334
+	seleccion : IF '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (137)
+
+	.  reduce 137
+
+
+state 335
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';' .  (138)
+
+	.  reduce 138
+
+
+state 336
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF . ';'  (126)
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF .  (139)
+
+	';'  shift 351
+	$end  reduce 139
+	ID  reduce 139
+	IF  reduce 139
+	ELSE  reduce 139
+	ENDIF  reduce 139
+	OUT  reduce 139
+	FUN  reduce 139
+	RETURN  reduce 139
+	BREAK  reduce 139
+	WHEN  reduce 139
+	DO  reduce 139
+	UNTIL  reduce 139
+	CONTINUE  reduce 139
+	DOUBLE64  reduce 139
+	UINT16  reduce 139
+	DEFER  reduce 139
+	CONST  reduce 139
+	'}'  reduce 139
+
+
+state 337
+	seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (136)
+
+	.  reduce 136
+
+
+state 338
+	seleccion : IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (134)
+
+	.  reduce 134
+
+
+state 339
+	lista_parametros_exceso : parametro ',' lista_parametros_exceso .  (70)
+
+	.  reduce 70
+
+
+state 340
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 . WHEN '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	WHEN  shift 352
+	.  error
+
+
+state 341
+	sentencia_when : WHEN '(' condicion ')' THEN '{' sentencias_when '}' ';' .  (119)
+
+	.  reduce 119
+
+
+state 342
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' sentencias_ejecutables . sentencia_return '}'  (39)
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' sentencias_ejecutables . sentencia_return '}'  (42)
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables . '}'  (142)
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables .  (144)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (146)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	RETURN  shift 130
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'}'  shift 284
+	ELSE  reduce 144
+	ENDIF  reduce 144
+
+	sentencia_ejecutable  goto 251
+	sentencia_return  goto 353
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 343
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE . bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'  (37)
+
+	RETURN  shift 130
+	'{'  shift 354
+	.  error
+
+	sentencia_return  goto 355
+	bloque_sentencias_ejecutables_seleccion_con_return  goto 356
+
+
+state 344
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF . ';'  (40)
+
+	';'  shift 357
+	.  error
+
+
+state 345
+	bloque_sentencias_when_con_return : sentencia_return .  (44)
+
+	.  reduce 44
+
+
+state 346
+	sentencia_when_con_return : WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return . '}' ';'  (43)
+
+	'}'  shift 358
+	.  error
+
+
+state 347
+	bloque_sentencias_when_con_return : sentencias_when . sentencia_return  (45)
+	sentencia_when : WHEN '(' condicion ')' THEN '{' sentencias_when . '}' ';'  (119)
+
+	RETURN  shift 130
+	'}'  shift 323
+	.  error
+
+	sentencia_return  goto 359
+
+
+state 348
+	sentencia_do_simple_con_return : DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' .  (48)
+
+	.  reduce 48
+
+
+state 349
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' . sentencias_ejecutables sentencia_return '}'  (42)
+	bloque_sentencias_ejecutables_seleccion : '{' . sentencias_ejecutables '}'  (142)
+	bloque_sentencias_ejecutables_seleccion : '{' . sentencias_ejecutables  (144)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 248
+	sentencias_ejecutables  goto 360
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 350
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : sentencia_return .  (41)
+
+	.  reduce 41
+
+
+state 351
+	seleccion : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' .  (126)
+
+	.  reduce 126
+
+
+state 352
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN . '(' condicion ')' THEN '{' sentencias_when '}'  (122)
+
+	'('  shift 361
+	.  error
+
+
+state 353
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' sentencias_ejecutables sentencia_return . '}'  (39)
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' sentencias_ejecutables sentencia_return . '}'  (42)
+
+	'}'  shift 362
+	.  error
+
+
+state 354
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' . sentencias_ejecutables sentencia_return '}'  (39)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 248
+	sentencias_ejecutables  goto 363
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 355
+	bloque_sentencias_ejecutables_seleccion_con_return : sentencia_return .  (38)
+
+	.  reduce 38
+
+
+state 356
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return . ENDIF ';'  (37)
+
+	ENDIF  shift 364
+	.  error
+
+
+state 357
+	sentencia_seleccion_simple_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';' .  (40)
+
+	.  reduce 40
+
+
+state 358
+	sentencia_when_con_return : WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' . ';'  (43)
+
+	';'  shift 365
+	.  error
+
+
+state 359
+	bloque_sentencias_when_con_return : sentencias_when sentencia_return .  (45)
+
+	.  reduce 45
+
+
+state 360
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' sentencias_ejecutables . sentencia_return '}'  (42)
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables . '}'  (142)
+	bloque_sentencias_ejecutables_seleccion : '{' sentencias_ejecutables .  (144)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (146)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	RETURN  shift 130
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	'}'  shift 284
+	ELSE  reduce 144
+	ENDIF  reduce 144
+
+	sentencia_ejecutable  goto 251
+	sentencia_return  goto 366
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 361
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' . condicion ')' THEN '{' sentencias_when '}'  (122)
+	$$3 : .  (149)
+
+	ID  shift 37
+	CTE  shift 38
+	'-'  shift 39
+	COMP_MAYOR_IGUAL  reduce 149
+	COMP_MENOR_IGUAL  reduce 149
+	COMP_DISTINTO  reduce 149
+	'>'  reduce 149
+	'<'  reduce 149
+	'='  reduce 149
+
+	condicion  goto 367
+	expresion  goto 42
+	$$3  goto 43
+	termino  goto 44
+	factor  goto 45
+	constante  goto 46
+	invocacion_funcion  goto 47
+
+
+state 362
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' sentencias_ejecutables sentencia_return '}' .  (39)
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' sentencias_ejecutables sentencia_return '}' .  (42)
+
+	ELSE  reduce 39
+	ENDIF  reduce 42
+
+
+state 363
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' sentencias_ejecutables . sentencia_return '}'  (39)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (146)
+
+	ID  shift 54
+	IF  shift 6
+	OUT  shift 7
+	RETURN  shift 130
+	WHEN  shift 9
+	DO  shift 10
+	DEFER  shift 13
+	.  error
+
+	sentencia_ejecutable  goto 251
+	sentencia_return  goto 368
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 364
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF . ';'  (37)
+
+	';'  shift 369
+	.  error
+
+
+state 365
+	sentencia_when_con_return : WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';' .  (43)
+
+	.  reduce 43
+
+
+state 366
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' sentencias_ejecutables sentencia_return . '}'  (42)
+
+	'}'  shift 370
+	.  error
+
+
+state 367
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion . ')' THEN '{' sentencias_when '}'  (122)
+
+	')'  shift 371
+	.  error
+
+
+state 368
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' sentencias_ejecutables sentencia_return . '}'  (39)
+
+	'}'  shift 372
+	.  error
+
+
+state 369
+	sentencia_seleccion_compuesta_con_return : IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';' .  (37)
+
+	.  reduce 37
+
+
+state 370
+	bloque_sentencias_ejecutables_seleccion_simple_con_return : '{' sentencias_ejecutables sentencia_return '}' .  (42)
+
+	.  reduce 42
+
+
+state 371
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' . THEN '{' sentencias_when '}'  (122)
+
+	THEN  shift 373
+	.  error
+
+
+state 372
+	bloque_sentencias_ejecutables_seleccion_con_return : '{' sentencias_ejecutables sentencia_return '}' .  (39)
+
+	.  reduce 39
+
+
+state 373
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN . '{' sentencias_when '}'  (122)
+
+	'{'  shift 374
+	.  error
+
+
+state 374
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' . sentencias_when '}'  (122)
+
+	ID  shift 5
+	IF  shift 6
+	OUT  shift 7
+	FUN  shift 8
+	WHEN  shift 9
+	DO  shift 10
+	DOUBLE64  shift 11
+	UINT16  shift 12
+	DEFER  shift 13
+	CONST  shift 14
+	.  error
+
+	sentencia  goto 269
+	sentencia_declarativa  goto 17
+	sentencia_ejecutable  goto 18
+	sentencia_declarativa_variables  goto 19
+	funcion_con_return  goto 20
+	funcion_sin_return  goto 21
+	declaracion_constantes  goto 22
+	tipo  goto 23
+	lista_de_variables  goto 24
+	encabezado_funcion  goto 25
+	sentencias_when  goto 375
+	etiqueta  goto 26
+	asignacion  goto 27
+	seleccion  goto 28
+	imprimir  goto 29
+	sentencia_when  goto 30
+	sentencia_do  goto 31
+	sentencia_do_simple  goto 32
+
+
+state 375
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when . '}'  (122)
+
+	'}'  shift 376
+	.  error
+
+
+state 376
+	sentencia_when : WHEN '(' ')' THEN '{' sentencias_when '}' ';' $$2 WHEN '(' condicion ')' THEN '{' sentencias_when '}' .  (122)
+
+	.  reduce 122
+
+
+39 terminals, 60 nonterminals
+185 grammar rules, 377 states
