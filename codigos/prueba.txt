@@ -6,15 +6,12 @@ programa1 {
 	{
 		ui16 x;
 		x =: 1.2;
-		
 		if (x > 0.0) then
-			if (w > 0.0) then
-				return (x+1);
-			else
-				return (x+1);
-			end_if;
+			return (x);
 		else
-			return (x+1);
+			return (x + 1.2);
 		end_if;
 	}
+	
+	x =: f3();
 }

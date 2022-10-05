@@ -81,8 +81,7 @@ sentencia_seleccion_compuesta_con_return:
 ;
 
 bloque_sentencias_ejecutables_seleccion_con_return:
-	sentencia_return |
-	'{' bloque_sentencias_ejecutables_seleccion_simple_con_return sentencia_return '}'
+	sentencia_return
 ;
 
 sentencia_funcion_con_return:
@@ -325,6 +324,7 @@ factor:
 ;
 
 invocacion_funcion:
+	ID '(' ')' |
 	ID '(' lista_de_parametros_reales ')'
 ;
 
