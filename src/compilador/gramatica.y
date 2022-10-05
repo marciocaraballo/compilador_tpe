@@ -37,6 +37,7 @@ sentencia:
 sentencia_declarativa:
 	sentencia_declarativa_variables |
 	funcion_con_return |
+	funcion_sin_return |
 	declaracion_constantes
 ;
 
@@ -56,14 +57,32 @@ funcion_con_return:
 	encabezado_funcion '{' cuerpo_funcion_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
+funcion_sin_return:
+	encabezado_funcion '{' cuerpo_funcion_sin_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+;
+
 cuerpo_funcion_con_return:
 	sentencia_return |
 	sentencias_funcion_con_return sentencia_return
 ;
 
+cuerpo_funcion_sin_return:
+	sentencia_seleccion_compuesta_con_return |
+	sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return;
+;
+
 sentencias_funcion_con_return:
 	sentencia_funcion_con_return |
 	sentencias_funcion_con_return sentencia_funcion_con_return
+;
+
+sentencia_seleccion_compuesta_con_return:
+		IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';' |
+;
+
+bloque_sentencias_ejecutables_seleccion_con_return:
+	sentencia_return |
+	'{' bloque_sentencias_ejecutables_seleccion_simple_con_return  sentencia_return '}'
 ;
 
 sentencia_funcion_con_return:
