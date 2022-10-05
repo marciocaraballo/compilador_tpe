@@ -66,14 +66,14 @@ cuerpo_funcion_con_return:
 	sentencias_funcion_con_return sentencia_return
 ;
 
-cuerpo_funcion_sin_return:
-	sentencia_seleccion_compuesta_con_return |
-	sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return;
-;
-
 sentencias_funcion_con_return:
 	sentencia_funcion_con_return |
 	sentencias_funcion_con_return sentencia_funcion_con_return
+;
+
+cuerpo_funcion_sin_return:
+	sentencia_seleccion_compuesta_con_return |
+	sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return;
 ;
 
 sentencia_seleccion_compuesta_con_return:

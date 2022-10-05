@@ -7,10 +7,32 @@ programa1 {
 		ui16 x;
 		x =: 1.2;
 		if (x > 0.0) then
-			return (x);
+			if (p > 0.0) then
+				if (g > 0.0) then
+					if (g > 0.0) then
+						do
+							a =: 3;
+						until (a>b);
+					else
+						when (a>b) then {
+							d =: 4;
+						};
+					end_if;
+				else
+					if (g > 0.0) then
+						g =: 2;
+					else
+						g =: 2;
+					end_if;
+				end_if;
+			else
+				c =: 2;
+			end_if;
 		else
-			return (x + 1.2);
+			c =: 2;
 		end_if;
+		
+		return (a+b);
 	}
 	
 	x =: f3();
