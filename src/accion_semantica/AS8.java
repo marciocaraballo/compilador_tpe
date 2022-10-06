@@ -5,15 +5,6 @@ import compilador.Logger;
 import compilador.TablaDeSimbolos;
 import compilador.TablaPalabrasReservadas;
 
-/**
- * Devuelve ultimo caracter leido a la entrada
- * Verifica rango de las constantes doubles
- * Cheque si su lexema esta dentro de la TS
- * - Si esta devuelve el token asociado
- * - Si no esta:
- * 	 - Alta en TS
- * 	 - Devuelve Token
- */
 public class AS8 extends AccionSemantica {
 
 	public AS8(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger logger) {
