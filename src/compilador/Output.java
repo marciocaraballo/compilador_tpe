@@ -14,6 +14,9 @@ public class Output {
 	public void saveFile(String file, String content) {
 		FileWriter fw;
 		try {
+			
+			path = path.replace(".txt", "") + "-";
+			
 			fw = new FileWriter(path + file);
 			fw.append(content);
 			fw.close();
