@@ -43,5 +43,9 @@ program1 {
 	
 	out('Cadena de caracteres bien escrita');	<<cadena bien escrita>>
 	
-	out('Cadena de caracteres mal escrita); <<va a descartar la cadena mal escrita porque esta incompleta>>
+	if (a>=b) then <<algunas palabras reservadas>>
+		variable16 =: 1.2;
+	else
+		IF =: THEN + ELSE; <<son identificadores>>
+	end_if;
 }
