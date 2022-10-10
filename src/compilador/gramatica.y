@@ -55,16 +55,8 @@ lista_de_variables:
 ;
 
 funcion_con_return:
-	encabezado_funcion '{' cuerpo_funcion_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-;
-
-funcion_sin_return:
-	encabezado_funcion '{' cuerpo_funcion_sin_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-;
-
-cuerpo_funcion_con_return:
-	sentencia_return |
-	sentencias_funcion_con_return sentencia_return
+	encabezado_funcion '{' sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+	encabezado_funcion '{' sentencias_funcion_con_return sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
 sentencias_funcion_con_return:
@@ -80,7 +72,13 @@ sentencia_funcion_con_return:
 	sentencia_do_con_return |
 	DEFER sentencia_do_con_return |
 	sentencia_seleccion_simple_con_return |
-	DEFER sentencia_seleccion_simple_con_return
+	DEFER sentencia_seleccion_simple_con_return |
+	sentencia_seleccion_compuesta_con_return |
+	DEFER sentencia_seleccion_compuesta_con_return
+;
+
+funcion_sin_return:
+	encabezado_funcion '{' cuerpo_funcion_sin_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
 cuerpo_funcion_sin_return:
@@ -89,21 +87,15 @@ cuerpo_funcion_sin_return:
 ;
 
 sentencia_seleccion_compuesta_con_return:
-		IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_con_return ELSE bloque_sentencias_ejecutables_seleccion_con_return ENDIF ';'
-;
-
-bloque_sentencias_ejecutables_seleccion_con_return:
-	sentencia_return |
-	'{' sentencias_ejecutables sentencia_return '}'
+		IF '(' condicion ')' THEN sentencia_return ELSE sentencia_return ENDIF ';'
+		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE sentencia_return ENDIF ';'
+		IF '(' condicion ')' THEN sentencia_return ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
+		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
 ;
 
 sentencia_seleccion_simple_con_return:
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion_simple_con_return ENDIF ';'
-;
-
-bloque_sentencias_ejecutables_seleccion_simple_con_return:
-	sentencia_return |	
-	'{' sentencias_ejecutables sentencia_return '}'
+	IF '(' condicion ')' THEN sentencia_return ENDIF ';'
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
 ;
 
 sentencia_when_con_return:
@@ -116,12 +108,8 @@ bloque_sentencias_when_con_return:
 ;
 
 sentencia_do_con_return:
-	sentencia_do_simple_con_return |
-	etiqueta ':' sentencia_do_simple_con_return
-;
-
-sentencia_do_simple_con_return:
-	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
+	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
 ;
 
 bloque_sentencias_ejecutables_do_con_return:
@@ -368,10 +356,6 @@ tipo:
 public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
 public static TablaDeSimbolos ts = null;
-
-public void print(String valor){
-	System.out.println("VALORRRRRRR: " + valor);
-}
 
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
