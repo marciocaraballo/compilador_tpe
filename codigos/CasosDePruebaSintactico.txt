@@ -3,10 +3,7 @@ tanto validas como invalidas >>
 programa1 {
 
 	f64 a, b, d;
-	ui16 g;
-	
-	g =: -1.8976931348623158D+308;	
-	d =: -1.8976931348623159D+308;
+	ui16 c, e, f, g, h;
 	
 	fun f1 (ui16 y) : ui16
 	{
@@ -19,4 +16,26 @@ programa1 {
 		}
 		end_if;
 	}
+	
+	fun f2 (ui16 x, ui16 y) : ui16
+	{
+		ui16 x;
+		x =: y;
+		return (x);
+	}
+	
+	fun f3 () : f64
+	{
+		f64 x;
+		x =: 1.2;
+		if (x > 0.0) then
+			return (x);
+		else
+			return (x + 1.2);
+		end_if;
+	}
+	
+	a =: f3();
+	c =: f1(e);
+	f =: f2(g, h) + f1(c);
 }
