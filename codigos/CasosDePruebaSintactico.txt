@@ -1,5 +1,5 @@
-<< este programa es !# testing
-sarasa de prueba >>
+<< Este programa es testing de estructuras sintacticas
+tanto validas como invalidas >>
 programa1 {
 
 	ui16 g;
