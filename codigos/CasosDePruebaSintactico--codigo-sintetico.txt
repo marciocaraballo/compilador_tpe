@@ -1,0 +1,5 @@
+[Success] Linea 5: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 17: [Parser] Declaracion de funcion detectado
+[Success] Linea 18: [Parser] Programa correcto detectado

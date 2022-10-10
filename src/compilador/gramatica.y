@@ -55,7 +55,7 @@ lista_de_variables:
 ;
 
 funcion_con_return:
-	encabezado_funcion '{' sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+	encabezado_funcion '{' sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
 	encabezado_funcion '{' sentencias_funcion sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
@@ -83,9 +83,9 @@ funcion_sin_return:
 ;
 
 sentencia_seleccion_compuesta_con_return:
-		IF '(' condicion ')' THEN sentencia_return ELSE sentencia_return ENDIF ';'
-		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE sentencia_return ENDIF ';'
-		IF '(' condicion ')' THEN sentencia_return ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
+		IF '(' condicion ')' THEN sentencia_return ELSE sentencia_return ENDIF ';' |
+		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE sentencia_return ENDIF ';' |
+ 		IF '(' condicion ')' THEN sentencia_return ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';' |
 		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
 ;
 

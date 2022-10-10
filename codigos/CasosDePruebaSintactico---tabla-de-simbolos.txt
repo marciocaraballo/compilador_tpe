@@ -1,0 +1,16 @@
+Lexema: a
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: d
+Atributo: token Valor: 257
+Lexema: programa1
+Atributo: token Valor: 257
+Lexema: g
+Atributo: token Valor: 257
+Lexema: -1.7976931348623157D+308
+Atributo: token Valor: 258
+Lexema: y
+Atributo: token Valor: 257
+Lexema: f1
+Atributo: token Valor: 257

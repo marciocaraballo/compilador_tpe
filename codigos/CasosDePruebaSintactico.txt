@@ -6,51 +6,13 @@ programa1 {
 	
 	g =: -1.8976931348623158D+308;	
 	d =: -1.8976931348623159D+308;
-
-	do {
-		a =: a + b;
-		
-		do {
-			a =: a + b;
-				
-			if (c > 0) then
-				a =: b;
-			end_if;
-		} until(g > 0);
-	} until(g > 0);
-
-	fun f3 () : ui16
-	{
-		ui16 x;
-		x =: 1.2;
-		if (x > 0.0) then
-			if (p > 0.0) then
-				if (g > 0.0) then
-					if (g > 0.0) then
-						do
-							a =: 3;
-						until (a>b);
-					else
-						when (a>b) then {
-							d =: 4;
-						};
-					end_if;
-				else
-					if (g > 0.0) then
-						g =: 2;
-					else
-						g =: 2;
-					end_if;
-				end_if;
-			else
-				c =: 2;
-			end_if;
-		else
-			c =: 2;
-		end_if;
-		
-		return (a+b);
-	}
 	
-	x =: f3();
+	fun f1 (ui16 y) : ui16
+	{
+		if (a = b) then
+			return (a);
+		else
+			return (b);
+		end_if;
+	}
 }
