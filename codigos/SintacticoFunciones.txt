@@ -9,6 +9,12 @@ programa1 {
 	{
 		if (a = b) then {
 			a =: a + b;
+			
+			do {
+				a =: a + 1;
+				b =: b - 1;
+			} until (a > b);
+			
 			return (a);
 		} else {
 			a =: a - b;
