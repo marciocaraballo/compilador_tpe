@@ -27,6 +27,11 @@ programa1 {
 	{
 		ui16 x;
 		x =: y;
+		
+		if (x =! y) then
+			return (y);
+		end_if;
+		
 		return (x);
 	}
 	

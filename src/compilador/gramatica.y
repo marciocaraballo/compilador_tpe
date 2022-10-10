@@ -90,7 +90,7 @@ sentencia_seleccion_compuesta_con_return:
 ;
 
 sentencia_seleccion_simple_con_return:
-	IF '(' condicion ')' THEN sentencia_return ENDIF ';'
+	IF '(' condicion ')' THEN sentencia_return ENDIF ';' |
 	IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
 ;
 
