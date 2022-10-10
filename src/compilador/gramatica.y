@@ -56,15 +56,15 @@ lista_de_variables:
 
 funcion_con_return:
 	encabezado_funcion '{' sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-	encabezado_funcion '{' sentencias_funcion_con_return sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+	encabezado_funcion '{' sentencias_funcion sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
-sentencias_funcion_con_return:
-	sentencia_funcion_con_return |
-	sentencias_funcion_con_return sentencia_funcion_con_return
+sentencias_funcion:
+	sentencia_funcion |
+	sentencias_funcion sentencia_funcion
 ;
 
-sentencia_funcion_con_return:
+sentencia_funcion:
 	sentencia_declarativa |
 	sentencia_ejecutable |
 	sentencia_when_con_return |
@@ -78,12 +78,8 @@ sentencia_funcion_con_return:
 ;
 
 funcion_sin_return:
-	encabezado_funcion '{' cuerpo_funcion_sin_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-;
-
-cuerpo_funcion_sin_return:
-	sentencia_seleccion_compuesta_con_return |
-	sentencias_funcion_con_return sentencia_seleccion_compuesta_con_return;
+	encabezado_funcion '{' sentencia_seleccion_compuesta_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
+	encabezado_funcion '{' sentencias_funcion sentencia_seleccion_compuesta_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
 sentencia_seleccion_compuesta_con_return:
