@@ -56,7 +56,8 @@ lista_de_variables:
 
 funcion_con_return:
 	encabezado_funcion '{' sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
-	encabezado_funcion '{' sentencias_funcion sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+	encabezado_funcion '{' sentencias_funcion sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
+	encabezado_funcion '{' '}' { logger.logError("[Parser] Se esperaban sentencias en la funcion"); }
 ;
 
 sentencias_funcion:
