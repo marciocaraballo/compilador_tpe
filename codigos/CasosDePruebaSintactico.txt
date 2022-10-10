@@ -2,6 +2,7 @@
 tanto validas como invalidas >>
 programa1 {
 
+	f64 a, b, d;
 	ui16 g;
 	
 	g =: -1.8976931348623158D+308;	
@@ -9,10 +10,13 @@ programa1 {
 	
 	fun f1 (ui16 y) : ui16
 	{
-		if (a = b) then
+		if (a = b) then {
+			a =: a + b;
 			return (a);
-		else
+		} else {
+			a =: a - b;
 			return (b);
+		}
 		end_if;
 	}
 }
