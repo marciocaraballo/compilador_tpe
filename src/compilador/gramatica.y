@@ -280,7 +280,7 @@ sentencias_ejecutables:
 
 condicion:
 	expresion comparador expresion |
-	expresion comparador | { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); }
+	expresion comparador { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); } |
 	comparador expresion { logger.logError("[Parser] Se esperaba un expresion del lado izquierdo de la comparacion"); }
 ;
 
