@@ -20,9 +20,7 @@ Lexema: f2
 Atributo: token Valor: 257
 Lexema: f3
 Atributo: token Valor: 257
-Lexema: 1
-Atributo: token Valor: 258
-Lexema: 0.0
+Lexema: 0
 Atributo: token Valor: 258
 Lexema: programa1
 Atributo: token Valor: 257
@@ -30,5 +28,5 @@ Lexema: 1.2
 Atributo: token Valor: 258
 Lexema: x
 Atributo: token Valor: 257
-Lexema: y
+Lexema: z
 Atributo: token Valor: 257

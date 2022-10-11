@@ -5,45 +5,30 @@ programa1 {
 	f64 a, b, d;
 	ui16 c, e, f, g, h;
 	
-	fun f1 (ui16 y) : ui16
-	{
-		if (a = b) then {
-			a =: a + b;
-			
-			do {
-				a =: a + 1;
-				b =: b - 1;
-			} until (a > b);
-			
-			return (a);
-		} else {
-			a =: a - b;
-			return (b);
-		}
-		end_if;
-	}
-	
-	fun f2 (ui16 x, ui16 y) : ui16
-	{
-		ui16 x;
-		x =: y;
-		
-		if (x =! y) then
-			return (y);
-		end_if;
-		
-		return (x);
-	}
+	if (a >=b) then 
+		b =: c;
+	end_if;
 	
 	fun f3 () : f64
 	{
 		f64 x;
 		x =: 1.2;
-		if (x > 0.0) then
-			return (x);
-		else
-			return (x + 1.2);
+		if (x >= 0) then 
+			return (z);
+		else 
+			return (z);
 		end_if;
+	}
+
+	fun f3 () : f64
+	{
+		f64 x;
+		x =: 1.2;
+		if (x >= 0) then 
+			a =: b;
+		end_if;
+
+		return (z);
 	}
 	
 	a =: f3();

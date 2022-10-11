@@ -67,7 +67,14 @@ sentencias_funcion:
 
 sentencia_funcion:
 	sentencia_declarativa |
-	sentencia_ejecutable |
+	sentencia_ejecutable_funcion
+;
+
+sentencia_ejecutable_funcion:
+	asignacion |
+	DEFER asignacion |
+	imprimir |
+	DEFER imprimir |
 	sentencia_when_con_return |
 	DEFER sentencia_when_con_return |
 	sentencia_do_con_return |
@@ -78,30 +85,36 @@ sentencia_funcion:
 	DEFER sentencia_seleccion_compuesta_con_return
 ;
 
+sentencias_ejecutables_funcion:
+	sentencia_ejecutable_funcion |
+	sentencias_ejecutables_funcion sentencia_ejecutable_funcion
+;
+
 funcion_sin_return:
 	encabezado_funcion '{' sentencia_seleccion_compuesta_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
 	encabezado_funcion '{' sentencias_funcion sentencia_seleccion_compuesta_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 ;
 
 sentencia_seleccion_compuesta_con_return:
-		IF '(' condicion ')' THEN sentencia_return ELSE sentencia_return ENDIF ';' |
-		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE sentencia_return ENDIF ';' |
- 		IF '(' condicion ')' THEN sentencia_return ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';' |
-		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
+	IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';' |
+	IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';'
+;
+
+sentencia_seleccion_compuesta_con_return_simple:
+	sentencia_return |
+	sentencia_seleccion_compuesta_con_return
 ;
 
 sentencia_seleccion_simple_con_return:
 	IF '(' condicion ')' THEN sentencia_return ENDIF ';' |
-	IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';'
 ;
 
 sentencia_when_con_return:
-	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
-;
-
-bloque_sentencias_when_con_return:
-	sentencia_return |
-	sentencias_when sentencia_return
+	WHEN '(' condicion ')' THEN '{' sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN '(' condicion ')' THEN '{' sentencias_when sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
 ;
 
 sentencia_do_con_return:
@@ -111,7 +124,9 @@ sentencia_do_con_return:
 
 bloque_sentencias_ejecutables_do_con_return:
 	sentencia_return |	
-	'{' sentencias_ejecutables_do sentencia_return '}'
+	sentencia_ejecutable_do |
+	'{' sentencias_ejecutables_do sentencia_return '}' |
+	'{' sentencias_ejecutables_do '}'
 ;
 
 encabezado_funcion:
@@ -251,29 +266,12 @@ sentencias_when:
 
 seleccion:
 	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); } |
-	IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un ) para la condicion de la sentencia de seleccion"); } |
-	IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un ( para la condicion de la sentencia de seleccion"); } |
-	IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba una condicion para la sentencia de seleccion"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia de seleccion"); } |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); } |
-	IF '(' condicion ')' THEN ENDIF ';' { logger.logError("[Parser] Se esperaba un bloque de sentencias en la sentencia de seleccion luego de la palabra reservada then"); } |
-	IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un ) para la condicion de la sentencia de seleccion"); } |
-	IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un ( para la condicion de la sentencia de seleccion"); } |
-	IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba una condicion para la sentencia de seleccion"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia de seleccion"); } |
-	IF '(' condicion ')' THEN ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un bloque de sentencias en la sentencia de seleccion luego de la palabra reservada then"); }  |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE ENDIF ';' { logger.logError("[Parser] Se esperaba un bloque de sentencias en la sentencia de seleccion luego de la palabra reservada else"); } |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); } |
-	IF '(' condicion ')' THEN ELSE ENDIF ';' { logger.logError("[Parser] Se esperaba un bloque de sentencias para el then y el else de la sentencia de seleccion"); }
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
 ;
 
 bloque_sentencias_ejecutables_seleccion:
 	sentencia_ejecutable |	
-	'{' sentencias_ejecutables '}' |
-	sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaba un { para el bloque de sentencias en la sentencia if"); } |
-	'{' sentencias_ejecutables { logger.logError("[Parser] Se esperaba un } para el bloque de sentencias en la sentencia if"); } |
-	'{' '}' { logger.logError("[Parser] Se esperaba sentencias ejecutables dentro del bloque if"); }
+	'{' sentencias_ejecutables '}'
 ;
 
 sentencias_ejecutables:
