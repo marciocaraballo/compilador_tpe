@@ -144,7 +144,11 @@ sentencia_when_con_return:
 
 sentencia_do_con_return:
 	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
+	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); } |
+	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' ')' { logger.logError("[Parser] Se esperaba una condicion en la sentencia do"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' ')'{ logger.logError("[Parser] Se esperaba una condicion en la sentencia do"); }
 ;
 
 bloque_sentencias_ejecutables_do_con_return:
