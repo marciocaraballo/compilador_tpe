@@ -78,18 +78,6 @@ sentencia_funcion:
 	DEFER sentencia_seleccion_compuesta_con_return
 ;
 
-sentencia_ejecutable_funcion:
-	sentencia_ejecutable |
-	sentencia_when_con_return |
-	DEFER sentencia_when_con_return |
-	sentencia_do_con_return |
-	DEFER sentencia_do_con_return |
-	sentencia_seleccion_simple_con_return |
-	DEFER sentencia_seleccion_simple_con_return |
-	sentencia_seleccion_compuesta_con_return |
-	DEFER sentencia_seleccion_compuesta_con_return
-;
-
 funcion_sin_return:
 	encabezado_funcion '{' sentencia_seleccion_compuesta_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
 	encabezado_funcion '{' sentencias_funcion sentencia_seleccion_compuesta_con_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
@@ -97,31 +85,33 @@ funcion_sin_return:
 
 sentencia_seleccion_compuesta_con_return:
 		IF '(' condicion ')' THEN sentencia_return ELSE sentencia_return ENDIF ';' |
-		IF '(' condicion ')' THEN '{' sentencia_ejecutable_funcion sentencia_return '}' ELSE sentencia_return ENDIF ';' |
- 		IF '(' condicion ')' THEN sentencia_return ELSE '{' sentencia_ejecutable_funcion sentencia_return '}' ENDIF ';' |
-		IF '(' condicion ')' THEN '{' sentencia_ejecutable_funcion sentencia_return '}' ELSE '{' sentencia_ejecutable_funcion sentencia_return '}' ENDIF ';'
+		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE sentencia_return ENDIF ';' |
+ 		IF '(' condicion ')' THEN sentencia_return ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';' |
+		IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ELSE '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
 ;
 
 sentencia_seleccion_simple_con_return:
 	IF '(' condicion ')' THEN sentencia_return ENDIF ';' |
-	IF '(' condicion ')' THEN '{' sentencia_ejecutable_funcion sentencia_return '}' ENDIF ';'
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables sentencia_return '}' ENDIF ';'
 ;
 
 sentencia_when_con_return:
-	WHEN '(' condicion ')' THEN '{' sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
-	WHEN '(' condicion ')' THEN '{' sentencias_when_con_return sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
+	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
 ;
 
-sentencias_when_con_return:
-	sentencia_funcion |
-	sentencias_when_con_return sentencia_funcion
+bloque_sentencias_when_con_return:
+	sentencia_return |
+	sentencias_when sentencia_return
 ;
 
 sentencia_do_con_return:
-	DO sentencia_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	etiqueta ':' DO sentencia_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	DO '{' sentencias_ejecutables_do sentencia_return '}' UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	etiqueta ':' DO '{' sentencias_ejecutables_do sentencia_return '}' UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
+	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
+;
+
+bloque_sentencias_ejecutables_do_con_return:
+	sentencia_return |	
+	'{' sentencias_ejecutables_do sentencia_return '}'
 ;
 
 encabezado_funcion:
