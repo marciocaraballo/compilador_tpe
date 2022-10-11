@@ -106,13 +106,10 @@ sentencias_when_con_return:
 ;
 
 sentencia_do_con_return:
-	DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
-;
-
-bloque_sentencias_ejecutables_do_con_return:
-	sentencia_return |	
-	'{' sentencias_ejecutables_do sentencia_return '}'
+	DO sentencia_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	etiqueta ':' DO sentencia_return UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	DO '{' sentencias_ejecutables_do sentencia_return '}' UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
+	etiqueta ':' DO '{' sentencias_ejecutables_do sentencia_return '}' UNTIL '(' condicion ')' ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); }
 ;
 
 encabezado_funcion:
