@@ -96,12 +96,13 @@ sentencia_seleccion_simple_con_return:
 ;
 
 sentencia_when_con_return:
-	WHEN '(' condicion ')' THEN '{' bloque_sentencias_when_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
+	WHEN '(' condicion ')' THEN '{' sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
+	WHEN '(' condicion ')' THEN '{' sentencias_when_con_return sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
 ;
 
-bloque_sentencias_when_con_return:
-	sentencia_return |
-	sentencias_when sentencia_return
+sentencias_when_con_return:
+	sentencia_funcion |
+	sentencias_when_con_return sentencia_funcion
 ;
 
 sentencia_do_con_return:
