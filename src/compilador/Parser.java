@@ -1191,6 +1191,78 @@ case 41:
 //#line 93 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 break;
+case 42:
+//#line 97 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 43:
+//#line 98 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 44:
+//#line 99 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 45:
+//#line 100 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 49:
+//#line 110 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 50:
+//#line 111 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 51:
+//#line 112 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 52:
+//#line 113 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 53:
+//#line 114 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 54:
+//#line 115 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 55:
+//#line 116 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 56:
+//#line 117 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 57:
+//#line 118 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 58:
+//#line 119 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 59:
+//#line 120 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 60:
+//#line 121 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 61:
+//#line 122 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
+case 62:
+//#line 123 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+break;
 case 63:
 //#line 127 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia when detectada"); }
@@ -1435,7 +1507,7 @@ case 195:
 //#line 369 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1362 "Parser.java"
+//#line 1434 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
