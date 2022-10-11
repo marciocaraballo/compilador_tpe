@@ -312,7 +312,10 @@ seleccion:
 
 bloque_sentencias_ejecutables_seleccion:
 	sentencia_ejecutable |	
-	'{' sentencias_ejecutables '}'
+	'{' sentencias_ejecutables '}' |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias dentro de la seleccion"); } |
+	'{' sentencias_ejecutables { logger.logError("[Parser] Se esperaba un } al final de la seleccion"); } |
+	sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaba un { en la seleccion"); }
 ;
 
 sentencias_ejecutables:
