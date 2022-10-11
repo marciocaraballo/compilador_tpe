@@ -94,13 +94,13 @@ funcion_sin_return:
 ;
 
 sentencia_seleccion_compuesta_con_return:
-    IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';' |
-    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';' |
-    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';' |
-    IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';' |
-    IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ENDIF ';' |
-    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return_simple '}' ENDIF ';' |
-    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return_simple '}' ENDIF ';'
+    IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';' { logger.logSuccess("[Parser] Sentencia seleccion detectada"); } |
+    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';'  { logger.logSuccess("[Parser] Sentencia seleccion detectada"); } |
+    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ELSE sentencia_seleccion_compuesta_con_return_simple ENDIF ';'  { logger.logSuccess("[Parser] Sentencia seleccion detectada"); } |
+    IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';'  { logger.logSuccess("[Parser] Sentencia seleccion detectada"); } |
+    IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return_simple ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ENDIF ';'  { logger.logSuccess("[Parser] Sentencia seleccion detectada"); } |
+    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return_simple '}' ENDIF ';'  { logger.logSuccess("[Parser] Sentencia seleccion detectada"); } |
+    IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return_simple '}' ENDIF ';'  { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 ;
 
 sentencia_seleccion_compuesta_con_return_simple:

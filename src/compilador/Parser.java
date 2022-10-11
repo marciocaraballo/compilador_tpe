@@ -1367,6 +1367,34 @@ case 41:
 //#line 93 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 break;
+case 42:
+//#line 97 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
+case 43:
+//#line 98 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
+case 44:
+//#line 99 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
+case 45:
+//#line 100 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
+case 46:
+//#line 101 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
+case 47:
+//#line 102 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
+case 48:
+//#line 103 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+break;
 case 52:
 //#line 113 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
@@ -1811,7 +1839,7 @@ case 234:
 //#line 408 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1738 "Parser.java"
+//#line 1766 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
