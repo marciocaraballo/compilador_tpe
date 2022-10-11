@@ -145,8 +145,13 @@ bloque_sentencias_ejecutables_do_con_return:
 	'{' sentencias_ejecutables_do_funcion sentencia_return '}' |
 	'{' sentencias_ejecutables_do_funcion sentencia_seleccion_compuesta_con_return '}' |
 	'{' sentencias_ejecutables_do_funcion '}' |
-	'{' '}' { logger.logError("[Parser] Se esperaban sentencias en la sentencia do"); }
-	
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias en la sentencia do"); } |
+	'{' sentencias_ejecutables_do_funcion sentencia_return { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); } |
+	sentencias_ejecutables_do_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); } |
+	'{' sentencias_ejecutables_do_funcion sentencia_seleccion_compuesta_con_return { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); } |
+	sentencias_ejecutables_do_funcion sentencia_seleccion_compuesta_con_return '}' { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); } |
+	'{' sentencias_ejecutables_do_funcion { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); } |
+	sentencias_ejecutables_do_funcion '}' { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 ;
 
 sentencias_ejecutables_do_funcion:
