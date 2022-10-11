@@ -129,10 +129,23 @@ sentencia_do_con_return:
 ;
 
 bloque_sentencias_ejecutables_do_con_return:
-	sentencia_return |	
-	sentencia_ejecutable_do |
-	'{' sentencias_ejecutables_do sentencia_return '}' |
-	'{' sentencias_ejecutables_do '}'
+	sentencia_return |
+	sentencia_seleccion_compuesta_con_return |
+	sentencias_ejecutables_do_funcion |
+	'{' sentencias_ejecutables_do_funcion sentencia_return '}' |
+	'{' sentencias_ejecutables_do_funcion sentencia_seleccion_compuesta_con_return '}' |
+	'{' sentencias_ejecutables_do_funcion '}'
+;
+
+sentencias_ejecutables_do_funcion:
+	sentencia_ejecutable_do_funcion |
+	sentencias_ejecutables_do_funcion sentencia_ejecutable_do_funcion
+;
+
+sentencia_ejecutable_do_funcion:
+	sentencia_ejecutable_funcion |
+	sentencia_break |
+	sentencia_continue
 ;
 
 encabezado_funcion:
