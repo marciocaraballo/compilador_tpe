@@ -80,9 +80,7 @@ sentencia_ejecutable_funcion:
 	sentencia_do_con_return |
 	DEFER sentencia_do_con_return |
 	sentencia_seleccion_simple_con_return |
-	DEFER sentencia_seleccion_simple_con_return |
-	sentencia_seleccion_compuesta_con_return |
-	DEFER sentencia_seleccion_compuesta_con_return
+	DEFER sentencia_seleccion_simple_con_return
 ;
 
 sentencias_ejecutables_funcion:
@@ -104,17 +102,25 @@ sentencia_seleccion_compuesta_con_return:
 
 sentencia_seleccion_compuesta_con_return_simple:
 	sentencia_return |
-	sentencia_seleccion_compuesta_con_return
+	sentencia_seleccion_compuesta_con_return |
+	DEFER sentencia_seleccion_compuesta_con_return
 ;
 
 sentencia_seleccion_simple_con_return:
 	IF '(' condicion ')' THEN sentencia_return ENDIF ';' |
-	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';'
+	IF '(' condicion ')' THEN sentencia_seleccion_compuesta_con_return ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_return '}' ELSE '{' sentencias_ejecutables_funcion '}' ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ELSE '{' sentencias_ejecutables_funcion '}' ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion '}' ELSE '{' sentencias_ejecutables_funcion sentencia_return '}' ENDIF ';' |
+	IF '(' condicion ')' THEN '{' sentencias_ejecutables_funcion '}' ELSE '{' sentencias_ejecutables_funcion sentencia_seleccion_compuesta_con_return '}' ENDIF ';'
 ;
 
 sentencia_when_con_return:
-	WHEN '(' condicion ')' THEN '{' sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
-	WHEN '(' condicion ')' THEN '{' sentencias_when sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_seleccion_compuesta_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
 ;
 
 sentencia_do_con_return:
