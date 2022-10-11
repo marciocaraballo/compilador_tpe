@@ -307,7 +307,17 @@ sentencias_when:
 
 seleccion:
 	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
-	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); }
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); } |
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
+	IF '(' condicion ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
+	IF '(' condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un ) en la condicion de la sentencia seleccion"); } |
+	IF condicion ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba un ( en la condicion de la sentencia seleccion"); } |
+	IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia seleccion"); } | 
+	IF '(' condicion ')' THEN ENDIF ';' { logger.logError("[Parser] Se esperaban sentencias en la sentencia seleccion"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); } |
+	IF '(' ')' THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaban una condicion en la sentencia seleccion"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); } |
+	IF '(' condicion ')' THEN ELSE ENDIF ';' { logger.logError("[Parser] Se esperaban sentencias en la sentencia seleccion"); }
 ;
 
 bloque_sentencias_ejecutables_seleccion:
