@@ -126,7 +126,10 @@ sentencia_seleccion_simple_con_return:
 sentencia_when_con_return:
 	WHEN '(' condicion ')' THEN '{' sentencia_funcion '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
 	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
-	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_seleccion_compuesta_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); }
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_seleccion_compuesta_con_return '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion '}' { logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); } |
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); } |
+	WHEN '(' condicion ')' THEN '{' sentencia_funcion sentencia_seleccion_compuesta_con_return '}' { logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); }
 ;
 
 sentencia_do_con_return:
