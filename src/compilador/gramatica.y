@@ -144,7 +144,9 @@ bloque_sentencias_ejecutables_do_con_return:
 	sentencias_ejecutables_do_funcion |
 	'{' sentencias_ejecutables_do_funcion sentencia_return '}' |
 	'{' sentencias_ejecutables_do_funcion sentencia_seleccion_compuesta_con_return '}' |
-	'{' sentencias_ejecutables_do_funcion '}'
+	'{' sentencias_ejecutables_do_funcion '}' |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias en la sentencia do"); }
+	
 ;
 
 sentencias_ejecutables_do_funcion:
