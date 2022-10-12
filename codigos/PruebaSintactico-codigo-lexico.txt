@@ -21,7 +21,7 @@
 [Success] Linea 6: [Lexico] Se reconoce un token para const con el token 279
 [Success] Linea 6: [Lexico] Se reconoce un token para a con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para =: con el token 268
-[Success] Linea 6: [Lexico] Se reconoce un token para 3 con el token 258
+[Success] Linea 6: [Lexico] Se reconoce un token para 3.2 con el token 258
 [Success] Linea 6: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 6: [Lexico] Se reconoce un token para b con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para =: con el token 268

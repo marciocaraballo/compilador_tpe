@@ -1,0 +1,78 @@
+Lexema: variable10
+Atributo: token Valor: 257
+Lexema: variable13
+Atributo: token Valor: 257
+Lexema: .6D-5
+Atributo: token Valor: 258
+Lexema: variable14
+Atributo: token Valor: 257
+Lexema: .5D+12
+Atributo: token Valor: 258
+Lexema: variable11
+Atributo: token Valor: 257
+Lexema: variable12
+Atributo: token Valor: 257
+Lexema: variable_12_
+Atributo: token Valor: 257
+Lexema: .15
+Atributo: token Valor: 258
+Lexema: varios_SIMBOLOS_17
+Atributo: token Valor: 257
+Lexema: 5.
+Atributo: token Valor: 258
+Lexema: ELSE
+Atributo: token Valor: 257
+Lexema: 8.6D+1
+Atributo: token Valor: 258
+Lexema: id
+Atributo: token Valor: 257
+Lexema: IF
+Atributo: token Valor: 257
+Lexema: esteesunidentificadorconm
+Atributo: token Valor: 257
+Lexema: Cadena de caracteres bien escrita
+Atributo: token Valor: 259
+Lexema: variable1
+Atributo: token Valor: 257
+Lexema: 2.2250738585072014D-308
+Atributo: token Valor: 258
+Lexema: a
+Atributo: token Valor: 257
+Lexema: 5.12
+Atributo: token Valor: 258
+Lexema: b
+Atributo: token Valor: 257
+Lexema: variable2
+Atributo: token Valor: 257
+Lexema: 1.7976931348623157D+308
+Atributo: token Valor: 258
+Lexema: variable9
+Atributo: token Valor: 257
+Lexema: 65535
+Atributo: token Valor: 258
+Lexema: variable8
+Atributo: token Valor: 257
+Lexema: variable5
+Atributo: token Valor: 257
+Lexema: variable4
+Atributo: token Valor: 257
+Lexema: variable7
+Atributo: token Valor: 257
+Lexema: variable6
+Atributo: token Valor: 257
+Lexema: 0
+Atributo: token Valor: 258
+Lexema: 0.0
+Atributo: token Valor: 258
+Lexema: 1.2
+Atributo: token Valor: 258
+Lexema: program1
+Atributo: token Valor: 257
+Lexema: variable15
+Atributo: token Valor: 257
+Lexema: THEN
+Atributo: token Valor: 257
+Lexema: variable16
+Atributo: token Valor: 257
+Lexema: id_con_numero_12312_
+Atributo: token Valor: 257

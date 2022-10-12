@@ -26,13 +26,13 @@ Lexema: 0
 Atributo: token Valor: 258
 Lexema: 2
 Atributo: token Valor: 258
-Lexema: 3
-Atributo: token Valor: 258
 Lexema: programa1
 Atributo: token Valor: 257
 Lexema: 1.2
 Atributo: token Valor: 258
 Lexema: 1.3
+Atributo: token Valor: 258
+Lexema: 3.2
 Atributo: token Valor: 258
 Lexema: x
 Atributo: token Valor: 257

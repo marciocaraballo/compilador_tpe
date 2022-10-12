@@ -478,7 +478,7 @@ public static void main(String[] args) {
 		
         parser.run();
 
-		String path = new File(archivo_a_leer).getAbsolutePath().replaceAll(args[0],"");
+		String path = new File(archivo_a_leer).getAbsolutePath();
         
         Output out = new Output(path);
         

@@ -24,8 +24,6 @@ Lexema: f2
 Atributo: token Valor: 257
 Lexema: f3
 Atributo: token Valor: 257
-Lexema: f4
-Atributo: token Valor: 257
 Lexema: 0
 Atributo: token Valor: 258
 Lexema: p
