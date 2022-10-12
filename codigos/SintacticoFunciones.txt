@@ -69,10 +69,12 @@ programa1 {
     do {
     	a =: b;
     	b =: d;
+    	break;
+    	continue;
     } until (c > e);
     
     do 
-    	a =: b; 
+    	continue; 
     until (c > e);
     
     when (c>e) then {

@@ -29,9 +29,11 @@
 [Success] Linea 67: [Parser] Sentencia if then else detectada
 [Success] Linea 70: [Parser] Asignacion detectada
 [Success] Linea 71: [Parser] Asignacion detectada
-[Success] Linea 72: [Parser] Sentencia do until detectada
-[Success] Linea 75: [Parser] Asignacion detectada
-[Success] Linea 76: [Parser] Sentencia do until detectada
-[Success] Linea 79: [Parser] Asignacion detectada
-[Success] Linea 80: [Parser] Sentencia when detectada
-[Success] Linea 81: [Parser] Programa correcto detectado
+[Success] Linea 72: [Parser] Sentencia break detectada
+[Success] Linea 73: [Parser] Sentencia continue detectada
+[Success] Linea 74: [Parser] Sentencia do until detectada
+[Success] Linea 77: [Parser] Sentencia continue detectada
+[Success] Linea 78: [Parser] Sentencia do until detectada
+[Success] Linea 81: [Parser] Asignacion detectada
+[Success] Linea 82: [Parser] Sentencia when detectada
+[Success] Linea 83: [Parser] Programa correcto detectado
