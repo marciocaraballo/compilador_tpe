@@ -3,7 +3,7 @@ programa1 {
 
     f64 a, b, d;
     ui16 c, e, f, g, h;
-    const a =: 3, b =: 2;
+    const a =: 3.2, b =: 2;
     
     fun f1 () : f64
     {

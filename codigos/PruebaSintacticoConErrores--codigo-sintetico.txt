@@ -1,0 +1,5 @@
+[WARNING] Linea 10: [Parser] No se admiten ui16 con valores negativos: -5000, se trunca a 0
+[Success] Linea 26: [Parser] Declaracion de funcion detectado
+[Success] Linea 36: [Parser] Declaracion de funcion detectado
+[Success] Linea 41: [Parser] Asignacion detectada
+[Success] Linea 42: [Parser] Sentencia do until detectada
