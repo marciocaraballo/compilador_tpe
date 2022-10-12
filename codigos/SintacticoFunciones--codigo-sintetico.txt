@@ -4,9 +4,12 @@
 [Success] Linea 10: [Parser] Sentencia if then detectada
 [Success] Linea 14: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 15: [Parser] Asignacion detectada
+[Success] Linea 20: [Parser] Sentencia seleccion detectada
 [Success] Linea 21: [Parser] Declaracion de funcion detectado
 [Success] Linea 25: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 26: [Parser] Asignacion detectada
+[Success] Linea 28: [Parser] Asignacion detectada
+[Success] Linea 29: [Parser] Sentencia de seleccion detectada
 [Success] Linea 32: [Parser] Declaracion de funcion detectado
 [Success] Linea 34: [Parser] Asignacion detectada
 [Success] Linea 35: [Parser] Asignacion detectada

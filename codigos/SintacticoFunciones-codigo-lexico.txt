@@ -87,10 +87,9 @@
 [Success] Linea 27: [Lexico] Se reconoce un token para 0 con el token 258
 [Success] Linea 27: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 27: [Lexico] Se reconoce un token para then con el token 261
-[Success] Linea 28: [Lexico] Se reconoce un token para return con el token 266
-[Success] Linea 28: [Lexico] Se reconoce un token para ( con el token 40
-[Success] Linea 28: [Lexico] Se reconoce un token para z con el token 257
-[Success] Linea 28: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 28: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 28: [Lexico] Se reconoce un token para =: con el token 268
+[Success] Linea 28: [Lexico] Se reconoce un token para b con el token 257
 [Success] Linea 28: [Lexico] Se reconoce un token para ; con el token 59
 [Success] Linea 29: [Lexico] Se reconoce un token para end_if con el token 263
 [Success] Linea 29: [Lexico] Se reconoce un token para ; con el token 59
