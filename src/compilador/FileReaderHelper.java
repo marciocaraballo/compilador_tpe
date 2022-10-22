@@ -8,16 +8,21 @@ import java.io.IOException;
 public class FileReaderHelper {
 
 	private BufferedReader reader = null;
+	private Logger logger = null;
 	
-	public FileReaderHelper() {};
+	public FileReaderHelper(Logger logger) {
+		this.logger = logger;
+	};
 	
-	public void open(String filePath) {
+	public boolean open(String filePath) {
 		try {
 			reader = new BufferedReader(new FileReader(filePath));
+			return true;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.logStartUpError("No se encontro la ruta del archivo de codigo: " + filePath);
 		}
+		
+		return false;
 	}
 	
 	/**  

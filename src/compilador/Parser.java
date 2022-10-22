@@ -1141,29 +1141,32 @@ public static void main(String[] args) {
 		String archivo_a_leer = args[0];
 		System.out.println("Se va a leer archivo " + archivo_a_leer);
 		
-		FileReaderHelper fileHelper = new FileReaderHelper();
-		
-		fileHelper.open(archivo_a_leer);
-		
-		Parser parser = new Parser();
 		logger = new Logger();
-		ts = new TablaDeSimbolos();
-		lexico = new AnalizadorLexico(fileHelper, ts, logger);
 		
-        parser.run();
+		FileReaderHelper fileHelper = new FileReaderHelper(logger);
+		
+		boolean fileOpenSuccess = fileHelper.open(archivo_a_leer);
+		
+		if (fileOpenSuccess) {
+			Parser parser = new Parser();
+			ts = new TablaDeSimbolos();
+			lexico = new AnalizadorLexico(fileHelper, ts, logger);
+			
+	        parser.run();
 
-		String path = new File(archivo_a_leer).getAbsolutePath();
-        
-        Output out = new Output(path);
-        
-        String printTs = ts.print();
-        
-        
-        out.saveFile("codigo-lexico.txt", logger.getLexico());
-		out.saveFile("codigo-sintetico.txt", logger.getSintactico());
-		out.saveFile("tabla-de-simbolos.txt", printTs);
-        
-		System.out.println(printTs);
+			String path = new File(archivo_a_leer).getAbsolutePath();
+	        
+	        Output out = new Output(path);
+	        
+	        String printTs = ts.print();
+	        
+	        
+	        out.saveFile("codigo-lexico.txt", logger.getLexico());
+			out.saveFile("codigo-sintetico.txt", logger.getSintactico());
+			out.saveFile("tabla-de-simbolos.txt", printTs);
+	        
+			System.out.println(printTs);
+		}
 	}
 }
 //#line 1098 "Parser.java"

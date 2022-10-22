@@ -15,6 +15,10 @@ public class Logger {
 		
 	}
 	
+	public void logStartUpError(String error) {
+		System.err.println("[Startup] " + error);
+	}
+	
 	public void logError(String error) {
 		System.err.println("[ERROR] Linea " + linea + ": " + error);
 	}
