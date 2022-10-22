@@ -238,7 +238,8 @@ declaracion_constante:
 	ID ASIGNACION CTE |
 	ID ASIGNACION { logger.logError("[Parser] Se esperaba una constante del lado derecho de la asignacion"); } |
 	ID CTE { logger.logError("[Parser] Se esperaba el simbolo asignacion en la declaracion de constantes"); } |
-	ID { logger.logError("[Parser] Se esperaba una asignacion en la declaracion de constantes"); }
+	ID { logger.logError("[Parser] Se esperaba una asignacion en la declaracion de constantes"); } |
+	ID '=' CTE
 ;
 
 sentencia_ejecutable:
@@ -305,7 +306,9 @@ sentencias_ejecutables_do:
 asignacion:
 	ID ASIGNACION expresion ';' { logger.logSuccess("[Parser] Asignacion detectada"); } |
 	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
-	ID ASIGNACION expresion { logger.logError("[Parser] Se espera un ; al final de la asignacion"); }
+	ID ASIGNACION expresion { logger.logError("[Parser] Se espera un ; al final de la asignacion"); } |
+	ID '=' expresion ';' { logger.logError("[Parser] Se espera el simbolo =: en lugar de = para la asignacion"); } |
+	ID '=' expresion { logger.logError("[Parser] Se espera el simbolo =: en lugar de = para la asignacion"); }
 ; 
 
 sentencia_when:
@@ -467,28 +470,30 @@ public static void main(String[] args) {
 		String archivo_a_leer = args[0];
 		System.out.println("Se va a leer archivo " + archivo_a_leer);
 		
-		FileReaderHelper fileHelper = new FileReaderHelper();
-		
-		fileHelper.open(archivo_a_leer);
-		
-		Parser parser = new Parser();
 		logger = new Logger();
-		ts = new TablaDeSimbolos();
-		lexico = new AnalizadorLexico(fileHelper, ts, logger);
 		
-        parser.run();
-
-		String path = new File(archivo_a_leer).getAbsolutePath();
-        
-        Output out = new Output(path);
-        
-        String printTs = ts.print();
-        
-        
-        out.saveFile("codigo-lexico.txt", logger.getLexico());
-		out.saveFile("codigo-sintetico.txt", logger.getSintactico());
-		out.saveFile("tabla-de-simbolos.txt", printTs);
-        
-		System.out.println(printTs);
+		FileReaderHelper fileHelper = new FileReaderHelper(logger);
+		
+		boolean fileOpenSuccess = fileHelper.open(archivo_a_leer);
+		
+		if (fileOpenSuccess) {
+			Parser parser = new Parser();
+			ts = new TablaDeSimbolos();
+			lexico = new AnalizadorLexico(fileHelper, ts, logger);
+			
+	        parser.run();
+	
+			String path = new File(archivo_a_leer).getAbsolutePath();
+	        
+	        Output out = new Output(path);
+	        
+	        String printTs = ts.print();
+	        
+	        out.saveFile("codigo-lexico.txt", logger.getLexico());
+			out.saveFile("codigo-sintetico.txt", logger.getSintactico());
+			out.saveFile("tabla-de-simbolos.txt", printTs);
+	        
+			System.out.println(printTs);
+		}
 	}
 }
