@@ -1,7 +1,11 @@
 programa {
  
-	when (c>e) then {
-	   a =: b;
+ fun f1 (f64 a, f64 b)  f64
+	{
+    	f64 x, y;
+        x =: 4;
+    	return (x);
 	}
    
 }
+

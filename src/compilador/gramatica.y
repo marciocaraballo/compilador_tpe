@@ -189,6 +189,7 @@ sentencia_ejecutable_do_funcion:
 encabezado_funcion:
 	FUN ID '(' ')' ':' tipo |
 	FUN ID '(' lista_de_parametros ')' ':' tipo |
+	FUN ID '(' lista_de_parametros ')' tipo { logger.logError("[Parser] Se esperaba un : antes del tipo para la funcion"); } |
 	FUN ID '(' ')' ':' { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); } |
 	FUN '(' ')' ':' tipo { logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); } |
 	FUN ID ')' ':' tipo { logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); } |
