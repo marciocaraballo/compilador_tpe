@@ -18,7 +18,8 @@ programa:
 	'{' sentencias '}' { logger.logError("[Parser] Se esperaba un identificador nombre del programa"); } |
 	nombre_programa sentencias '}' { logger.logError("[Parser] Se esperaba un { antes de las sentencias del programa"); } | 
 	nombre_programa '{' sentencias { logger.logError("[Parser] Se esperaba un } al final de las sentencias del programa"); } |
-	nombre_programa '{' '}' { logger.logError("[Parser] Se esperaban sentencias del programa"); }
+	nombre_programa '{' '}' { logger.logError("[Parser] Se esperaban sentencias del programa"); } |
+	{ logger.logError("[Parser] Se esperaban sentencias del programa"); }
 ;
 
 nombre_programa: 
