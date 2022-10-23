@@ -6,8 +6,8 @@ public class Logger {
 	public static final String YELLOW = "\033[0;33m";  // YELLOW
 	public static final String ANSI_RESET = "\u001B[0m";
 	
-	private String fileLexico = new String();
-	private String fileSintactico = new String();
+	private StringBuilder fileLexico = new StringBuilder();
+	private StringBuilder fileSintactico = new StringBuilder();
 	
 	private int linea = 1;
 	
@@ -26,22 +26,17 @@ public class Logger {
 	public void logWarning(String warning) {
 		System.out.println(YELLOW + "[WARNING] Linea " + linea + ": " + warning + ANSI_RESET);
 		if (warning.contains("Lexico"))
-			fileLexico += "[WARNING] Linea " + linea + ": " + warning + "\n";
+			fileLexico.append("[WARNING] Linea " + linea + ": " + warning + "\n");
 		else
-			fileSintactico += "[WARNING] Linea " + linea + ": " + warning + "\n";
+			fileSintactico.append("[WARNING] Linea " + linea + ": " + warning + "\n");
 	}
 	
 	public void logSuccess(String success) {
 		System.out.println(GREEN + "[Success] Linea " + linea + ": " + success + ANSI_RESET);
 		if (success.contains("Lexico"))
-			fileLexico += "[Success] Linea " + linea + ": " + success + "\n";
+			fileLexico.append("[Success] Linea " + linea + ": " + success + "\n");
 		else
-			fileSintactico += "[Success] Linea " + linea + ": " + success + "\n";
-	}
-	
-	public void logPrint(String cadena, String success) {
-		System.out.println(GREEN + "cadena: " + cadena + ANSI_RESET);
-		System.out.println(GREEN + "[Sucess] Linea " + linea + ": " + success + ANSI_RESET);
+			fileSintactico.append("[Success] Linea " + linea + ": " + success + "\n");
 	}
 	
 	public void incrementarLinea() {
@@ -49,11 +44,11 @@ public class Logger {
 	}
 	
 	public String getLexico() {
-		return fileLexico;
+		return fileLexico.toString();
 	}
 	
 	public String getSintactico() {
-		return fileSintactico;
+		return fileSintactico.toString();
 	}
 	
 }

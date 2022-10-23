@@ -74,19 +74,15 @@ public class TablaDeSimbolos {
 		Set<String> keys = tabla_simbolos.keySet();
 		Iterator<String> keysIterator = keys.iterator();
 		
-		String aux = new String();
+		StringBuilder tsPrint = new StringBuilder();
 		
 		if (!keysIterator.hasNext()) {
-			aux += "No hay simbolos detectados";
-			//System.out.println("No hay simbolos detectados");
+			tsPrint.append("No hay simbolos detectados");
 		}
-		
-		
 		
 		while(keysIterator.hasNext()) {
 			String lexema = keysIterator.next();
-			aux += "Lexema: " + lexema + "\n";
-			//System.out.println("Lexema: " + lexema);
+			tsPrint.append("Lexema: " + lexema + "\n");
 			HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 			
 			Set<String> attributesKeys = attributes.keySet();
@@ -95,11 +91,10 @@ public class TablaDeSimbolos {
 			while(attributesIterator.hasNext()) {
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
-				aux += "Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n";
-				//System.out.println("Atributo: " + attributeKey + " Valor: " + attributeValue.toString());
+				tsPrint.append("Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n");
 			}
 		} 
 		
-		return aux;
+		return tsPrint.toString();
 	}
 }

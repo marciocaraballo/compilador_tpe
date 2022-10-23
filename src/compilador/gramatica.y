@@ -430,10 +430,14 @@ public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
 public static TablaDeSimbolos ts = null;
 
+public static negConstante = new StringBuilder();
+
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
-		
-		String negConstante = "-"+constante;
+
+		negConstante.setLength(0);
+		negConstante.append("-");
+		negConstante.append(constante);
 		
 		Double parsedDouble = Double.parseDouble(negConstante.replace('D', 'E'));
 		
@@ -441,9 +445,11 @@ public void constanteConSigno(String constante) {
 			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
 			
 			if (-1.7976931348623157E+308 < parsedDouble) {
-				negConstante = new String("-1.7976931348623157D+308");
+				negConstante.setLength(0);
+				negConstante.append("-1.7976931348623157D+308");
 			} else {
-				negConstante =  new String("-2.2250738585072014D-308");
+				negConstante.setLength(0);
+				negConstante.append("-2.2250738585072014D-308");
 			}
 		}
 		
