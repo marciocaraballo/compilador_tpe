@@ -3,28 +3,14 @@ package accion_semantica;
 import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
-import compilador.TablaPalabrasReservadas;
-
-/**
- * Devuelve ultimo caracter leido a la entrada
- * Verifica rango de las constantes
- * Cheque si su lexema esta dentro de la TS
- * - Si esta devuelve el token asociado
- * - Si no esta:
- * 	 - Alta en TS
- * 	 - Devuelve Token
- * 
- */
 
 public class AS5 extends AccionSemantica {
-
-	public AS5(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger logger) {
-		super(TPR, TS, logger);
-	}
 
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		Logger logger = Logger.getInstance();
 		int cte = 0;
 		boolean exeptionOutOfRange = false;
 		
@@ -41,7 +27,6 @@ public class AS5 extends AccionSemantica {
 			lexema.append("65535");
 		}
 		
-		//Devuelve el input a la entrada
 		fileHelper.reset();
 		
 		if (TS.has(lexema.toString())) {

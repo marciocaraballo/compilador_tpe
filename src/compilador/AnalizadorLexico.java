@@ -7,10 +7,9 @@ import accion_semantica.AccionSemantica;
 public class AnalizadorLexico {
 	
 	private FileReaderHelper fileHelper = null;
-	private MatrixEstados matrixEstados = new MatrixEstados();
-	private MatrixAccionesSemanticas matrixAS = null;
-	private TablaPalabrasReservadas tpr = new TablaPalabrasReservadas(); 
-	private Logger logger = null;
+	private MatrixEstados matrixEstados = MatrixEstados.getInstance();
+	private MatrixAccionesSemanticas matrixAS = MatrixAccionesSemanticas.getInstance();
+	private Logger logger = Logger.getInstance();
 	
 	private int estado_actual = 0;
 	
@@ -161,10 +160,8 @@ public class AnalizadorLexico {
 		return 27;
 	}
 	
-	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger lgr) {
+	public AnalizadorLexico(FileReaderHelper fileHelper) {
 		this.fileHelper = fileHelper;
-		logger = lgr;
-		matrixAS = new MatrixAccionesSemanticas(ts, tpr, logger);
 	};
 	
 	public boolean hasNext() {

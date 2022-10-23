@@ -7,12 +7,12 @@ import compilador.TablaPalabrasReservadas;
 
 public class AS4 extends AccionSemantica {
 
-	public AS4(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger logger) {
-		super(TPR, TS, logger);
-	}
-
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
+		
+		TablaPalabrasReservadas TPR = TablaPalabrasReservadas.getInstance();
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		Logger logger = Logger.getInstance();
 		
 		fileHelper.reset();
 		

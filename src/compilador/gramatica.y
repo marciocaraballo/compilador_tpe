@@ -428,8 +428,8 @@ tipo:
 %%
 
 public static AnalizadorLexico lexico = null;
-public static Logger logger = null;
-public static TablaDeSimbolos ts = null;
+public static Logger logger = Logger.getInstance();
+public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 
 public static StringBuilder negConstante = new StringBuilder();
 
@@ -478,16 +478,13 @@ public static void main(String[] args) {
 		String archivo_a_leer = args[0];
 		System.out.println("Se va a leer archivo " + archivo_a_leer);
 		
-		logger = new Logger();
-		
-		FileReaderHelper fileHelper = new FileReaderHelper(logger);
+		FileReaderHelper fileHelper = new FileReaderHelper();
 		
 		boolean fileOpenSuccess = fileHelper.open(archivo_a_leer);
 		
 		if (fileOpenSuccess) {
 			Parser parser = new Parser();
-			ts = new TablaDeSimbolos();
-			lexico = new AnalizadorLexico(fileHelper, ts, logger);
+			lexico = new AnalizadorLexico(fileHelper);
 			
 	        parser.run();
 	

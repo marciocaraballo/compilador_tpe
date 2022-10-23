@@ -8,11 +8,9 @@ import java.io.IOException;
 public class FileReaderHelper {
 
 	private BufferedReader reader = null;
-	private Logger logger = null;
+	private Logger logger = Logger.getInstance();
 	
-	public FileReaderHelper(Logger logger) {
-		this.logger = logger;
-	};
+	public FileReaderHelper() {};
 	
 	public boolean open(String filePath) {
 		try {

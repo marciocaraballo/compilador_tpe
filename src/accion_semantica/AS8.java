@@ -3,17 +3,13 @@ package accion_semantica;
 import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
-import compilador.TablaPalabrasReservadas;
 
 public class AS8 extends AccionSemantica {
-
-	public AS8(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger logger) {
-		super(TPR, TS, logger);
-	}
-
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		Logger logger = Logger.getInstance();
 		String formattedDouble = lexema.toString().replace('D', 'E');
 		
 		Double parsedDouble = Double.parseDouble(formattedDouble);

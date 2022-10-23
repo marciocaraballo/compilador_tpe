@@ -6,9 +6,11 @@ public class TablaPalabrasReservadas {
 
 	private HashMap<String, Integer> palabras_reservadas = new HashMap<String, Integer>(); 
 	
+	private static TablaPalabrasReservadas instance = null;
+	
 	public static final int NO_ENCONTRADO = -1;
 	
-	public TablaPalabrasReservadas() {
+	private TablaPalabrasReservadas() {
 		palabras_reservadas.put("if", 260);
 		palabras_reservadas.put("then", 261);
 		palabras_reservadas.put("else", 262);
@@ -29,6 +31,14 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put("ui16", 277);
 		palabras_reservadas.put("defer", 278);
 		palabras_reservadas.put("const", 279);
+	}
+	
+	public static TablaPalabrasReservadas getInstance() {
+		if (instance == null) {
+			instance = new TablaPalabrasReservadas();
+		}
+		
+		return instance;
 	}
 	
 	public int getToken(String palabra) {

@@ -2,6 +2,8 @@ package compilador;
 
 public class Logger {
 	
+	private static Logger instance;
+	
 	public static final String GREEN = "\033[0;32m";   // GREEN
 	public static final String YELLOW = "\033[0;33m";  // YELLOW
 	public static final String ANSI_RESET = "\u001B[0m";
@@ -11,8 +13,14 @@ public class Logger {
 	
 	private int linea = 1;
 	
-	public Logger() {
+	private Logger() {}
+	
+	public static Logger getInstance() {
+		if (instance == null) {
+			instance = new Logger();
+		}
 		
+		return instance;
 	}
 	
 	public void logStartUpError(String error) {
@@ -50,5 +58,4 @@ public class Logger {
 	public String getSintactico() {
 		return fileSintactico.toString();
 	}
-	
 }

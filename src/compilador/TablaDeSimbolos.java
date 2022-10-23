@@ -11,6 +11,8 @@ import java.util.Set;
  */
 public class TablaDeSimbolos {
 	
+	private static TablaDeSimbolos instance = null; 
+	
 	private HashMap<String, HashMap<String, Object>> tabla_simbolos = new HashMap<String, HashMap<String, Object>>();
 	
 	public static final int IDENTIFICADOR = 257;
@@ -20,7 +22,15 @@ public class TablaDeSimbolos {
     /* Keys de atributos */
 	public static final String TOKEN = "token";
     
-	public TablaDeSimbolos() {};
+	private TablaDeSimbolos() {};
+	
+	public static TablaDeSimbolos getInstance() {
+		if (instance == null) {
+			instance = new TablaDeSimbolos();
+		}
+		
+		return instance;
+	}
 
 	/* Agrega un lexema que se reconoce como identificador */
 	public void putIdentificador(String lexema) {

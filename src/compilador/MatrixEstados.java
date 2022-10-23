@@ -2,6 +2,8 @@ package compilador;
 
 public class MatrixEstados {
 	
+	private static MatrixEstados instance;
+	
 	public static final int F = -1;
 	public static final int E = -2;
 	
@@ -23,7 +25,15 @@ public class MatrixEstados {
 	    /*13*/ {  E,    E,   12,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,      E,     E,     E,        E,      E,		  E}
 	};
 
-  public MatrixEstados() {}
+  private MatrixEstados() {}
+  
+  public static MatrixEstados getInstance() {
+	  if (instance == null) {
+		  instance = new MatrixEstados();
+	  }
+	  
+	  return instance;
+  }
 
   public int getEstadoSiguiente(int initialState, int column) {
 	  return this.matrixEstados[initialState][column];

@@ -7,20 +7,11 @@ import compilador.TablaPalabrasReservadas;
 
 public abstract class AccionSemantica {
 	
-	TablaPalabrasReservadas TPR = null;
-	TablaDeSimbolos TS = null;
-	Logger logger = null;
+	TablaPalabrasReservadas TPR = TablaPalabrasReservadas.getInstance();
+	TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+	Logger logger = Logger.getInstance();
 	
-	public AccionSemantica(TablaPalabrasReservadas TPR, TablaDeSimbolos TS) {
-		this.TPR = TPR;
-		this.TS = TS;
-	}
-	
-	public AccionSemantica(TablaPalabrasReservadas TPR, TablaDeSimbolos TS, Logger lgr) {
-		this.TPR = TPR;
-		this.TS = TS;
-		this.logger = lgr;
-	}
+	public AccionSemantica() {}
 
 	public abstract int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char inputCaracter);
 }
