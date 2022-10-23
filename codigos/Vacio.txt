@@ -1,4 +1,7 @@
 programa {
  
-   	a = 3;
+	when (c>e) then {
+	   a =: b;
+	}
+   
 }

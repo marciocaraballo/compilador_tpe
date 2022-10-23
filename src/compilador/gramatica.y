@@ -315,7 +315,7 @@ asignacion:
 sentencia_when:
 	WHEN '(' condicion ')' THEN '{' sentencias_when '}' ';' { logger.logSuccess("[Parser] Sentencia when detectada"); } |
 	WHEN '(' condicion ')' '{' sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
-	WHEN '(' ')' THEN '{' sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); }
+	WHEN '(' ')' THEN '{' sentencias_when '}' ';' { logger.logError("[Parser] Se esperaba una condicion en la sentencia when"); } |
 	WHEN '(' condicion ')' THEN '{' sentencias_when '}' { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); } |
 	WHEN '(' condicion ')' '{' sentencias_when '}' { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); } |
 	WHEN '(' condicion ')' '{' '}' { logger.logError("[Parser] Se esperaban sentencias dentro del when"); }
@@ -430,7 +430,7 @@ public static AnalizadorLexico lexico = null;
 public static Logger logger = null;
 public static TablaDeSimbolos ts = null;
 
-public static negConstante = new StringBuilder();
+public static StringBuilder negConstante = new StringBuilder();
 
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
@@ -439,7 +439,7 @@ public void constanteConSigno(String constante) {
 		negConstante.append("-");
 		negConstante.append(constante);
 		
-		Double parsedDouble = Double.parseDouble(negConstante.replace('D', 'E'));
+		Double parsedDouble = Double.parseDouble(negConstante.toString().replace('D', 'E'));
 		
 		if (parsedDouble < -2.2250738585072014E-308 && -1.7976931348623157E+308 > parsedDouble) {
 			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
@@ -453,7 +453,7 @@ public void constanteConSigno(String constante) {
 			}
 		}
 		
-		ts.swapLexemas(constante, negConstante);
+		ts.swapLexemas(constante, negConstante.toString());
 	} else {
 		//se recibio un uint que fue aceptado por el lexico pero resulta ser negativo
 		logger.logWarning("[Parser] No se admiten ui16 con valores negativos: " + "-"+constante + ", se trunca a 0");
