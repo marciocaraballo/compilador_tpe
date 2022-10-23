@@ -2,5 +2,5 @@ Lexema: a
 Atributo: token Valor: 257
 Lexema: programa
 Atributo: token Valor: 257
-Lexema: 65535
+Lexema: 3.
 Atributo: token Valor: 258
