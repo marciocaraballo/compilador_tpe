@@ -25,10 +25,17 @@ public class AS5 extends AccionSemantica {
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
-		int cte = Integer.parseInt(lexema.toString());
+		int cte = 0;
+		boolean exeptionOutOfRange = false;
 		
-		if (cte > 65535) {
-			logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + cte + ", se trunca al rango permitido");
+		try {
+			cte = Integer.parseInt(lexema.toString());
+		} catch(NumberFormatException e) {
+			exeptionOutOfRange = true;
+		}
+		
+		if (cte > 65535 || exeptionOutOfRange) {
+			logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + lexema.toString() + ", se trunca al rango permitido");
 			
 			lexema.setLength(0);
 			lexema.append("65535");
