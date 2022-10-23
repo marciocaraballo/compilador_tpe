@@ -1,8 +1,6 @@
 package accion_semantica;
 
 import compilador.FileReaderHelper;
-import compilador.TablaDeSimbolos;
-import compilador.TablaPalabrasReservadas;
 
 public class AS1 extends AccionSemantica {
 	@Override
