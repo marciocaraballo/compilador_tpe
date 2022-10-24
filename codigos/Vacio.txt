@@ -1,12 +1,3 @@
 programa {
- 
-   	if (a>=b then
-    	b =: c;
-	else
-	   b =: a;
-	end_if;
-	
-	do {
-		a =: b;
-	} until;
+   	a =: 3..;
 }

@@ -1,4 +1,2 @@
-[Success] Linea 4: [Parser] Asignacion detectada
-[Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 7: [Parser] Sentencia if then else detectada
-[Success] Linea 10: [Parser] Asignacion detectada
+[Success] Linea 2: [Parser] Asignacion detectada
+[Success] Linea 3: [Parser] Programa correcto detectado
