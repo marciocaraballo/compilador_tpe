@@ -23,6 +23,12 @@ public class GeneracionCodigoIntermedio {
 		lista_variables_a_declarar.add(variable);
 	}
 
+	public void agregarTipoAParametro(String parametro, String tipo) {
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		TS.putTipo(parametro, tipo);
+		agregarUsoAIdentificador(parametro, "nombre_parametro_funcion");
+	}
+
 	public void agregarTipoAListaDeVariables(String type) {
 
 		Iterator<String> it = lista_variables_a_declarar.iterator();
@@ -30,14 +36,17 @@ public class GeneracionCodigoIntermedio {
 
 		while(it.hasNext()) {
 			String variableActual = it.next();
-			TS.putIdentificadorTipo(variableActual, type);
+			TS.putTipo(variableActual, type);
+			agregarUsoAIdentificador(variableActual, "variable");
 		}
 
 		lista_variables_a_declarar.clear();
 	}
-	
-	public void agregarUsoIdentificador() {
-		
+
+	public void agregarUsoAIdentificador(String identificador, String uso) {
+
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+
+		TS.putIdentificadorUso(identificador, uso);
 	}
-	
 }

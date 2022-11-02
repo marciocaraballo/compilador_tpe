@@ -34,6 +34,7 @@ public class AS5 extends AccionSemantica {
 		}
 		else {
 			TS.putConstante(lexema.toString());
+			TS.putTipo(lexema.toString(), "ui16");
 			return TS.getToken(lexema.toString());
 		}
 	}

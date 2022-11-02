@@ -14,7 +14,11 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 %%
 
 programa: 
-	nombre_programa '{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
+	nombre_programa '{' sentencias '}' { 
+		logger.logSuccess("[Parser] Programa correcto detectado");
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarUsoAIdentificador($1.sval, "nombre_programa");
+	} |
 	'{' sentencias '}' { logger.logError("[Parser] Se esperaba un identificador nombre del programa"); } |
 	nombre_programa sentencias '}' { logger.logError("[Parser] Se esperaba un { antes de las sentencias del programa"); } | 
 	nombre_programa '{' sentencias { logger.logError("[Parser] Se esperaba un } al final de las sentencias del programa"); } |
@@ -56,14 +60,10 @@ sentencia_declarativa_variables:
 
 lista_de_variables:
 	ID ',' lista_de_variables { 
-
-		System.out.println("Lo que lee: " + $1.sval);
-
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
 		instance.agregarVariableADeclarar($1.sval);
 	} |
 	ID {
-		System.out.println("Lo que lee: " + $1.sval);
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
 		instance.agregarVariableADeclarar($1.sval);
 	}
@@ -196,8 +196,14 @@ sentencia_ejecutable_do_funcion:
 ;
 
 encabezado_funcion:
-	FUN ID '(' ')' ':' tipo |
-	FUN ID '(' lista_de_parametros ')' ':' tipo |
+	FUN ID '(' ')' ':' tipo {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarUsoAIdentificador($2.sval, "nombre_funcion");
+	} | 
+	FUN ID '(' lista_de_parametros ')' ':' tipo {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarUsoAIdentificador($2.sval, "nombre_funcion");
+	} |
 	FUN ID '(' lista_de_parametros ')' tipo { logger.logError("[Parser] Se esperaba un : antes del tipo para la funcion"); } |
 	FUN ID '(' ')' ':' { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); } |
 	FUN '(' ')' ':' tipo { logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); } |
@@ -229,7 +235,10 @@ lista_parametros_exceso:
 ;
 
 parametro:
-	tipo ID |
+	tipo ID {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarTipoAParametro($2.sval, $1.sval);
+	} |
 	tipo | { logger.logError("[Parser] Se esperaba un identificador nombre para el parametro"); }
 	ID { logger.logError("[Parser] Se esperaba un tipo valido para el parametro"); }
 ;
@@ -296,7 +305,10 @@ sentencia_do_simple:
 ;
 
 etiqueta:
-	ID
+	ID {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarUsoAIdentificador($2.sval, "nombre_etiqueta");
+	}
 ;
 
 bloque_sentencias_ejecutables_do:
@@ -434,6 +446,7 @@ tipo:
 public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
+public static Parser parser = null;
 
 public static StringBuilder negConstante = new StringBuilder();
 
@@ -468,7 +481,7 @@ public void constanteConSigno(String constante) {
 }	
 
 public int yylex() {
-	return lexico.yylex(yylval);
+	return lexico.yylex(parser);
 }
 
 public void yyerror(String error) {
@@ -487,7 +500,7 @@ public static void main(String[] args) {
 		boolean fileOpenSuccess = fileHelper.open(archivo_a_leer);
 		
 		if (fileOpenSuccess) {
-			Parser parser = new Parser();
+			parser = new Parser();
 			lexico = new AnalizadorLexico(fileHelper);
 			
 	        parser.run();

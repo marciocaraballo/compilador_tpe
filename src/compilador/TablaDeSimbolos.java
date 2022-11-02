@@ -43,7 +43,7 @@ public class TablaDeSimbolos {
 		tabla_simbolos.put(lexema, atributos);
 	}
 	
-	public void putIdentificadorTipo(String lexema, String tipo) {
+	public void putTipo(String lexema, String tipo) {
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema); 
 		
 		attributes.put(TYPE, tipo);

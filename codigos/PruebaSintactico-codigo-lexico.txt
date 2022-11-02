@@ -30,6 +30,11 @@
 [Success] Linea 8: [Lexico] Se reconoce un token para fun con el token 265
 [Success] Linea 8: [Lexico] Se reconoce un token para f1 con el token 257
 [Success] Linea 8: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 8: [Lexico] Se reconoce un token para ui16 con el token 277
+[Success] Linea 8: [Lexico] Se reconoce un token para ww con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 8: [Lexico] Se reconoce un token para ui16 con el token 277
+[Success] Linea 8: [Lexico] Se reconoce un token para www con el token 257
 [Success] Linea 8: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 8: [Lexico] Se reconoce un token para : con el token 58
 [Success] Linea 8: [Lexico] Se reconoce un token para f64 con el token 276

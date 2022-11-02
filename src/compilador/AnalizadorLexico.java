@@ -168,7 +168,7 @@ public class AnalizadorLexico {
 		return inputCaracter != -1;
 	}
 	
-	public int yylex(ParserVal yylval) {
+	public int yylex(Parser parser) {
 
 		while (estado_actual != MatrixEstados.F) {
 			
@@ -206,7 +206,7 @@ public class AnalizadorLexico {
 			return 0;
 		}
 
-		yylval.sval = lexema.toString();
+		parser.yylval = new ParserVal(lexema.toString());
 		
 		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		

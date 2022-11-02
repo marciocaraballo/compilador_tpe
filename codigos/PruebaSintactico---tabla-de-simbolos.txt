@@ -1,42 +1,79 @@
+Lexema: ww
+Atributo: uso Valor: nombre_parametro_funcion
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 257
 Lexema: a
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
 Atributo: token Valor: 257
 Lexema: b
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
 Atributo: token Valor: 257
 Lexema: c
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 257
 Lexema: d
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
 Atributo: token Valor: 257
 Lexema: e
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 257
 Lexema: f
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 257
 Lexema: g
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 257
 Lexema: h
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 257
 Lexema: f1
+Atributo: uso Valor: nombre_funcion
 Atributo: token Valor: 257
 Lexema: f2
 Atributo: token Valor: 257
 Lexema: f3
+Atributo: uso Valor: nombre_funcion
 Atributo: token Valor: 257
 Lexema: f4
+Atributo: uso Valor: nombre_funcion
 Atributo: token Valor: 257
 Lexema: 0
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 258
 Lexema: 2
+Atributo: tipo Valor: ui16
 Atributo: token Valor: 258
 Lexema: programa1
+Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
 Lexema: 1.2
+Atributo: tipo Valor: f64
 Atributo: token Valor: 258
+Lexema: www
+Atributo: uso Valor: nombre_parametro_funcion
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 257
 Lexema: 1.3
+Atributo: tipo Valor: f64
 Atributo: token Valor: 258
 Lexema: 3.2
+Atributo: tipo Valor: f64
 Atributo: token Valor: 258
 Lexema: x
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
 Atributo: token Valor: 257
 Lexema: y
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
 Atributo: token Valor: 257
 Lexema: z
 Atributo: token Valor: 257

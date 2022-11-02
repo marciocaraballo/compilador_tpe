@@ -5,7 +5,7 @@ programa1 {
     ui16 c, e, f, g, h;
     const a =: 3.2, b =: 2;
     
-    fun f1 () : f64
+    fun f1 (ui16 ww, ui16 www) : f64
     {
         f64 x, y;
         x =: 1.2;
@@ -24,6 +24,7 @@ programa1 {
     
     fun f3 () : f64
     {
+        ui16 z;
         f64 x;
         x =: 1.2;
         if (x >= 0) then 
