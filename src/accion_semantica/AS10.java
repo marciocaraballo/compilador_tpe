@@ -11,7 +11,7 @@ public class AS10 extends AccionSemantica {
 		
 		lexema.append(nextCharacter);
 		
-		String cadena = lexema.toString().replaceAll("\'", "");
+		String cadena = lexema.toString();
 		
 		if (TS.has(cadena))
 			return TS.getToken(cadena);
