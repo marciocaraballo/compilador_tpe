@@ -1,7 +1,0 @@
-[Success] Linea 1: [Lexico] Se reconoce un token para programa con el token 257
-[Success] Linea 1: [Lexico] Se reconoce un token para { con el token 123
-[Success] Linea 2: [Lexico] Se reconoce un token para a con el token 257
-[Success] Linea 2: [Lexico] Se reconoce un token para =: con el token 268
-[Success] Linea 2: [Lexico] Se reconoce un token para 3. con el token 258
-[Success] Linea 2: [Lexico] Se reconoce un token para ; con el token 59
-[Success] Linea 3: [Lexico] Se reconoce un token para } con el token 125

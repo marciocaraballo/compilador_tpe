@@ -1,2 +1,0 @@
-[Success] Linea 2: [Parser] Asignacion detectada
-[Success] Linea 3: [Parser] Programa correcto detectado

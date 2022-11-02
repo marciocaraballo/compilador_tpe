@@ -44,15 +44,29 @@ sentencia_declarativa:
 ;
 
 sentencia_declarativa_variables:
-	tipo lista_de_variables ';' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
+	tipo lista_de_variables ';' { 
+		logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); 
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
+		instance.agregarTipoAListaDeVariables($1.sval);
+	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un ; al final de la lista de variables"); } |
 	lista_de_variables ';' { logger.logError("[Parser] Se esperaba un tipo para la lista de variables"); } |
 	tipo ';' { logger.logError("[Parser] Se esperaba una variable o lista de variables"); }
 ;
 
 lista_de_variables:
-	ID ',' lista_de_variables |
-	ID
+	ID ',' lista_de_variables { 
+
+		System.out.println("Lo que lee: " + $1.sval);
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
+		instance.agregarVariableADeclarar($1.sval);
+	} |
+	ID {
+		System.out.println("Lo que lee: " + $1.sval);
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
+		instance.agregarVariableADeclarar($1.sval);
+	}
 ;
 
 funcion_con_return:

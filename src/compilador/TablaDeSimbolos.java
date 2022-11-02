@@ -21,6 +21,8 @@ public class TablaDeSimbolos {
     
     /* Keys de atributos */
 	public static final String TOKEN = "token";
+	public static final String TYPE = "tipo";
+	public static final String USE = "uso";
     
 	private TablaDeSimbolos() {};
 	
@@ -39,6 +41,18 @@ public class TablaDeSimbolos {
 		atributos.put(TOKEN, IDENTIFICADOR);
 		
 		tabla_simbolos.put(lexema, atributos);
+	}
+	
+	public void putIdentificadorTipo(String lexema, String tipo) {
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema); 
+		
+		attributes.put(TYPE, tipo);
+	}
+	
+	public void putIdentificadorUso(String lexema, String uso) {
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema); 
+		
+		attributes.put(USE, uso);
 	}
 	
 	/* Agrega un lexema que se reconoce como constante */

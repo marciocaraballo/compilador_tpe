@@ -1,6 +1,1 @@
-Lexema: a
-Atributo: token Valor: 257
-Lexema: programa
-Atributo: token Valor: 257
-Lexema: 3.
-Atributo: token Valor: 258
+No hay simbolos detectados
