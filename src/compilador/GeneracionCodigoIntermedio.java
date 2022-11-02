@@ -2,10 +2,12 @@ package compilador;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class GeneracionCodigoIntermedio {
     
 	private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
+	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
 
 	private static GeneracionCodigoIntermedio instance = null; 
 
@@ -48,5 +50,31 @@ public class GeneracionCodigoIntermedio {
 		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
 
 		TS.putIdentificadorUso(identificador, uso);
+	}
+
+	public void agregarTerceto(String op, String op1, String op2) {
+		Terceto t = new Terceto(op, op1, op2);
+		lista_tercetos.add(t);
+	}
+
+	public void agregarTerceto(Terceto t) {
+		lista_tercetos.add(t);
+	} 
+
+	public int getTamanioListaTercetos() {
+		return lista_tercetos.size();
+	}
+
+	public void printTercetos() {
+
+		System.out.println("Tercetos generados");
+
+		ListIterator<Terceto> it = lista_tercetos.listIterator();
+
+		while(it.hasNext()) {
+			Terceto t = it.next();
+
+			System.out.println("[" + t.getPosicion() + "]" + "(" + t.getOperacion() + ", " + t.getOperando1() + ", " + t.getOperando2() + ")");
+		}
 	}
 }

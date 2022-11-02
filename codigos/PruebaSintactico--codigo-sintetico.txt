@@ -1,3 +1,3 @@
-[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 3: [Parser] Sentencia out detectada
-[Success] Linea 4: [Parser] Programa correcto detectado
+[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 6: [Parser] Asignacion detectada
+[Success] Linea 7: [Parser] Programa correcto detectado

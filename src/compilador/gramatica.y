@@ -307,7 +307,7 @@ sentencia_do_simple:
 etiqueta:
 	ID {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarUsoAIdentificador($2.sval, "nombre_etiqueta");
+		instance.agregarUsoAIdentificador($1.sval, "nombre_etiqueta");
 	}
 ;
 
@@ -389,18 +389,47 @@ comparador:
 expresion:
 	expresion '+' termino |
 	expresion '-' termino |
-	termino
+	termino {
+		System.out.println("sarasa " + $1.sval);
+	}
 ;
 
 termino:
-	termino '*' factor |
-	termino '/' factor |
-	factor
+	termino '*' factor {
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		int tercetoPosicion = instance.getTamanioListaTercetos();
+
+		terceto.setOperacion("*");
+		terceto.setOperando2($3.sval);
+		terceto.setPosicion(tercetoPosicion);
+
+		instance.agregarTerceto(terceto);
+
+		$$.sval = "[" + tercetoPosicion + "]";
+	} |
+	termino '/' factor {
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		terceto.setOperacion("/");
+		terceto.setOperando2($3.sval);
+
+		instance.agregarTerceto(terceto);
+	} |
+	factor {
+		terceto.setOperando1($1.sval);
+	}
 ;
 
 factor:
-	ID |
-	constante |
+	ID {
+		$$.sval = $1.sval;
+	} |
+	constante {
+		$$.sval = $1.sval;
+	} |
 	invocacion_funcion
 ;
 
@@ -449,6 +478,8 @@ public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
 
 public static StringBuilder negConstante = new StringBuilder();
+
+public static Terceto terceto = new Terceto();
 
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {
@@ -516,6 +547,10 @@ public static void main(String[] args) {
 			out.saveFile("tabla-de-simbolos.txt", printTs);
 	        
 			System.out.println(printTs);
+
+			GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+			instance.printTercetos();
 		}
 	}
 }
