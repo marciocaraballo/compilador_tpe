@@ -363,27 +363,26 @@ sentencias_when:
 ;
 
 seleccion:
-	IF condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'
+	IF condicion THEN bloque_sentencias_ejecutables_seleccion_then ENDIF ';'
 	{ 
 		logger.logSuccess("[Parser] Sentencia if then detectada");
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos();
-
-		Terceto terceto = new Terceto("BF", $2.sval, "[" + String.valueOf(tercetoPosicion + 1) + "]");
-
-		instance.agregarTerceto(terceto);
-
-		$$.sval = "[" + tercetoPosicion + "]";
-				
-		} |
-	IF condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); } |
-	IF condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
-	IF condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
+		Terceto bi = instance.desapilarTerceto();
+		bi.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
+	} |
+	IF condicion THEN bloque_sentencias_ejecutables_seleccion_then ELSE bloque_sentencias_ejecutables_seleccion_else ENDIF ';' { 
+		logger.logSuccess("[Parser] Sentencia if then else detectada"); 
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		Terceto bi = instance.desapilarTerceto();
+		bi.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
+	} |
+	IF condicion THEN bloque_sentencias_ejecutables_seleccion_then ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
+	IF condicion THEN bloque_sentencias_ejecutables_seleccion_then ELSE bloque_sentencias_ejecutables_seleccion_else ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
 	IF condicion THEN ENDIF ';' { logger.logError("[Parser] Se esperaban sentencias en la sentencia seleccion"); } |
-	IF condicion bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); } |
-	IF condicion bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); } |
+	IF condicion bloque_sentencias_ejecutables_seleccion_then ENDIF ';' { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); } |
+	IF condicion bloque_sentencias_ejecutables_seleccion_then ELSE bloque_sentencias_ejecutables_seleccion_else ENDIF ';' { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); } |
 	IF condicion THEN ELSE ENDIF ';' { logger.logError("[Parser] Se esperaban sentencias en la sentencia seleccion"); } 
 ;
 
@@ -400,18 +399,49 @@ sentencias_ejecutables:
 	sentencias_ejecutables sentencia_ejecutable
 ;
 
+bloque_sentencias_ejecutables_seleccion_then:
+	bloque_sentencias_ejecutables_seleccion {
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		Terceto t = instance.desapilarTerceto();
+
+		t.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos() + 1) + "]");
+
+		Terceto bi = new Terceto("BI", "-", "-");
+
+		instance.agregarTerceto(bi);
+		instance.apilarTerceto(bi);
+	}
+;
+
+bloque_sentencias_ejecutables_seleccion_else:
+	bloque_sentencias_ejecutables_seleccion
+;
+
 condicion:
 	'(' expresion comparador expresion ')'
 	{
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos();
+		//int tercetoPosicion = instance.getTamanioListaTercetos();
+
+		int tercetoPosicion = 0;
 
 		Terceto terceto = new Terceto($3.sval, $2.sval, $4.sval);
+
+		tercetoPosicion = instance.getTamanioListaTercetos();
 
 		instance.agregarTerceto(terceto);
 		
 		$$.sval = "[" + tercetoPosicion + "]";
+
+		terceto = new Terceto("BF", "[" + tercetoPosicion + "]", "-");
+
+		instance.agregarTerceto(terceto);
+		instance.apilarTerceto(terceto);
+
+		//$$.sval = "[" + tercetoPosicion + "]";
 
 	} |
 	'(' expresion comparador ')' { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); } |
@@ -519,8 +549,22 @@ parametro_real:
 ;
 
 imprimir:
-	OUT '(' CADENA ')' ';' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
-	OUT '(' ID ')' ';' { logger.logSuccess("[Parser] Sentencia out detectada"); } |
+	OUT '(' CADENA ')' ';' { 
+		logger.logSuccess("[Parser] Sentencia out detectada"); 
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		Terceto out = new Terceto("out", $3.sval, "-");
+
+		instance.agregarTerceto(out);
+	} |
+	OUT '(' ID ')' ';' { 
+		logger.logSuccess("[Parser] Sentencia out detectada"); 
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		Terceto out = new Terceto("out", $3.sval, "-");
+
+		instance.agregarTerceto(out);
+	} |
 	OUT '(' ')'  ';' { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); } |
 	OUT CADENA ')'  ';' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
 	OUT '(' CADENA  ';' { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); } |

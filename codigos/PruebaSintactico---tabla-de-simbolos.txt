@@ -2,6 +2,9 @@ Lexema: a
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+Lexema: 1
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 258
 Lexema: b
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
@@ -12,27 +15,8 @@ Lexema: d
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
-Lexema: costo
-Atributo: token Valor: 257
-Lexema: otroCosa
-Atributo: token Valor: 257
-Lexema: cosita
-Atributo: token Valor: 257
-Lexema: 1
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 258
-Lexema: precio
-Atributo: token Valor: 257
 Lexema: programa1
 Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
-Lexema: 1.5
-Atributo: tipo Valor: f64
-Atributo: token Valor: 258
-Lexema: 8
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 258
-Lexema: algo
-Atributo: token Valor: 257
-Lexema: flete
-Atributo: token Valor: 257
+Lexema: 'hola'
+Atributo: token Valor: 259

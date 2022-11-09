@@ -3,11 +3,13 @@ package compilador;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Stack;
 
 public class GeneracionCodigoIntermedio {
     
 	private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
 	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
+	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
 	private int posicionTerceto = 0;
 
 	private static GeneracionCodigoIntermedio instance = null; 
@@ -63,6 +65,13 @@ public class GeneracionCodigoIntermedio {
 		return lista_tercetos.size();
 	}
 	
+	public void apilarTerceto(Terceto t) {
+		pila_tercetos.push(t);
+	}
+
+	public Terceto desapilarTerceto() {
+		return pila_tercetos.pop();
+	}
 	
 	public void printTercetos() {
 
