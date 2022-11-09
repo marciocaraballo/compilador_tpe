@@ -324,7 +324,25 @@ sentencias_ejecutables_do:
 ;
 
 asignacion:
-	ID ASIGNACION expresion ';' { logger.logSuccess("[Parser] Asignacion detectada"); } |
+	ID ASIGNACION expresion ';'
+	{ 
+		logger.logSuccess("[Parser] Asignacion detectada"); 
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		int tercetoPosicion = instance.getTamanioListaTercetos(); 
+
+		Terceto terceto = new Terceto("=:", $1.sval, $3.sval);
+
+		terceto.setOperacion("=:");
+		terceto.setOperando1($1.sval);
+		terceto.setOperando2($3.sval);
+
+		instance.agregarTerceto(terceto);
+
+		$$.sval = "[" + tercetoPosicion + "]";
+
+	} |
 	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
 	ID ASIGNACION expresion { logger.logError("[Parser] Se espera un ; al final de la asignacion"); } |
 	ID '=' expresion ';' { logger.logError("[Parser] Se espera el simbolo =: en lugar de = para la asignacion"); } |
@@ -345,7 +363,21 @@ sentencias_when:
 ;
 
 seleccion:
-	IF condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then detectada"); } |
+	IF condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF ';'
+	{ 
+		logger.logSuccess("[Parser] Sentencia if then detectada");
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		int tercetoPosicion = instance.getTamanioListaTercetos();
+
+		Terceto terceto = new Terceto("BF", $2.sval, "[" + String.valueOf(tercetoPosicion + 1) + "]");
+
+		instance.agregarTerceto(terceto);
+
+		$$.sval = "[" + tercetoPosicion + "]";
+				
+		} |
 	IF condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF ';' { logger.logSuccess("[Parser] Sentencia if then else detectada"); } |
 	IF condicion THEN bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
 	IF condicion THEN bloque_sentencias_ejecutables_seleccion ELSE bloque_sentencias_ejecutables_seleccion ENDIF { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); } |
@@ -369,7 +401,19 @@ sentencias_ejecutables:
 ;
 
 condicion:
-	'(' expresion comparador expresion ')' |
+	'(' expresion comparador expresion ')'
+	{
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		int tercetoPosicion = instance.getTamanioListaTercetos();
+
+		Terceto terceto = new Terceto($3.sval, $2.sval, $4.sval);
+
+		instance.agregarTerceto(terceto);
+		
+		$$.sval = "[" + tercetoPosicion + "]";
+
+	} |
 	'(' expresion comparador ')' { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); } |
 	'(' comparador expresion ')' { logger.logError("[Parser] Se esperaba un expresion del lado izquierdo de la comparacion"); } |
 	expresion comparador expresion ')' { logger.logError("[Parser] Se esperaba un ( al comienzo de la comparacion"); } |
@@ -378,48 +422,74 @@ condicion:
 ;
 
 comparador:
-	COMP_MAYOR_IGUAL |
-	COMP_MENOR_IGUAL |
-	COMP_DISTINTO |
-	'>' |
-	'<' |
-	'='
+	COMP_MAYOR_IGUAL {$$.sval = ">=";}|
+	COMP_MENOR_IGUAL {$$.sval = "<=";}|
+	COMP_DISTINTO {$$.sval = "=!";}|
+	'>' {$$.sval = ">";}|
+	'<' {$$.sval = "<";}|
+	'=' {$$.sval = "=";}
 ;
 
 expresion:
-	expresion '+' termino |
-	expresion '-' termino |
+	expresion '+' termino {
+		
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		int tercetoPosicion = instance.getTamanioListaTercetos(); 
+
+		Terceto terceto = new Terceto("+", $1.sval, $3.sval);
+
+		instance.agregarTerceto(terceto);
+
+		$$.sval = "[" + tercetoPosicion + "]";
+
+	} |
+	expresion '-' termino {
+		
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+
+		int tercetoPosicion = instance.getTamanioListaTercetos(); 
+
+		Terceto terceto = new Terceto("-", $1.sval, $3.sval);
+
+		instance.agregarTerceto(terceto);
+
+		$$.sval = "[" + tercetoPosicion + "]";
+
+	} |
 	termino {
-		System.out.println("sarasa " + $1.sval);
+		$$.sval = $1.sval;
 	}
 ;
 
 termino:
 	termino '*' factor {
-
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
 		int tercetoPosicion = instance.getTamanioListaTercetos();
 
-		terceto.setOperacion("*");
-		terceto.setOperando2($3.sval);
-		terceto.setPosicion(tercetoPosicion);
+		Terceto terceto = new Terceto("*", $1.sval, $3.sval);
 
 		instance.agregarTerceto(terceto);
 
 		$$.sval = "[" + tercetoPosicion + "]";
+
 	} |
 	termino '/' factor {
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		terceto.setOperacion("/");
-		terceto.setOperando2($3.sval);
+		int tercetoPosicion = instance.getTamanioListaTercetos();
+
+		Terceto terceto = new Terceto("/", $1.sval, $3.sval);
 
 		instance.agregarTerceto(terceto);
+
+		$$.sval = "[" + tercetoPosicion + "]";
+		
 	} |
 	factor {
-		terceto.setOperando1($1.sval);
+		$$.sval = $1.sval;
 	}
 ;
 
@@ -478,8 +548,6 @@ public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
 
 public static StringBuilder negConstante = new StringBuilder();
-
-public static Terceto terceto = new Terceto();
 
 public void constanteConSigno(String constante) {
 	if (constante.contains(".")) {

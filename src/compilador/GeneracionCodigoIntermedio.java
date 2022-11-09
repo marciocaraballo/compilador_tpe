@@ -8,6 +8,7 @@ public class GeneracionCodigoIntermedio {
     
 	private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
 	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
+	private int posicionTerceto = 0;
 
 	private static GeneracionCodigoIntermedio instance = null; 
 
@@ -52,19 +53,17 @@ public class GeneracionCodigoIntermedio {
 		TS.putIdentificadorUso(identificador, uso);
 	}
 
-	public void agregarTerceto(String op, String op1, String op2) {
-		Terceto t = new Terceto(op, op1, op2);
-		lista_tercetos.add(t);
-	}
-
 	public void agregarTerceto(Terceto t) {
+		t.setPosicion(posicionTerceto);
+		posicionTerceto++;
 		lista_tercetos.add(t);
 	} 
 
 	public int getTamanioListaTercetos() {
 		return lista_tercetos.size();
 	}
-
+	
+	
 	public void printTercetos() {
 
 		System.out.println("Tercetos generados");

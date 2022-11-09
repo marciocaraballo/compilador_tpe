@@ -3,5 +3,14 @@ programa1 {
 
     f64 a, b, d;
     
-    d =: b * a;
+    precio =: flete + costo * 1.5 - algo / otroCosa * 8 * cosita;
+    
+    
+    
+        
+    if ( a - b > c + 1 ) then {
+    	a =: b;
+    	c =: d;
+    }end_if;
+    
 }
