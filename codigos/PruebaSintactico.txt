@@ -1,15 +1,15 @@
 << Este programa es testing de estructuras sintacticas validas >>
 programa1 {
 
-    f64 a, b, d;
+   f64 a, b, d;
    
-        
-    if ( a - b > c + 1 ) then {
-    	a =: b;
+   b =: 2;
+   out('sarasa');
+   
+   do {
+   		a =: b;
     	c =: d;
-    }
-    end_if;
-    
-    out('hola');
-    out(a);
+   } until(a - b > c + 1);
+   
+   c =: 3;
 }

@@ -1,7 +1,8 @@
 [Success] Linea 4: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 8: [Parser] Asignacion detectada
-[Success] Linea 9: [Parser] Asignacion detectada
-[Success] Linea 11: [Parser] Sentencia if then detectada
-[Success] Linea 13: [Parser] Sentencia out detectada
-[Success] Linea 14: [Parser] Sentencia out detectada
+[Success] Linea 6: [Parser] Asignacion detectada
+[Success] Linea 7: [Parser] Sentencia out detectada
+[Success] Linea 10: [Parser] Asignacion detectada
+[Success] Linea 11: [Parser] Asignacion detectada
+[Success] Linea 12: [Parser] Sentencia do until detectada
+[Success] Linea 14: [Parser] Asignacion detectada
 [Success] Linea 15: [Parser] Programa correcto detectado

@@ -300,8 +300,22 @@ sentencia_do:
 ;
 
 sentencia_do_simple:
-	DO bloque_sentencias_ejecutables_do UNTIL condicion ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	DO bloque_sentencias_ejecutables_do UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
+	keyword_do bloque_sentencias_ejecutables_do UNTIL condicion ';' { 
+		logger.logSuccess("[Parser] Sentencia do until detectada"); 
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		Terceto tercetoDo = instance.desapilarTerceto();
+		int posPrimerTerceto = instance.desapilarPosicionTerceto();
+
+		tercetoDo.setOperando2("[" + posPrimerTerceto + "]");
+	} |
+	keyword_do bloque_sentencias_ejecutables_do UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
+;
+
+keyword_do: 
+	DO {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.apilarPosicionTerceto(instance.getTamanioListaTercetos());
+	}
 ;
 
 etiqueta:
@@ -423,9 +437,6 @@ condicion:
 	'(' expresion comparador expresion ')'
 	{
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-
-		//int tercetoPosicion = instance.getTamanioListaTercetos();
-
 		int tercetoPosicion = 0;
 
 		Terceto terceto = new Terceto($3.sval, $2.sval, $4.sval);

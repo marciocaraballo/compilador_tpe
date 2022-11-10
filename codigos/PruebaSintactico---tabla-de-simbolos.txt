@@ -2,6 +2,8 @@ Lexema: a
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+Lexema: 'sarasa'
+Atributo: token Valor: 259
 Lexema: 1
 Atributo: tipo Valor: ui16
 Atributo: token Valor: 258
@@ -9,8 +11,14 @@ Lexema: b
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+Lexema: 2
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 258
 Lexema: c
 Atributo: token Valor: 257
+Lexema: 3
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 258
 Lexema: d
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
@@ -18,5 +26,3 @@ Atributo: token Valor: 257
 Lexema: programa1
 Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
-Lexema: 'hola'
-Atributo: token Valor: 259

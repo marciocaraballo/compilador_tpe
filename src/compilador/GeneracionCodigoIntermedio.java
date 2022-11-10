@@ -10,6 +10,7 @@ public class GeneracionCodigoIntermedio {
 	private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
 	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
 	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
+	private Stack<Integer> pila_posiciones = new Stack<Integer>();
 	private int posicionTerceto = 0;
 
 	private static GeneracionCodigoIntermedio instance = null; 
@@ -71,6 +72,14 @@ public class GeneracionCodigoIntermedio {
 
 	public Terceto desapilarTerceto() {
 		return pila_tercetos.pop();
+	}
+
+	public void apilarPosicionTerceto(int pos) {
+		pila_posiciones.push(pos);
+	}
+
+	public int desapilarPosicionTerceto() {
+		return pila_posiciones.pop();
 	}
 	
 	public void printTercetos() {
