@@ -11,6 +11,7 @@ public class GeneracionCodigoIntermedio {
 	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
 	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
 	private Stack<Integer> pila_posiciones = new Stack<Integer>();
+	private Stack<ArrayList<Terceto>> pila_breaks_do = new Stack<ArrayList<Terceto>>();
 	private int posicionTerceto = 0;
 
 	private static GeneracionCodigoIntermedio instance = null; 
@@ -80,6 +81,26 @@ public class GeneracionCodigoIntermedio {
 
 	public int desapilarPosicionTerceto() {
 		return pila_posiciones.pop();
+	}
+
+	public int getUltimaPosicionTerceto() {
+		return pila_posiciones.lastElement();
+	}
+
+	public void iniciarListaTercetosBreakDo() {
+		ArrayList<Terceto> lista_tercetos_break = new ArrayList<Terceto>();
+
+		pila_breaks_do.push(lista_tercetos_break);
+	}
+
+	public void agregarTercetoBreakAListaTercetosBreakDo(Terceto breakTerceto) {
+		ArrayList<Terceto> lista_tercetos_break = pila_breaks_do.lastElement();
+
+		lista_tercetos_break.add(breakTerceto);
+	}
+
+	public ArrayList<Terceto> getListaTercetosBreakDo() {
+		return pila_breaks_do.pop();
 	}
 	
 	public void printTercetos() {

@@ -1,6 +1,8 @@
 %{
 package compilador;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 %}
 
 %token ID CTE CADENA IF THEN ELSE ENDIF OUT FUN RETURN BREAK ASIGNACION COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_DISTINTO
@@ -282,7 +284,14 @@ sentencia_ejecutable_do:
 ;
 
 sentencia_break:
-	BREAK ';' { logger.logSuccess("[Parser] Sentencia break detectada"); } |
+	BREAK ';' { 
+		logger.logSuccess("[Parser] Sentencia break detectada"); 
+		Terceto tercetoBreak = new Terceto("BI", "-", "-");
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarTercetoBreakAListaTercetosBreakDo(tercetoBreak);
+		instance.agregarTerceto(tercetoBreak);
+	} |
 	BREAK ':' etiqueta ';' { logger.logSuccess("[Parser] Sentencia break con etiqueta detectada"); }  |
 	BREAK { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
 	BREAK ':' etiqueta { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
@@ -290,7 +299,15 @@ sentencia_break:
 ;
 
 sentencia_continue:
-	CONTINUE ';' { logger.logSuccess("[Parser] Sentencia continue detectada"); } |
+	CONTINUE ';' { 
+		logger.logSuccess("[Parser] Sentencia continue detectada"); 
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		int posPrimeraInstruccionDo = instance.getUltimaPosicionTerceto();
+
+		Terceto tercetoContinue = new Terceto("BI", "[" + String.valueOf(posPrimeraInstruccionDo) + "]", "-");
+		instance.agregarTerceto(tercetoContinue);
+	} |
 	CONTINUE { logger.logError("[Parser] Se esperaba un ; al final de la sentencia continue"); }
 ;
 
@@ -307,6 +324,14 @@ sentencia_do_simple:
 		int posPrimerTerceto = instance.desapilarPosicionTerceto();
 
 		tercetoDo.setOperando2("[" + posPrimerTerceto + "]");
+
+		ArrayList<Terceto> lista_breaks_do = instance.getListaTercetosBreakDo();
+		Iterator<Terceto> it = lista_breaks_do.listIterator();
+
+		while (it.hasNext()) {
+			Terceto breakTerceto = it.next();
+			breakTerceto.setOperando1("[" + instance.getTamanioListaTercetos() + "]");
+		}
 	} |
 	keyword_do bloque_sentencias_ejecutables_do UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
 ;
@@ -315,6 +340,7 @@ keyword_do:
 	DO {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.apilarPosicionTerceto(instance.getTamanioListaTercetos());
+		instance.iniciarListaTercetosBreakDo();
 	}
 ;
 

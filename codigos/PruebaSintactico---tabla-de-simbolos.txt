@@ -26,3 +26,7 @@ Atributo: token Valor: 257
 Lexema: programa1
 Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
+Lexema: e
+Atributo: token Valor: 257
+Lexema: f
+Atributo: token Valor: 257

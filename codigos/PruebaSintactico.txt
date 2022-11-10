@@ -5,11 +5,25 @@ programa1 {
    
    b =: 2;
    out('sarasa');
-   
-   do {
+
+    do {
    		a =: b;
     	c =: d;
+    	
+    	continue;
+    	
+    	do {						
+    		e =: 1;
+    		f =: 1;
+    		
+    		break;					
+    	} until(a > b);
+    	
+    	d =: 1;
+    	
+    	continue;	
+    	
    } until(a - b > c + 1);
-   
+
    c =: 3;
 }
