@@ -132,13 +132,13 @@ public class GeneracionCodigoIntermedio {
 		}
 	}
 	
-	public void AgregarTercetoExpresiones(String v0_0, String v0_1, String v1_0, String v1_1, String v3_0, String v3_1) {
+	public String[] AgregarTercetoExpresiones(String v0_0, String v0_1, String v1_0, String v1_1, String v3_0, String v3_1, String simbolo) {
 		
-		Terceto t1 = 	crearTercetoConversion(1, v1_1, v3_1, v1_0);
-		Terceto tipo = 	crearTercetoConversion(2, v1_1, v3_1, "");
-		Terceto f1 = 	crearTercetoConversion(3, v1_1, v3_1, v3_0);
+		Terceto t1 = 	this.crearTercetoConversion(1, v1_1, v3_1, v1_0);
+		Terceto tipo = 	this.crearTercetoConversion(2, v1_1, v3_1, "");
+		Terceto f1 = 	this.crearTercetoConversion(3, v1_1, v3_1, v3_0);
 
-		Terceto terceto = new Terceto("+", v1_0, v3_0);
+		Terceto terceto = new Terceto(simbolo, v1_0, v3_0);
 
 		
 		if (t1 != null){
@@ -149,13 +149,17 @@ public class GeneracionCodigoIntermedio {
 			terceto.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
 			agregarTerceto(f1);
 		}
-		
-		v0_0 = "[" + instance.getTamanioListaTercetos() + "]";
-		
-		
-		instance.agregarTerceto(terceto);
 
+		
+		v0_0 = "[" + getTamanioListaTercetos() + "]";
+		
+		agregarTerceto(terceto);
+		
 		v0_1 = tipo.getOperacion();
+		
+		String[] par = {v0_0, v0_1};
+		
+		return par;
 		
 	}
 }

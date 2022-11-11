@@ -371,17 +371,16 @@ asignacion:
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos(); 
+		Terceto e1 = instance.crearTercetoConversion(3, $1.obj[1], $3.obj[1], "");
 
-		Terceto terceto = new Terceto("=:", $1.obj[0], $3.obj[0]);
+		Terceto terceto = new Terceto(":=", $1.obj[0], $3.obj[0]);
 
-		terceto.setOperacion("=:");
-		terceto.setOperando1($1.obj[0]);
-		terceto.setOperando2($3.obj[0]);
+		if (e1 != null){
+			instance.agregarTerceto(e1);
+			terceto.setOperando1("hola");
+		}
 
 		instance.agregarTerceto(terceto);
-
-		$$.obj[0] = "[" + tercetoPosicion + "]";
 
 	} |
 	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
@@ -480,7 +479,6 @@ condicion:
 		instance.apilarTerceto(terceto);
 
 		$$.obj[0] = "[" + tercetoPosicion + "]";
-
 	} |
 	'(' expresion comparador ')' { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); } |
 	'(' comparador expresion ')' { logger.logError("[Parser] Se esperaba un expresion del lado izquierdo de la comparacion"); } |
@@ -500,19 +498,16 @@ comparador:
 
 expresion:
 	expresion '+' termino {
-		
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1]);
+		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "+");
 
 	} |
 	expresion '-' termino {
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1]);
-
-
+		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
 	} |
 	termino {
 		
@@ -525,14 +520,16 @@ termino:
 	termino '*' factor {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1]);
+		
+		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "*");
 
 	} |
 	termino '/' factor {
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-
-		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1]);
+		System.out.println("-------------------------------------" + $$.obj[0]);
+		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
+		System.out.println("-------------------------------------" + $$.obj[0]);
 	} |
 	factor {
 		$$.obj[0] = $1.obj[0];
