@@ -293,7 +293,15 @@ sentencia_break:
 		instance.agregarTercetoBreakAListaTercetosBreakDo(tercetoBreak);
 		instance.agregarTerceto(tercetoBreak);
 	} |
-	BREAK ':' etiqueta ';' { logger.logSuccess("[Parser] Sentencia break con etiqueta detectada"); }  |
+	BREAK ':' etiqueta ';' { 
+		logger.logSuccess("[Parser] Sentencia break con etiqueta detectada"); 
+
+		Terceto tercetoBreak = new Terceto("BI", "-", "-");
+
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarTerceto(tercetoBreak);
+		instance.agregarTercetoBreakAEtiquetaDo($3.obj[0], tercetoBreak);
+	}  |
 	BREAK { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
 	BREAK ':' etiqueta { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); } |
 	BREAK ':' ';' { logger.logError("[Parser] Se esperaba una etiqueta en la sentencia break"); } 
@@ -314,7 +322,26 @@ sentencia_continue:
 
 sentencia_do:
 	sentencia_do_simple |
-	etiqueta ':' sentencia_do_simple
+	sentencia_do_etiqueta ':' sentencia_do_simple {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		ArrayList<Terceto> tercetos_etiqueta_break = instance.getTercetosBreakDeEtiquetaDo($1.obj[0]);
+		Iterator<Terceto> it = tercetos_etiqueta_break.listIterator();
+
+		while(it.hasNext()) {
+			Terceto tercetoBreakConEtiqueta = it.next();
+			tercetoBreakConEtiqueta.setOperando1("[" + instance.getTamanioListaTercetos() + "]");
+		}
+
+		instance.borrarEtiquetaDo($1.obj[0]);
+	}
+;
+
+sentencia_do_etiqueta:
+	etiqueta {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarDoConEtiqueta($1.obj[0]);
+		$$.obj[0] = $1.obj[0];
+	}
 ;
 
 sentencia_do_simple:

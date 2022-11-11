@@ -1,6 +1,7 @@
 package compilador;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Stack;
@@ -12,6 +13,7 @@ public class GeneracionCodigoIntermedio {
 	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
 	private Stack<Integer> pila_posiciones = new Stack<Integer>();
 	private Stack<ArrayList<Terceto>> pila_breaks_do = new Stack<ArrayList<Terceto>>();
+	private HashMap<String, ArrayList<Terceto>> do_con_etiqueta = new HashMap<String, ArrayList<Terceto>>();
 	private MatrixMult matrixMult = MatrixMult.getInstance();
 	private int posicionTerceto = 0;
 
@@ -111,6 +113,24 @@ public class GeneracionCodigoIntermedio {
 
 	public ArrayList<Terceto> getListaTercetosBreakDo() {
 		return pila_breaks_do.pop();
+	}
+
+	public void agregarDoConEtiqueta(String etiqueta) {
+		do_con_etiqueta.put(etiqueta, new ArrayList<Terceto>());
+	}
+
+	public void agregarTercetoBreakAEtiquetaDo(String etiqueta, Terceto t) {
+		ArrayList<Terceto> tercetos_por_etiqueta = do_con_etiqueta.get(etiqueta);
+
+		tercetos_por_etiqueta.add(t);
+	}
+
+	public ArrayList<Terceto> getTercetosBreakDeEtiquetaDo(String etiqueta) {
+		return do_con_etiqueta.get(etiqueta);
+	}
+
+	public void borrarEtiquetaDo(String etiqueta) {
+		do_con_etiqueta.remove(etiqueta);
 	}
 	
 	public Terceto crearTercetoConversion(int value, String tipo1, String tipo2, String operando) {

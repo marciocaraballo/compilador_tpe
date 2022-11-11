@@ -7,7 +7,6 @@
  * This class provides some of the functionality
  * of the yacc/C 'union' directive
  */
-package compilador;
 public class ParserVal
 {
 /**
@@ -28,7 +27,7 @@ public String sval;
 /**
  * object value of this 'union'
  */
-public String[] obj;
+public Object obj;
 
 //#############################################
 //## C O N S T R U C T O R S
@@ -66,7 +65,7 @@ public ParserVal(String val)
 /**
  * Initialize me as an Object
  */
-public ParserVal(String[] val)
+public ParserVal(Object val)
 {
   obj=val;
 }

@@ -2,10 +2,32 @@
 programa1 {
 
    f64 a, b, d;
-   ui16 x, e;
    
-   x =: a * b + x;
-   
-   <<- 2 * 5.3 + 8000 / e + 12 + b + b;>>
-   
+   b =: 2;
+   out('sarasa');
+
+   outer: do {
+   		a =: b;
+    	c =: d;
+    	
+    	do {						
+    		e =: 1;
+    		f =: 1;
+    		
+    		do {
+    			e =: 2;
+    			f =: 2;
+    			
+    			break :outer ;
+    		} until(e > f);
+    			
+    	} until(a > b);
+    	
+    	d =: 1;
+    	
+    	continue;	
+    	
+   } until(a - b > c + 1);
+
+   c =: 3;
 }
