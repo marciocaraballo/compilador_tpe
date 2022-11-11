@@ -4,8 +4,11 @@ programa1 {
    f64 a, b, d;
    ui16 x, e;
    
-   x =: a * b + x;
+   x =: 2.8;
    
-   <<- 2 * 5.3 + 8000 / e + 12 + b + b;>>
+   do {
+   		b =: a * b + d - 1.5 * 8; 
+   		b =:9;
+   } until (a < b);
    
 }

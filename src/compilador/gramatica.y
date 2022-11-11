@@ -371,16 +371,29 @@ asignacion:
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		Terceto e1 = instance.crearTercetoConversion(3, $1.obj[1], $3.obj[1], "");
-
 		Terceto terceto = new Terceto(":=", $1.obj[0], $3.obj[0]);
 
-		if (e1 != null){
-			instance.agregarTerceto(e1);
-			terceto.setOperando1("hola");
+		$1.obj[1] = ts.getTipo($1.obj[0]);
+		
+		if ($1.obj[1].contains("ui16") && $3.obj[1].contains("ui16")){
+			instance.agregarTerceto(terceto);
+			$$.obj[1] = "ui16";
 		}
-
-		instance.agregarTerceto(terceto);
+		else if ($1.obj[1].contains("f64") && $3.obj[1].contains("f64")){
+			instance.agregarTerceto(terceto);
+			$$.obj[1] = "f64";
+		}
+		else if ($1.obj[1].contains("ui16") && $3.obj[1].contains("f64")){
+			logger.logError("[Generacion de codigo] Incompatibilidad de tipos");
+		}
+		else if ($1.obj[1].contains("f64") && $3.obj[1].contains("ui16")){
+			Terceto aux = new Terceto("itof", $3.obj[0], "-");
+			terceto.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos() + "]"));
+			instance.agregarTerceto(aux);
+			instance.agregarTerceto(terceto);
+			$$.obj[1] = "f64";
+		}
+		$$.obj[0] = $1.obj[0];
 
 	} |
 	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
@@ -507,12 +520,12 @@ expresion:
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
+		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
 	} |
 	termino {
 		
 		$$.obj[0] = $1.obj[0];
-
+		$$.obj[1] = $1.obj[1];
 	}
 ;
 
@@ -527,13 +540,11 @@ termino:
 	termino '/' factor {
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		System.out.println("-------------------------------------" + $$.obj[0]);
-		instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
-		System.out.println("-------------------------------------" + $$.obj[0]);
+		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
 	} |
 	factor {
 		$$.obj[0] = $1.obj[0];
-		$$.obj[1] = ts.getTipo($1.obj[0]);
+		$$.obj[1] = $1.obj[1];
 	}
 ;
 
@@ -543,7 +554,7 @@ factor:
 		$$.obj[1] = ts.getTipo($1.obj[0]);
 	} |
 	constante {
-
+		
 		$$.obj[0] = $1.obj[0];
 		$$.obj[1] = ts.getTipo($1.obj[0]);
 	} |
