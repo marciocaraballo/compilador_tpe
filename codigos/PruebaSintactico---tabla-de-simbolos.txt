@@ -2,7 +2,13 @@ Lexema: a
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+Lexema: 'sarasa'
+Atributo: token Valor: 259
 Lexema: b
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
+Atributo: token Valor: 257
+Lexema: c
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
@@ -10,26 +16,29 @@ Lexema: d
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+Lexema: e
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
+Atributo: token Valor: 257
+Lexema: f
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
+Atributo: token Valor: 257
+Lexema: outer
+Atributo: uso Valor: nombre_etiqueta
+Atributo: token Valor: 257
+Lexema: 1
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 258
+Lexema: 1.0
+Atributo: tipo Valor: f64
+Atributo: token Valor: 258
+Lexema: 2.0
+Atributo: tipo Valor: f64
+Atributo: token Valor: 258
 Lexema: programa1
 Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
-Lexema: e
-Atributo: uso Valor: variable
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 257
-Lexema: x
-Atributo: uso Valor: variable
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 257
-Lexema: 1.5
-Atributo: tipo Valor: f64
-Atributo: token Valor: 258
-Lexema: 8
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 258
-Lexema: 9
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 258
-Lexema: 2.8
+Lexema: 3.0
 Atributo: tipo Valor: f64
 Atributo: token Valor: 258
