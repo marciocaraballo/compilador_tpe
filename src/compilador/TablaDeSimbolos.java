@@ -83,6 +83,12 @@ public class TablaDeSimbolos {
 		
 		return (int)atributos.get(TOKEN);
 	}
+	
+	public String getTipo(String lexema) {
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+		
+		return (String) atributos.get(TYPE);
+	}
 
 	public void swapLexemas(String lexemaOriginal, String lexemaModificado) {
 		

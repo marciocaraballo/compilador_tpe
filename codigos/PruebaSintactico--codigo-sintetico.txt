@@ -1,15 +1,4 @@
 [Success] Linea 4: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 7: [Parser] Sentencia out detectada
-[Success] Linea 10: [Parser] Asignacion detectada
-[Success] Linea 11: [Parser] Asignacion detectada
-[Success] Linea 13: [Parser] Sentencia continue detectada
-[Success] Linea 16: [Parser] Asignacion detectada
-[Success] Linea 17: [Parser] Asignacion detectada
-[Success] Linea 19: [Parser] Sentencia break detectada
-[Success] Linea 20: [Parser] Sentencia do until detectada
-[Success] Linea 22: [Parser] Asignacion detectada
-[Success] Linea 24: [Parser] Sentencia continue detectada
-[Success] Linea 26: [Parser] Sentencia do until detectada
-[Success] Linea 28: [Parser] Asignacion detectada
-[Success] Linea 29: [Parser] Programa correcto detectado
+[Success] Linea 5: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 9: [Parser] Programa correcto detectado

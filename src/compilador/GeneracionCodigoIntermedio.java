@@ -12,6 +12,7 @@ public class GeneracionCodigoIntermedio {
 	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
 	private Stack<Integer> pila_posiciones = new Stack<Integer>();
 	private Stack<ArrayList<Terceto>> pila_breaks_do = new Stack<ArrayList<Terceto>>();
+	private MatrixMult matrixMult = MatrixMult.getInstance();
 	private int posicionTerceto = 0;
 
 	private static GeneracionCodigoIntermedio instance = null; 
@@ -49,6 +50,14 @@ public class GeneracionCodigoIntermedio {
 
 		lista_variables_a_declarar.clear();
 	}
+	
+	public void setTipo(String cte, String tipo) {
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		if (TS.has(cte))
+			TS.putTipo(cte, tipo);
+		else
+			System.out.println("LA VARIABLE NO FUE DECLARADA" + cte);
+	}
 
 	public void agregarUsoAIdentificador(String identificador, String uso) {
 
@@ -74,6 +83,7 @@ public class GeneracionCodigoIntermedio {
 	public Terceto desapilarTerceto() {
 		return pila_tercetos.pop();
 	}
+	
 
 	public void apilarPosicionTerceto(int pos) {
 		pila_posiciones.push(pos);
@@ -103,6 +113,12 @@ public class GeneracionCodigoIntermedio {
 		return pila_breaks_do.pop();
 	}
 	
+	public Terceto crearTercetoConversion(int value, String tipo1, String tipo2, String operando) {
+		if (matrixMult.getElement(tipo1, tipo2, value) != "")
+			return new Terceto(matrixMult.getElement(tipo1, tipo2, value), operando, "-"); 
+		return null;
+	}
+	
 	public void printTercetos() {
 
 		System.out.println("Tercetos generados");
@@ -114,5 +130,32 @@ public class GeneracionCodigoIntermedio {
 
 			System.out.println("[" + t.getPosicion() + "]" + "(" + t.getOperacion() + ", " + t.getOperando1() + ", " + t.getOperando2() + ")");
 		}
+	}
+	
+	public void AgregarTercetoExpresiones(String v0_0, String v0_1, String v1_0, String v1_1, String v3_0, String v3_1) {
+		
+		Terceto t1 = 	crearTercetoConversion(1, v1_1, v3_1, v1_0);
+		Terceto tipo = 	crearTercetoConversion(2, v1_1, v3_1, "");
+		Terceto f1 = 	crearTercetoConversion(3, v1_1, v3_1, v3_0);
+
+		Terceto terceto = new Terceto("+", v1_0, v3_0);
+
+		
+		if (t1 != null){
+			terceto.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
+			agregarTerceto(t1);
+		}
+		if (f1 != null){
+			terceto.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
+			agregarTerceto(f1);
+		}
+		
+		v0_0 = "[" + instance.getTamanioListaTercetos() + "]";
+		
+		
+		instance.agregarTerceto(terceto);
+
+		v0_1 = tipo.getOperacion();
+		
 	}
 }

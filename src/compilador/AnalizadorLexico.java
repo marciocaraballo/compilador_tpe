@@ -205,8 +205,10 @@ public class AnalizadorLexico {
 		if (!hasNext()) {
 			return 0;
 		}
+		
+		String[] par = {lexema.toString(), ""};
 
-		parser.yylval = new ParserVal(lexema.toString());
+		parser.yylval = new ParserVal(par);
 		
 		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		

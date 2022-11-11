@@ -2,28 +2,8 @@
 programa1 {
 
    f64 a, b, d;
+   ui16 x, e;
    
-   b =: 2;
-   out('sarasa');
-
-    do {
-   		a =: b;
-    	c =: d;
-    	
-    	continue;
-    	
-    	do {						
-    		e =: 1;
-    		f =: 1;
-    		
-    		break;					
-    	} until(a > b);
-    	
-    	d =: 1;
-    	
-    	continue;	
-    	
-   } until(a - b > c + 1);
-
-   c =: 3;
+   x =: a * b + x - 2 * 5.3 + 8000 / e + 12 + b + b;
+   
 }

@@ -1079,7 +1079,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE64",
 };
 
-//#line 625 ".\gramatica.y"
+//#line 608 ".\gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
@@ -1112,7 +1112,7 @@ public void constanteConSigno(String constante) {
 		ts.swapLexemas(constante, negConstante.toString());
 	} else {
 		//se recibio un uint que fue aceptado por el lexico pero resulta ser negativo
-		logger.logWarning("[Parser] No se admiten ui16 con valores negativos: " + "-"+constante + ", se trunca a 0");
+		logger.logWarning("[Parser] No se admiten ui16 con obj[0]es negativos: " + "-"+constante + ", se trunca a 0");
 		
 		ts.swapLexemas(constante, "0");
 	}
@@ -1316,394 +1316,394 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 19 ".\gramatica.y"
+//#line 20 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Programa correcto detectado");
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarUsoAIdentificador(val_peek(3).sval, "nombre_programa");
+		instance.agregarUsoAIdentificador(val_peek(3).obj[0], "nombre_programa");
 	}
 break;
 case 2:
-//#line 24 ".\gramatica.y"
+//#line 25 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador nombre del programa"); }
 break;
 case 3:
-//#line 25 ".\gramatica.y"
+//#line 26 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un { antes de las sentencias del programa"); }
 break;
 case 4:
-//#line 26 ".\gramatica.y"
+//#line 27 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de las sentencias del programa"); }
 break;
 case 5:
-//#line 27 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaban sentencias del programa"); }
-break;
-case 6:
 //#line 28 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias del programa"); }
 break;
+case 6:
+//#line 29 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaban sentencias del programa"); }
+break;
 case 16:
-//#line 53 ".\gramatica.y"
+//#line 54 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
-		instance.agregarTipoAListaDeVariables(val_peek(2).sval);
+		instance.agregarTipoAListaDeVariables(val_peek(2).obj[0]);
 	}
 break;
 case 17:
-//#line 58 ".\gramatica.y"
+//#line 59 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la lista de variables"); }
 break;
 case 18:
-//#line 59 ".\gramatica.y"
+//#line 60 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un tipo para la lista de variables"); }
 break;
 case 19:
-//#line 60 ".\gramatica.y"
+//#line 61 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una variable o lista de variables"); }
 break;
 case 20:
-//#line 64 ".\gramatica.y"
+//#line 65 ".\gramatica.y"
 { 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
-		instance.agregarVariableADeclarar(val_peek(2).sval);
+		instance.agregarVariableADeclarar(val_peek(2).obj[0]);
 	}
 break;
 case 21:
-//#line 68 ".\gramatica.y"
+//#line 69 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
-		instance.agregarVariableADeclarar(val_peek(0).sval);
+		instance.agregarVariableADeclarar(val_peek(0).obj[0]);
 	}
 break;
 case 22:
-//#line 75 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-break;
-case 23:
 //#line 76 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 break;
-case 24:
+case 23:
 //#line 77 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+break;
+case 24:
+//#line 78 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias en la funcion"); }
 break;
 case 41:
-//#line 109 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
-break;
-case 42:
 //#line 110 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 break;
-case 43:
-//#line 114 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
+case 42:
+//#line 111 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 break;
-case 44:
+case 43:
 //#line 115 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 45:
+case 44:
 //#line 116 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 46:
+case 45:
 //#line 117 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 47:
+case 46:
 //#line 118 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 48:
+case 47:
 //#line 119 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 49:
+case 48:
 //#line 120 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 50:
+case 49:
 //#line 121 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
+{ logger.logSuccess("[Parser] Sentencia seleccion detectada"); }
 break;
-case 51:
+case 50:
 //#line 122 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 52:
+case 51:
 //#line 123 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 53:
+case 52:
 //#line 124 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 54:
+case 53:
 //#line 125 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 55:
+case 54:
 //#line 126 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 56:
+case 55:
 //#line 127 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 60:
-//#line 137 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
+case 56:
+//#line 128 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ; al final de la sentencia de seleccion"); }
 break;
-case 61:
+case 60:
 //#line 138 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 62:
+case 61:
 //#line 139 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 63:
+case 62:
 //#line 140 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 64:
+case 63:
 //#line 141 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 65:
+case 64:
 //#line 142 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 66:
+case 65:
 //#line 143 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 67:
+case 66:
 //#line 144 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 68:
+case 67:
 //#line 145 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 69:
+case 68:
 //#line 146 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 70:
+case 69:
 //#line 147 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 71:
+case 70:
 //#line 148 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 72:
+case 71:
 //#line 149 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 73:
+case 72:
 //#line 150 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 74:
-//#line 154 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Sentencia when detectada"); }
+case 73:
+//#line 151 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Sentencia de seleccion detectada"); }
 break;
-case 75:
+case 74:
 //#line 155 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia when detectada"); }
 break;
-case 76:
+case 75:
 //#line 156 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia when detectada"); }
 break;
-case 77:
+case 76:
 //#line 157 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); }
+{ logger.logSuccess("[Parser] Sentencia when detectada"); }
 break;
-case 78:
+case 77:
 //#line 158 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); }
 break;
-case 79:
+case 78:
 //#line 159 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); }
 break;
-case 80:
+case 79:
 //#line 160 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba ; al final de la sentencia when"); }
+break;
+case 80:
+//#line 161 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias en la sentencia when"); }
 break;
 case 81:
-//#line 161 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); }
-break;
-case 82:
 //#line 162 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); }
 break;
-case 83:
+case 82:
 //#line 163 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); }
 break;
-case 84:
-//#line 167 ".\gramatica.y"
-{ logger.logSuccess("[Parser] Sentencia do until detectada"); }
+case 83:
+//#line 164 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); }
 break;
-case 85:
+case 84:
 //#line 168 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia do until detectada"); }
 break;
-case 86:
+case 85:
 //#line 169 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
+{ logger.logSuccess("[Parser] Sentencia do until detectada"); }
 break;
-case 87:
+case 86:
 //#line 170 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
 break;
+case 87:
+//#line 171 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
+break;
 case 94:
-//#line 180 ".\gramatica.y"
+//#line 181 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias en la sentencia do"); }
 break;
 case 95:
-//#line 181 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
-break;
-case 96:
 //#line 182 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 break;
-case 97:
+case 96:
 //#line 183 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 break;
-case 98:
+case 97:
 //#line 184 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 break;
-case 99:
+case 98:
 //#line 185 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 break;
-case 100:
+case 99:
 //#line 186 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 break;
+case 100:
+//#line 187 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
+break;
 case 106:
-//#line 201 ".\gramatica.y"
+//#line 202 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarUsoAIdentificador(val_peek(4).sval, "nombre_funcion");
+		instance.agregarUsoAIdentificador(val_peek(4).obj[0], "nombre_funcion");
 	}
 break;
 case 107:
-//#line 205 ".\gramatica.y"
+//#line 206 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarUsoAIdentificador(val_peek(5).sval, "nombre_funcion");
+		instance.agregarUsoAIdentificador(val_peek(5).obj[0], "nombre_funcion");
 	}
 break;
 case 108:
-//#line 209 ".\gramatica.y"
+//#line 210 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un : antes del tipo para la funcion"); }
 break;
 case 109:
-//#line 210 ".\gramatica.y"
+//#line 211 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); }
 break;
 case 110:
-//#line 211 ".\gramatica.y"
+//#line 212 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); }
 break;
 case 111:
-//#line 212 ".\gramatica.y"
+//#line 213 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); }
 break;
 case 112:
-//#line 213 ".\gramatica.y"
+//#line 214 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ) luego del nombre para la funcion"); }
 break;
 case 113:
-//#line 214 ".\gramatica.y"
+//#line 215 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); }
 break;
 case 114:
-//#line 215 ".\gramatica.y"
+//#line 216 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador nombre para la funcion"); }
 break;
 case 115:
-//#line 216 ".\gramatica.y"
+//#line 217 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ( luego del nombre de la funcion"); }
 break;
 case 116:
-//#line 217 ".\gramatica.y"
+//#line 218 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ) luego del nombre para la funcion"); }
 break;
 case 118:
-//#line 222 ".\gramatica.y"
+//#line 223 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia return"); }
 break;
 case 119:
-//#line 223 ".\gramatica.y"
+//#line 224 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ( en la sentencia return"); }
 break;
 case 120:
-//#line 224 ".\gramatica.y"
+//#line 225 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ) en la sentencia return"); }
 break;
 case 121:
-//#line 225 ".\gramatica.y"
+//#line 226 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion en la sentencia return"); }
 break;
 case 124:
-//#line 231 ".\gramatica.y"
+//#line 232 ".\gramatica.y"
 { logger.logError("[Parser] Hay mas de 2 parametros en la funcion"); }
 break;
 case 127:
-//#line 240 ".\gramatica.y"
+//#line 241 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarTipoAParametro(val_peek(0).sval, val_peek(1).sval);
+		instance.agregarTipoAParametro(val_peek(0).obj[0], val_peek(1).obj[0]);
 	}
 break;
 case 129:
-//#line 244 ".\gramatica.y"
+//#line 245 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador nombre para el parametro"); }
 break;
 case 130:
-//#line 245 ".\gramatica.y"
+//#line 246 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un tipo valido para el parametro"); }
 break;
 case 131:
-//#line 249 ".\gramatica.y"
+//#line 250 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de constantes detectado"); }
 break;
 case 132:
-//#line 250 ".\gramatica.y"
+//#line 251 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba ; al final de la declaracion de constantes"); }
 break;
 case 133:
-//#line 251 ".\gramatica.y"
+//#line 252 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una lista de declaracion de constantes"); }
 break;
 case 137:
-//#line 261 ".\gramatica.y"
+//#line 262 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una constante del lado derecho de la asignacion"); }
 break;
 case 138:
-//#line 262 ".\gramatica.y"
+//#line 263 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba el simbolo asignacion en la declaracion de constantes"); }
 break;
 case 139:
-//#line 263 ".\gramatica.y"
+//#line 264 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una asignacion en la declaracion de constantes"); }
 break;
 case 154:
-//#line 287 ".\gramatica.y"
+//#line 288 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia break detectada"); 
 		Terceto tercetoBreak = new Terceto("BI", "-", "-");
@@ -1714,23 +1714,23 @@ case 154:
 	}
 break;
 case 155:
-//#line 295 ".\gramatica.y"
+//#line 296 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia break con etiqueta detectada"); }
 break;
 case 156:
-//#line 296 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); }
-break;
-case 157:
 //#line 297 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); }
 break;
-case 158:
+case 157:
 //#line 298 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ; luego de la sentencia break"); }
+break;
+case 158:
+//#line 299 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una etiqueta en la sentencia break"); }
 break;
 case 159:
-//#line 302 ".\gramatica.y"
+//#line 303 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia continue detectada"); 
 
@@ -1742,11 +1742,11 @@ case 159:
 	}
 break;
 case 160:
-//#line 311 ".\gramatica.y"
+//#line 312 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia continue"); }
 break;
 case 163:
-//#line 320 ".\gramatica.y"
+//#line 321 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia do until detectada"); 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
@@ -1765,11 +1765,11 @@ case 163:
 	}
 break;
 case 164:
-//#line 336 ".\gramatica.y"
+//#line 337 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
 break;
 case 165:
-//#line 340 ".\gramatica.y"
+//#line 341 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.apilarPosicionTerceto(instance.getTamanioListaTercetos());
@@ -1777,22 +1777,22 @@ case 165:
 	}
 break;
 case 166:
-//#line 348 ".\gramatica.y"
+//#line 349 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarUsoAIdentificador(val_peek(0).sval, "nombre_etiqueta");
+		instance.agregarUsoAIdentificador(val_peek(0).obj[0], "nombre_etiqueta");
 	}
 break;
 case 169:
-//#line 357 ".\gramatica.y"
+//#line 358 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la sentencia do"); }
 break;
 case 170:
-//#line 358 ".\gramatica.y"
+//#line 359 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un { en la sentencia do"); }
 break;
 case 173:
-//#line 368 ".\gramatica.y"
+//#line 369 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Asignacion detectada"); 
 
@@ -1800,56 +1800,56 @@ case 173:
 
 		int tercetoPosicion = instance.getTamanioListaTercetos(); 
 
-		Terceto terceto = new Terceto("=:", val_peek(3).sval, val_peek(1).sval);
+		Terceto terceto = new Terceto("=:", val_peek(3).obj[0], val_peek(1).obj[0]);
 
 		terceto.setOperacion("=:");
-		terceto.setOperando1(val_peek(3).sval);
-		terceto.setOperando2(val_peek(1).sval);
+		terceto.setOperando1(val_peek(3).obj[0]);
+		terceto.setOperando2(val_peek(1).obj[0]);
 
 		instance.agregarTerceto(terceto);
 
-		yyval.sval = "[" + tercetoPosicion + "]";
+		yyval.obj[0] = "[" + tercetoPosicion + "]";
 
 	}
 break;
 case 174:
-//#line 386 ".\gramatica.y"
+//#line 387 ".\gramatica.y"
 {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");}
 break;
 case 175:
-//#line 387 ".\gramatica.y"
+//#line 388 ".\gramatica.y"
 { logger.logError("[Parser] Se espera un ; al final de la asignacion"); }
 break;
 case 176:
-//#line 388 ".\gramatica.y"
-{ logger.logError("[Parser] Se espera el simbolo =: en lugar de = para la asignacion"); }
-break;
-case 177:
 //#line 389 ".\gramatica.y"
 { logger.logError("[Parser] Se espera el simbolo =: en lugar de = para la asignacion"); }
 break;
+case 177:
+//#line 390 ".\gramatica.y"
+{ logger.logError("[Parser] Se espera el simbolo =: en lugar de = para la asignacion"); }
+break;
 case 178:
-//#line 393 ".\gramatica.y"
+//#line 394 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia when detectada"); }
 break;
 case 179:
-//#line 394 ".\gramatica.y"
+//#line 395 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); }
 break;
 case 180:
-//#line 395 ".\gramatica.y"
+//#line 396 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia when"); }
 break;
 case 181:
-//#line 396 ".\gramatica.y"
+//#line 397 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba la palabra reservada then en la sentencia when"); }
 break;
 case 182:
-//#line 397 ".\gramatica.y"
+//#line 398 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias dentro del when"); }
 break;
 case 185:
-//#line 407 ".\gramatica.y"
+//#line 408 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia if then detectada");
 
@@ -1860,7 +1860,7 @@ case 185:
 	}
 break;
 case 186:
-//#line 415 ".\gramatica.y"
+//#line 416 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia if then else detectada"); 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
@@ -1869,43 +1869,43 @@ case 186:
 	}
 break;
 case 187:
-//#line 421 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); }
-break;
-case 188:
 //#line 422 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); }
 break;
-case 189:
+case 188:
 //#line 423 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaba un ; al final de la sentencia seleccion"); }
+break;
+case 189:
+//#line 424 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias en la sentencia seleccion"); }
 break;
 case 190:
-//#line 424 ".\gramatica.y"
-{ logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); }
-break;
-case 191:
 //#line 425 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); }
 break;
-case 192:
+case 191:
 //#line 426 ".\gramatica.y"
+{ logger.logError("[Parser] Se esperaban la palabra reservada then en la sentencia seleccion"); }
+break;
+case 192:
+//#line 427 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias en la sentencia seleccion"); }
 break;
 case 195:
-//#line 432 ".\gramatica.y"
+//#line 433 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias dentro de la seleccion"); }
 break;
 case 196:
-//#line 433 ".\gramatica.y"
+//#line 434 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un } al final de la seleccion"); }
 break;
 case 197:
-//#line 434 ".\gramatica.y"
+//#line 435 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un { en la seleccion"); }
 break;
 case 200:
-//#line 443 ".\gramatica.y"
+//#line 444 ".\gramatica.y"
 {
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
@@ -1921,214 +1921,196 @@ case 200:
 	}
 break;
 case 202:
-//#line 464 ".\gramatica.y"
+//#line 465 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		int tercetoPosicion = 0;
 
-		Terceto terceto = new Terceto(val_peek(2).sval, val_peek(3).sval, val_peek(1).sval);
+		Terceto terceto = new Terceto(val_peek(2).obj[0], val_peek(3).obj[0], val_peek(1).obj[0]);
 
 		tercetoPosicion = instance.getTamanioListaTercetos();
 
 		instance.agregarTerceto(terceto);
 		
-		yyval.sval = "[" + tercetoPosicion + "]";
+		yyval.obj[0] = "[" + tercetoPosicion + "]";
 
 		terceto = new Terceto("BF", "[" + tercetoPosicion + "]", "-");
 
 		instance.agregarTerceto(terceto);
 		instance.apilarTerceto(terceto);
 
-		/*$$.sval = "[" + tercetoPosicion + "]";*/
+		yyval.obj[0] = "[" + tercetoPosicion + "]";
 
 	}
 break;
 case 203:
-//#line 484 ".\gramatica.y"
+//#line 485 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); }
 break;
 case 204:
-//#line 485 ".\gramatica.y"
+//#line 486 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un expresion del lado izquierdo de la comparacion"); }
 break;
 case 205:
-//#line 486 ".\gramatica.y"
+//#line 487 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ( al comienzo de la comparacion"); }
 break;
 case 206:
-//#line 487 ".\gramatica.y"
+//#line 488 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ) al final de la comparacion"); }
 break;
 case 207:
-//#line 488 ".\gramatica.y"
+//#line 489 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una comparacion"); }
 break;
 case 208:
-//#line 492 ".\gramatica.y"
-{yyval.sval = ">=";}
+//#line 493 ".\gramatica.y"
+{yyval.obj[0] = ">=";}
 break;
 case 209:
-//#line 493 ".\gramatica.y"
-{yyval.sval = "<=";}
+//#line 494 ".\gramatica.y"
+{yyval.obj[0] = "<=";}
 break;
 case 210:
-//#line 494 ".\gramatica.y"
-{yyval.sval = "=!";}
+//#line 495 ".\gramatica.y"
+{yyval.obj[0] = "=!";}
 break;
 case 211:
-//#line 495 ".\gramatica.y"
-{yyval.sval = ">";}
+//#line 496 ".\gramatica.y"
+{yyval.obj[0] = ">";}
 break;
 case 212:
-//#line 496 ".\gramatica.y"
-{yyval.sval = "<";}
+//#line 497 ".\gramatica.y"
+{yyval.obj[0] = "<";}
 break;
 case 213:
-//#line 497 ".\gramatica.y"
-{yyval.sval = "=";}
+//#line 498 ".\gramatica.y"
+{yyval.obj[0] = "=";}
 break;
 case 214:
-//#line 501 ".\gramatica.y"
+//#line 502 ".\gramatica.y"
 {
 		
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos(); 
-
-		Terceto terceto = new Terceto("+", val_peek(2).sval, val_peek(0).sval);
-
-		instance.agregarTerceto(terceto);
-
-		yyval.sval = "[" + tercetoPosicion + "]";
+		instance.AgregarTercetoExpresiones(yyval.obj[0], yyval.obj[1], val_peek(2).obj[0], val_peek(2).obj[1], val_peek(0).obj[0], val_peek(0).obj[1]);
 
 	}
 break;
 case 215:
-//#line 514 ".\gramatica.y"
+//#line 509 ".\gramatica.y"
 {
-		
+
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos(); 
+		instance.AgregarTercetoExpresiones(yyval.obj[0], yyval.obj[1], val_peek(2).obj[0], val_peek(2).obj[1], val_peek(0).obj[0], val_peek(0).obj[1]);
 
-		Terceto terceto = new Terceto("-", val_peek(2).sval, val_peek(0).sval);
-
-		instance.agregarTerceto(terceto);
-
-		yyval.sval = "[" + tercetoPosicion + "]";
 
 	}
 break;
 case 216:
-//#line 527 ".\gramatica.y"
+//#line 517 ".\gramatica.y"
 {
-		yyval.sval = val_peek(0).sval;
+		
+		yyval.obj[0] = val_peek(0).obj[0];
+
 	}
 break;
 case 217:
-//#line 533 ".\gramatica.y"
+//#line 525 ".\gramatica.y"
 {
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos();
-
-		Terceto terceto = new Terceto("*", val_peek(2).sval, val_peek(0).sval);
-
-		instance.agregarTerceto(terceto);
-
-		yyval.sval = "[" + tercetoPosicion + "]";
+		instance.AgregarTercetoExpresiones(yyval.obj[0], yyval.obj[1], val_peek(2).obj[0], val_peek(2).obj[1], val_peek(0).obj[0], val_peek(0).obj[1]);
 
 	}
 break;
 case 218:
-//#line 545 ".\gramatica.y"
+//#line 531 ".\gramatica.y"
 {
 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		int tercetoPosicion = instance.getTamanioListaTercetos();
-
-		Terceto terceto = new Terceto("/", val_peek(2).sval, val_peek(0).sval);
-
-		instance.agregarTerceto(terceto);
-
-		yyval.sval = "[" + tercetoPosicion + "]";
-		
+		instance.AgregarTercetoExpresiones(yyval.obj[0], yyval.obj[1], val_peek(2).obj[0], val_peek(2).obj[1], val_peek(0).obj[0], val_peek(0).obj[1]);
 	}
 break;
 case 219:
-//#line 558 ".\gramatica.y"
+//#line 537 ".\gramatica.y"
 {
-		yyval.sval = val_peek(0).sval;
+		yyval.obj[0] = val_peek(0).obj[0];
+		yyval.obj[1] = ts.getTipo(val_peek(0).obj[0]);
 	}
 break;
 case 220:
-//#line 564 ".\gramatica.y"
+//#line 544 ".\gramatica.y"
 {
-		yyval.sval = val_peek(0).sval;
+		yyval.obj[0] = val_peek(0).obj[0];
+		yyval.obj[1] = ts.getTipo(val_peek(0).obj[0]);
 	}
 break;
 case 221:
-//#line 567 ".\gramatica.y"
+//#line 548 ".\gramatica.y"
 {
-		yyval.sval = val_peek(0).sval;
+
+		yyval.obj[0] = val_peek(0).obj[0];
+		yyval.obj[1] = ts.getTipo(val_peek(0).obj[0]);
 	}
 break;
 case 229:
-//#line 589 ".\gramatica.y"
+//#line 572 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia out detectada"); 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		Terceto out = new Terceto("out", val_peek(2).sval, "-");
+		Terceto out = new Terceto("out", val_peek(2).obj[0], "-");
 
 		instance.agregarTerceto(out);
 	}
 break;
 case 230:
-//#line 597 ".\gramatica.y"
+//#line 580 ".\gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia out detectada"); 
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
-		Terceto out = new Terceto("out", val_peek(2).sval, "-");
+		Terceto out = new Terceto("out", val_peek(2).obj[0], "-");
 
 		instance.agregarTerceto(out);
 	}
 break;
 case 231:
-//#line 605 ".\gramatica.y"
+//#line 588 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); }
 break;
 case 232:
-//#line 606 ".\gramatica.y"
+//#line 589 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); }
 break;
 case 233:
-//#line 607 ".\gramatica.y"
+//#line 590 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); }
 break;
 case 234:
-//#line 608 ".\gramatica.y"
+//#line 591 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); }
 break;
 case 235:
-//#line 609 ".\gramatica.y"
+//#line 592 ".\gramatica.y"
 { logger.logError("[Parser] Se esperaba un ) en la sentencia out"); }
 break;
 case 236:
-//#line 610 ".\gramatica.y"
+//#line 593 ".\gramatica.y"
 { logger.logError("[Parser] Se espera un ; al final de la sentencia out"); }
 break;
 case 237:
-//#line 611 ".\gramatica.y"
+//#line 594 ".\gramatica.y"
 { logger.logError("[Parser] Se espera un ; al final de la sentencia out"); }
 break;
 case 239:
-//#line 616 ".\gramatica.y"
-{ constanteConSigno(val_peek(0).sval); }
+//#line 599 ".\gramatica.y"
+{ constanteConSigno(val_peek(0).obj[0]); }
 break;
-//#line 2055 "Parser.java"
+//#line 2037 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
