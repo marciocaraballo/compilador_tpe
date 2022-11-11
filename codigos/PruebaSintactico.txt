@@ -1,9 +1,9 @@
 << Este programa es testing de estructuras sintacticas validas >>
 programa1 {
 
-   f64 a, b, d;
+   f64 a, b, c, d,e ,f;
    
-   b =: 2;
+   b =: 2.0;
    out('sarasa');
 
    outer: do {
@@ -11,23 +11,23 @@ programa1 {
     	c =: d;
     	
     	do {						
-    		e =: 1;
-    		f =: 1;
+    		e =: 1.0;
+    		f =: 1.0;
     		
     		do {
-    			e =: 2;
-    			f =: 2;
+    			e =: 2.0;
+    			f =: 2.0;
     			
     			break :outer ;
     		} until(e > f);
     			
     	} until(a > b);
     	
-    	d =: 1;
+    	d =: 1.0;
     	
     	continue;	
     	
    } until(a - b > c + 1);
 
-   c =: 3;
+   c =: 3.0;
 }
