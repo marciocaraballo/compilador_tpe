@@ -8,12 +8,15 @@ import java.util.Stack;
 
 public class GeneracionCodigoIntermedio {
     
+	private boolean debeApilarTercetoDefer = false; 
+	private Logger logger = Logger.getInstance();
 	private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
 	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
 	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
 	private Stack<Integer> pila_posiciones = new Stack<Integer>();
 	private Stack<ArrayList<Terceto>> pila_breaks_do = new Stack<ArrayList<Terceto>>();
 	private HashMap<String, ArrayList<Terceto>> do_con_etiqueta = new HashMap<String, ArrayList<Terceto>>();
+	private Stack<ArrayList<Terceto>> defer_tercetos_ambitos = new Stack<ArrayList<Terceto>>();
 	private MatrixMult matrixMult = MatrixMult.getInstance();
 	private int posicionTerceto = 0;
 
@@ -27,6 +30,30 @@ public class GeneracionCodigoIntermedio {
 		}
 
 		return instance;
+	}
+
+	public boolean debeApilarTercetoDefer() {
+		return debeApilarTercetoDefer;
+	}
+
+	public void setApilarTercetoDefer(boolean debeApilar) {
+		debeApilarTercetoDefer = debeApilar;
+	}
+
+	public void apilarAmbitoParaDefer() {
+		ArrayList<Terceto> tercetosDefer = new ArrayList<Terceto>();
+
+		defer_tercetos_ambitos.push(tercetosDefer);
+	}
+
+	public ArrayList<Terceto> desapilarAmbitoParaDefer() {
+		return defer_tercetos_ambitos.pop();
+	}
+
+	public void agregarTercetoParaDeferAmbitoActual(Terceto t) {
+		ArrayList<Terceto> tercetosDeferAmbitoActual = defer_tercetos_ambitos.lastElement();
+
+		tercetosDeferAmbitoActual.add(t);
 	}
 
 	public void agregarVariableADeclarar(String variable) {
@@ -57,8 +84,8 @@ public class GeneracionCodigoIntermedio {
 		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
 		if (TS.has(cte))
 			TS.putTipo(cte, tipo);
-		else
-			System.out.println("LA VARIABLE NO FUE DECLARADA" + cte);
+		else 
+			logger.logError("[Generacion de codigo] Variable no declarada: " + cte);
 	}
 
 	public void agregarUsoAIdentificador(String identificador, String uso) {
@@ -85,7 +112,6 @@ public class GeneracionCodigoIntermedio {
 	public Terceto desapilarTerceto() {
 		return pila_tercetos.pop();
 	}
-	
 
 	public void apilarPosicionTerceto(int pos) {
 		pila_posiciones.push(pos);

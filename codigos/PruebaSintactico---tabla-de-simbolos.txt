@@ -24,15 +24,12 @@ Lexema: f
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
-Lexema: outer
-Atributo: uso Valor: nombre_etiqueta
-Atributo: token Valor: 257
-Lexema: 1
-Atributo: tipo Valor: ui16
-Atributo: token Valor: 258
-Lexema: 1.0
-Atributo: tipo Valor: f64
-Atributo: token Valor: 258
+Lexema: 'va al final 2'
+Atributo: token Valor: 259
+Lexema: 'va al final 3'
+Atributo: token Valor: 259
+Lexema: 'va al final'
+Atributo: token Valor: 259
 Lexema: 2.0
 Atributo: tipo Valor: f64
 Atributo: token Valor: 258

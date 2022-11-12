@@ -5,29 +5,13 @@ programa1 {
    
    b =: 2.0;
    out('sarasa');
-
-   outer: do {
-   		a =: b;
-    	c =: d;
-    	
-    	do {						
-    		e =: 1.0;
-    		f =: 1.0;
-    		
-    		do {
-    			e =: 2.0;
-    			f =: 2.0;
-    			
-    			break :outer ;
-    		} until(e > f);
-    			
-    	} until(a > b);
-    	
-    	d =: 1.0;
-    	
-    	continue;	
-    	
-   } until(a - b > c + 1);
+   
+   defer out('va al final');
+   
+   e =: 3.0;
+   
+   defer out('va al final 2');
+   defer out('va al final 3');
 
    c =: 3.0;
 }

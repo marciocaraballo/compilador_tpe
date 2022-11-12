@@ -20,7 +20,13 @@ programa:
 	nombre_programa '{' sentencias '}' { 
 		logger.logSuccess("[Parser] Programa correcto detectado");
 		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarUsoAIdentificador($1.obj[0], "nombre_programa");
+		ArrayList<Terceto> deferTercetosAmbitoPrograma = instance.desapilarAmbitoParaDefer();
+		Iterator<Terceto> it = deferTercetosAmbitoPrograma.listIterator();
+
+		while(it.hasNext()) {
+			Terceto tercetoDeferPrograma = it.next();
+			instance.agregarTerceto(tercetoDeferPrograma);
+		}
 	} |
 	'{' sentencias '}' { logger.logError("[Parser] Se esperaba un identificador nombre del programa"); } |
 	nombre_programa sentencias '}' { logger.logError("[Parser] Se esperaba un { antes de las sentencias del programa"); } | 
@@ -30,7 +36,11 @@ programa:
 ;
 
 nombre_programa: 
-	ID
+	ID {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.agregarUsoAIdentificador($1.obj[0], "nombre_programa");
+		instance.apilarAmbitoParaDefer();
+	}
 ;
 
 sentencias: 
@@ -266,16 +276,26 @@ declaracion_constante:
 ;
 
 sentencia_ejecutable:
+	sentencia_ejecutable_simple |
+	keyword_defer sentencia_ejecutable_simple {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.setApilarTercetoDefer(false);
+	}
+;
+
+keyword_defer:
+	DEFER {
+		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+		instance.setApilarTercetoDefer(true);
+	}
+;
+
+sentencia_ejecutable_simple:
 	asignacion |
-	DEFER asignacion |
 	seleccion |
-	DEFER seleccion |
 	imprimir |
-	DEFER imprimir |
 	sentencia_when |
-	DEFER sentencia_when |
-	sentencia_do |
-	DEFER sentencia_do
+	sentencia_do
 ;
 
 sentencia_ejecutable_do:
@@ -421,7 +441,6 @@ asignacion:
 			$$.obj[1] = "f64";
 		}
 		$$.obj[0] = $1.obj[0];
-
 	} |
 	ID ASIGNACION ';' {logger.logError("[Parser] Se espera una expresion del lado derecho de la asignacion");} |
 	ID ASIGNACION expresion { logger.logError("[Parser] Se espera un ; al final de la asignacion"); } |
@@ -610,7 +629,11 @@ imprimir:
 
 		Terceto out = new Terceto("out", $3.obj[0], "-");
 
-		instance.agregarTerceto(out);
+		if (instance.debeApilarTercetoDefer()) {
+			instance.agregarTercetoParaDeferAmbitoActual(out);
+		} else {
+			instance.agregarTerceto(out);
+		}
 	} |
 	OUT '(' ID ')' ';' { 
 		logger.logSuccess("[Parser] Sentencia out detectada"); 
@@ -618,7 +641,11 @@ imprimir:
 
 		Terceto out = new Terceto("out", $3.obj[0], "-");
 
-		instance.agregarTerceto(out);
+		if (instance.debeApilarTercetoDefer()) {
+			instance.agregarTercetoParaDeferAmbitoActual(out);
+		} else {
+			instance.agregarTerceto(out);
+		}
 	} |
 	OUT '(' ')'  ';' { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); } |
 	OUT CADENA ')'  ';' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |
