@@ -208,16 +208,20 @@ public class GeneracionCodigoIntermedio {
 		Terceto tipo = 	this.crearTercetoConversion(2, v1_1, v3_1, "");
 		Terceto f1 = 	this.crearTercetoConversion(3, v1_1, v3_1, v3_0);
 
+		TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
+		
 		Terceto terceto = new Terceto(simbolo, v1_0, v3_0);
+		
+		ts.getTipo(v1_0);
 		
 		if (t1 != null){
 			terceto.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
-			t1.setOperando1(t1.getOperando1() + ambito);
+			t1.setOperando1(t1.getOperando1());
 			agregarTerceto(t1);
 		}
 		if (f1 != null){
 			terceto.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
-			f1.setOperando1(f1.getOperando1() + ambito);
+			f1.setOperando1(f1.getOperando1());
 			agregarTerceto(f1);
 		}
 
@@ -246,7 +250,10 @@ public class GeneracionCodigoIntermedio {
 	public void salirAmbitoAux(StringBuilder lexema) {
 		int indice = ambito.lastIndexOf(":");
 		indice = lexema.lastIndexOf(":");
-		lexema.delete(indice, lexema.length());
+		if (indice != -1)
+			lexema.delete(indice, lexema.length());
+		else
+			lexema.setLength(0);
 	}
 
 	public StringBuilder getAmbito() {

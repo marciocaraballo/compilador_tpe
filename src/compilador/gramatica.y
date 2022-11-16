@@ -299,7 +299,10 @@ lista_declaracion_constantes:
 ;
 
 declaracion_constante:
-	ID ASIGNACION CTE |
+	ID ASIGNACION CTE{
+		
+
+	}|
 	ID ASIGNACION { logger.logError("[Parser] Se esperaba una constante del lado derecho de la asignacion"); } |
 	ID CTE { logger.logError("[Parser] Se esperaba el simbolo asignacion en la declaracion de constantes"); } |
 	ID { logger.logError("[Parser] Se esperaba una asignacion en la declaracion de constantes"); } |
@@ -440,10 +443,15 @@ asignacion:
 		String[] par = ts.getTipo($1.obj[0]);
 		$1.obj[0] = par[0];
 		$1.obj[1] = par[1];
+
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
+
 		Terceto terceto = new Terceto(":=", $1.obj[0], $3.obj[0]);
 
-		System.out.println("A " +  $1.obj[0] + " B: " + $3.obj[0]);
-		
 		if ($1.obj[1] == null)
 			logger.logError("[Generacion de Codigo] La variable " + $1.obj[0] + " No fue declarada" );
 		else if ($3.obj[1] == null)
@@ -543,6 +551,20 @@ bloque_sentencias_ejecutables_seleccion_else:
 condicion:
 	'(' expresion comparador expresion ')'
 	{
+		if (!$2.obj[0].contains("[")){
+			String[] par = ts.getTipo($2.obj[0]);
+			$2.obj[0] = par[0];
+			$2.obj[1] = par[1];
+		}
+
+		if (!$4.obj[0].contains("[")){
+			String[] par1 = ts.getTipo($4.obj[0]);
+			$4.obj[0] = par1[0];
+			$4.obj[1] = par1[1];
+		}
+
+		System.out.println("asdasdas" + $2.obj[0] + " " + $4.obj[0]);
+
 		int tercetoPosicion = 0;
 
 		Terceto terceto = new Terceto($3.obj[0], $2.obj[0], $4.obj[0]);
@@ -579,10 +601,32 @@ comparador:
 expresion:
 	expresion '+' termino {
 
+		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
+			String[] par = ts.getTipo($1.obj[0]);
+			$1.obj[0] = par[0];
+			$1.obj[1] = par[1];
+		}
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
+
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "+");
 
 	} |
 	expresion '-' termino {
+
+		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
+			String[] par = ts.getTipo($1.obj[0]);
+			$1.obj[0] = par[0];
+			$1.obj[1] = par[1];
+		}
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
 
 
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
@@ -596,10 +640,33 @@ expresion:
 
 termino:
 	termino '*' factor {
+
+		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
+			String[] par = ts.getTipo($1.obj[0]);
+			$1.obj[0] = par[0];
+			$1.obj[1] = par[1];
+		}
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
+
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "*");
 
 	} |
 	termino '/' factor {
+
+		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
+			String[] par = ts.getTipo($1.obj[0]);
+			$1.obj[0] = par[0];
+			$1.obj[1] = par[1];
+		}
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
 
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
 	} |
@@ -632,7 +699,6 @@ invocacion_funcion:
 	ID '(' lista_de_parametros_reales ')' {
 		$$.obj[0] = $1.obj[0];
 		$$.obj[1] = ts.getTipo($1.obj[0])[1];
-		instance.checkParametros();
 	}
 ;
 

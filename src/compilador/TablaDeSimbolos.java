@@ -80,6 +80,11 @@ public class TablaDeSimbolos {
 		return tabla_simbolos.containsKey(lexema);
 	}
 	
+	public String getUso(String lexema) {
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+		return (String)atributos.get(USE);
+	}
+	
 	public int getToken(String lexema) {
 		
 		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
