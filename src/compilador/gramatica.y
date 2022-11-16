@@ -19,7 +19,6 @@ WHEN DO UNTIL CONTINUE DOUBLE64 UINT16 DEFER CONST
 programa: 
 	nombre_programa '{' sentencias '}' { 
 		logger.logSuccess("[Parser] Programa correcto detectado");
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		ArrayList<Terceto> deferTercetosAmbitoPrograma = instance.desapilarAmbitoParaDefer();
 		Iterator<Terceto> it = deferTercetosAmbitoPrograma.listIterator();
 
@@ -36,10 +35,10 @@ programa:
 ;
 
 nombre_programa: 
-	ID {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
+	ID {	
 		instance.agregarUsoAIdentificador($1.obj[0], "nombre_programa");
 		instance.apilarAmbitoParaDefer();
+		instance.nuevoAmbito($1.obj[0]);
 	}
 ;
 
@@ -62,9 +61,8 @@ sentencia_declarativa:
 
 sentencia_declarativa_variables:
 	tipo lista_de_variables ';' { 
-		logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
-		instance.agregarTipoAListaDeVariables($1.obj[0]);
+		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
+		instance.agregarTipoAListaDeVariables($1.obj[1]);
 	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un ; al final de la lista de variables"); } |
 	lista_de_variables ';' { logger.logError("[Parser] Se esperaba un tipo para la lista de variables"); } |
@@ -73,18 +71,24 @@ sentencia_declarativa_variables:
 
 lista_de_variables:
 	ID ',' lista_de_variables { 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
 		instance.agregarVariableADeclarar($1.obj[0]);
 	} |
 	ID {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance(); 
 		instance.agregarVariableADeclarar($1.obj[0]);
 	}
 ;
 
 funcion_con_return:
-	encabezado_funcion '{' sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
-	encabezado_funcion '{' sentencias_funcion sentencia_return '}' { logger.logSuccess("[Parser] Declaracion de funcion detectado"); } |
+	encabezado_funcion '{' sentencia_return '}' { 
+		logger.logSuccess("[Parser] Declaracion de funcion detectado");  
+		instance.salirAmbito();
+		instance.agregarTerceto(new Terceto("Fin Funcion", "-", "-"));
+		} |
+	encabezado_funcion '{' sentencias_funcion sentencia_return '}' { 
+		logger.logSuccess("[Parser] Declaracion de funcion detectado"); 
+		instance.salirAmbito();
+		instance.agregarTerceto(new Terceto("Fin Funcion", "-", "-"));
+	} |
 	encabezado_funcion '{' '}' { logger.logError("[Parser] Se esperaban sentencias en la funcion"); }
 ;
 
@@ -175,10 +179,27 @@ sentencia_when_con_return:
 ;
 
 sentencia_do_con_return:
-	DO bloque_sentencias_ejecutables_do_con_return UNTIL condicion ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL condicion ';' { logger.logSuccess("[Parser] Sentencia do until detectada"); } |
-	DO bloque_sentencias_ejecutables_do_con_return UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); } |
-	etiqueta ':' DO bloque_sentencias_ejecutables_do_con_return UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
+	keyword_do bloque_sentencias_ejecutables_do_con_return UNTIL condicion ';' 
+	{ 	logger.logSuccess("[Parser] Sentencia do until detectada"); 
+		Terceto tercetoDo = instance.desapilarTerceto();
+		int posPrimerTerceto = instance.desapilarPosicionTerceto();
+
+		tercetoDo.setOperando2("[" + posPrimerTerceto + "]");
+
+		ArrayList<Terceto> lista_breaks_do = instance.getListaTercetosBreakDo();
+		Iterator<Terceto> it = lista_breaks_do.listIterator();
+
+		while (it.hasNext()) {
+			Terceto breakTerceto = it.next();
+			breakTerceto.setOperando1("[" + instance.getTamanioListaTercetos() + "]");
+		}
+	
+	} |
+	sentencia_do_etiqueta ':' keyword_do bloque_sentencias_ejecutables_do_con_return UNTIL condicion ';'
+	{ 
+		logger.logSuccess("[Parser] Sentencia do until detectada");	} |
+	keyword_do bloque_sentencias_ejecutables_do_con_return UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); } |
+	sentencia_do_etiqueta ':' keyword_do bloque_sentencias_ejecutables_do_con_return UNTIL condicion { logger.logError("[Parser] Se esperaba un ; al final de la sentencia do"); }
 ;
 
 bloque_sentencias_ejecutables_do_con_return:
@@ -210,12 +231,23 @@ sentencia_ejecutable_do_funcion:
 
 encabezado_funcion:
 	FUN ID '(' ')' ':' tipo {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.agregarUsoAIdentificador($2.obj[0], "nombre_funcion");
+		instance.setTipo($2.obj[0], $6.obj[0]);
+		instance.nuevoAmbito($2.obj[0]);
+		instance.agregarTerceto(new Terceto("FUNCION", $2.obj[0], "-"));
 	} | 
 	FUN ID '(' lista_de_parametros ')' ':' tipo {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.agregarUsoAIdentificador($2.obj[0], "nombre_funcion");
+		instance.setTipo($2.obj[0], $7.obj[0]);
+	if (ts.has($2.obj[0] + instance.getAmbito().toString())) {
+		logger.logError("[Generacion de codigo] La funcion " + $2.obj[0] + " ya fue declarada");
+	}
+	else{
+		instance.agregarTerceto(new Terceto("FUNCION", $2.obj[0], "-"));
+		ts.swapLexemas($2.obj[0], $2.obj[0] + instance.getAmbito().toString());
+		instance.nuevoAmbito($2.obj[0]);
+		instance.agregarAmbitoParametros();
+	}
 	} |
 	FUN ID '(' lista_de_parametros ')' tipo { logger.logError("[Parser] Se esperaba un : antes del tipo para la funcion"); } |
 	FUN ID '(' ')' ':' { logger.logError("[Parser] Se esperaba un tipo de return para la funcion"); } |
@@ -249,8 +281,7 @@ lista_parametros_exceso:
 
 parametro:
 	tipo ID {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-		instance.agregarTipoAParametro($2.obj[0], $1.obj[0]);
+		instance.agregarParametro($2.obj[0], $1.obj[0]);
 	} |
 	tipo | { logger.logError("[Parser] Se esperaba un identificador nombre para el parametro"); }
 	ID { logger.logError("[Parser] Se esperaba un tipo valido para el parametro"); }
@@ -278,14 +309,12 @@ declaracion_constante:
 sentencia_ejecutable:
 	sentencia_ejecutable_simple |
 	keyword_defer sentencia_ejecutable_simple {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.setApilarTercetoDefer(false);
 	}
 ;
 
 keyword_defer:
 	DEFER {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.setApilarTercetoDefer(true);
 	}
 ;
@@ -309,7 +338,6 @@ sentencia_break:
 		logger.logSuccess("[Parser] Sentencia break detectada"); 
 		Terceto tercetoBreak = new Terceto("BI", "-", "-");
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.agregarTercetoBreakAListaTercetosBreakDo(tercetoBreak);
 		instance.agregarTerceto(tercetoBreak);
 	} |
@@ -318,7 +346,6 @@ sentencia_break:
 
 		Terceto tercetoBreak = new Terceto("BI", "-", "-");
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.agregarTerceto(tercetoBreak);
 		instance.agregarTercetoBreakAEtiquetaDo($3.obj[0], tercetoBreak);
 	}  |
@@ -331,7 +358,6 @@ sentencia_continue:
 	CONTINUE ';' { 
 		logger.logSuccess("[Parser] Sentencia continue detectada"); 
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		int posPrimeraInstruccionDo = instance.getUltimaPosicionTerceto();
 
 		Terceto tercetoContinue = new Terceto("BI", "[" + String.valueOf(posPrimeraInstruccionDo) + "]", "-");
@@ -343,7 +369,6 @@ sentencia_continue:
 sentencia_do:
 	sentencia_do_simple |
 	sentencia_do_etiqueta ':' sentencia_do_simple {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		ArrayList<Terceto> tercetos_etiqueta_break = instance.getTercetosBreakDeEtiquetaDo($1.obj[0]);
 		Iterator<Terceto> it = tercetos_etiqueta_break.listIterator();
 
@@ -358,7 +383,6 @@ sentencia_do:
 
 sentencia_do_etiqueta:
 	etiqueta {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.agregarDoConEtiqueta($1.obj[0]);
 		$$.obj[0] = $1.obj[0];
 	}
@@ -367,7 +391,6 @@ sentencia_do_etiqueta:
 sentencia_do_simple:
 	keyword_do bloque_sentencias_ejecutables_do UNTIL condicion ';' { 
 		logger.logSuccess("[Parser] Sentencia do until detectada"); 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		Terceto tercetoDo = instance.desapilarTerceto();
 		int posPrimerTerceto = instance.desapilarPosicionTerceto();
 
@@ -386,7 +409,6 @@ sentencia_do_simple:
 
 keyword_do: 
 	DO {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.apilarPosicionTerceto(instance.getTamanioListaTercetos());
 		instance.iniciarListaTercetosBreakDo();
 	}
@@ -394,7 +416,6 @@ keyword_do:
 
 etiqueta:
 	ID {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		instance.agregarUsoAIdentificador($1.obj[0], "nombre_etiqueta");
 	}
 ;
@@ -416,13 +437,18 @@ asignacion:
 	{ 
 		logger.logSuccess("[Parser] Asignacion detectada"); 
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-
+		String[] par = ts.getTipo($1.obj[0]);
+		$1.obj[0] = par[0];
+		$1.obj[1] = par[1];
 		Terceto terceto = new Terceto(":=", $1.obj[0], $3.obj[0]);
 
-		$1.obj[1] = ts.getTipo($1.obj[0]);
+		System.out.println("A " +  $1.obj[0] + " B: " + $3.obj[0]);
 		
-		if ($1.obj[1].contains("ui16") && $3.obj[1].contains("ui16")){
+		if ($1.obj[1] == null)
+			logger.logError("[Generacion de Codigo] La variable " + $1.obj[0] + " No fue declarada" );
+		else if ($3.obj[1] == null)
+			logger.logError("[Generacion de Codigo] La variable " + $3.obj[0] + " No fue declarada" );
+		else if ($1.obj[1].contains("ui16") && $3.obj[1].contains("ui16")){
 			instance.agregarTerceto(terceto);
 			$$.obj[1] = "ui16";
 		}
@@ -435,7 +461,7 @@ asignacion:
 		}
 		else if ($1.obj[1].contains("f64") && $3.obj[1].contains("ui16")){
 			Terceto aux = new Terceto("itof", $3.obj[0], "-");
-			terceto.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos() + "]"));
+			terceto.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos() + "]"));
 			instance.agregarTerceto(aux);
 			instance.agregarTerceto(terceto);
 			$$.obj[1] = "f64";
@@ -466,14 +492,11 @@ seleccion:
 	{ 
 		logger.logSuccess("[Parser] Sentencia if then detectada");
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-
 		Terceto bi = instance.desapilarTerceto();
 		bi.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
 	} |
 	IF condicion THEN bloque_sentencias_ejecutables_seleccion_then ELSE bloque_sentencias_ejecutables_seleccion_else ENDIF ';' { 
 		logger.logSuccess("[Parser] Sentencia if then else detectada"); 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		Terceto bi = instance.desapilarTerceto();
 		bi.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
 	} |
@@ -501,7 +524,6 @@ sentencias_ejecutables:
 bloque_sentencias_ejecutables_seleccion_then:
 	bloque_sentencias_ejecutables_seleccion {
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
 		Terceto t = instance.desapilarTerceto();
 
@@ -521,7 +543,6 @@ bloque_sentencias_ejecutables_seleccion_else:
 condicion:
 	'(' expresion comparador expresion ')'
 	{
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		int tercetoPosicion = 0;
 
 		Terceto terceto = new Terceto($3.obj[0], $2.obj[0], $4.obj[0]);
@@ -557,14 +578,12 @@ comparador:
 
 expresion:
 	expresion '+' termino {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "+");
 
 	} |
 	expresion '-' termino {
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
 	} |
@@ -577,15 +596,11 @@ expresion:
 
 termino:
 	termino '*' factor {
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
-
-		
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "*");
 
 	} |
 	termino '/' factor {
 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
 	} |
 	factor {
@@ -597,19 +612,28 @@ termino:
 factor:
 	ID {
 		$$.obj[0] = $1.obj[0];
-		$$.obj[1] = ts.getTipo($1.obj[0]);
+		$$.obj[1] = ts.getTipo($1.obj[0])[1];
 	} |
 	constante {
-		
 		$$.obj[0] = $1.obj[0];
-		$$.obj[1] = ts.getTipo($1.obj[0]);
+		$$.obj[1] = ts.getTipoCte($1.obj[0]);
 	} |
-	invocacion_funcion
+	invocacion_funcion{
+		$$.obj[0] = $1.obj[0];
+		$$.obj[1] = ts.getTipo($1.obj[0])[1];
+	}
 ;
 
 invocacion_funcion:
-	ID '(' ')' |
-	ID '(' lista_de_parametros_reales ')'
+	ID '(' ')' {
+		$$.obj[0] = $1.obj[0];
+		$$.obj[1] = ts.getTipo($1.obj[0])[1];
+	}|
+	ID '(' lista_de_parametros_reales ')' {
+		$$.obj[0] = $1.obj[0];
+		$$.obj[1] = ts.getTipo($1.obj[0])[1];
+		instance.checkParametros();
+	}
 ;
 
 lista_de_parametros_reales:
@@ -618,14 +642,17 @@ lista_de_parametros_reales:
 ;
 
 parametro_real:
-	ID |
-	constante
+	ID {
+		instance.addCheckParametros(ts.getTipo($1.obj[0])[0]);
+	}|
+	constante{
+		instance.addCheckParametros(ts.getTipo2($1.obj[0]));
+	}
 ;
 
 imprimir:
 	OUT '(' CADENA ')' ';' { 
 		logger.logSuccess("[Parser] Sentencia out detectada"); 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
 		Terceto out = new Terceto("out", $3.obj[0], "-");
 
@@ -637,7 +664,6 @@ imprimir:
 	} |
 	OUT '(' ID ')' ';' { 
 		logger.logSuccess("[Parser] Sentencia out detectada"); 
-		GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 
 		Terceto out = new Terceto("out", $3.obj[0], "-");
 
@@ -662,13 +688,18 @@ constante:
 ;
 	
 tipo:
-	UINT16 |
-	DOUBLE64
+	UINT16 {
+		$$.obj[1] = "ui16";
+	}|
+	DOUBLE64{
+		$$.obj[1] = "f64";
+	}
 ;
 
 %%
 
 public static AnalizadorLexico lexico = null;
+public static GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;

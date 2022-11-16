@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Set;
 import java.util.Stack;
 
 public class GeneracionCodigoIntermedio {
@@ -12,12 +13,17 @@ public class GeneracionCodigoIntermedio {
 	private Logger logger = Logger.getInstance();
 	private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
 	private ArrayList<Terceto> lista_tercetos = new ArrayList<Terceto>();
+	private ArrayList<String> listaCheckParametros = new ArrayList<String>();
 	private Stack<Terceto> pila_tercetos = new Stack<Terceto>();
 	private Stack<Integer> pila_posiciones = new Stack<Integer>();
 	private Stack<ArrayList<Terceto>> pila_breaks_do = new Stack<ArrayList<Terceto>>();
 	private HashMap<String, ArrayList<Terceto>> do_con_etiqueta = new HashMap<String, ArrayList<Terceto>>();
 	private Stack<ArrayList<Terceto>> defer_tercetos_ambitos = new Stack<ArrayList<Terceto>>();
 	private MatrixMult matrixMult = MatrixMult.getInstance();
+	private StringBuilder ambito = new StringBuilder();
+	private HashMap<String, String> listaParametros = new HashMap<String, String>();
+	
+	
 	private int posicionTerceto = 0;
 
 	private static GeneracionCodigoIntermedio instance = null; 
@@ -52,12 +58,42 @@ public class GeneracionCodigoIntermedio {
 
 	public void agregarTercetoParaDeferAmbitoActual(Terceto t) {
 		ArrayList<Terceto> tercetosDeferAmbitoActual = defer_tercetos_ambitos.lastElement();
-
+			
 		tercetosDeferAmbitoActual.add(t);
+	}
+	
+	public void checkParametros(String lexema) {
+		
+	}
+	
+	public void addCheckParametros(String tipo) {
+		listaCheckParametros.add(tipo);
 	}
 
 	public void agregarVariableADeclarar(String variable) {
-		lista_variables_a_declarar.add(variable);
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		if (TS.has(variable + ambito.toString())) {
+			logger.logError("[Generacion de codigo] La variable " + variable + " ya fue declarada");
+		}
+		else
+			lista_variables_a_declarar.add(variable);
+	}
+	
+	public void agregarAmbitoParametros() {
+		Set<String> listKeys = listaParametros.keySet();
+		Iterator<String> it = listKeys.iterator();
+		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+		while(it.hasNext()) {
+			String parametro = it.next();
+			TS.putTipo(parametro, listaParametros.get(parametro));
+			TS.swapLexemas(parametro, parametro + this.ambito.toString());
+			agregarUsoAIdentificador(parametro + this.ambito, "parametro");
+		}
+		listaParametros.clear();
+	}
+	
+	public void agregarParametro(String parametro, String tipo) {
+		listaParametros.put(parametro, tipo);
 	}
 
 	public void agregarTipoAParametro(String parametro, String tipo) {
@@ -67,14 +103,15 @@ public class GeneracionCodigoIntermedio {
 	}
 
 	public void agregarTipoAListaDeVariables(String type) {
-
+		
 		Iterator<String> it = lista_variables_a_declarar.iterator();
 		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
 
 		while(it.hasNext()) {
 			String variableActual = it.next();
 			TS.putTipo(variableActual, type);
-			agregarUsoAIdentificador(variableActual, "variable");
+			TS.swapLexemas(variableActual, (variableActual + this.ambito.toString()));
+			agregarUsoAIdentificador(variableActual + this.ambito, "variable");
 		}
 
 		lista_variables_a_declarar.clear();
@@ -165,19 +202,6 @@ public class GeneracionCodigoIntermedio {
 		return null;
 	}
 	
-	public void printTercetos() {
-
-		System.out.println("Tercetos generados");
-
-		ListIterator<Terceto> it = lista_tercetos.listIterator();
-
-		while(it.hasNext()) {
-			Terceto t = it.next();
-
-			System.out.println("[" + t.getPosicion() + "]" + "(" + t.getOperacion() + ", " + t.getOperando1() + ", " + t.getOperando2() + ")");
-		}
-	}
-	
 	public String[] AgregarTercetoExpresiones(String v0_0, String v0_1, String v1_0, String v1_1, String v3_0, String v3_1, String simbolo) {
 		
 		Terceto t1 = 	this.crearTercetoConversion(1, v1_1, v3_1, v1_0);
@@ -185,14 +209,15 @@ public class GeneracionCodigoIntermedio {
 		Terceto f1 = 	this.crearTercetoConversion(3, v1_1, v3_1, v3_0);
 
 		Terceto terceto = new Terceto(simbolo, v1_0, v3_0);
-
 		
 		if (t1 != null){
 			terceto.setOperando1("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
+			t1.setOperando1(t1.getOperando1() + ambito);
 			agregarTerceto(t1);
 		}
 		if (f1 != null){
 			terceto.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos()) + "]");
+			f1.setOperando1(f1.getOperando1() + ambito);
 			agregarTerceto(f1);
 		}
 
@@ -208,4 +233,38 @@ public class GeneracionCodigoIntermedio {
 		return par;
 		
 	}
+	
+	public void nuevoAmbito(String nuevo_ambito) {
+		ambito.append(":").append(nuevo_ambito);	
+	}
+	
+	public void salirAmbito() {
+		int indice = ambito.lastIndexOf(":");
+		ambito.delete(indice, ambito.length());
+	}
+	
+	public void salirAmbitoAux(StringBuilder lexema) {
+		int indice = ambito.lastIndexOf(":");
+		indice = lexema.lastIndexOf(":");
+		lexema.delete(indice, lexema.length());
+	}
+
+	public StringBuilder getAmbito() {
+		return ambito;
+	}
+	
+	
+	public void printTercetos() {
+
+		System.out.println("Tercetos generados");
+
+		ListIterator<Terceto> it = lista_tercetos.listIterator();
+
+		while(it.hasNext()) {
+			Terceto t = it.next();
+
+			System.out.println("[" + t.getPosicion() + "]" + "(" + t.getOperacion() + ", " + t.getOperando1() + ", " + t.getOperando2() + ")");
+		}
+	}
+	
 }

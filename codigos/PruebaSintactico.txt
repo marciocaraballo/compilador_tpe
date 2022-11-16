@@ -1,17 +1,52 @@
 << Este programa es testing de estructuras sintacticas validas >>
 programa1 {
 
-   f64 a, b, c, d,e ,f;
+	f64 a;
+	ui16 b;
+	
+	a =: b + 2.0;
+	
+	do {
+		a =: 2;
+		when (a < b)
+			break;
+	} until (a < b)
+	
+	fun f1(f64 z, ui16 a) : f64
+	{	
+		a =: 2;
+		return (a);
+	}
+	
+	a =: f1();
+		
+	<<
+	
+	a =: f1();
+	
+   	a =: 3;
+			
+   	f64 precio;
+	
+	a =: 8;
+	
+	fun f2 () : ui16
+	{
+		c =: 1;
+		return (b);
+	}	
+	ui16 x;
+	
+	x =: 1;
    
-   b =: 2.0;
+   f64 b;
    out('sarasa');
-   
-   defer out('va al final');
+
    
    e =: 3.0;
    
    defer out('va al final 2');
    defer out('va al final 3');
 
-   c =: 3.0;
+   c =: 3.0 >>
 }

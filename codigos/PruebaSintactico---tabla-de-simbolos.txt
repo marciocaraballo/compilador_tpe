@@ -1,41 +1,21 @@
 Lexema: a
-Atributo: uso Valor: variable
-Atributo: tipo Valor: f64
 Atributo: token Valor: 257
-Lexema: 'sarasa'
-Atributo: token Valor: 259
 Lexema: b
-Atributo: uso Valor: variable
-Atributo: tipo Valor: f64
 Atributo: token Valor: 257
-Lexema: c
-Atributo: uso Valor: variable
-Atributo: tipo Valor: f64
-Atributo: token Valor: 257
-Lexema: d
-Atributo: uso Valor: variable
-Atributo: tipo Valor: f64
-Atributo: token Valor: 257
-Lexema: e
-Atributo: uso Valor: variable
-Atributo: tipo Valor: f64
-Atributo: token Valor: 257
-Lexema: f
-Atributo: uso Valor: variable
-Atributo: tipo Valor: f64
-Atributo: token Valor: 257
-Lexema: 'va al final 2'
-Atributo: token Valor: 259
-Lexema: 'va al final 3'
-Atributo: token Valor: 259
-Lexema: 'va al final'
-Atributo: token Valor: 259
+Lexema: 2
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 258
 Lexema: 2.0
 Atributo: tipo Valor: f64
 Atributo: token Valor: 258
 Lexema: programa1
 Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
-Lexema: 3.0
+Lexema: a:programa1
+Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
-Atributo: token Valor: 258
+Atributo: token Valor: 257
+Lexema: b:programa1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ui16
+Atributo: token Valor: 257
