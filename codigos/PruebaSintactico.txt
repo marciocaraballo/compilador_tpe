@@ -1,8 +1,9 @@
 << Este programa es testing de estructuras sintacticas validas >>
 programa1 {
 
-	f64 a;
+	f64 a, b, e;
 	ui16 b;
+<<<<<<< Updated upstream
 	ui16 c;
 	f64 d;
 	
@@ -72,4 +73,18 @@ programa1 {
    defer out('va al final 3');
 
    c =: 3.0 >>
+=======
+	 
+	defer if (a >= a) then
+		a =: b;
+	else
+		b =: a;
+	end_if;
+	
+	out('sarasa 0');
+	out('sarasa va al final 1');
+	defer a =: 2.0 + 1.0;
+	out('sarasa 1');
+   	out('sarasa va al final 2');
+>>>>>>> Stashed changes
 }

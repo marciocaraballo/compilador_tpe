@@ -62,7 +62,7 @@ public class GeneracionCodigoIntermedio {
 		tercetosDeferAmbitoActual.add(t);
 	}
 	
-	public void checkParametros(String lexema) {
+	public void checkParametros(/**String lexema*/) {
 		
 	}
 	
@@ -133,9 +133,13 @@ public class GeneracionCodigoIntermedio {
 	}
 
 	public void agregarTerceto(Terceto t) {
-		t.setPosicion(posicionTerceto);
-		posicionTerceto++;
-		lista_tercetos.add(t);
+		if (debeApilarTercetoDefer()) {
+			agregarTercetoParaDeferAmbitoActual(t);
+		} else {
+			t.setPosicion(posicionTerceto);
+			posicionTerceto++;
+			lista_tercetos.add(t);
+		}
 	} 
 
 	public int getTamanioListaTercetos() {
@@ -202,7 +206,7 @@ public class GeneracionCodigoIntermedio {
 		return null;
 	}
 	
-	public String[] AgregarTercetoExpresiones(String v0_0, String v0_1, String v1_0, String v1_1, String v3_0, String v3_1, String simbolo) {
+	public String[] agregarTercetoExpresiones(String v0_0, String v0_1, String v1_0, String v1_1, String v3_0, String v3_1, String simbolo) {
 		
 		Terceto t1 = 	this.crearTercetoConversion(1, v1_1, v3_1, v1_0);
 		Terceto tipo = 	this.crearTercetoConversion(2, v1_1, v3_1, "");
@@ -225,7 +229,6 @@ public class GeneracionCodigoIntermedio {
 			agregarTerceto(f1);
 		}
 
-		
 		v0_0 = "[" + getTamanioListaTercetos() + "]";
 		
 		agregarTerceto(terceto);
@@ -260,7 +263,6 @@ public class GeneracionCodigoIntermedio {
 		return ambito;
 	}
 	
-	
 	public void printTercetos() {
 
 		System.out.println("Tercetos generados");
@@ -273,5 +275,4 @@ public class GeneracionCodigoIntermedio {
 			System.out.println("[" + t.getPosicion() + "]" + "(" + t.getOperacion() + ", " + t.getOperando1() + ", " + t.getOperando2() + ")");
 		}
 	}
-	
 }

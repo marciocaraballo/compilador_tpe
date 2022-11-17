@@ -451,11 +451,15 @@ asignacion:
 		}
 
 		Terceto terceto = new Terceto(":=", $1.obj[0], $3.obj[0]);
+<<<<<<< Updated upstream
 
+=======
+		
+>>>>>>> Stashed changes
 		if ($1.obj[1] == null)
-			logger.logError("[Generacion de Codigo] La variable " + $1.obj[0] + " No fue declarada" );
+			logger.logError("[Generacion de Codigo] La variable " + $1.obj[0] + " no fue declarada" );
 		else if ($3.obj[1] == null)
-			logger.logError("[Generacion de Codigo] La variable " + $3.obj[0] + " No fue declarada" );
+			logger.logError("[Generacion de Codigo] La variable " + $3.obj[0] + " no fue declarada" );
 		else if ($1.obj[1].contains("ui16") && $3.obj[1].contains("ui16")){
 			instance.agregarTerceto(terceto);
 			$$.obj[1] = "ui16";
@@ -532,7 +536,6 @@ sentencias_ejecutables:
 bloque_sentencias_ejecutables_seleccion_then:
 	bloque_sentencias_ejecutables_seleccion {
 
-
 		Terceto t = instance.desapilarTerceto();
 
 		t.setOperando2("[" + String.valueOf(instance.getTamanioListaTercetos() + 1) + "]");
@@ -600,6 +603,7 @@ comparador:
 
 expresion:
 	expresion '+' termino {
+<<<<<<< Updated upstream
 
 		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
 			String[] par = ts.getTipo($1.obj[0]);
@@ -630,9 +634,14 @@ expresion:
 
 
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
+=======
+		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "+");
+	} |
+	expresion '-' termino {
+		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
+>>>>>>> Stashed changes
 	} |
 	termino {
-		
 		$$.obj[0] = $1.obj[0];
 		$$.obj[1] = $1.obj[1];
 	}
@@ -640,6 +649,7 @@ expresion:
 
 termino:
 	termino '*' factor {
+<<<<<<< Updated upstream
 
 		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
 			String[] par = ts.getTipo($1.obj[0]);
@@ -669,6 +679,12 @@ termino:
 		}
 
 		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
+=======
+		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "*");
+	} |
+	termino '/' factor {
+		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
+>>>>>>> Stashed changes
 	} |
 	factor {
 		$$.obj[0] = $1.obj[0];
@@ -722,22 +738,14 @@ imprimir:
 
 		Terceto out = new Terceto("out", $3.obj[0], "-");
 
-		if (instance.debeApilarTercetoDefer()) {
-			instance.agregarTercetoParaDeferAmbitoActual(out);
-		} else {
-			instance.agregarTerceto(out);
-		}
+		instance.agregarTerceto(out);
 	} |
 	OUT '(' ID ')' ';' { 
 		logger.logSuccess("[Parser] Sentencia out detectada"); 
 
 		Terceto out = new Terceto("out", $3.obj[0], "-");
 
-		if (instance.debeApilarTercetoDefer()) {
-			instance.agregarTercetoParaDeferAmbitoActual(out);
-		} else {
-			instance.agregarTerceto(out);
-		}
+		instance.agregarTerceto(out);
 	} |
 	OUT '(' ')'  ';' { logger.logError("[Parser] Se esperaba una cadena o identificador en la sentencia out"); } |
 	OUT CADENA ')'  ';' { logger.logError("[Parser] Se esperaba un ( en la sentencia out"); } |

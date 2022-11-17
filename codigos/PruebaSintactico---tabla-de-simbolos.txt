@@ -1,7 +1,12 @@
+Lexema: e:programa1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
+Atributo: token Valor: 257
 Lexema: a
 Atributo: token Valor: 257
 Lexema: b
 Atributo: token Valor: 257
+<<<<<<< Updated upstream
 Lexema: c
 Atributo: token Valor: 257
 Lexema: d
@@ -30,6 +35,12 @@ Atributo: tipo Valor: ui16
 Atributo: token Valor: 257
 Lexema: d:programa1:f1:f2
 Atributo: uso Valor: variable
+=======
+Lexema: 1.0
+Atributo: tipo Valor: f64
+Atributo: token Valor: 258
+Lexema: 2.0
+>>>>>>> Stashed changes
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
 Lexema: a:programa1:f1
@@ -42,6 +53,7 @@ Atributo: token Valor: 258
 Lexema: 3
 Atributo: tipo Valor: ui16
 Atributo: token Valor: 258
+<<<<<<< Updated upstream
 Lexema: z:programa1:f1
 Atributo: uso Valor: parametro
 Atributo: tipo Valor: f64
@@ -50,6 +62,10 @@ Lexema: d:programa1:f1
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+=======
+Lexema: 'sarasa va al final 2'
+Atributo: token Valor: 259
+>>>>>>> Stashed changes
 Lexema: programa1
 Atributo: uso Valor: nombre_programa
 Atributo: token Valor: 257
@@ -67,8 +83,20 @@ Lexema: a:programa1
 Atributo: uso Valor: variable
 Atributo: tipo Valor: f64
 Atributo: token Valor: 257
+<<<<<<< Updated upstream
 Lexema: 9
 Atributo: tipo Valor: ui16
 Atributo: token Valor: 258
 Lexema: z
+=======
+Lexema: 'sarasa va al final 1'
+Atributo: token Valor: 259
+Lexema: 'sarasa 0'
+Atributo: token Valor: 259
+Lexema: 'sarasa 1'
+Atributo: token Valor: 259
+Lexema: b:programa1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: f64
+>>>>>>> Stashed changes
 Atributo: token Valor: 257

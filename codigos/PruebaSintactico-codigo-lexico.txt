@@ -2,10 +2,15 @@
 [Success] Linea 2: [Lexico] Se reconoce un token para { con el token 123
 [Success] Linea 4: [Lexico] Se reconoce un token para f64 con el token 276
 [Success] Linea 4: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 4: [Lexico] Se reconoce un token para b con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 4: [Lexico] Se reconoce un token para e con el token 257
 [Success] Linea 4: [Lexico] Se reconoce un token para ; con el token 59
 [Success] Linea 5: [Lexico] Se reconoce un token para ui16 con el token 277
 [Success] Linea 5: [Lexico] Se reconoce un token para b con el token 257
 [Success] Linea 5: [Lexico] Se reconoce un token para ; con el token 59
+<<<<<<< Updated upstream
 [Success] Linea 6: [Lexico] Se reconoce un token para ui16 con el token 277
 [Success] Linea 6: [Lexico] Se reconoce un token para c con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para ; con el token 59
@@ -146,3 +151,52 @@
 [Success] Linea 44: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 44: [Lexico] Se reconoce un token para ; con el token 59
 [Success] Linea 75: [Lexico] Se reconoce un token para } con el token 125
+=======
+[Success] Linea 7: [Lexico] Se reconoce un token para defer con el token 278
+[Success] Linea 7: [Lexico] Se reconoce un token para if con el token 260
+[Success] Linea 7: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 7: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 7: [Lexico] Se reconoce un token para >= con el token 269
+[Success] Linea 7: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 7: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 7: [Lexico] Se reconoce un token para then con el token 261
+[Success] Linea 8: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para =: con el token 268
+[Success] Linea 8: [Lexico] Se reconoce un token para b con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 9: [Lexico] Se reconoce un token para else con el token 262
+[Success] Linea 10: [Lexico] Se reconoce un token para b con el token 257
+[Success] Linea 10: [Lexico] Se reconoce un token para =: con el token 268
+[Success] Linea 10: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 10: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 11: [Lexico] Se reconoce un token para end_if con el token 263
+[Success] Linea 11: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 13: [Lexico] Se reconoce un token para out con el token 264
+[Success] Linea 13: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 13: [Lexico] Se reconoce un token para 'sarasa 0' con el token 259
+[Success] Linea 13: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 13: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 14: [Lexico] Se reconoce un token para out con el token 264
+[Success] Linea 14: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 14: [Lexico] Se reconoce un token para 'sarasa va al final 1' con el token 259
+[Success] Linea 14: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 14: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 15: [Lexico] Se reconoce un token para defer con el token 278
+[Success] Linea 15: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 15: [Lexico] Se reconoce un token para =: con el token 268
+[Success] Linea 15: [Lexico] Se reconoce un token para 2.0 con el token 258
+[Success] Linea 15: [Lexico] Se reconoce un token para + con el token 43
+[Success] Linea 15: [Lexico] Se reconoce un token para 1.0 con el token 258
+[Success] Linea 15: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 16: [Lexico] Se reconoce un token para out con el token 264
+[Success] Linea 16: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 16: [Lexico] Se reconoce un token para 'sarasa 1' con el token 259
+[Success] Linea 16: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 16: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 17: [Lexico] Se reconoce un token para out con el token 264
+[Success] Linea 17: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 17: [Lexico] Se reconoce un token para 'sarasa va al final 2' con el token 259
+[Success] Linea 17: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 17: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 18: [Lexico] Se reconoce un token para } con el token 125
+>>>>>>> Stashed changes
