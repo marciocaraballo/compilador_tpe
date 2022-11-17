@@ -445,17 +445,12 @@ asignacion:
 		$1.obj[1] = par[1];
 
 		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
-			String[] par = ts.getTipo($3.obj[0]);
-			$3.obj[0] = par[0];
-			$3.obj[1] = par[1];
+			String[] par2 = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par2[0];
+			$3.obj[1] = par2[1];
 		}
 
 		Terceto terceto = new Terceto(":=", $1.obj[0], $3.obj[0]);
-<<<<<<< Updated upstream
-
-=======
-		
->>>>>>> Stashed changes
 		if ($1.obj[1] == null)
 			logger.logError("[Generacion de Codigo] La variable " + $1.obj[0] + " no fue declarada" );
 		else if ($3.obj[1] == null)
@@ -603,8 +598,6 @@ comparador:
 
 expresion:
 	expresion '+' termino {
-<<<<<<< Updated upstream
-
 		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
 			String[] par = ts.getTipo($1.obj[0]);
 			$1.obj[0] = par[0];
@@ -616,30 +609,22 @@ expresion:
 			$3.obj[1] = par[1];
 		}
 
-		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "+");
-
-	} |
-	expresion '-' termino {
-
-		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
-			String[] par = ts.getTipo($1.obj[0]);
-			$1.obj[0] = par[0];
-			$1.obj[1] = par[1];
-		}
-		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
-			String[] par = ts.getTipo($3.obj[0]);
-			$3.obj[0] = par[0];
-			$3.obj[1] = par[1];
-		}
-
-
-		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
-=======
 		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "+");
+
 	} |
 	expresion '-' termino {
+		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
+			String[] par = ts.getTipo($1.obj[0]);
+			$1.obj[0] = par[0];
+			$1.obj[1] = par[1];
+		}
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
+
 		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "-");
->>>>>>> Stashed changes
 	} |
 	termino {
 		$$.obj[0] = $1.obj[0];
@@ -649,8 +634,6 @@ expresion:
 
 termino:
 	termino '*' factor {
-<<<<<<< Updated upstream
-
 		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
 			String[] par = ts.getTipo($1.obj[0]);
 			$1.obj[0] = par[0];
@@ -662,29 +645,23 @@ termino:
 			$3.obj[1] = par[1];
 		}
 
-		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "*");
-
-	} |
-	termino '/' factor {
-
-		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
-			String[] par = ts.getTipo($1.obj[0]);
-			$1.obj[0] = par[0];
-			$1.obj[1] = par[1];
-		}
-		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
-			String[] par = ts.getTipo($3.obj[0]);
-			$3.obj[0] = par[0];
-			$3.obj[1] = par[1];
-		}
-
-		$$.obj = instance.AgregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
-=======
 		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "*");
+
 	} |
 	termino '/' factor {
+
+		if (!$1.obj[0].contains("[") && ts.getToken($1.obj[0]) != 258){
+			String[] par = ts.getTipo($1.obj[0]);
+			$1.obj[0] = par[0];
+			$1.obj[1] = par[1];
+		}
+		if (!$3.obj[0].contains("[") && ts.getToken($3.obj[0]) != 258){
+			String[] par = ts.getTipo($3.obj[0]);
+			$3.obj[0] = par[0];
+			$3.obj[1] = par[1];
+		}
+
 		$$.obj = instance.agregarTercetoExpresiones($$.obj[0], $$.obj[1], $1.obj[0], $1.obj[1], $3.obj[0], $3.obj[1], "/");
->>>>>>> Stashed changes
 	} |
 	factor {
 		$$.obj[0] = $1.obj[0];
