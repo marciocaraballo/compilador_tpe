@@ -3,77 +3,6 @@ programa1 {
 
 	f64 a, b, e;
 	ui16 b;
-<<<<<<< Updated upstream
-	ui16 c;
-	f64 d;
-	
-	const d =: a;
-	
-	<<a =: b + 2.0;>>
-		
-	do {
-		a =: a + b - 1 / 3;
-	} until (b * 1 + d < c - 4.0);
-	
-	a =: b + c;
-	
-	fun f1(f64 z, f64 a) : f64
-	{	
-		f64 d;
-		ui16 j;
-		a =: 9 + 1.2 / c * b;
-		a =: d;
-		
-		do {
-			a =: a + b - 1 / 3;
-		} until (b * 1 + d < c - 4.0);
-		
-		fun f2() : ui16
-		{
-			f64 d;
-			z =: d + b;
-			return (a);
-		}
-		
-		return (a);
-	}
-	
-	a =: d;
-	
-	<<a =: 3 + 2.0 * d;>>
-	
-	a =: f1();
-		
-	<<
-	
-	a =: f1();
-	
-   	a =: 3;
-			
-   	f64 precio;
-	
-	a =: 8;
-	
-	fun f2 () : ui16
-	{
-		c =: 1;
-		return (b);
-	}	
-	ui16 x;
-	
-	x =: 1;
-   
-   f64 b;
-   out('sarasa');
-
-   
-   e =: 3.0;
-   
-   defer out('va al final 2');
-   defer out('va al final 3');
-
-   c =: 3.0 >>
-=======
 	 
 	defer if (a >= a) then
 		a =: b;
@@ -86,5 +15,4 @@ programa1 {
 	defer a =: 2.0 + 1.0;
 	out('sarasa 1');
    	out('sarasa va al final 2');
->>>>>>> Stashed changes
 }

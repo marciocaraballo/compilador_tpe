@@ -1,25 +1,5 @@
 [Success] Linea 4: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 5: [Parser] Declaracion de lista de variables detectado
-<<<<<<< Updated upstream
-[Success] Linea 6: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 7: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 14: [Parser] Asignacion detectada
-[Success] Linea 15: [Parser] Sentencia do until detectada
-[Success] Linea 17: [Parser] Asignacion detectada
-[Success] Linea 21: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 22: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 23: [Parser] Asignacion detectada
-[Success] Linea 24: [Parser] Asignacion detectada
-[Success] Linea 27: [Parser] Asignacion detectada
-[Success] Linea 28: [Parser] Sentencia do until detectada
-[Success] Linea 32: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 33: [Parser] Asignacion detectada
-[Success] Linea 35: [Parser] Declaracion de funcion detectado
-[Success] Linea 38: [Parser] Declaracion de funcion detectado
-[Success] Linea 40: [Parser] Asignacion detectada
-[Success] Linea 44: [Parser] Asignacion detectada
-[Success] Linea 75: [Parser] Programa correcto detectado
-=======
 [Success] Linea 8: [Parser] Asignacion detectada
 [Success] Linea 10: [Parser] Asignacion detectada
 [Success] Linea 11: [Parser] Sentencia if then else detectada
@@ -29,4 +9,3 @@
 [Success] Linea 16: [Parser] Sentencia out detectada
 [Success] Linea 17: [Parser] Sentencia out detectada
 [Success] Linea 18: [Parser] Programa correcto detectado
->>>>>>> Stashed changes
