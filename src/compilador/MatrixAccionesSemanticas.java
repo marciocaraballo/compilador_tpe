@@ -39,7 +39,7 @@ public class MatrixAccionesSemanticas {
 		matrixAccionesSemanticas[14] = new AccionSemantica[]{ AS7,  AS7,  AS7, 	 AS7,	 AS7,	 AS7,	 AS7,	 AS7,	 AS7,	 AS7,	 AS3,	 AS7,	 AS7,	 AS7,	 AS7,	 AS7, 	 AS7, 	 AS7, 	 AS7, 	 AS7, 	 AS7, 	 AS7, 	AS7, 	AS7,	AS7,   AS7,   AS7,	  AS7, 	 AS7, 	 AS7 };
 		matrixAccionesSemanticas[15] = new AccionSemantica[]{ AS3,  AS3,  AS3, 	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	AS3, 	AS3,	AS3,   AS3,   AS3,	  AS3, 	 AS3, 	 AS3 };
 		matrixAccionesSemanticas[16] = new AccionSemantica[]{ AS3,  AS3,  AS3, 	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3, 	 AS9, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	AS3, 	AS3,	AS3,   AS3,   AS3,	  AS3, 	 AS3, 	 AS3 };
-		matrixAccionesSemanticas[16] = new AccionSemantica[]{ AS3,  AS3,  AS3, 	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS10, 	AS3, 	AS3,	AS3,   AS3,   AS3,	  AS3, 	 AS3, 	 AS3 };
+		matrixAccionesSemanticas[17] = new AccionSemantica[]{ AS3,  AS3,  AS3, 	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3,	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS3, 	 AS10, 	AS3, 	AS3,	AS3,   AS3,   AS3,	  AS3, 	 AS3, 	 AS3 };
 	} 
 
 	public static MatrixAccionesSemanticas getInstance() {
