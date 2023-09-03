@@ -24,12 +24,8 @@ public class AS5 extends AccionSemantica {
 			logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + lexema.toString() + ", se trunca al rango permitido");
 			
 			lexema.setLength(0);
-			//lexema.append("65535");
-			
 			lexema.append((int)(Math.pow(2, 15) - 1));
 		}
-		
-		//fileHelper.reset();
 		
 		if (TS.has(lexema.toString())) {
 			return TS.getToken(lexema.toString());
