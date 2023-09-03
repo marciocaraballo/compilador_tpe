@@ -5,6 +5,8 @@ import compilador.Logger;
 import compilador.TablaDeSimbolos;
 
 public class AS5 extends AccionSemantica {
+	
+	public static final int MAX_INT_VALUE = (int)(Math.pow(2, 15) - 1);
 
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
@@ -12,19 +14,19 @@ public class AS5 extends AccionSemantica {
 		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
 		Logger logger = Logger.getInstance();
 		int cte = 0;
-		boolean exeptionOutOfRange = false;
+		boolean exceptionOutOfRange = false;
 		
 		try {
 			cte = Integer.parseInt(lexema.toString());
 		} catch(NumberFormatException e) {
-			exeptionOutOfRange = true;
+			exceptionOutOfRange = true;
 		}
 		
-		if (cte > (Math.pow(2, 15) - 1) || exeptionOutOfRange) {
+		if (cte > MAX_INT_VALUE || exceptionOutOfRange) {
 			logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + lexema.toString() + ", se trunca al rango permitido");
 			
 			lexema.setLength(0);
-			lexema.append((int)(Math.pow(2, 15) - 1));
+			lexema.append(MAX_INT_VALUE);
 		}
 		
 		if (TS.has(lexema.toString())) {
