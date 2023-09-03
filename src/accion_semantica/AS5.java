@@ -20,14 +20,16 @@ public class AS5 extends AccionSemantica {
 			exeptionOutOfRange = true;
 		}
 		
-		if (cte > 65535 || exeptionOutOfRange) {
+		if (cte > (Math.pow(2, 15) - 1) || exeptionOutOfRange) {
 			logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + lexema.toString() + ", se trunca al rango permitido");
 			
 			lexema.setLength(0);
-			lexema.append("65535");
+			//lexema.append("65535");
+			
+			lexema.append((int)(Math.pow(2, 15) - 1));
 		}
 		
-		fileHelper.reset();
+		//fileHelper.reset();
 		
 		if (TS.has(lexema.toString())) {
 			return TS.getToken(lexema.toString());
