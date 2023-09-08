@@ -19,9 +19,9 @@ public class AnalizadorLexico {
 	
 	private int obtenerColumnaCaracter(int inputCaracter) {
 		
-		/* EOF -> $ columna 25 */
+		/* EOF -> $ columna 27 */
 		if (inputCaracter == -1) {
-			return 25;
+			return 27;
 		}
 		
 		char input = (char)inputCaracter;
@@ -41,123 +41,133 @@ public class AnalizadorLexico {
 			return 2;
 		}
 		
-		/* caracter D = columna 3 */
-		if (input == 'D') {
+		/* caracter e o E */
+		if (input == 'E' || input == 'e') {
 			return 3;
 		}
 		
-		/* caracter _ = columna 4 */
-		if (input == '_') {
+		/* caracter i = columna 4 */
+		if (input == 'i') {
 			return 4;
 		}
 		
-		/* caracter + = columna 5 */
-		if (input == '+') {
+		/* caracter u = columna 5 */
+		if (input == 'u') {
 			return 5;
 		}
 		
-		/* caracter - = columna 6 */
-		if (input == '-') {
+		/* caracter l = columna 6 */
+		if (input == 'l') {
 			return 6;
 		}
 		
-		/* caracter { = columna 7 */
-		if (input == '{') {
+		/* caracter _ = columna 7 */
+		if (input == '_') {
 			return 7;
 		}
 		
-		/* caracter } = columna 8 */
-		if (input == '}') {
+		/* caracter + = columna 8 */
+		if (input == '+') {
 			return 8;
 		}
 		
-		/* caracter ( = columna 9 */
-		if (input == '(') {
+		/* caracter - = columna 9 */
+		if (input == '-') {
 			return 9;
 		}
 		
-		/* caracter ) = columna 10 */
-		if (input == ')') {
+		/* caracter { = columna 10 */
+		if (input == '{') {
 			return 10;
 		}
 		
-		/* caracter ; = columna 11 */
-		if (input == ';') {
+		/* caracter } = columna 11 */
+		if (input == '}') {
 			return 11;
 		}
 		
-		/* caracter / = columna 12 */
-		if (input == '/') {
+		/* caracter ( = columna 12 */
+		if (input == '(') {
 			return 12;
 		}
 		
-		/* caracter * = columna 13 */
-		if (input == '*') {
+		/* caracter ) = columna 13 */
+		if (input == ')') {
 			return 13;
 		}
 		
-		/* caracter , = columna 14 */
-		if (input == ',') {
+		/* caracter ; = columna 14 */
+		if (input == ';') {
 			return 14;
 		}
 		
-		/* caracter = = columna 15 */
-		if (input == '=') {
+		/* caracter / = columna 15 */
+		if (input == '/') {
 			return 15;
 		}
 		
-		/* caracter > = columna 16 */
-		if (input == '>') {
+		/* caracter * = columna 16 */
+		if (input == '*') {
 			return 16;
 		}
 		
-		/* caracter < = columna 17 */
-		if (input == '<') {
+		/* caracter > = columna 17 */
+		if (input == ',') {
 			return 17;
 		}
 		
-		/* caracter : = columna 18 */
-		if (input == ':') {
+		/* caracter = = columna 18 */
+		if (input == '=') {
 			return 18;
 		}
 		
-		/* caracter ! = columna 19 */
-		if (input == '!') {
+		/* caracter > = columna 19 */
+		if (input == '>') {
 			return 19;
 		}
 		
-		/* caracter . = columna 20 */
-		if (input == '.') {
+		/* caracter < = columna 20 */
+		if (input == '<') {
 			return 20;
 		}
 		
-		/* caracter ' = columna 21 */
-		if (input == '\'') {
+		/* caracter % = columna 21 */
+		if (input == '%') {
 			return 21;
 		}
-	
-		/* caracter tab = columna 22 */
-		if (input == '\t') {
+		
+		/* caracter ! = columna 22 */
+		if (input == '!') {
 			return 22;
 		}
 		
-		/* blank space = columna 23 */
-		if (input == ' ') {
+		/* caracter . = columna 23 */
+		if (input == '.') {
 			return 23;
 		}
-		
-		/* new line = columna 24 */
-		if (input == '\n') {
+	
+		/* caracter tab = columna 24 */
+		if (input == '\t') {
 			return 24;
 		}
 		
-		/* carriage return = columna 26 */
-		if (input == '\r') {
+		/* blank space = columna 25 */
+		if (input == ' ') {
+			return 25;
+		}
+		
+		/* new line = columna 26 */
+		if (input == '\n') {
 			return 26;
 		}
 		
-		/* Char desconocido = columna 27 */
-		return 27;
+		/* carriage return = columna 28 */
+		if (input == '\r') {
+			return 28;
+		}
+		
+		/* Char desconocido = columna 29 */
+		return 29;
 	}
 	
 	public AnalizadorLexico(FileReaderHelper fileHelper) {
