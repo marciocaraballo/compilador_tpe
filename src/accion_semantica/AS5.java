@@ -7,20 +7,22 @@ import compilador.TablaDeSimbolos;
 public class AS5 extends AccionSemantica {
 	
 	public static final int MAX_INT_VALUE = (int)(Math.pow(2, 15) - 1);
-	public static final int MAX_INT_UNSIGNED_VALUE = (int)(Math.pow(2,32) - 1);
+	public static final long MAX_INT_UNSIGNED_VALUE = (long)(Math.pow(2,32) - 1);
 
 	@Override
 	public int ejecutar(FileReaderHelper fileHelper, StringBuilder lexema, char nextCharacter) {
 		
 		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
 		Logger logger = Logger.getInstance();
-		int cte = 0;
 		boolean exceptionOutOfRange = false;
 		
 		lexema.append(nextCharacter);
 		
 		/** Formatos: _i */
 		if (lexema.toString().contains("_i")) {
+			
+			int cte = 0;
+			
 			lexema.setLength(lexema.toString().length() - 2);
 			
 			try {
@@ -37,10 +39,12 @@ public class AS5 extends AccionSemantica {
 			}
 		} else {
 			/** Formatos: _ul */
+			long cte = 0;
+			
 			lexema.setLength(lexema.toString().length() - 3);
 			
 			try {
-				cte = Integer.parseInt(lexema.toString());
+				cte = Long.parseLong(lexema.toString());
 			} catch(NumberFormatException e) {
 				exceptionOutOfRange = true;
 			}
