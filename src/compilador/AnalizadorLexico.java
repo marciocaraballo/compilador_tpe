@@ -236,11 +236,11 @@ public class AnalizadorLexico {
 	public int getToken() {
 		while (estado_actual != MatrixEstados.F) {
 			
+			inputCaracter = fileHelper.nextChar();
+			
 			if (!hasNext()) {
 				return 0;
 			}
-			
-			inputCaracter = fileHelper.nextChar();
 			
 			char inputAsChar = (char)inputCaracter;
 			
