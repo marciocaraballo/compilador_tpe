@@ -13,7 +13,7 @@ public class Logger {
 	
 	private int linea = 1;
 	
-	private Logger() {}
+	Logger() {}
 	
 	public static Logger getInstance() {
 		if (instance == null) {

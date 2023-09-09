@@ -6,18 +6,18 @@ import accion_semantica.AccionSemantica;
 
 public class AnalizadorLexico {
 	
-	private FileReaderHelper fileHelper = null;
-	private MatrixEstados matrixEstados = MatrixEstados.getInstance();
-	private MatrixAccionesSemanticas matrixAS = MatrixAccionesSemanticas.getInstance();
-	private Logger logger = Logger.getInstance();
+	private static FileReaderHelper fileHelper = null;
+	private static MatrixEstados matrixEstados = MatrixEstados.getInstance();
+	private static MatrixAccionesSemanticas matrixAS = MatrixAccionesSemanticas.getInstance();
+	private static Logger logger = Logger.getInstance();
 	
-	private int estado_actual = 0;
+	private static int estado_actual = 0;
 	
-	private StringBuilder lexema = new StringBuilder("");
-	private int tokenLexema = -1;
-	private int inputCaracter = 0;
+	private static StringBuilder lexema = new StringBuilder("");
+	private static int tokenLexema = -1;
+	private static int inputCaracter = 0;
 	
-	private int obtenerColumnaCaracter(int inputCaracter) {
+	private static int obtenerColumnaCaracter(int inputCaracter) {
 		
 		/* EOF -> $ columna 27 */
 		if (inputCaracter == -1) {
@@ -170,7 +170,7 @@ public class AnalizadorLexico {
 		return 29;
 	}
 	
-	public AnalizadorLexico(FileReaderHelper fileHelper) {
+	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger logger2) {
 		this.fileHelper = fileHelper;
 	};
 	
@@ -178,13 +178,64 @@ public class AnalizadorLexico {
 		return inputCaracter != -1;
 	}
 	
-	public int yylex(Parser parser) {
+//	public int yylex(Parser parser) {
+//
+//		while (estado_actual != MatrixEstados.F) {
+//			
+//			inputCaracter = fileHelper.nextChar();
+//			
+//			char inputAsChar = (char)inputCaracter;
+//			
+//			int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
+//				
+//			if (inputAsChar == '\n') {
+//				logger.incrementarLinea();
+//			}
+//			
+//			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
+//						
+//			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
+//			
+//			tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
+//			
+//			//Se llega a un estado final que deberia reconocer token pero hay error
+//			//de rango, luego se ignora el token y se vuelve al inicio
+//			if (proximoEstado == MatrixEstados.F && tokenLexema == -1) {
+//				estado_actual = 0;
+//			} else {
+//				if (proximoEstado != MatrixEstados.E) {
+//					estado_actual = proximoEstado;
+//				} else {
+//					estado_actual = 0;
+//				}
+//			}
+//		}
+//		
+//		//Se llego al EOF, no se reconocen mas tokens
+//		if (!hasNext()) {
+//			return 0;
+//		}
+//		
+//		//String[] par = {lexema.toString(), ""};
+//
+//		//parser.yylval = new ParserVal(par);
+//		
+//		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+//		
+//		estado_actual = 0;
+//		lexema.setLength(0);
+//		
+//		return tokenLexema;
+//	}
 
+	public int getToken() {
 		while (estado_actual != MatrixEstados.F) {
 			
 			inputCaracter = fileHelper.nextChar();
 			
 			char inputAsChar = (char)inputCaracter;
+			
+			System.out.println("Caracter leido: " + inputAsChar);
 			
 			int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
 				
@@ -216,9 +267,9 @@ public class AnalizadorLexico {
 			return 0;
 		}
 		
-		String[] par = {lexema.toString(), ""};
+		//String[] par = {lexema.toString(), ""};
 
-		parser.yylval = new ParserVal(par);
+		//parser.yylval = new ParserVal(par);
 		
 		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		

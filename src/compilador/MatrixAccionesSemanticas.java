@@ -6,7 +6,7 @@ public class MatrixAccionesSemanticas {
 	
 	private static MatrixAccionesSemanticas instance;
 	
-	private AccionSemantica[][] matrixAccionesSemanticas = new AccionSemantica[14][25];
+	private AccionSemantica[][] matrixAccionesSemanticas = new AccionSemantica[18][28];
 
 	private MatrixAccionesSemanticas() {
 		

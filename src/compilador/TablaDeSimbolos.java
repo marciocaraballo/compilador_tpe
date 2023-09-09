@@ -28,7 +28,7 @@ public class TablaDeSimbolos {
 	public static final String PARAMETER1 = "parametro1";
 	public static final String PARAMETER2 = "parametro2";
     
-	private TablaDeSimbolos() {};
+	TablaDeSimbolos() {};
 	
 	public static TablaDeSimbolos getInstance() {
 		if (instance == null) {
