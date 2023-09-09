@@ -248,6 +248,8 @@ public class AnalizadorLexico {
 			
 			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 			
+			System.out.println("Caracter: " + inputAsChar + " estado actual: " + estado_actual + " proximo estado: " + proximoEstado);
+			
 			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 			
 			tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
@@ -263,6 +265,10 @@ public class AnalizadorLexico {
 					estado_actual = 0;
 				}
 			}
+		}
+		
+		if (!hasNext()) {
+			return 0;
 		}
 		
 		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);

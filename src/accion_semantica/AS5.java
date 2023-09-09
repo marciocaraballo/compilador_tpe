@@ -17,6 +17,8 @@ public class AS5 extends AccionSemantica {
 		int cte = 0;
 		boolean exceptionOutOfRange = false;
 		
+		lexema.append(nextCharacter);
+		
 		/** Formatos: _i */
 		if (lexema.toString().contains("_i")) {
 			lexema.setLength(lexema.toString().length() - 2);
