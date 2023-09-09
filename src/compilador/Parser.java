@@ -16,12 +16,12 @@ public class Parser {
 		fileHelper.open(archivo_a_leer);
 		
 		Logger logger = new Logger();
-		TablaDeSimbolos ts = new TablaDeSimbolos();
-		AnalizadorLexico lexico = new AnalizadorLexico(fileHelper, ts, logger);
+		TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
+		AnalizadorLexico lexico = new AnalizadorLexico(fileHelper);
 		
 		while (lexico.hasNext()) {
-			System.out.println("Token detectado: " + lexico.getToken());
-			//lexico.getToken();
+			//System.out.println("Token detectado: " + lexico.getToken());
+			lexico.getToken();
 		}	
 			
 		ts.print();

@@ -176,6 +176,8 @@ public class TablaDeSimbolos {
 			}
 		} 
 		
+		System.out.println(tsPrint.toString());
+		
 		return tsPrint.toString();
 	}
 }

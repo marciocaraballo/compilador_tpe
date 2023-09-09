@@ -170,7 +170,7 @@ public class AnalizadorLexico {
 		return 29;
 	}
 	
-	public AnalizadorLexico(FileReaderHelper fileHelper, TablaDeSimbolos ts, Logger logger2) {
+	public AnalizadorLexico(FileReaderHelper fileHelper) {
 		this.fileHelper = fileHelper;
 	};
 	
@@ -235,8 +235,6 @@ public class AnalizadorLexico {
 			
 			char inputAsChar = (char)inputCaracter;
 			
-			System.out.println("Caracter leido: " + inputAsChar);
-			
 			int columnaCaracter = obtenerColumnaCaracter(inputCaracter);
 				
 			if (inputAsChar == '\n') {
@@ -244,7 +242,7 @@ public class AnalizadorLexico {
 			}
 			
 			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
-						
+			
 			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 			
 			tokenLexema = as.ejecutar(fileHelper, lexema, inputAsChar);
@@ -262,16 +260,11 @@ public class AnalizadorLexico {
 			}
 		}
 		
-		//Se llego al EOF, no se reconocen mas tokens
-		if (!hasNext()) {
-			return 0;
-		}
+		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		
 		//String[] par = {lexema.toString(), ""};
 
 		//parser.yylval = new ParserVal(par);
-		
-		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		
 		estado_actual = 0;
 		lexema.setLength(0);
