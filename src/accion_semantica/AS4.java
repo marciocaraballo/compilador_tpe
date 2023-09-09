@@ -18,21 +18,17 @@ public class AS4 extends AccionSemantica {
 		
 		fileHelper.reset();
 		
-		if (TPR.getToken(lexema.toString()) != -1) {
-			return TPR.getToken(lexema.toString());
+		if (lexema.length() > MAX_CHARS) {
+			logger.logWarning("Se ha superado la cantidad maxima de caracteres para un identificador (" + MAX_CHARS + "), se eliminaran los"
+					+  " caracteres que estan mas alla de la posicion " + MAX_CHARS);
+			lexema.setLength(MAX_CHARS);
+		}
+		
+		if (TS.has(lexema.toString())) {
+			return TS.getToken(lexema.toString());
 		} else {
-			if (lexema.length() > MAX_CHARS) {
-				logger.logWarning("Se ha superado la cantidad maxima de caracteres para un identificador (" + MAX_CHARS + "), se eliminaran los"
-						+  " caracteres que estan mas alla de la posicion " + MAX_CHARS);
-				lexema.setLength(MAX_CHARS);
-			}
-			
-			if (TS.has(lexema.toString())) {
-				return TS.getToken(lexema.toString());
-			} else {
-				TS.putIdentificador(lexema.toString());
-				return TS.getToken(lexema.toString());
-			}
+			TS.putIdentificador(lexema.toString());
+			return TS.getToken(lexema.toString());
 		}
 	}
 }

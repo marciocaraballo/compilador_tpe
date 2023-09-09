@@ -27,12 +27,12 @@ public class AnalizadorLexico {
 		char input = (char)inputCaracter;
 		
 		/* mayusculas L = columna 0 */
-		if (Character.isUpperCase(input) && input != 'D') {
+		if (Character.isUpperCase(input) && input != 'E') {
 			return 0;
 		}
 		
 		/* minusculas l = columna 1 */
-		if (Character.isLowerCase(input)) {
+		if (Character.isLowerCase(input) && input != 'e' && input != 'i' && input != 'u' && input != 'l') {
 			return 1;
 		}
 		
