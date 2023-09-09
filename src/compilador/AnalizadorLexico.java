@@ -236,6 +236,10 @@ public class AnalizadorLexico {
 	public int getToken() {
 		while (estado_actual != MatrixEstados.F) {
 			
+			if (!hasNext()) {
+				return 0;
+			}
+			
 			inputCaracter = fileHelper.nextChar();
 			
 			char inputAsChar = (char)inputCaracter;
@@ -265,10 +269,6 @@ public class AnalizadorLexico {
 					estado_actual = 0;
 				}
 			}
-		}
-		
-		if (!hasNext()) {
-			return 0;
 		}
 		
 		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);

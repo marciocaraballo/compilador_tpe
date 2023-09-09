@@ -20,7 +20,6 @@ public class Parser {
 		AnalizadorLexico lexico = new AnalizadorLexico(fileHelper);
 		
 		while (lexico.hasNext()) {
-			//System.out.println("Token detectado: " + lexico.getToken());
 			lexico.getToken();
 		}	
 			
