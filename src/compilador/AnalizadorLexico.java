@@ -234,13 +234,13 @@ public class AnalizadorLexico {
 //	}
 
 	public int getToken() {
-		while (estado_actual != MatrixEstados.F) {
+		while (estado_actual != MatrixEstados.F && hasNext()) {
 			
 			inputCaracter = fileHelper.nextChar();
 			
-			if (!hasNext()) {
-				return 0;
-			}
+//			if (!hasNext()) {
+//				return 0;
+//			}
 			
 			char inputAsChar = (char)inputCaracter;
 			
@@ -271,7 +271,9 @@ public class AnalizadorLexico {
 			}
 		}
 		
-		logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+		if (tokenLexema != -1) {
+			logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
+		}
 		
 		//String[] par = {lexema.toString(), ""};
 
