@@ -6,7 +6,7 @@ import java.util.Iterator;
 %}
 
 %token ID CTE CADENA IF ELSE ENDIF PRINT VOID RETURN ASIGNACION COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_IGUAL COMP_DISTINTO
-CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG 
+CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG FLOAT OPERADOR_MENOS
 
 %left '+' '-'
 %left '*' '/'
@@ -17,7 +17,33 @@ CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG
 %%
 
 programa:
-	'{' '}' { logger.logSuccess("[Parser] Programa correcto detectado"); }
+	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); }
+;
+
+sentencias:
+	sentencia |
+	sentencia sentencias
+;
+
+sentencia:
+	sentencia_declarativa 
+;
+
+sentencia_declarativa:
+	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
+;
+
+lista_de_variables:
+	ID ';' lista_de_variables |
+	ID
+;
+
+tipo:
+	INT |
+	ULONG |
+	FLOAT
+;
+
 %%
 
 public static AnalizadorLexico lexico = null;

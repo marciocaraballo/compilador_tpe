@@ -180,48 +180,57 @@ public final static short INTERFACE=274;
 public final static short IMPLEMENT=275;
 public final static short INT=276;
 public final static short ULONG=277;
+public final static short FLOAT=278;
+public final static short OPERADOR_MENOS=279;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,
+    0,    1,    1,    2,    3,    5,    5,    4,    4,    4,
 };
 final static short yylen[] = {                            2,
-    2,
+    3,    1,    2,    1,    3,    3,    1,    1,    1,    1,
 };
 final static short yydefred[] = {                         0,
-    0,    0,    1,
+    0,    0,    8,    9,   10,    0,    0,    4,    0,    1,
+    3,    0,    0,    0,    5,    6,
 };
 final static short yydgoto[] = {                          2,
+    6,    7,    8,    9,   13,
 };
-final static short yysindex[] = {                      -123,
- -124,    0,    0,
+final static short yysindex[] = {                      -120,
+ -276,    0,    0,    0,    0, -121, -276,    0, -252,    0,
+    0,  -53,  -37, -252,    0,    0,
 };
 final static short yyrindex[] = {                         0,
-    0,    0,    0,
+    0,    0,    0,    0,    0,    0, -117,    0,    0,    0,
+    0,  -35,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
+    3,    0,    0,    0,   -3,
 };
-final static int YYTABLESIZE=1;
+final static int YYTABLESIZE=11;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                          1,
-    3,
+yytable = new short[]{                          3,
+    4,    5,    1,   10,   12,   14,   15,    2,    7,   11,
+   16,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
-yycheck = new short[] {                        123,
-  125,
+yycheck = new short[] {                        276,
+  277,  278,  123,  125,  257,   59,   44,  125,   44,    7,
+   14,
 };
 }
 final static short YYFINAL=2;
-final static short YYMAXTOKEN=277;
+final static short YYMAXTOKEN=279;
 final static String yyname[] = {
 "end-of-file",null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,"'*'","'+'",null,
-"'-'",null,"'/'",null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,null,null,null,null,null,"'*'","'+'","','",
+"'-'",null,"'/'",null,null,null,null,null,null,null,null,null,null,null,"';'",
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
@@ -237,14 +246,23 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,"ID","CTE","CADENA","IF","ELSE","ENDIF",
 "PRINT","VOID","RETURN","ASIGNACION","COMP_MAYOR_IGUAL","COMP_MENOR_IGUAL",
 "COMP_IGUAL","COMP_DISTINTO","CLASS","WHILE","DO","INTERFACE","IMPLEMENT","INT",
-"ULONG",
+"ULONG","FLOAT","OPERADOR_MENOS",
 };
 final static String yyrule[] = {
 "$accept : programa",
-"programa : '{' '}'",
+"programa : '{' sentencias '}'",
+"sentencias : sentencia",
+"sentencias : sentencia sentencias",
+"sentencia : sentencia_declarativa",
+"sentencia_declarativa : tipo lista_de_variables ','",
+"lista_de_variables : ID ';' lista_de_variables",
+"lista_de_variables : ID",
+"tipo : INT",
+"tipo : ULONG",
+"tipo : FLOAT",
 };
 
-//#line 22 ".\gramatica.y"
+//#line 48 ".\gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
@@ -290,7 +308,7 @@ public static void main(String[] args) {
 		}
 	}
 }
-//#line 222 "Parser.java"
+//#line 240 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -448,7 +466,11 @@ case 1:
 //#line 20 ".\gramatica.y"
 { logger.logSuccess("[Parser] Programa correcto detectado"); }
 break;
-//#line 375 "Parser.java"
+case 5:
+//#line 33 ".\gramatica.y"
+{ logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
+break;
+//#line 397 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
