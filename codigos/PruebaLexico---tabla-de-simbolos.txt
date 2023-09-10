@@ -1,14 +1,8 @@
-Lexema: var
-Atributo: token Valor: 257
+Lexema: 5
+Atributo: token Valor: 258
 Lexema: var7
 Atributo: token Valor: 257
+Lexema: 7
+Atributo: token Valor: 258
 Lexema: var6
-Atributo: token Valor: 257
-Lexema: var5
-Atributo: token Valor: 257
-Lexema: var3
-Atributo: token Valor: 257
-Lexema: var2
-Atributo: token Valor: 257
-Lexema: var1
 Atributo: token Valor: 257

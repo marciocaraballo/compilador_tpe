@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 %}
 
-%token ID CTE CADENA IF ELSE ENDIF PRINT VOID RETURN ASIGNACION COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_IGUAL COMP_DISTINTO
+%token ID CTE CADENA IF ELSE ENDIF PRINT VOID RETURN COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_IGUAL COMP_DISTINTO
 CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG FLOAT OPERADOR_MENOS
 
 %left '+' '-'
@@ -26,7 +26,16 @@ sentencias:
 ;
 
 sentencia:
-	sentencia_declarativa 
+	sentencia_declarativa |
+	sentencia_ejecutable
+;
+
+sentencia_ejecutable:
+	sentencia_asignacion
+;
+
+sentencia_asignacion:
+	ID '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); }
 ;
 
 sentencia_declarativa:
@@ -42,6 +51,28 @@ tipo:
 	INT |
 	ULONG |
 	FLOAT
+;
+
+expresion:
+	expresion '+' termino |
+	expresion '-' termino |
+	termino
+;
+
+termino:
+	termino '*' factor |
+	termino '/' factor |
+	factor
+;
+
+factor:
+	ID |
+	constante
+;
+
+constante:
+	CTE |
+	'-' CTE { }
 ;
 
 %%

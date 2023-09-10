@@ -5,7 +5,8 @@ IF
 un comment }*
 
 { 
-    INT var; var1; var2,
-    FLOAT var3; var5,
     ULONG var6; var7,
+    
+    var6 = 5_i,
+    var7 = 5_ul + 7_ul,
 }
