@@ -31,7 +31,13 @@ sentencia:
 ;
 
 sentencia_ejecutable:
-	sentencia_asignacion
+	sentencia_asignacion |
+	sentencia_invocacion_funcion
+;
+
+sentencia_invocacion_funcion:
+	ID '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
+	ID '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
 ;
 
 sentencia_asignacion:
@@ -39,7 +45,17 @@ sentencia_asignacion:
 ;
 
 sentencia_declarativa:
-	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
+	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
+	declaracion_funcion
+;
+
+declaracion_funcion:
+	VOID ID '(' parametro_funcion ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion con parametro detectado"); } |
+	VOID ID '(' ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion sin parametro detectado"); }
+;
+
+parametro_funcion:
+	tipo ID
 ;
 
 lista_de_variables:
