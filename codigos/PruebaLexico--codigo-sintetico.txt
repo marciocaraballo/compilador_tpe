@@ -1,6 +1,6 @@
-[Success] Linea 8: [Parser] Asignacion detectada
-[Success] Linea 9: [Parser] Asignacion detectada
-[Success] Linea 12: [Parser] Asignacion detectada
-[Success] Linea 13: [Parser] Asignacion detectada
-[Success] Linea 14: [Parser] Sentencia iterativa DO WHILE detectada
-[Success] Linea 15: [Parser] Programa correcto detectado
+[Success] Linea 9: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 10: [Parser] Declaracion de funcion sin parametro detectado
+[Success] Linea 12: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 14: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 15: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 16: [Parser] Programa correcto detectado

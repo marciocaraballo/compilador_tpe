@@ -72,7 +72,23 @@ sentencia_asignacion:
 
 sentencia_declarativa:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
-	declaracion_funcion
+	declaracion_funcion |
+	declaracion_clase
+;
+
+sentencia_declarativa_clase:
+	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); } |
+	declaracion_funcion ',' |
+	ID ','
+;
+
+declaracion_clase:
+	CLASS ID '{' bloque_sentencias_declarativas_clase '}' { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); }
+;
+
+bloque_sentencias_declarativas_clase:
+	sentencia_declarativa_clase |
+	sentencia_declarativa_clase bloque_sentencias_declarativas_clase
 ;
 
 declaracion_funcion:
@@ -92,7 +108,8 @@ lista_de_variables:
 tipo:
 	INT |
 	ULONG |
-	FLOAT
+	FLOAT |
+	ID
 ;
 
 condicion:

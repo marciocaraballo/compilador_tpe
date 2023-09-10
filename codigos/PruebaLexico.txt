@@ -5,11 +5,12 @@ IF
 un comment }*
 
 { 
-    a = b-- * 7_i,
-    z = a-- - b--,
+    CLASS ca {
+        INT a,
+        VOID m() {},
+        cb,
+    }
 
-    DO {
-        a = b-- * 7_i,
-        z = a-- - b--,
-    } WHILE (a>b),
+    ca a1; a2,
+    cb b1; b2; b3,
 }
