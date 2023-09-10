@@ -32,7 +32,28 @@ sentencia:
 
 sentencia_ejecutable:
 	sentencia_asignacion |
-	sentencia_invocacion_funcion
+	sentencia_invocacion_funcion |
+	sentencia_imprimir |
+	sentencia_seleccion
+;
+
+sentencia_seleccion:
+	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
+;
+
+bloque_sentencias_ejecutables:
+	sentencia_ejecutable |
+	'{' sentencias_ejecutables '}'
+;
+
+sentencias_ejecutables:
+	sentencia_ejecutable |
+	sentencia_ejecutable sentencias_ejecutables
+;
+
+sentencia_imprimir:
+	PRINT CADENA { logger.logSuccess("[Parser] Sentencia imprimir detectada"); }
 ;
 
 sentencia_invocacion_funcion:
@@ -67,6 +88,19 @@ tipo:
 	INT |
 	ULONG |
 	FLOAT
+;
+
+condicion:
+	expresion comparador expresion
+;
+
+comparador:
+	COMP_MAYOR_IGUAL | 
+	COMP_MENOR_IGUAL | 
+	COMP_IGUAL | 
+	COMP_DISTINTO |
+	'>' |
+	'<'
 ;
 
 expresion:

@@ -5,14 +5,19 @@ IF
 un comment }*
 
 { 
-    ULONG var6; var7,
-    
-    var6 = 5_i,
-    var7 = 5_ul + 7_ul,
-
-    VOID func1() {}
-    VOID func2(INT sarasa) {}
-
-    func1(),
-    func2(5_i+b),
+    IF ( a > b ) {
+    	a = b,
+    	a = b,
+    	a = b,
+    	
+    	IF ( b == d )
+    		a = b,
+    	END_IF,
+    	
+    } ELSE {
+    	a = b,
+    	a = b,
+    	a = b,
+    }
+    END_IF,
 }

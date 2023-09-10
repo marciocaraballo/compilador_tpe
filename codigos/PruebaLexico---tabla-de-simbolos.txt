@@ -1,16 +1,6 @@
-Lexema: sarasa
+Lexema: a
 Atributo: token Valor: 257
 Lexema: b
 Atributo: token Valor: 257
-Lexema: 5
-Atributo: token Valor: 258
-Lexema: var7
-Atributo: token Valor: 257
-Lexema: 7
-Atributo: token Valor: 258
-Lexema: var6
-Atributo: token Valor: 257
-Lexema: func1
-Atributo: token Valor: 257
-Lexema: func2
+Lexema: d
 Atributo: token Valor: 257
