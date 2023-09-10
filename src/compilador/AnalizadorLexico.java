@@ -233,7 +233,7 @@ public class AnalizadorLexico {
 //		return tokenLexema;
 //	}
 
-	public int getToken() {
+	public int yylex(Parser parser) {
 		while (estado_actual != MatrixEstados.F && hasNext()) {
 			
 			inputCaracter = fileHelper.nextChar();
@@ -252,7 +252,7 @@ public class AnalizadorLexico {
 			
 			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 			
-			System.out.println("Caracter: " + inputAsChar + " estado actual: " + estado_actual + " proximo estado: " + proximoEstado);
+			//System.out.println("Caracter: " + inputAsChar + " estado actual: " + estado_actual + " proximo estado: " + proximoEstado);
 			
 			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 			
@@ -275,9 +275,9 @@ public class AnalizadorLexico {
 			logger.logSuccess("[Lexico] Se reconoce un token para " + lexema.toString() + " con el token " + tokenLexema);
 		}
 		
-		//String[] par = {lexema.toString(), ""};
+		String[] par = {lexema.toString(), ""};
 
-		//parser.yylval = new ParserVal(par);
+		parser.yylval = new ParserVal(par);
 		
 		estado_actual = 0;
 		lexema.setLength(0);

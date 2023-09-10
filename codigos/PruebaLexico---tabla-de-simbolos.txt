@@ -1,6 +1,1 @@
-Lexema: como
-Atributo: token Valor: 257
-Lexema: te
-Atributo: token Valor: 257
-Lexema: Hola
-Atributo: token Valor: 257
+No hay simbolos detectados

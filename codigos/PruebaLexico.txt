@@ -4,5 +4,4 @@ IF
 
 un comment }*
 
-% Hola 
-Mundo %
+{ }

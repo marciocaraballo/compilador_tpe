@@ -17,7 +17,7 @@ CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG
 %%
 
 programa:
-	'{' '}'
+	'{' '}' { logger.logSuccess("[Parser] Programa correcto detectado"); }
 %%
 
 public static AnalizadorLexico lexico = null;
@@ -59,8 +59,6 @@ public static void main(String[] args) {
 	        out.saveFile("codigo-lexico.txt", logger.getLexico());
 			out.saveFile("codigo-sintetico.txt", logger.getSintactico());
 			out.saveFile("tabla-de-simbolos.txt", printTs);
-	        
-			System.out.println(printTs);
 
 			GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		}

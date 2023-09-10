@@ -1,3 +1,2 @@
-[Success] Linea 1: [Lexico] Se reconoce un token para Hola con el token 257
-[Success] Linea 1: [Lexico] Se reconoce un token para como con el token 257
-[Success] Linea 1: [Lexico] Se reconoce un token para te con el token 257
+[Success] Linea 7: [Lexico] Se reconoce un token para { con el token 123
+[Success] Linea 7: [Lexico] Se reconoce un token para } con el token 125
