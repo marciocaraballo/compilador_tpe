@@ -2,5 +2,7 @@ Lexema: a
 Atributo: token Valor: 257
 Lexema: b
 Atributo: token Valor: 257
-Lexema: d
+Lexema: 7
+Atributo: token Valor: 258
+Lexema: z
 Atributo: token Valor: 257

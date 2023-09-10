@@ -34,7 +34,12 @@ sentencia_ejecutable:
 	sentencia_asignacion |
 	sentencia_invocacion_funcion |
 	sentencia_imprimir |
-	sentencia_seleccion
+	sentencia_seleccion |
+	sentencia_iterativa_do_while
+;
+
+sentencia_iterativa_do_while:
+	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
 ;
 
 sentencia_seleccion:
@@ -117,6 +122,7 @@ termino:
 
 factor:
 	ID |
+	ID OPERADOR_MENOS |
 	constante
 ;
 

@@ -5,19 +5,11 @@ IF
 un comment }*
 
 { 
-    IF ( a > b ) {
-    	a = b,
-    	a = b,
-    	a = b,
-    	
-    	IF ( b == d )
-    		a = b,
-    	END_IF,
-    	
-    } ELSE {
-    	a = b,
-    	a = b,
-    	a = b,
-    }
-    END_IF,
+    a = b-- * 7_i,
+    z = a-- - b--,
+
+    DO {
+        a = b-- * 7_i,
+        z = a-- - b--,
+    } WHILE (a>b),
 }
