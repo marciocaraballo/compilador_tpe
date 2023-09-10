@@ -1,18 +1,26 @@
 Lexema: a1
 Atributo: token Valor: 257
-Lexema: b2
-Atributo: token Valor: 257
 Lexema: a
 Atributo: token Valor: 257
-Lexema: a2
+Lexema: 1
+Atributo: token Valor: 258
+Lexema: b
 Atributo: token Valor: 257
-Lexema: b3
+Lexema: 3
+Atributo: token Valor: 258
+Lexema: c
 Atributo: token Valor: 257
+Lexema: 1.2
+Atributo: tipo Valor: f64
+Atributo: token Valor: 258
+Lexema: 2.3
+Atributo: tipo Valor: f64
+Atributo: token Valor: 258
 Lexema: m
 Atributo: token Valor: 257
 Lexema: ca
 Atributo: token Valor: 257
-Lexema: cb
+Lexema: n
 Atributo: token Valor: 257
 Lexema: b1
 Atributo: token Valor: 257

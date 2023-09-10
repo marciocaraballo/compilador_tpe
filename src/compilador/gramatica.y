@@ -35,7 +35,8 @@ sentencia_ejecutable:
 	sentencia_invocacion_funcion |
 	sentencia_imprimir |
 	sentencia_seleccion |
-	sentencia_iterativa_do_while
+	sentencia_iterativa_do_while |
+	sentencia_asignacion_atributo_objeto
 ;
 
 sentencia_iterativa_do_while:
@@ -62,12 +63,21 @@ sentencia_imprimir:
 ;
 
 sentencia_invocacion_funcion:
-	ID '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
-	ID '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
+	sentencia_asignacion_atributo_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
+	sentencia_asignacion_atributo_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
 ;
 
 sentencia_asignacion:
 	ID '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); }
+;
+
+sentencia_asignacion_atributo_objeto:
+	ID '.' sentencia_asignacion_atributo_objeto_identificador '=' expresion ','
+;
+
+sentencia_asignacion_atributo_objeto_identificador:
+	ID |
+	ID '.' sentencia_asignacion_atributo_objeto_identificador
 ;
 
 sentencia_declarativa:
