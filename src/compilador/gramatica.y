@@ -35,8 +35,7 @@ sentencia_ejecutable:
 	sentencia_invocacion_funcion |
 	sentencia_imprimir |
 	sentencia_seleccion |
-	sentencia_iterativa_do_while |
-	sentencia_asignacion_atributo_objeto
+	sentencia_iterativa_do_while
 ;
 
 sentencia_iterativa_do_while:
@@ -59,25 +58,21 @@ sentencias_ejecutables:
 ;
 
 sentencia_imprimir:
-	PRINT CADENA { logger.logSuccess("[Parser] Sentencia imprimir detectada"); }
+	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia imprimir detectada"); }
 ;
 
 sentencia_invocacion_funcion:
-	sentencia_asignacion_atributo_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
-	sentencia_asignacion_atributo_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
+	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
+	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
 ;
 
 sentencia_asignacion:
-	ID '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); }
+	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); }
 ;
 
-sentencia_asignacion_atributo_objeto:
-	ID '.' sentencia_asignacion_atributo_objeto_identificador '=' expresion ','
-;
-
-sentencia_asignacion_atributo_objeto_identificador:
+sentencia_objeto_identificador:
 	ID |
-	ID '.' sentencia_asignacion_atributo_objeto_identificador
+	ID '.' sentencia_objeto_identificador
 ;
 
 sentencia_declarativa:
@@ -199,8 +194,6 @@ public static void main(String[] args) {
 	        out.saveFile("codigo-lexico.txt", logger.getLexico());
 			out.saveFile("codigo-sintetico.txt", logger.getSintactico());
 			out.saveFile("tabla-de-simbolos.txt", printTs);
-
-			GeneracionCodigoIntermedio instance = GeneracionCodigoIntermedio.getInstance();
 		}
 	}
 }
