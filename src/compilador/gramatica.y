@@ -61,7 +61,13 @@ sentencia_imprimir:
 
 sentencia_invocacion_funcion:
 	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
-	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
+	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); } |
+	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresion detectada, se preserva solo la primera expresion"); }
+;
+
+lista_expresiones_invocacion_funcion_exceso: 
+	expresion |
+	expresion ',' expresion
 ;
 
 sentencia_asignacion:
@@ -97,12 +103,12 @@ bloque_sentencias_declarativas_clase:
 declaracion_funcion:
 	VOID ID '(' parametro_funcion ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion con parametro detectado"); } |
 	VOID ID '(' ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion sin parametro detectado"); } |
-	VOID ID '(' parametro_funcion ',' lista_parametros_funcion ')' '{' '}' { logger.logError("[Parser] Declaracion de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
+	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' '{' '}' { logger.logError("[Parser] Declaracion de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 ;
 
-lista_parametros_funcion: 
+lista_parametros_funcion_exceso: 
 	parametro_funcion |
-	parametro_funcion ',' lista_parametros_funcion
+	parametro_funcion ',' lista_parametros_funcion_exceso
 ;
 
 parametro_funcion:

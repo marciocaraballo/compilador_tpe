@@ -8,4 +8,6 @@
     VOID test(INT a) {
     	
     }
+    
+    test(a),
 }
