@@ -11,9 +11,36 @@
     
     INTERFACE z {
 	    VOID q(),
-	    VOID s(INT c, INT d),
-	    VOID jeje(INT a),
+	    VOID s(),
+	}
+	
+	CLASS a IMPLEMENT z {
+	    VOID q() { }
+	    VOID s() { }
 	}
     
     test(a),
+    
+    CLASS ca {
+    	INT a;c,
+    	VOID m()
+	}
+
+	CLASS cb {
+    	FLOAT b,
+    	FLOAT a,
+    	VOID n() { }
+    	ca,
+	}
+	
+	ca a1; a2,
+	cb b1; b2; b3,
+	
+	a1.a = 3_i,
+	b1.ca.a = 3_i,
+	b1.a = 2.3, 
+	b1.b = 1.2, 
+	b1.ca.c = 1_i, 
+	b1.ca.m(), 
+	b1.n(),
 }

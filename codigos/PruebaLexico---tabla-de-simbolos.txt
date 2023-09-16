@@ -12,11 +12,11 @@ Lexema: % Hola Mundo! %
 Atributo: token Valor: 259
 Lexema: test
 Atributo: token Valor: 257
-Lexema: d
-Atributo: token Valor: 257
-Lexema: jeje
-Atributo: token Valor: 257
 Lexema: x
 Atributo: token Valor: 257
 Lexema: z
+Atributo: token Valor: 257
+Lexema: m
+Atributo: token Valor: 257
+Lexema: ca
 Atributo: token Valor: 257
