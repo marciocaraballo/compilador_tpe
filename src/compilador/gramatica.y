@@ -202,6 +202,8 @@ public void constanteConSigno(String constante) {
 				logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
 
 				ts.swapLexemas(constante, MIN_INT_VALUE + "_i");
+			} else {
+				ts.swapLexemas(constante, negConstante);
 			}
 		}
 	}

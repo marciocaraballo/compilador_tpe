@@ -1,5 +1,4 @@
-Lexema: 0.0
-Atributo: tipo Valor: f64
+Lexema: -32767_i
 Atributo: token Valor: 258
 Lexema: % Hola Mundo! %
 Atributo: token Valor: 259

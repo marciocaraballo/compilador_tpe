@@ -451,6 +451,8 @@ public void constanteConSigno(String constante) {
 				logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
 
 				ts.swapLexemas(constante, MIN_INT_VALUE + "_i");
+			} else {
+				ts.swapLexemas(constante, negConstante);
 			}
 		}
 	}
@@ -493,7 +495,7 @@ public static void main(String[] args) {
 		}
 	}
 }
-//#line 425 "Parser.java"
+//#line 427 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -703,7 +705,7 @@ case 59:
 //#line 151 ".\gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 630 "Parser.java"
+//#line 632 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
