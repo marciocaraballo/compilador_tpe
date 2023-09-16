@@ -1,22 +1,46 @@
 Lexema: a
 Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: c
+Atributo: token Valor: 257
+Lexema: test
+Atributo: token Valor: 257
+Lexema: m
+Atributo: token Valor: 257
+Lexema: n
+Atributo: token Valor: 257
+Lexema: b1
+Atributo: token Valor: 257
+Lexema: a1
+Atributo: token Valor: 257
+Lexema: b2
+Atributo: token Valor: 257
 Lexema: q
+Atributo: token Valor: 257
+Lexema: a2
+Atributo: token Valor: 257
+Lexema: b3
 Atributo: token Valor: 257
 Lexema: -32767_i
 Atributo: token Valor: 258
 Lexema: s
 Atributo: token Valor: 257
-Lexema: c
-Atributo: token Valor: 257
 Lexema: % Hola Mundo! %
 Atributo: token Valor: 259
-Lexema: test
-Atributo: token Valor: 257
+Lexema: 1.2
+Atributo: token Valor: 258
+Lexema: 2.3
+Atributo: token Valor: 258
 Lexema: x
 Atributo: token Valor: 257
 Lexema: z
 Atributo: token Valor: 257
-Lexema: m
-Atributo: token Valor: 257
+Lexema: 1_i
+Atributo: token Valor: 258
+Lexema: 3_i
+Atributo: token Valor: 258
 Lexema: ca
+Atributo: token Valor: 257
+Lexema: cb
 Atributo: token Valor: 257

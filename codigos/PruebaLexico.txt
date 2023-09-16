@@ -23,7 +23,7 @@
     
     CLASS ca {
     	INT a;c,
-    	VOID m()
+    	VOID m() {}
 	}
 
 	CLASS cb {
