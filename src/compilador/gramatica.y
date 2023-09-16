@@ -62,7 +62,7 @@ sentencia_imprimir:
 sentencia_invocacion_funcion:
 	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
 	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); } |
-	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresion detectada, se preserva solo la primera expresion"); }
+	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); }
 ;
 
 lista_expresiones_invocacion_funcion_exceso: 
@@ -169,6 +169,7 @@ public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
+public static int MIN_INT_VALUE = -(int) (Math.pow(2, 15));
 
 public void constanteConSigno(String constante) {
 	/** Check de float negativos */
@@ -183,7 +184,7 @@ public void constanteConSigno(String constante) {
 			if (-3.40282347E+38 < parsedDouble) {
 				negConstante = new String("-3.40282347E+38");
 			} else {
-				negConstante =  new String("-1.17549435E-38");
+				negConstante = new String("-1.17549435E-38");
 			}
 		}
 		
@@ -196,10 +197,9 @@ public void constanteConSigno(String constante) {
 		
 			ts.swapLexemas(constante, "0_ul");
 		} else {
+			// se recibio un INT negativo
 			String negConstante = "-"+constante;
 			boolean exceptionOutOfRange = false;
-			// se recibio un INT negativo
-			int MIN_INT_VALUE = -(int) (Math.pow(2, 15));
 			int cte = 0;
 
 			String negConstanteValue = negConstante.toString().split("_")[0];
