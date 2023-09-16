@@ -95,13 +95,14 @@ bloque_sentencias_declarativas_clase:
 ;
 
 declaracion_funcion:
-	VOID ID '(' lista_parametros_funcion ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion con parametro detectado"); } |
-	VOID ID '(' ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion sin parametro detectado"); }
+	VOID ID '(' parametro_funcion ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion con parametro detectado"); } |
+	VOID ID '(' ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion sin parametro detectado"); } |
+	VOID ID '(' parametro_funcion ',' lista_parametros_funcion ')' '{' '}' { logger.logError("[Parser] Declaracion de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 ;
 
 lista_parametros_funcion: 
 	parametro_funcion |
-	parametro_funcion ',' lista_parametros_funcion { logger.logError("[Parser] Declaracion de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
+	parametro_funcion ',' lista_parametros_funcion
 ;
 
 parametro_funcion:

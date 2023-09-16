@@ -5,7 +5,7 @@
     
     x = -32768_i,
     
-    VOID test(INT a, INT b, INT c, FLOAT d) {
+    VOID test(INT a) {
     	
     }
 }
