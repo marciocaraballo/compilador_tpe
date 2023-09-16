@@ -82,7 +82,17 @@ sentencia_objeto_identificador:
 sentencia_declarativa:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
 	declaracion_funcion |
-	declaracion_clase
+	declaracion_clase |
+	declaracion_interfaz
+;
+
+declaracion_interfaz:
+	INTERFACE ID '{' bloque_encabezado_funcion '}'
+;
+
+bloque_encabezado_funcion:
+	encabezado_funcion ',' |
+	encabezado_funcion ',' bloque_encabezado_funcion
 ;
 
 sentencia_declarativa_clase:
@@ -101,9 +111,17 @@ bloque_sentencias_declarativas_clase:
 ;
 
 declaracion_funcion:
-	VOID ID '(' parametro_funcion ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion con parametro detectado"); } |
-	VOID ID '(' ')' '{' '}' { logger.logSuccess("[Parser] Declaracion de funcion sin parametro detectado"); } |
-	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' '{' '}' { logger.logError("[Parser] Declaracion de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
+	encabezado_funcion cuerpo_funcion { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+;
+
+encabezado_funcion:
+	VOID ID '(' parametro_funcion ')' |
+	VOID ID '(' ')' |
+	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
+;
+
+cuerpo_funcion:
+	'{' '}'
 ;
 
 lista_parametros_funcion_exceso: 

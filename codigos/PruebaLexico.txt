@@ -9,5 +9,11 @@
     	
     }
     
+    INTERFACE z {
+	    VOID q(),
+	    VOID s(INT c, INT d),
+	    VOID jeje(INT a),
+	}
+    
     test(a),
 }

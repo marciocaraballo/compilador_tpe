@@ -1,6 +1,6 @@
 [Success] Linea 2: [Parser] Sentencia imprimir detectada
 [Success] Linea 4: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 10: [Parser] Declaracion de funcion con parametro detectado
-[Success] Linea 12: [Parser] Invocacion de funcion con expresion detectada
-[Success] Linea 13: [Parser] Programa correcto detectado
+[Success] Linea 10: [Parser] Declaracion de funcion detectado
+[Success] Linea 18: [Parser] Invocacion de funcion con expresion detectada
+[Success] Linea 19: [Parser] Programa correcto detectado

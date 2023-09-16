@@ -1,10 +1,22 @@
 Lexema: a
 Atributo: token Valor: 257
+Lexema: q
+Atributo: token Valor: 257
 Lexema: -32767_i
 Atributo: token Valor: 258
+Lexema: s
+Atributo: token Valor: 257
+Lexema: c
+Atributo: token Valor: 257
 Lexema: % Hola Mundo! %
 Atributo: token Valor: 259
 Lexema: test
 Atributo: token Valor: 257
+Lexema: d
+Atributo: token Valor: 257
+Lexema: jeje
+Atributo: token Valor: 257
 Lexema: x
+Atributo: token Valor: 257
+Lexema: z
 Atributo: token Valor: 257
