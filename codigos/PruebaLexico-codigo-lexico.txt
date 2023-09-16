@@ -11,4 +11,21 @@
 [WARNING] Linea 6: [Lexico] Se supero el maximo valor para la constante: 32768_i, se trunca al rango permitido
 [Success] Linea 6: [Lexico] Se reconoce un token para 32767_i con el token 258
 [Success] Linea 6: [Lexico] Se reconoce un token para , con el token 44
-[Success] Linea 7: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 8: [Lexico] Se reconoce un token para VOID con el token 264
+[Success] Linea 8: [Lexico] Se reconoce un token para test con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 8: [Lexico] Se reconoce un token para INT con el token 275
+[Success] Linea 8: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 8: [Lexico] Se reconoce un token para INT con el token 275
+[Success] Linea 8: [Lexico] Se reconoce un token para b con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 8: [Lexico] Se reconoce un token para INT con el token 275
+[Success] Linea 8: [Lexico] Se reconoce un token para c con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 8: [Lexico] Se reconoce un token para FLOAT con el token 277
+[Success] Linea 8: [Lexico] Se reconoce un token para d con el token 257
+[Success] Linea 8: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 8: [Lexico] Se reconoce un token para { con el token 123
+[Success] Linea 10: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 11: [Lexico] Se reconoce un token para } con el token 125
