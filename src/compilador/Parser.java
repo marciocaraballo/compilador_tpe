@@ -443,7 +443,7 @@ public void constanteConSigno(String constante) {
 		String negConstante = "-"+constante;
 		Double parsedDouble = Double.parseDouble(negConstante);
 		
-		if (parsedDouble < -1.17549435E-38 && -3.40282347E+38 > parsedDouble && parsedDouble != 0.0) {
+		if (parsedDouble < -1.17549435E-38 && -3.40282347E+38 > parsedDouble) {
 			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
 			
 			if (-3.40282347E+38 < parsedDouble) {

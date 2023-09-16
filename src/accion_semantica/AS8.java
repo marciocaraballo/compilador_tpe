@@ -10,7 +10,7 @@ public class AS8 extends AccionSemantica {
 
 		TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
 		Logger logger = Logger.getInstance();
-		String formattedDouble = lexema.toString().replace('D', 'E');
+		String formattedDouble = lexema.toString();
 
 		Double parsedDouble = Double.parseDouble(formattedDouble);
 
