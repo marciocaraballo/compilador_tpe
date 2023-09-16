@@ -19,9 +19,7 @@
 //#line 2 ".\gramatica.y"
 package compilador;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-//#line 22 "Parser.java"
+//#line 20 "Parser.java"
 
 
 
@@ -402,15 +400,64 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 157 ".\gramatica.y"
+//#line 155 ".\gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
 
+public void constanteConSigno(String constante) {
+	/** Check de float negativos */
+	if (constante.contains(".")) {
+		
+		String negConstante = "-"+constante;
+		Double parsedDouble = Double.parseDouble(negConstante);
+		
+		if (parsedDouble < -1.17549435E-38 && -3.40282347E+38 > parsedDouble && parsedDouble != 0.0) {
+			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
+			
+			if (-3.40282347E+38 < parsedDouble) {
+				negConstante = new String("-3.40282347E+38");
+			} else {
+				negConstante =  new String("-1.17549435E-38");
+			}
+		}
+		
+		ts.swapLexemas(constante, negConstante);
+	} else {
+
+		if (constante.contains("_ul")) {
+			//se recibio un ULONG con signo negativo
+			logger.logWarning("[Parser] No se admiten ULONG con valores negativos: " + "-"+constante + ", se trunca a 0_ul");
+		
+			ts.swapLexemas(constante, "0_ul");
+		} else {
+			String negConstante = "-"+constante;
+			boolean exceptionOutOfRange = false;
+			// se recibio un INT negativo
+			int MIN_INT_VALUE = -(int) (Math.pow(2, 15));
+			int cte = 0;
+
+			String negConstanteValue = negConstante.toString().split("_")[0];
+
+			try {
+				cte = Integer.parseInt(negConstanteValue);
+			} catch (NumberFormatException e) {
+				exceptionOutOfRange = true;
+			}
+
+			if (cte < MIN_INT_VALUE || exceptionOutOfRange) {
+				logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
+
+				ts.swapLexemas(constante, MIN_INT_VALUE + "_i");
+			}
+		}
+	}
+}	
+
 public int yylex() {
-	return lexico.yylex(parser);
+	return lexico.yylex(yylval);
 }
 
 public void yyerror(String error) {
@@ -446,7 +493,7 @@ public static void main(String[] args) {
 		}
 	}
 }
-//#line 378 "Parser.java"
+//#line 425 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -601,62 +648,62 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 20 ".\gramatica.y"
+//#line 18 ".\gramatica.y"
 { logger.logSuccess("[Parser] Programa correcto detectado"); }
 break;
 case 11:
-//#line 42 ".\gramatica.y"
+//#line 40 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
 break;
 case 12:
-//#line 46 ".\gramatica.y"
+//#line 44 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); }
 break;
 case 13:
-//#line 47 ".\gramatica.y"
+//#line 45 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
 break;
 case 18:
-//#line 61 ".\gramatica.y"
+//#line 59 ".\gramatica.y"
 { logger.logSuccess("[Parser] Sentencia imprimir detectada"); }
 break;
 case 19:
-//#line 65 ".\gramatica.y"
+//#line 63 ".\gramatica.y"
 { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); }
 break;
 case 20:
-//#line 66 ".\gramatica.y"
+//#line 64 ".\gramatica.y"
 { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
 break;
 case 21:
-//#line 70 ".\gramatica.y"
+//#line 68 ".\gramatica.y"
 { logger.logSuccess("[Parser] Asignacion detectada"); }
 break;
 case 24:
-//#line 79 ".\gramatica.y"
+//#line 77 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
 break;
 case 27:
-//#line 85 ".\gramatica.y"
+//#line 83 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); }
 break;
 case 30:
-//#line 91 ".\gramatica.y"
+//#line 89 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); }
 break;
 case 33:
-//#line 100 ".\gramatica.y"
+//#line 98 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion con parametro detectado"); }
 break;
 case 34:
-//#line 101 ".\gramatica.y"
+//#line 99 ".\gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion sin parametro detectado"); }
 break;
 case 59:
-//#line 153 ".\gramatica.y"
-{ }
+//#line 151 ".\gramatica.y"
+{ constanteConSigno(val_peek(0).sval); }
 break;
-//#line 583 "Parser.java"
+//#line 630 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

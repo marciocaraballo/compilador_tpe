@@ -1,8 +1,6 @@
 %{
 package compilador;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 %}
 
 %token ID CTE CADENA IF ELSE ENDIF PRINT VOID RETURN COMP_MAYOR_IGUAL COMP_MENOR_IGUAL COMP_IGUAL COMP_DISTINTO
@@ -150,7 +148,7 @@ factor:
 
 constante:
 	CTE |
-	'-' CTE { }
+	'-' CTE { constanteConSigno($2.sval); }
 ;
 
 %%
@@ -160,8 +158,57 @@ public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
 
+public void constanteConSigno(String constante) {
+	/** Check de float negativos */
+	if (constante.contains(".")) {
+		
+		String negConstante = "-"+constante;
+		Double parsedDouble = Double.parseDouble(negConstante);
+		
+		if (parsedDouble < -1.17549435E-38 && -3.40282347E+38 > parsedDouble && parsedDouble != 0.0) {
+			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
+			
+			if (-3.40282347E+38 < parsedDouble) {
+				negConstante = new String("-3.40282347E+38");
+			} else {
+				negConstante =  new String("-1.17549435E-38");
+			}
+		}
+		
+		ts.swapLexemas(constante, negConstante);
+	} else {
+
+		if (constante.contains("_ul")) {
+			//se recibio un ULONG con signo negativo
+			logger.logWarning("[Parser] No se admiten ULONG con valores negativos: " + "-"+constante + ", se trunca a 0_ul");
+		
+			ts.swapLexemas(constante, "0_ul");
+		} else {
+			String negConstante = "-"+constante;
+			boolean exceptionOutOfRange = false;
+			// se recibio un INT negativo
+			int MIN_INT_VALUE = -(int) (Math.pow(2, 15));
+			int cte = 0;
+
+			String negConstanteValue = negConstante.toString().split("_")[0];
+
+			try {
+				cte = Integer.parseInt(negConstanteValue);
+			} catch (NumberFormatException e) {
+				exceptionOutOfRange = true;
+			}
+
+			if (cte < MIN_INT_VALUE || exceptionOutOfRange) {
+				logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
+
+				ts.swapLexemas(constante, MIN_INT_VALUE + "_i");
+			}
+		}
+	}
+}	
+
 public int yylex() {
-	return lexico.yylex(parser);
+	return lexico.yylex(yylval);
 }
 
 public void yyerror(String error) {
