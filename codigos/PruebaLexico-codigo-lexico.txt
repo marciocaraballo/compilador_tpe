@@ -7,9 +7,8 @@
 [Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 6: [Lexico] Se reconoce un token para x con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para = con el token 61
-[Success] Linea 6: [Lexico] Se reconoce un token para - con el token 45
-[WARNING] Linea 6: [Lexico] Se supero el maximo valor para la constante: 32768_i, se trunca al rango permitido
-[Success] Linea 6: [Lexico] Se reconoce un token para 32767_i con el token 258
+[WARNING] Linea 6: [Lexico] Se supero el maximo valor para la constante: 32769_i, se trunca valor 32768_i
+[Success] Linea 6: [Lexico] Se reconoce un token para 32768_i con el token 258
 [Success] Linea 6: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 8: [Lexico] Se reconoce un token para FLOAT con el token 277
 [Success] Linea 8: [Lexico] Se reconoce un token para z con el token 257

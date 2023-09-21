@@ -1,4 +1,4 @@
-Lexema: -32767_i
+Lexema: 32767_i
 Atributo: token Valor: 258
 Lexema: % Hola Mundo! %
 Atributo: token Valor: 259

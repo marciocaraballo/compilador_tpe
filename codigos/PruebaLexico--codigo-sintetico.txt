@@ -1,5 +1,6 @@
 [Success] Linea 2: [Parser] Sentencia imprimir detectada
 [Success] Linea 4: [Parser] Declaracion de lista de variables detectado
+[WARNING] Linea 6: [Parser] Rango invalido para la constante: 32768_i, se trunca al valor 32767_i
 [Success] Linea 6: [Parser] Asignacion detectada
 [Success] Linea 8: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 10: [Parser] Asignacion detectada

@@ -178,7 +178,7 @@ factor:
 ;
 
 constante:
-	CTE |
+	CTE { corregirConstantePositivaEntera($1.sval); } |
 	'-' CTE { constanteConSigno($2.sval); }
 ;
 
@@ -189,6 +189,28 @@ public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
 public static int MIN_INT_VALUE = -(int) (Math.pow(2, 15));
+public static int MAX_INT_VALUE = (int) (Math.pow(2, 15) - 1);
+
+/** Chequea, para los INT, que el valor positivo no supere el valor maximo */
+public void corregirConstantePositivaEntera(String constante) {
+	if (constante.contains("_i")) {
+		//se recibio un INT con signo positivo
+		boolean exceptionOutOfRange = false;
+		int cte = 0;
+
+		try {
+			cte = Integer.parseInt(constante);
+		} catch (NumberFormatException e) {
+			exceptionOutOfRange = true;
+		}
+
+		if (cte > MAX_INT_VALUE || exceptionOutOfRange) {
+			logger.logWarning("[Parser] Rango invalido para la constante: " + constante + ", se trunca al valor " + MAX_INT_VALUE + "_i");
+
+			ts.swapLexemas(constante, MAX_INT_VALUE + "_i");
+		}
+	}
+}
 
 public void constanteConSigno(String constante) {
 	/** Check de float negativos */

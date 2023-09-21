@@ -5,8 +5,10 @@ import compilador.Logger;
 import compilador.TablaDeSimbolos;
 
 public class AS5 extends AccionSemantica {
-
-	public static final int MAX_INT_VALUE = (int) (Math.pow(2, 15) - 1);
+	// El maximo positivo deberia ser 32767 pero se deja en 32768 para que luego el
+	// sintactico resuelva el rango en el caso de que sea negativo (pueden
+	// colisionar)
+	public static final int MAX_INT_VALUE = (int) (Math.pow(2, 15));
 	public static final long MAX_INT_UNSIGNED_VALUE = (long) (Math.pow(2, 32) - 1);
 
 	@Override
@@ -33,7 +35,7 @@ public class AS5 extends AccionSemantica {
 
 			if (cte > MAX_INT_VALUE || exceptionOutOfRange) {
 				logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + lexema.toString()
-						+ ", se trunca al rango permitido");
+						+ ", se trunca valor " + MAX_INT_VALUE + "_i");
 
 				lexema.setLength(0);
 				lexema.append(MAX_INT_VALUE + "_i");
@@ -50,7 +52,7 @@ public class AS5 extends AccionSemantica {
 
 			if (cte > MAX_INT_UNSIGNED_VALUE || exceptionOutOfRange) {
 				logger.logWarning("[Lexico] Se supero el maximo valor para la constante: " + lexema.toString()
-						+ ", se trunca al rango permitido");
+						+ ", se trunca al valor " + MAX_INT_UNSIGNED_VALUE + "_ul");
 
 				lexema.setLength(0);
 				lexema.append(MAX_INT_UNSIGNED_VALUE + "_ul");
