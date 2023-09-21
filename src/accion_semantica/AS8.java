@@ -14,7 +14,6 @@ public class AS8 extends AccionSemantica {
 
 		Double parsedDouble = Double.parseDouble(formattedDouble);
 
-		// devolver char a la entrada
 		fileHelper.reset();
 
 		if (parsedDouble != 0 && (parsedDouble > 3.40282347E+38 || parsedDouble < 1.17549435E-38)) {
