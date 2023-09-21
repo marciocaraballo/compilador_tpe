@@ -6,5 +6,9 @@ Lexema: 0.0e+5
 Atributo: token Valor: 258
 Lexema: x
 Atributo: token Valor: 257
+Lexema: y
+Atributo: token Valor: 257
 Lexema: z
+Atributo: token Valor: 257
+Lexema: f1
 Atributo: token Valor: 257

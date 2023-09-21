@@ -122,7 +122,7 @@ encabezado_funcion:
 ;
 
 cuerpo_funcion:
-	'{' '}'
+	'{' sentencias '}'
 ;
 
 lista_parametros_funcion_exceso: 

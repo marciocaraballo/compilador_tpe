@@ -8,4 +8,10 @@
     FLOAT z,
     
     z = 0.0e+5,
+
+    VOID f1 (INT y)
+	{
+		INT x,
+		x = y,
+	}
 }
