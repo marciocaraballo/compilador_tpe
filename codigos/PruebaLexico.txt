@@ -1,7 +1,7 @@
 { 
     PRINT % Hola Mundo! %,
     
-    INT x,
+    INT x#,
     
     x = 32769_i,
     

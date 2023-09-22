@@ -10,31 +10,30 @@ import java.util.Set;
  * atributos, indexados por alguna key identificadora
  */
 public class TablaDeSimbolos {
-	
-	private static TablaDeSimbolos instance = null; 
-	
+
+	private static TablaDeSimbolos instance = null;
+
 	private HashMap<String, HashMap<String, Object>> tabla_simbolos = new HashMap<String, HashMap<String, Object>>();
-	
-	private GeneracionCodigoIntermedio gc = GeneracionCodigoIntermedio.getInstance();
-	
+
 	public static final int IDENTIFICADOR = 257;
-    public static final int CONSTANTE = 258;
-    public static final int CADENA = 259;
-    
-    /* Keys de atributos */
+	public static final int CONSTANTE = 258;
+	public static final int CADENA = 259;
+
+	/* Keys de atributos */
 	public static final String TOKEN = "token";
 	public static final String TYPE = "tipo";
 	public static final String USE = "uso";
 	public static final String PARAMETER1 = "parametro1";
 	public static final String PARAMETER2 = "parametro2";
-    
-	TablaDeSimbolos() {};
-	
+
+	TablaDeSimbolos() {
+	};
+
 	public static TablaDeSimbolos getInstance() {
 		if (instance == null) {
 			instance = new TablaDeSimbolos();
 		}
-		
+
 		return instance;
 	}
 
@@ -42,142 +41,76 @@ public class TablaDeSimbolos {
 	public void putIdentificador(String lexema) {
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(TOKEN, IDENTIFICADOR);
-			
+
 		tabla_simbolos.put(lexema, atributos);
 	}
-	
-	public void putTipo(String lexema, String tipo) {
-		HashMap<String, Object> attributes = tabla_simbolos.get(lexema); 
-		
-		attributes.put(TYPE, tipo);
-	}
-	
-	public void putIdentificadorUso(String lexema, String uso) {
-		HashMap<String, Object> attributes = tabla_simbolos.get(lexema); 
-		
-		attributes.put(USE, uso);
-	}
-	
+
 	/* Agrega un lexema que se reconoce como constante */
 	public void putConstante(String lexema) {
-		
+
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(TOKEN, CONSTANTE);
-		
+
 		tabla_simbolos.put(lexema, atributos);
 	}
-	
+
 	/* Agrega un lexema que se reconoce como cadena de caracteres */
 	public void putCadena(String lexema) {
-		
+
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(TOKEN, CADENA);
-		
+
 		tabla_simbolos.put(lexema, atributos);
 	}
-	
+
 	public boolean has(String lexema) {
 		return tabla_simbolos.containsKey(lexema);
 	}
-	
-	public String getUso(String lexema) {
-		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
-		return (String)atributos.get(USE);
-	}
-	
+
 	public int getToken(String lexema) {
-		
+
 		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
-		
-		return (int)atributos.get(TOKEN);
+
+		return (int) atributos.get(TOKEN);
 	}
-	
-	public void putParametro(String lexema, int nroParametro) {
-		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
-		atributos.put(PARAMETER1, lexema);
-	}
-	
-	public void getParametro(String lexema, int nroParametro) {
-	}
-	
-	public String[] getTipo(String lexema) {
-		StringBuilder aux = new StringBuilder(lexema + gc.getAmbito());
-		while (!aux.isEmpty()) {
-			if (tabla_simbolos.containsKey(aux.toString())) {
-				HashMap<String, Object> atributos = tabla_simbolos.get(aux.toString());
-				String[] retorno = {aux.toString(), (String) atributos.get(TYPE)};
-				return retorno;
-			}
-			gc.salirAmbitoAux(aux);
-		}
-		return null;
-	}
-	
-	public String getLexema(String lexema) {
-		StringBuilder aux = new StringBuilder(lexema + gc.getAmbito());
-		while (!aux.isEmpty()) {
-			if (tabla_simbolos.containsKey(aux.toString())) {
-				return aux.toString();
-			}
-			gc.salirAmbitoAux(aux);
-		}
-		return null;
-	}
-	
-	public String getTipo2(String lexema) {
-		StringBuilder aux = new StringBuilder(lexema + gc.getAmbito());
-		
-		if (!this.has(lexema)) {
-			HashMap<String, Object> atributos = tabla_simbolos.get(aux.toString());
-			return (String) atributos.get(TYPE);
-		}
-		return null;
-	}
-	
-	
-	public String getTipoCte(String lexema) {
-		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
-		return (String) atributos.get(TYPE);
-	}
-	
-	
+
 	public void swapLexemas(String lexemaOriginal, String lexemaModificado) {
-			
+
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexemaOriginal);
-		
+
 		tabla_simbolos.remove(lexemaOriginal);
-		
+
 		tabla_simbolos.put(lexemaModificado, attributes);
 	}
-	
+
 	public String print() {
 		System.out.println("Tabla de Simbolos");
 		Set<String> keys = tabla_simbolos.keySet();
 		Iterator<String> keysIterator = keys.iterator();
-		
+
 		StringBuilder tsPrint = new StringBuilder();
-		
+
 		if (!keysIterator.hasNext()) {
 			tsPrint.append("No hay simbolos detectados");
 		}
-		
-		while(keysIterator.hasNext()) {
+
+		while (keysIterator.hasNext()) {
 			String lexema = keysIterator.next();
 			tsPrint.append("Lexema: " + lexema + "\n");
 			HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
-			
+
 			Set<String> attributesKeys = attributes.keySet();
 			Iterator<String> attributesIterator = attributesKeys.iterator();
-			
-			while(attributesIterator.hasNext()) {
+
+			while (attributesIterator.hasNext()) {
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
 				tsPrint.append("Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n");
 			}
-		} 
-		
+		}
+
 		System.out.println(tsPrint.toString());
-		
+
 		return tsPrint.toString();
 	}
 }
