@@ -60,25 +60,32 @@ sentencia_ejecutable_funcion:
 ;
 
 sentencia_return:
-	RETURN ','
+	RETURN ',' | 
+	RETURN { logger.logError("[Parser] Falta ',' luego del RETURN"); }
 ;
 
 sentencia_iterativa_do_while:
-	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
+	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
+	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
 ;
 
 sentencia_iterativa_do_while_funcion:
-	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
+	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
+	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
 ;
 
 sentencia_seleccion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
+	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
 ;
 
 sentencia_seleccion_funcion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
 ;
 
 bloque_sentencias_ejecutables:
@@ -102,7 +109,8 @@ sentencias_ejecutables_funcion:
 ;
 
 sentencia_imprimir:
-	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia imprimir detectada"); }
+	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); }
+	PRINT CADENA { logger.logError("[Parser] Falta ',' en Sentencia PRINT"); }
 ;
 
 sentencia_invocacion_funcion:
@@ -117,7 +125,8 @@ lista_expresiones_invocacion_funcion_exceso:
 ;
 
 sentencia_asignacion:
-	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); }
+	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); } |
+	sentencia_objeto_identificador '=' expresion { logger.logSuccess("[Parser] Falta ',' en sentenecia asignacion"); }
 ;
 
 sentencia_objeto_identificador:
@@ -126,10 +135,14 @@ sentencia_objeto_identificador:
 ;
 
 sentencia_declarativa:
-	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
+	declaracion_variable |
 	declaracion_funcion |
 	declaracion_clase |
 	declaracion_interfaz
+;
+
+declaracion_variable:
+	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
 ;
 
 declaracion_interfaz:

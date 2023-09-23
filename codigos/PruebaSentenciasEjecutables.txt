@@ -7,6 +7,13 @@
 
     x = 12_ul,
 
+    a = b-- * 7_i,
+	z = a---b--,
+    
+	IF (a-- > 2_i) 
+		a = b-- * 7_i,
+	END_IF,
+
     IF (a>b) {
     	x = 798789798_i,
     	RETURN,
