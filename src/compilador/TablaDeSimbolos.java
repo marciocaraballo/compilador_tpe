@@ -21,10 +21,6 @@ public class TablaDeSimbolos {
 
 	/* Keys de atributos */
 	public static final String TOKEN = "token";
-	public static final String TYPE = "tipo";
-	public static final String USE = "uso";
-	public static final String PARAMETER1 = "parametro1";
-	public static final String PARAMETER2 = "parametro2";
 
 	TablaDeSimbolos() {
 	};
