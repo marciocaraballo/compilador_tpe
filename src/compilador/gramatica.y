@@ -109,14 +109,18 @@ sentencias_ejecutables_funcion:
 ;
 
 sentencia_imprimir:
-	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); }
+	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); } |
 	PRINT CADENA { logger.logError("[Parser] Falta ',' en Sentencia PRINT"); }
 ;
 
 sentencia_invocacion_funcion:
 	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
 	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); } |
-	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); }
+	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); } |
+
+	sentencia_objeto_identificador '(' expresion ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); } |
+	sentencia_objeto_identificador '(' ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); } |
+	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
 ;
 
 lista_expresiones_invocacion_funcion_exceso: 

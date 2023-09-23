@@ -62,6 +62,7 @@
 [Success] Linea 19: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 20: [Lexico] Se reconoce un token para } con el token 125
 [Success] Linea 21: [Lexico] Se reconoce un token para END_IF con el token 262
+[Success] Linea 21: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 23: [Lexico] Se reconoce un token para DO con el token 272
 [Success] Linea 23: [Lexico] Se reconoce un token para { con el token 123
 [Success] Linea 24: [Lexico] Se reconoce un token para x con el token 257
@@ -153,6 +154,9 @@
 [Success] Linea 54: [Lexico] Se reconoce un token para } con el token 125
 [Success] Linea 56: [Lexico] Se reconoce un token para hola con el token 257
 [Success] Linea 56: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 56: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 56: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 56: [Lexico] Se reconoce un token para b con el token 257
 [Success] Linea 56: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 56: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 57: [Lexico] Se reconoce un token para } con el token 125

@@ -53,5 +53,5 @@
         RETURN,
     } 
 
-    hola(),
+    hola(a, b),
 }
