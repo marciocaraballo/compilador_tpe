@@ -1,1 +1,28 @@
-No hay simbolos detectados
+Lexema: a
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: c
+Atributo: token Valor: 257
+Lexema: 1.2222222
+Atributo: token Valor: 258
+Lexema: hola
+Atributo: token Valor: 257
+Lexema: 0.0
+Atributo: token Valor: 258
+Lexema: 32767_i
+Atributo: token Valor: 258
+Lexema: % Hola Mundo! %
+Atributo: token Valor: 259
+Lexema: 2.0
+Atributo: token Valor: 258
+Lexema: 1.2
+Atributo: token Valor: 258
+Lexema: x
+Atributo: token Valor: 257
+Lexema: y
+Atributo: token Valor: 257
+Lexema: 2_i
+Atributo: token Valor: 258
+Lexema: 12_ul
+Atributo: token Valor: 258

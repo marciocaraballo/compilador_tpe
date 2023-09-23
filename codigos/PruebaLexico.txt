@@ -1,0 +1,49 @@
+{ 
+    PRINT % Hola Mundo! %,
+
+    FLOAT a,
+    ULONG b,
+    INT c,
+
+    x = 12_ul,
+
+    IF (a>b) {
+    	x = 798789798_i,
+    	RETURN,
+    }
+    END_IF,
+    
+     DO {
+        x = 1.2222222,
+        y = 2.0,
+        RETURN,
+    } WHILE (x<2_i),
+    
+    VOID hola()
+    {
+        FLOAT x,
+        x = 1.2,
+
+        FLOAT x,
+        x = 1.2,
+        IF (x > 0.0)
+            x = 2.0,
+        ELSE {
+            x = 2.0,
+
+            DO {
+                x = 1.2,
+                x = 2.0,
+            } WHILE (x<2_i),
+
+            PRINT % Hola Mundo! %,
+
+            x = 2.0,
+        }
+        END_IF,
+
+        x = 2.0,
+    } 
+
+    hola(),
+}

@@ -16,6 +16,8 @@ CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG FLOAT OPERADOR_MENOS
 
 programa:
 	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
+	sentencias '}' { logger.logError("[Parser] Falta simbolo '{' al principio del programa"); } |
+	'{' sentencias { logger.logError("[Parser] Falta simbolo '}' al final del programa"); } |
 	{ logger.logError("[Parser] Programa vacio"); }
 ;
 
