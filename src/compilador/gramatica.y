@@ -33,11 +33,39 @@ sentencia_ejecutable:
 	sentencia_invocacion_funcion |
 	sentencia_imprimir |
 	sentencia_seleccion |
-	sentencia_iterativa_do_while
+	sentencia_iterativa_do_while |
+	sentencia_return { logger.logError("[Parser] Sentencia RETURN fuera de funcion"); }
+;
+
+sentencias_funcion:
+	sentencia_funcion |
+	sentencia_funcion sentencias_funcion
+;
+
+sentencia_funcion:
+	sentencia_declarativa |
+	sentencia_ejecutable_funcion
+;
+
+sentencia_ejecutable_funcion:
+	sentencia_asignacion |
+	sentencia_invocacion_funcion |
+	sentencia_imprimir |
+	sentencia_seleccion_funcion |
+	sentencia_iterativa_do_while_funcion |
+	sentencia_return
+;
+
+sentencia_return:
+	RETURN ','
 ;
 
 sentencia_iterativa_do_while:
 	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
+;
+
+sentencia_iterativa_do_while_funcion:
+	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
 ;
 
 sentencia_seleccion:
@@ -45,14 +73,29 @@ sentencia_seleccion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
 ;
 
+sentencia_seleccion_funcion:
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
+;
+
 bloque_sentencias_ejecutables:
 	sentencia_ejecutable |
 	'{' sentencias_ejecutables '}'
 ;
 
+bloque_sentencias_ejecutables_funcion:
+	sentencia_ejecutable_funcion |
+	'{' sentencias_ejecutables_funcion '}'
+;
+
 sentencias_ejecutables:
 	sentencia_ejecutable |
 	sentencia_ejecutable sentencias_ejecutables
+;
+
+sentencias_ejecutables_funcion:
+	sentencia_ejecutable_funcion |
+	sentencia_ejecutable_funcion sentencias_ejecutables_funcion
 ;
 
 sentencia_imprimir:
@@ -122,7 +165,7 @@ encabezado_funcion:
 ;
 
 cuerpo_funcion:
-	'{' sentencias '}'
+	'{' sentencias_funcion '}'
 ;
 
 lista_parametros_funcion_exceso: 
@@ -197,9 +240,10 @@ public void corregirConstantePositivaEntera(String constante) {
 		//se recibio un INT con signo positivo
 		boolean exceptionOutOfRange = false;
 		int cte = 0;
+		String constanteValue = constante.toString().split("_")[0];
 
 		try {
-			cte = Integer.parseInt(constante);
+			cte = Integer.parseInt(constanteValue);
 		} catch (NumberFormatException e) {
 			exceptionOutOfRange = true;
 		}

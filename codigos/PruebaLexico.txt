@@ -1,17 +1,30 @@
 { 
     PRINT % Hola Mundo! %,
     
-    INT x#,
-    
-    x = 32769_i,
-    
-    FLOAT z,
-    
-    z = 0.0e+5,
+    VOID hola()
+    {
+        FLOAT x,
+        x = 1.2,
 
-    VOID f1 (INT y)
-	{
-		INT x,
-		x = y,
-	}
+        FLOAT x,
+        x = 1.2,
+        IF (x > 0.0)
+            RETURN,
+        ELSE {
+            x = 2.0,
+
+            DO {
+                x = 1.2,
+                RETURN,
+            } WHILE (x<2_i),
+
+            PRINT % Hola Mundo! %,
+
+            RETURN,
+        }
+        END_IF,
+
+        RETURN,
+    } 
+	
 }

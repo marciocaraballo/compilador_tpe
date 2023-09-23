@@ -29,6 +29,7 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put("!!", Parser.COMP_DISTINTO);
 		palabras_reservadas.put("--", Parser.OPERADOR_MENOS);
 		palabras_reservadas.put("FLOAT", Parser.FLOAT);
+		palabras_reservadas.put("RETURN", Parser.RETURN);
 	}
 
 	public static TablaPalabrasReservadas getInstance() {

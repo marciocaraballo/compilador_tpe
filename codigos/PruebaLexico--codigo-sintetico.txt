@@ -1,10 +1,12 @@
 [Success] Linea 2: [Parser] Sentencia imprimir detectada
-[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
-[WARNING] Linea 6: [Parser] Rango invalido para la constante: 32768_i, se trunca al valor 32767_i
-[Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 8: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 6: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 9: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 10: [Parser] Asignacion detectada
-[Success] Linea 14: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 15: [Parser] Asignacion detectada
-[Success] Linea 16: [Parser] Declaracion de funcion detectado
-[Success] Linea 17: [Parser] Programa correcto detectado
+[Success] Linea 14: [Parser] Asignacion detectada
+[Success] Linea 17: [Parser] Asignacion detectada
+[Success] Linea 19: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 21: [Parser] Sentencia imprimir detectada
+[Success] Linea 25: [Parser] Sentencia seleccion IF ELSE detectada
+[Success] Linea 28: [Parser] Declaracion de funcion detectado
+[Success] Linea 30: [Parser] Programa correcto detectado
