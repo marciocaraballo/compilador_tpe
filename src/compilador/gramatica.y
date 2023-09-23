@@ -15,7 +15,8 @@ CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG FLOAT OPERADOR_MENOS
 %%
 
 programa:
-	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); }
+	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
+	{ logger.logError("[Parser] Programa vacio"); }
 ;
 
 sentencias:

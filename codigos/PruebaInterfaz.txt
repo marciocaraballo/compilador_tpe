@@ -1,0 +1,26 @@
+*{ Prueba de codigo de CLASS e INTERFACE }*
+{
+    *{ Comprobaciones de uso de variables  }*
+    CLASS ca { 
+        INT a, 
+        VOID m() { 
+            INT xx, 
+            VOID funcion1() { 
+                FLOAT zz, 
+                FLOAT ww, 
+                ww = zz + xx + a, 
+            } 
+        } 
+    }
+
+     *{ Comprobaciones de implementar una INTERFACE }*
+    INTERFACE z {
+        VOID q(),
+        VOID s(),
+    }
+
+    CLASS a IMPLEMENT z {
+        VOID q() { PRINT % HOLA %, }
+        VOID s() { PRINT % HOLA %, }
+    }
+}
