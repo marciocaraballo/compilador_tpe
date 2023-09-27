@@ -16,7 +16,7 @@
 
 
 
-//#line 2 "../compilador/gramatica.y"
+//#line 2 "./src/compilador/gramatica.y"
 package compilador;
 import java.io.File;
 //#line 20 "Parser.java"
@@ -563,7 +563,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 249 "../compilador/gramatica.y"
+//#line 249 "./src/compilador/gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
@@ -836,147 +836,147 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 18 "../compilador/gramatica.y"
+//#line 18 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Programa correcto detectado"); }
 break;
 case 2:
-//#line 19 "../compilador/gramatica.y"
+//#line 19 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta simbolo '{' al principio del programa"); }
 break;
 case 3:
-//#line 20 "../compilador/gramatica.y"
+//#line 20 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta simbolo '}' al final del programa"); }
 break;
 case 4:
-//#line 21 "../compilador/gramatica.y"
+//#line 21 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Programa vacio"); }
 break;
 case 14:
-//#line 40 "../compilador/gramatica.y"
+//#line 40 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Sentencia RETURN fuera de funcion"); }
 break;
 case 26:
-//#line 64 "../compilador/gramatica.y"
+//#line 64 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego del RETURN"); }
 break;
 case 27:
-//#line 68 "../compilador/gramatica.y"
+//#line 68 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
 break;
 case 28:
-//#line 69 "../compilador/gramatica.y"
+//#line 69 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
 break;
 case 29:
-//#line 73 "../compilador/gramatica.y"
+//#line 73 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); }
 break;
 case 30:
-//#line 74 "../compilador/gramatica.y"
+//#line 74 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
 break;
 case 31:
-//#line 78 "../compilador/gramatica.y"
+//#line 78 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); }
 break;
 case 32:
-//#line 79 "../compilador/gramatica.y"
+//#line 79 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
 break;
 case 33:
-//#line 80 "../compilador/gramatica.y"
+//#line 80 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); }
 break;
 case 34:
-//#line 81 "../compilador/gramatica.y"
+//#line 81 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
 break;
 case 35:
-//#line 85 "../compilador/gramatica.y"
+//#line 85 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); }
 break;
 case 36:
-//#line 86 "../compilador/gramatica.y"
+//#line 86 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); }
 break;
 case 37:
-//#line 87 "../compilador/gramatica.y"
+//#line 87 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); }
 break;
 case 38:
-//#line 88 "../compilador/gramatica.y"
+//#line 88 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
 break;
 case 47:
-//#line 112 "../compilador/gramatica.y"
+//#line 112 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Sentencia PRINT detectada"); }
 break;
 case 48:
-//#line 113 "../compilador/gramatica.y"
+//#line 113 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' en Sentencia PRINT"); }
 break;
 case 49:
-//#line 117 "../compilador/gramatica.y"
+//#line 117 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); }
 break;
 case 50:
-//#line 118 "../compilador/gramatica.y"
+//#line 118 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); }
 break;
 case 51:
-//#line 119 "../compilador/gramatica.y"
+//#line 119 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); }
 break;
 case 52:
-//#line 121 "../compilador/gramatica.y"
+//#line 121 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
 break;
 case 53:
-//#line 122 "../compilador/gramatica.y"
+//#line 122 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
 break;
 case 54:
-//#line 123 "../compilador/gramatica.y"
+//#line 123 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
 break;
 case 57:
-//#line 132 "../compilador/gramatica.y"
+//#line 132 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Asignacion detectada"); }
 break;
 case 58:
-//#line 133 "../compilador/gramatica.y"
+//#line 133 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Falta ',' en sentenecia asignacion"); }
 break;
 case 65:
-//#line 149 "../compilador/gramatica.y"
+//#line 149 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
 break;
 case 69:
-//#line 162 "../compilador/gramatica.y"
+//#line 162 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); }
 break;
 case 72:
-//#line 168 "../compilador/gramatica.y"
+//#line 168 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); }
 break;
 case 73:
-//#line 169 "../compilador/gramatica.y"
+//#line 169 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); }
 break;
 case 76:
-//#line 178 "../compilador/gramatica.y"
+//#line 178 "./src/compilador/gramatica.y"
 { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
 break;
 case 79:
-//#line 184 "../compilador/gramatica.y"
+//#line 184 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 106:
-//#line 244 "../compilador/gramatica.y"
+//#line 244 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 107:
-//#line 245 "../compilador/gramatica.y"
+//#line 245 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
 //#line 906 "Parser.java"
