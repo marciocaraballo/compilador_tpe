@@ -673,15 +673,13 @@ public static void main(String[] args) {
 	        
 	        Output out = new Output(path);
 	        
-	        String printTs = ts.print();
-	        
 	        out.saveFile("codigo-lexico.txt", logger.getLexico());
-			out.saveFile("codigo-sintetico.txt", logger.getSintactico());
-			out.saveFile("tabla-de-simbolos.txt", printTs);
+			out.saveFile("codigo-sintactico.txt", logger.getSintactico());
+			out.saveFile("tabla-de-simbolos.txt", ts.print());
 		}
 	}
 }
-//#line 613 "Parser.java"
+//#line 611 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -979,7 +977,7 @@ case 107:
 //#line 245 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 906 "Parser.java"
+//#line 904 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

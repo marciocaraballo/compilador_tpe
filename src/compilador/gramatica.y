@@ -355,11 +355,9 @@ public static void main(String[] args) {
 	        
 	        Output out = new Output(path);
 	        
-	        String printTs = ts.print();
-	        
 	        out.saveFile("codigo-lexico.txt", logger.getLexico());
-			out.saveFile("codigo-sintetico.txt", logger.getSintactico());
-			out.saveFile("tabla-de-simbolos.txt", printTs);
+			out.saveFile("codigo-sintactico.txt", logger.getSintactico());
+			out.saveFile("tabla-de-simbolos.txt", ts.print());
 		}
 	}
 }

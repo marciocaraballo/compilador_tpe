@@ -1,40 +1,20 @@
 { 
-    PRINT % Hola Mundo! %,
+    PRINT % Consultas %,
 
-    FLOAT a,
-    ULONG b,
-    INT c,
-
-    x = 12_ul,
-
-    a = b-- * 7_i,
-	z = a---b--,
-    
-	IF (a-- > 2_i) 
-		a = b-- * 7_i,
-	END_IF,
-
-    IF (a>b) {
-    	x = 798789798_i,
-    	RETURN,
+    IF (a > b) {
+    	IF (c > d)
+        	RETURN,
+        END_IF,
     }
     END_IF,
-    
-    DO {
-        x = 1.2222222,
-        y = 2.0,
-        RETURN,
-    } WHILE (x<2_i)
     
     VOID hola()
     {
         FLOAT x,
         x = 1.2,
 
-        FLOAT x,
-        x = 1.2,
         IF (x > 0.0)
-            x = 2.0,
+            RETURN,
         ELSE {
             x = 2.0,
 
@@ -49,9 +29,8 @@
         }
         END_IF,
 
-        x = 2.0,
         RETURN,
     } 
 
-    hola(a, b),
+    hola(a),
 }
