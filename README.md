@@ -1,5 +1,3 @@
 # compilador_tpe
 
-Compilador de lenguaje custom. 
-
-Se encuentra incompleto y no se va a terminar.
+Compilador de lenguaje custom para materia Compiladores 2023
