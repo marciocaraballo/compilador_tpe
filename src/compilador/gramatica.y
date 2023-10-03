@@ -207,7 +207,7 @@ declaracion_interfaz:
 
 bloque_encabezado_funcion:
 	encabezado_funcion ',' |
-	encabezado_funcion ',' bloque_encabezado_funcion
+	bloque_encabezado_funcion ',' encabezado_funcion
 ;
 
 sentencia_declarativa_clase:
