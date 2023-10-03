@@ -142,7 +142,8 @@ lista_expresiones_invocacion_funcion_exceso:
 
 sentencia_asignacion:
 	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); } |
-	sentencia_objeto_identificador '=' expresion { logger.logSuccess("[Parser] Falta ',' en sentenecia asignacion"); }
+	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Falta ',' en sentenecia asignacion"); } |
+	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Falta expresion del lado derecho en sentenecia asignacion"); }
 ;
 
 sentencia_objeto_identificador:

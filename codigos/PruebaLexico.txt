@@ -1,6 +1,10 @@
 { 
     PRINT % Consultas %,
     
+    a = b
+    a = ,
+    a b,
+    
      VOID fun() {
 	     
         IF (a > b) {
