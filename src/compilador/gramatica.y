@@ -198,7 +198,13 @@ declaracion_funcion:
 encabezado_funcion:
 	VOID ID '(' parametro_funcion ')' |
 	VOID ID '(' ')' |
-	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
+	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
+	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
+	VOID '(' parametro_funcion ')' { logger.logError("[Parser] Falta IDENTIFICADOR en el encabezado de la funcion"); } |
+	VOID '(' ')' { logger.logError("[Parser] Falta IDENTIFICADOR en el encabezado de la funcion"); } |
+	VOID ID parametro_funcion ')' { logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); } |
+	VOID ID ')' { logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); } |
+	VOID ID { logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); }
 ;
 
 cuerpo_funcion:
@@ -220,7 +226,8 @@ sentencia_funcion_inalcanzable:
 
 lista_parametros_funcion_exceso: 
 	parametro_funcion |
-	lista_parametros_funcion_exceso ',' parametro_funcion
+	lista_parametros_funcion_exceso ',' parametro_funcion |
+	lista_parametros_funcion_exceso parametro_funcion
 ;
 
 parametro_funcion:
