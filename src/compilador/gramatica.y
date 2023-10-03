@@ -65,12 +65,30 @@ sentencia_return:
 
 sentencia_iterativa_do_while:
 	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
-	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
+	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); } |
+	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables WHILE '(' ')' ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables '(' condicion ')' ',' { logger.logError("[Parser] Falta WHILE en sentencia DO WHILE"); } |
+	DO WHILE ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables WHILE ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
+	DO ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
 ;
 
 sentencia_iterativa_do_while_funcion:
 	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
 	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
+	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ',' { logger.logError("[Parser] Falta WHILE en sentencia DO WHILE"); } |
+	DO WHILE ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion WHILE ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
+	DO ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
 ;
 
 sentencia_seleccion:
