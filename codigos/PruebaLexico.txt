@@ -2,16 +2,23 @@
     PRINT % Consultas %,
     
      VOID fun() {
-     
-		DO {
-			a = b,
-		} WHILE (a>b),    
 	     
         IF (a > b) {
             a = b,
             
-            IF (a > b) 
+            IF (a > b) {
+           	 	a = b,
             	RETURN,
+            	
+            	DO {
+					a = b,
+				} WHILE (a>b),  
+				
+				a = b,
+				
+				RETURN,
+            }
+      
             END_IF,
             
             DO

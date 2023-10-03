@@ -96,7 +96,18 @@ bloque_sentencias_ejecutables_funcion:
 	sentencia_ejecutable_funcion |
 	sentencia_return |
 	'{' sentencias_ejecutables_funcion '}' |
-	'{' sentencias_ejecutables_funcion sentencia_return '}'
+	'{' sentencias_ejecutables_funcion sentencia_return '}' |
+	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
+;
+
+sentencias_ejecutables_funcion_inalcanzable:
+	sentencia_ejecutable_funcion_inalcanzable { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); } |
+	sentencias_ejecutables_funcion_inalcanzable sentencia_ejecutable_funcion_inalcanzable { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
+;
+
+sentencia_ejecutable_funcion_inalcanzable:
+	sentencia_return |
+	sentencia_ejecutable_funcion
 ;
 
 sentencias_ejecutables:
