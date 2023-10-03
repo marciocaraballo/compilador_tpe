@@ -161,7 +161,9 @@ sentencia_declarativa:
 ;
 
 declaracion_variable:
-	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); }
+	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
+	tipo lista_de_variables { logger.logError("[Parser] Falta ',' en sentenecia declaracion de variables"); } |
+	tipo ',' { logger.logError("[Parser] Falta lista de variables en sentenecia declaracion de variables"); }
 ;
 
 declaracion_interfaz:

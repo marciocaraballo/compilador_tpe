@@ -1,1 +1,1 @@
-[Success] Linea 2: [Parser] Sentencia PRINT detectada
+[Success] Linea 6: [Parser] Programa correcto detectado

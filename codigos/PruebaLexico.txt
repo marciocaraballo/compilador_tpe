@@ -1,8 +1,6 @@
 { 
-    PRINT % Consultas %,
-    
-    PRINT % Consultas %
-    
-    PRINT 2_i,
+        
+    FLOAT a 
+    b,
     
 }
