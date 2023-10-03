@@ -77,7 +77,12 @@ sentencia_seleccion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
+	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF"); } |
+	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
 ;
 
 sentencia_seleccion_funcion:
@@ -85,6 +90,11 @@ sentencia_seleccion_funcion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
+	IF '(' ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF"); } |
+	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
 ;
 
 bloque_sentencias_ejecutables:
