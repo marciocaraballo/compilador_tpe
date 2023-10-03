@@ -23,7 +23,7 @@ programa:
 
 sentencias:
 	sentencia |
-	sentencia sentencias
+	sentencias sentencia
 ;
 
 sentencia:
@@ -42,7 +42,7 @@ sentencia_ejecutable:
 
 sentencias_funcion:
 	sentencia_funcion |
-	sentencia_funcion sentencias_funcion
+	sentencias_funcion sentencia_funcion
 ;
 
 sentencia_funcion:
@@ -101,12 +101,12 @@ bloque_sentencias_ejecutables_funcion:
 
 sentencias_ejecutables:
 	sentencia_ejecutable |
-	sentencia_ejecutable sentencias_ejecutables
+	sentencias_ejecutables sentencia_ejecutable
 ;
 
 sentencias_ejecutables_funcion:
 	sentencia_ejecutable_funcion |
-	sentencia_ejecutable_funcion sentencias_ejecutables_funcion
+	sentencias_ejecutables_funcion sentencia_ejecutable_funcion
 ;
 
 sentencia_imprimir:
@@ -136,7 +136,7 @@ sentencia_asignacion:
 
 sentencia_objeto_identificador:
 	ID |
-	ID '.' sentencia_objeto_identificador
+	sentencia_objeto_identificador '.' ID
 ;
 
 sentencia_declarativa:
@@ -172,7 +172,7 @@ declaracion_clase:
 
 bloque_sentencias_declarativas_clase:
 	sentencia_declarativa_clase |
-	sentencia_declarativa_clase bloque_sentencias_declarativas_clase
+	bloque_sentencias_declarativas_clase sentencia_declarativa_clase
 ;
 
 declaracion_funcion:
@@ -192,7 +192,7 @@ cuerpo_funcion:
 
 lista_parametros_funcion_exceso: 
 	parametro_funcion |
-	parametro_funcion ',' lista_parametros_funcion_exceso
+	lista_parametros_funcion_exceso ',' parametro_funcion
 ;
 
 parametro_funcion:
@@ -200,8 +200,8 @@ parametro_funcion:
 ;
 
 lista_de_variables:
-	ID ';' lista_de_variables |
-	ID
+	ID |
+	lista_de_variables ';' ID
 ;
 
 tipo:
