@@ -23,4 +23,17 @@
         VOID q() { PRINT % HOLA %, }
         VOID s() { PRINT % HOLA %, }
     }
+
+
+    VOID fun() {
+        IF (a > b) {
+            a = b,
+            a = b,
+        } ELSE {
+            a = b,
+        }
+        END_IF,
+
+        RETURN,
+    }
 }

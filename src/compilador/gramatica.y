@@ -55,8 +55,7 @@ sentencia_ejecutable_funcion:
 	sentencia_invocacion_funcion |
 	sentencia_imprimir |
 	sentencia_seleccion_funcion |
-	sentencia_iterativa_do_while_funcion |
-	sentencia_return
+	sentencia_iterativa_do_while_funcion
 ;
 
 sentencia_return:
@@ -95,7 +94,9 @@ bloque_sentencias_ejecutables:
 
 bloque_sentencias_ejecutables_funcion:
 	sentencia_ejecutable_funcion |
-	'{' sentencias_ejecutables_funcion '}'
+	sentencia_return |
+	'{' sentencias_ejecutables_funcion '}' |
+	'{' sentencias_ejecutables_funcion sentencia_return '}'
 ;
 
 sentencias_ejecutables:
@@ -185,7 +186,8 @@ encabezado_funcion:
 ;
 
 cuerpo_funcion:
-	'{' sentencias_funcion '}'
+	'{' sentencias_funcion sentencia_return '}' |
+	'{' sentencias_funcion '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); }
 ;
 
 lista_parametros_funcion_exceso: 

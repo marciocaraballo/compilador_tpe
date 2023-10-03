@@ -1,36 +1,30 @@
 { 
     PRINT % Consultas %,
-
-    IF (a > b) {
-    	IF (c > d)
-        	RETURN,
-        END_IF,
-    }
-    END_IF,
     
-    VOID hola()
-    {
-        FLOAT x,
-        x = 1.2,
-
-        IF (x > 0.0)
+     VOID fun() {
+     
+		DO {
+			a = b,
+		} WHILE (a>b),    
+	     
+        IF (a > b) {
+            a = b,
+            
+            IF (a > b) 
+            	RETURN,
+            END_IF,
+            
+            DO
+				RETURN,
+			WHILE (a>b), 
+            
             RETURN,
-        ELSE {
-            x = 2.0,
-
-            DO {
-                x = 1.2,
-                x = 2.0,
-            } WHILE (x<2_i),
-
-            PRINT % Hola Mundo! %,
-
-            x = 2.0,
+        } ELSE {
+            a = b,
+            RETURN,
         }
         END_IF,
 
         RETURN,
-    } 
-
-    hola(a),
+    }
 }

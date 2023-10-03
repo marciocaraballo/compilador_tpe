@@ -1,0 +1,8 @@
+Lexema: a
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: % Consultas %
+Atributo: token Valor: 259
+Lexema: fun
+Atributo: token Valor: 257
