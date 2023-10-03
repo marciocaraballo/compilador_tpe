@@ -1,10 +1,4 @@
 Lexema: a
 Atributo: token Valor: 257
-Lexema: b
-Atributo: token Valor: 257
-Lexema: c
-Atributo: token Valor: 257
-Lexema: e
-Atributo: token Valor: 257
 Lexema: fun
 Atributo: token Valor: 257

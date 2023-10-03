@@ -1,3 +1,0 @@
-[Success] Linea 4: [Parser] Asignacion detectada
-[Success] Linea 6: [Parser] Declaracion de funcion detectado
-[Success] Linea 9: [Parser] Programa correcto detectado

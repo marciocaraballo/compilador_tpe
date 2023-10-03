@@ -209,8 +209,11 @@ encabezado_funcion:
 
 cuerpo_funcion:
 	'{' sentencias_funcion sentencia_return '}' |
+	'{' sentencia_return '}' |
 	'{' sentencias_funcion '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); } |
-	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'
+	'{' '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); } |
+	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' |
+	'{' sentencia_return sentencias_funcion_inalcanzable '}'
 ;
 
 sentencias_funcion_inalcanzable:

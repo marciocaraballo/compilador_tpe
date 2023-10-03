@@ -1,6 +1,6 @@
 { 
         
-    VOID fun(FLOAT a) {
+    VOID fun(FLOAT a)
     	a = b,
     	RETURN,
     }
