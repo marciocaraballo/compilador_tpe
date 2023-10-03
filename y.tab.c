@@ -971,11 +971,11 @@ case 1:
 break;
 case 2:
 #line 19 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta simbolo '{' al principio del programa"); }
+{ logger.logError("[Parser] Se esperaba simbolo '{' al principio del programa"); }
 break;
 case 3:
 #line 20 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta simbolo '}' al final del programa"); }
+{ logger.logError("[Parser] Se esperaba simbolo '}' al final del programa"); }
 break;
 case 4:
 #line 21 ".\src\compilador\gramatica.y"
@@ -987,7 +987,7 @@ case 14:
 break;
 case 25:
 #line 63 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego del RETURN"); }
+{ logger.logError("[Parser] Se esperaba ',' luego del RETURN"); }
 break;
 case 26:
 #line 67 ".\src\compilador\gramatica.y"
@@ -995,7 +995,7 @@ case 26:
 break;
 case 27:
 #line 68 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
 break;
 case 28:
 #line 69 ".\src\compilador\gramatica.y"
@@ -1003,11 +1003,11 @@ case 28:
 break;
 case 29:
 #line 70 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 30:
 #line 71 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta WHILE en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); }
 break;
 case 31:
 #line 72 ".\src\compilador\gramatica.y"
@@ -1015,7 +1015,7 @@ case 31:
 break;
 case 32:
 #line 73 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 33:
 #line 74 ".\src\compilador\gramatica.y"
@@ -1039,7 +1039,7 @@ case 37:
 break;
 case 38:
 #line 82 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
 break;
 case 39:
 #line 83 ".\src\compilador\gramatica.y"
@@ -1047,11 +1047,11 @@ case 39:
 break;
 case 40:
 #line 84 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 41:
 #line 85 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta WHILE en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); }
 break;
 case 42:
 #line 86 ".\src\compilador\gramatica.y"
@@ -1059,7 +1059,7 @@ case 42:
 break;
 case 43:
 #line 87 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 44:
 #line 88 ".\src\compilador\gramatica.y"
@@ -1087,19 +1087,19 @@ case 49:
 break;
 case 50:
 #line 97 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); }
 break;
 case 51:
 #line 98 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
+{ logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
 break;
 case 52:
 #line 99 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); }
 break;
 case 53:
 #line 100 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia IF"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia IF"); }
 break;
 case 54:
 #line 101 ".\src\compilador\gramatica.y"
@@ -1123,19 +1123,19 @@ case 58:
 break;
 case 59:
 #line 109 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); }
 break;
 case 60:
 #line 110 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
+{ logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
 break;
 case 61:
 #line 111 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); }
 break;
 case 62:
 #line 112 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta condicion en sentencia IF"); }
+{ logger.logError("[Parser] Se esperaba condicion en sentencia IF"); }
 break;
 case 63:
 #line 113 ".\src\compilador\gramatica.y"
@@ -1175,11 +1175,11 @@ case 84:
 break;
 case 85:
 #line 156 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en Sentencia PRINT"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); }
 break;
 case 86:
 #line 157 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta CADENA en Sentencia PRINT"); }
+{ logger.logError("[Parser] Se esperaba CADENA en Sentencia PRINT"); }
 break;
 case 87:
 #line 158 ".\src\compilador\gramatica.y"
@@ -1199,15 +1199,15 @@ case 90:
 break;
 case 91:
 #line 165 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 92:
 #line 166 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 93:
 #line 167 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 96:
 #line 176 ".\src\compilador\gramatica.y"
@@ -1215,11 +1215,11 @@ case 96:
 break;
 case 97:
 #line 177 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en sentenecia asignacion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en sentenecia asignacion"); }
 break;
 case 98:
 #line 178 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta expresion del lado derecho en sentenecia asignacion"); }
+{ logger.logError("[Parser] Se esperaba expresion del lado derecho en sentenecia asignacion"); }
 break;
 case 105:
 #line 194 ".\src\compilador\gramatica.y"
@@ -1227,31 +1227,31 @@ case 105:
 break;
 case 106:
 #line 195 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en sentenecia declaracion de variables"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en sentenecia declaracion de variables"); }
 break;
 case 107:
 #line 196 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta lista de variables en sentenecia declaracion de variables"); }
+{ logger.logError("[Parser] Se esperaba una lista de variables en sentenecia declaracion de variables"); }
 break;
 case 109:
 #line 201 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); }
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
 break;
 case 110:
 #line 202 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); }
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
 break;
 case 111:
 #line 203 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); }
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
 break;
 case 112:
 #line 204 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta simbolo '{' en declaracion de INTERFACE"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
 break;
 case 113:
 #line 205 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta simbolo '{' en declaracion de INTERFACE"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
 break;
 case 116:
 #line 214 ".\src\compilador\gramatica.y"
@@ -1259,7 +1259,7 @@ case 116:
 break;
 case 117:
 #line 215 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta ',' en delcaracion de lista de variables en CLASS"); }
+{ logger.logError("[Parser] Se esperaba un simbolo ',' en delcaracion de lista de variables en CLASS"); }
 break;
 case 120:
 #line 221 ".\src\compilador\gramatica.y"
@@ -1271,27 +1271,27 @@ case 121:
 break;
 case 122:
 #line 223 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); }
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 123:
 #line 224 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); }
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 124:
 #line 225 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en IMPLEMENT de clase"); }
+{ logger.logError("[Parser] Se esperaba un identificador en IMPLEMENT de clase"); }
 break;
 case 125:
 #line 226 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); }
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 126:
 #line 227 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta simbolo '{' en declaracion de clase"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de clase"); }
 break;
 case 127:
 #line 228 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta simbolo '{' en declaracion de clase"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de clase"); }
 break;
 case 130:
 #line 237 ".\src\compilador\gramatica.y"
@@ -1307,31 +1307,31 @@ case 134:
 break;
 case 135:
 #line 245 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en el encabezado de la funcion"); }
+{ logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); }
 break;
 case 136:
 #line 246 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta IDENTIFICADOR en el encabezado de la funcion"); }
+{ logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); }
 break;
 case 137:
 #line 247 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 138:
 #line 248 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 139:
 #line 249 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); }
+{ logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 142:
 #line 255 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); }
+{ logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); }
 break;
 case 143:
 #line 256 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); }
+{ logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); }
 break;
 case 146:
 #line 262 ".\src\compilador\gramatica.y"
@@ -1343,11 +1343,11 @@ case 147:
 break;
 case 162:
 #line 296 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); }
+{ logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
 break;
 case 163:
 #line 297 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Se esperaba un expresion del lado izquierdo de la comparacion"); }
+{ logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 break;
 case 179:
 #line 328 ".\src\compilador\gramatica.y"

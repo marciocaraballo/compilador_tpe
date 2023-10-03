@@ -16,8 +16,8 @@ CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG FLOAT OPERADOR_MENOS
 
 programa:
 	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
-	sentencias '}' { logger.logError("[Parser] Falta simbolo '{' al principio del programa"); } |
-	'{' sentencias { logger.logError("[Parser] Falta simbolo '}' al final del programa"); } |
+	sentencias '}' { logger.logError("[Parser] Se esperaba simbolo '{' al principio del programa"); } |
+	'{' sentencias { logger.logError("[Parser] Se esperaba simbolo '}' al final del programa"); } |
 	{ logger.logError("[Parser] Programa vacio"); }
 ;
 
@@ -60,17 +60,17 @@ sentencia_ejecutable_funcion:
 
 sentencia_return:
 	RETURN ',' | 
-	RETURN { logger.logError("[Parser] Falta ',' luego del RETURN"); }
+	RETURN { logger.logError("[Parser] Se esperaba ',' luego del RETURN"); }
 ;
 
 sentencia_iterativa_do_while:
 	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
-	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); } |
 	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables WHILE '(' ')' ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables '(' condicion ')' ',' { logger.logError("[Parser] Falta WHILE en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
 	DO WHILE ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables WHILE ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
 	DO ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
@@ -79,12 +79,12 @@ sentencia_iterativa_do_while:
 
 sentencia_iterativa_do_while_funcion:
 	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
-	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' { logger.logError("[Parser] Falta ',' luego de sentencia DO WHILE"); }
+	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
 	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ',' { logger.logError("[Parser] Falta WHILE en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
 	DO WHILE ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables_funcion WHILE ',' { logger.logError("[Parser] Falta condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
 	DO ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
@@ -94,10 +94,10 @@ sentencia_iterativa_do_while_funcion:
 sentencia_seleccion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); } |
-	IF '(' ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF ELSE"); } |
-	IF '(' ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
 	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
 	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
@@ -106,10 +106,10 @@ sentencia_seleccion:
 sentencia_seleccion_funcion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Falta ',' luego de sentencia IF sin ELSE"); }
-	IF '(' ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF ELSE"); } |
-	IF '(' ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Falta condicion en sentencia IF"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
+	IF '(' ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
 	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
 	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
@@ -153,8 +153,8 @@ sentencias_ejecutables_funcion:
 
 sentencia_imprimir:
 	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); } |
-	PRINT CADENA { logger.logError("[Parser] Falta ',' en Sentencia PRINT"); } |
-	PRINT ',' { logger.logError("[Parser] Falta CADENA en Sentencia PRINT"); } |
+	PRINT CADENA { logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); } |
+	PRINT ',' { logger.logError("[Parser] Se esperaba CADENA en Sentencia PRINT"); } |
 	PRINT ID ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); }
 ;
 
@@ -162,9 +162,9 @@ sentencia_invocacion_funcion:
 	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
 	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); } |
 	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); } |
-	sentencia_objeto_identificador '(' expresion ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); } |
-	sentencia_objeto_identificador '(' ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); } |
-	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
+	sentencia_objeto_identificador '(' expresion ')' { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); } |
+	sentencia_objeto_identificador '(' ')' { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); } |
+	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 ;
 
 lista_expresiones_invocacion_funcion_exceso: 
@@ -174,8 +174,8 @@ lista_expresiones_invocacion_funcion_exceso:
 
 sentencia_asignacion:
 	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); } |
-	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Falta ',' en sentenecia asignacion"); } |
-	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Falta expresion del lado derecho en sentenecia asignacion"); }
+	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentenecia asignacion"); } |
+	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentenecia asignacion"); }
 ;
 
 sentencia_objeto_identificador:
@@ -192,17 +192,17 @@ sentencia_declarativa:
 
 declaracion_variable:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
-	tipo lista_de_variables { logger.logError("[Parser] Falta ',' en sentenecia declaracion de variables"); } |
-	tipo ',' { logger.logError("[Parser] Falta lista de variables en sentenecia declaracion de variables"); }
+	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en sentenecia declaracion de variables"); } |
+	tipo ',' { logger.logError("[Parser] Se esperaba una lista de variables en sentenecia declaracion de variables"); }
 ;
 
 declaracion_interfaz:
 	INTERFACE ID '{' bloque_encabezado_funcion '}' |
-	INTERFACE '{' bloque_encabezado_funcion '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); } |
-	INTERFACE bloque_encabezado_funcion '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); } |
-	INTERFACE '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); } |
-	INTERFACE ID bloque_encabezado_funcion '}'  { logger.logError("[Parser] Falta simbolo '{' en declaracion de INTERFACE"); } |
-	INTERFACE ID '}'  { logger.logError("[Parser] Falta simbolo '{' en declaracion de INTERFACE"); }
+	INTERFACE '{' bloque_encabezado_funcion '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
+	INTERFACE bloque_encabezado_funcion '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
+	INTERFACE '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
+	INTERFACE ID bloque_encabezado_funcion '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); } |
+	INTERFACE ID '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
 ;
 
 bloque_encabezado_funcion:
@@ -212,7 +212,7 @@ bloque_encabezado_funcion:
 
 sentencia_declarativa_clase:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); } |
-	tipo lista_de_variables { logger.logError("[Parser] Falta ',' en delcaracion de lista de variables en CLASS"); } |
+	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en delcaracion de lista de variables en CLASS"); } |
 	declaracion_funcion |
 	ID ','
 ;
@@ -220,12 +220,12 @@ sentencia_declarativa_clase:
 declaracion_clase:
 	CLASS ID '{' bloque_sentencias_declarativas_clase '}' { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); } |
 	CLASS ID IMPLEMENT ID '{' bloque_sentencias_declarativas_clase '}' { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); } |
-	CLASS '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); } |
-	CLASS IMPLEMENT ID { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); } |
-	CLASS ID IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta IDENTIFICADOR en IMPLEMENT de clase"); } |
-	CLASS IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); } |
-	CLASS ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta simbolo '{' en declaracion de clase"); } |
-	CLASS ID IMPLEMENT ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta simbolo '{' en declaracion de clase"); }
+	CLASS '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
+	CLASS IMPLEMENT ID { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
+	CLASS ID IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en IMPLEMENT de clase"); } |
+	CLASS IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
+	CLASS ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de clase"); } |
+	CLASS ID IMPLEMENT ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de clase"); }
 ;
 
 bloque_sentencias_declarativas_clase:
@@ -242,18 +242,18 @@ encabezado_funcion:
 	VOID ID '(' ')' |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
-	VOID '(' parametro_funcion ')' { logger.logError("[Parser] Falta IDENTIFICADOR en el encabezado de la funcion"); } |
-	VOID '(' ')' { logger.logError("[Parser] Falta IDENTIFICADOR en el encabezado de la funcion"); } |
-	VOID ID parametro_funcion ')' { logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); } |
-	VOID ID ')' { logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); } |
-	VOID ID { logger.logError("[Parser] Falta '(' en el encabezado de la funcion"); }
+	VOID '(' parametro_funcion ')' { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); } |
+	VOID '(' ')' { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); } |
+	VOID ID parametro_funcion ')' { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); } |
+	VOID ID ')' { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); } |
+	VOID ID { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 ;
 
 cuerpo_funcion:
 	'{' sentencias_funcion sentencia_return '}' |
 	'{' sentencia_return '}' |
-	'{' sentencias_funcion '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); } |
-	'{' '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); } |
+	'{' sentencias_funcion '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
+	'{' '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
 	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencia_return sentencias_funcion_inalcanzable '}'
 ;
@@ -293,8 +293,8 @@ tipo:
 
 condicion:
 	expresion comparador expresion |
-	expresion comparador { logger.logError("[Parser] Se esperaba un expresion del lado derecho de la comparacion"); } |
-	comparador expresion { logger.logError("[Parser] Se esperaba un expresion del lado izquierdo de la comparacion"); }
+	expresion comparador { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); } |
+	comparador expresion { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 ;
 
 comparador:
