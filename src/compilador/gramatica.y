@@ -131,7 +131,6 @@ sentencia_invocacion_funcion:
 	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
 	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); } |
 	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); } |
-
 	sentencia_objeto_identificador '(' expresion ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); } |
 	sentencia_objeto_identificador '(' ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); } |
 	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' { logger.logError("[Parser] Falta ',' en Invocacion de funcion"); }
@@ -167,7 +166,12 @@ declaracion_variable:
 ;
 
 declaracion_interfaz:
-	INTERFACE ID '{' bloque_encabezado_funcion '}'
+	INTERFACE ID '{' bloque_encabezado_funcion '}' |
+	INTERFACE '{' bloque_encabezado_funcion '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); } |
+	INTERFACE bloque_encabezado_funcion '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); } |
+	INTERFACE '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de INTERFACE"); } |
+	INTERFACE ID bloque_encabezado_funcion '}'  { logger.logError("[Parser] Falta simbolo '{' en declaracion de INTERFACE"); } |
+	INTERFACE ID '}'  { logger.logError("[Parser] Falta simbolo '{' en declaracion de INTERFACE"); }
 ;
 
 bloque_encabezado_funcion:
