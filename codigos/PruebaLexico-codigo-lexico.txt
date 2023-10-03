@@ -1,8 +1,21 @@
 [Success] Linea 1: [Lexico] Se reconoce un token para { con el token 123
-[Success] Linea 3: [Lexico] Se reconoce un token para VOID con el token 264
-[Success] Linea 3: [Lexico] Se reconoce un token para fun con el token 257
-[Success] Linea 3: [Lexico] Se reconoce un token para ( con el token 40
-[Success] Linea 3: [Lexico] Se reconoce un token para FLOAT con el token 277
-[Success] Linea 3: [Lexico] Se reconoce un token para a con el token 257
-[Success] Linea 3: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 3: [Lexico] Se reconoce un token para CLASS con el token 270
+[Success] Linea 3: [Lexico] Se reconoce un token para { con el token 123
+[Success] Linea 4: [Lexico] Se reconoce un token para INT con el token 275
 [Success] Linea 4: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para ; con el token 59
+[Success] Linea 4: [Lexico] Se reconoce un token para c con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 5: [Lexico] Se reconoce un token para VOID con el token 264
+[Success] Linea 5: [Lexico] Se reconoce un token para m con el token 257
+[Success] Linea 5: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 5: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 5: [Lexico] Se reconoce un token para { con el token 123
+[Success] Linea 6: [Lexico] Se reconoce un token para PRINT con el token 263
+[Success] Linea 6: [Lexico] Se reconoce un token para % HOLA % con el token 259
+[Success] Linea 6: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 7: [Lexico] Se reconoce un token para RETURN con el token 265
+[Success] Linea 7: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 8: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 9: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 12: [Lexico] Se reconoce un token para } con el token 125

@@ -1,4 +1,8 @@
+Lexema: % HOLA %
+Atributo: token Valor: 259
 Lexema: a
 Atributo: token Valor: 257
-Lexema: fun
+Lexema: c
+Atributo: token Valor: 257
+Lexema: m
 Atributo: token Valor: 257

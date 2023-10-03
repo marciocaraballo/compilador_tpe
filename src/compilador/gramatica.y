@@ -183,7 +183,13 @@ sentencia_declarativa_clase:
 
 declaracion_clase:
 	CLASS ID '{' bloque_sentencias_declarativas_clase '}' { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); } |
-	CLASS ID IMPLEMENT ID '{' bloque_sentencias_declarativas_clase '}' { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); }
+	CLASS ID IMPLEMENT ID '{' bloque_sentencias_declarativas_clase '}' { logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); } |
+	CLASS '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); } |
+	CLASS IMPLEMENT ID { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); } |
+	CLASS ID IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta IDENTIFICADOR en IMPLEMENT de clase"); } |
+	CLASS IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta IDENTIFICADOR en declaracion de clase"); } |
+	CLASS ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta simbolo '{' en declaracion de clase"); } |
+	CLASS ID IMPLEMENT ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Falta simbolo '{' en declaracion de clase"); }
 ;
 
 bloque_sentencias_declarativas_clase:
