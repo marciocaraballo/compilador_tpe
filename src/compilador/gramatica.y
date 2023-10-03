@@ -117,15 +117,18 @@ sentencia_seleccion_funcion:
 
 bloque_sentencias_ejecutables:
 	sentencia_ejecutable |
-	'{' sentencias_ejecutables '}'
+	'{' sentencias_ejecutables '}' |
+	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 ;
 
 bloque_sentencias_ejecutables_funcion:
 	sentencia_ejecutable_funcion |
 	sentencia_return |
+	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); } |
 	'{' sentencias_ejecutables_funcion '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return '}' |
-	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
+	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' |
+	'{' '}' { logger.logError("[Parser] Faltan sentencias ejecutables en bloque de sentencias ejecutables"); }
 ;
 
 sentencias_ejecutables_funcion_inalcanzable:
