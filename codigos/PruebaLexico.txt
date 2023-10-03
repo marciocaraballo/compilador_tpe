@@ -1,49 +1,8 @@
 { 
     PRINT % Consultas %,
     
-    a = b
-    a = ,
-    a b,
+    PRINT % Consultas %
     
-     VOID fun() {
-	     
-        IF (a > b) {
-            a = b,
-            
-            IF (a > b) {
-           	 	a = b,
-            	RETURN,
-            	
-            	DO {
-					a = b,
-				} WHILE (a>b),  
-				
-				a = b,
-				
-				RETURN,
-            }
-      
-            END_IF,
-            
-            DO
-				RETURN,
-			WHILE (a>b), 
-            
-            RETURN,
-        } ELSE {
-            a = b,
-            RETURN,
-        }
-        END_IF,
-
-        RETURN,
-        
-        DO {
-			a = b,
-		} WHILE (a>b),  
-		
-		a = b,
-		
-		RETURN,
-    }
+    PRINT 2_i,
+    
 }

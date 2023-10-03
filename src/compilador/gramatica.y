@@ -122,7 +122,9 @@ sentencias_ejecutables_funcion:
 
 sentencia_imprimir:
 	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); } |
-	PRINT CADENA { logger.logError("[Parser] Falta ',' en Sentencia PRINT"); }
+	PRINT CADENA { logger.logError("[Parser] Falta ',' en Sentencia PRINT"); } |
+	PRINT ',' { logger.logError("[Parser] Falta CADENA en Sentencia PRINT"); } |
+	PRINT ID ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); }
 ;
 
 sentencia_invocacion_funcion:
