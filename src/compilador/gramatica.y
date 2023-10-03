@@ -181,6 +181,7 @@ bloque_encabezado_funcion:
 
 sentencia_declarativa_clase:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); } |
+	tipo lista_de_variables { logger.logError("[Parser] Falta ',' en delcaracion de lista de variables en CLASS"); } |
 	declaracion_funcion |
 	ID ','
 ;
