@@ -6,5 +6,8 @@
 [Success] Linea 19: [Parser] Sentencia iterativa DO WHILE detectada
 [Success] Linea 23: [Parser] Asignacion detectada
 [Success] Linea 26: [Parser] Sentencia seleccion IF ELSE detectada
-[Success] Linea 29: [Parser] Declaracion de funcion detectado
-[Success] Linea 30: [Parser] Programa correcto detectado
+[Success] Linea 31: [Parser] Asignacion detectada
+[Success] Linea 32: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 34: [Parser] Asignacion detectada
+[Success] Linea 37: [Parser] Declaracion de funcion detectado
+[Success] Linea 38: [Parser] Programa correcto detectado

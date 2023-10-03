@@ -187,7 +187,19 @@ encabezado_funcion:
 
 cuerpo_funcion:
 	'{' sentencias_funcion sentencia_return '}' |
-	'{' sentencias_funcion '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); }
+	'{' sentencias_funcion '}' { logger.logError("[Parser] Falta sentencia RETURN al final de la funcion"); } |
+	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'
+;
+
+sentencias_funcion_inalcanzable:
+	sentencia_funcion_inalcanzable { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); } |
+	sentencias_funcion_inalcanzable sentencia_funcion_inalcanzable { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
+;
+
+sentencia_funcion_inalcanzable:
+	sentencia_declarativa |
+	sentencia_return |
+	sentencia_ejecutable_funcion
 ;
 
 lista_parametros_funcion_exceso: 

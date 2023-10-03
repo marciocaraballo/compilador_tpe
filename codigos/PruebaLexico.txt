@@ -26,5 +26,13 @@
         END_IF,
 
         RETURN,
+        
+        DO {
+			a = b,
+		} WHILE (a>b),  
+		
+		a = b,
+		
+		RETURN,
     }
 }
