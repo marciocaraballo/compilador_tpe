@@ -17,6 +17,7 @@ programa:
 	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
 	sentencias '}' { logger.logError("[Parser] Se esperaba simbolo '{' al principio del programa"); } |
 	'{' sentencias { logger.logError("[Parser] Se esperaba simbolo '}' al final del programa"); } |
+	'{' '}' { logger.logError("[Parser] Programa vacio"); } |
 	{ logger.logError("[Parser] Programa vacio"); }
 ;
 

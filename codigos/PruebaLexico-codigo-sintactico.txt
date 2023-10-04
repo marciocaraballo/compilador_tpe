@@ -1,4 +1,2 @@
-[Success] Linea 4: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 6: [Parser] Sentencia PRINT detectada
-[Success] Linea 8: [Parser] Declaracion de funcion detectado
-[Success] Linea 12: [Parser] Programa correcto detectado
+[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 3: [Parser] Programa correcto detectado

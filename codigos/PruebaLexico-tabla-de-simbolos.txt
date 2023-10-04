@@ -1,8 +1,2 @@
-Lexema: % HOLA %
-Atributo: token Valor: 259
-Lexema: a
-Atributo: token Valor: 257
-Lexema: c
-Atributo: token Valor: 257
-Lexema: m
+Lexema: _numero
 Atributo: token Valor: 257
