@@ -203,7 +203,7 @@ declaracion_variable:
 ;
 
 declaracion_interfaz:
-	INTERFACE ID '{' bloque_encabezado_funcion '}' |
+	INTERFACE ID '{' bloque_encabezado_funcion '}' { logger.logSuccess("[Parser] Declaracion de INTERFACE detectada"); } |
 	INTERFACE '{' bloque_encabezado_funcion '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
 	INTERFACE bloque_encabezado_funcion '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
 	INTERFACE '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
@@ -213,7 +213,7 @@ declaracion_interfaz:
 
 bloque_encabezado_funcion:
 	encabezado_funcion ',' |
-	bloque_encabezado_funcion ',' encabezado_funcion
+	bloque_encabezado_funcion encabezado_funcion
 ;
 
 sentencia_declarativa_clase:
