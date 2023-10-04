@@ -999,7 +999,7 @@ case 27:
 break;
 case 28:
 #line 69 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 29:
 #line 70 ".\src\compilador\gramatica.y"
@@ -1011,7 +1011,7 @@ case 30:
 break;
 case 31:
 #line 72 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 32:
 #line 73 ".\src\compilador\gramatica.y"
@@ -1019,19 +1019,19 @@ case 32:
 break;
 case 33:
 #line 74 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 34:
 #line 75 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 35:
 #line 76 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 36:
 #line 77 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 37:
 #line 81 ".\src\compilador\gramatica.y"
@@ -1043,7 +1043,7 @@ case 38:
 break;
 case 39:
 #line 83 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 40:
 #line 84 ".\src\compilador\gramatica.y"
@@ -1055,7 +1055,7 @@ case 41:
 break;
 case 42:
 #line 86 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 43:
 #line 87 ".\src\compilador\gramatica.y"
@@ -1063,19 +1063,19 @@ case 43:
 break;
 case 44:
 #line 88 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 45:
 #line 89 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 46:
 #line 90 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 47:
 #line 91 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 48:
 #line 95 ".\src\compilador\gramatica.y"
@@ -1103,15 +1103,15 @@ case 53:
 break;
 case 54:
 #line 101 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 55:
 #line 102 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 56:
 #line 103 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 break;
 case 57:
 #line 107 ".\src\compilador\gramatica.y"
@@ -1139,15 +1139,15 @@ case 62:
 break;
 case 63:
 #line 113 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 64:
 #line 114 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 65:
 #line 115 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 break;
 case 68:
 #line 121 ".\src\compilador\gramatica.y"
@@ -1159,7 +1159,7 @@ case 71:
 break;
 case 75:
 #line 131 ".\src\compilador\gramatica.y"
-{ logger.logError("[Parser] Faltan sentencias ejecutables en bloque de sentencias ejecutables"); }
+{ logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 break;
 case 76:
 #line 135 ".\src\compilador\gramatica.y"

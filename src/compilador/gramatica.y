@@ -66,29 +66,29 @@ sentencia_return:
 sentencia_iterativa_do_while:
 	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
 	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); } |
-	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO bloque_sentencias_ejecutables WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
 	DO bloque_sentencias_ejecutables '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
-	DO WHILE ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO WHILE ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO bloque_sentencias_ejecutables WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
-	DO ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO '(' ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO '(' ')' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+	DO ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 ;
 
 sentencia_iterativa_do_while_funcion:
 	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
 	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
-	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
 	DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
-	DO WHILE ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
+	DO WHILE ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO bloque_sentencias_ejecutables_funcion WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
-	DO ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO '(' condicion ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO '(' ')' ','  { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); } |
-	DO '(' ')' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia DO WHILE"); }
+	DO ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
+	DO '(' ')' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 ;
 
 sentencia_seleccion:
@@ -98,9 +98,9 @@ sentencia_seleccion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); } |
 	IF '(' ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
 	IF '(' ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
-	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
-	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
+	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 ;
 
 sentencia_seleccion_funcion:
@@ -110,9 +110,9 @@ sentencia_seleccion_funcion:
 	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
 	IF '(' ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
 	IF '(' ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
-	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF ELSE"); } |
-	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Faltan sentencias ejecutables en sentencia IF"); }
+	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 ;
 
 bloque_sentencias_ejecutables:
@@ -128,7 +128,7 @@ bloque_sentencias_ejecutables_funcion:
 	'{' sentencias_ejecutables_funcion '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' |
-	'{' '}' { logger.logError("[Parser] Faltan sentencias ejecutables en bloque de sentencias ejecutables"); }
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 ;
 
 sentencias_ejecutables_funcion_inalcanzable:
