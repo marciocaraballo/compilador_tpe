@@ -1,5 +1,4 @@
 %{
-package compilador;
 import java.io.File;
 %}
 
