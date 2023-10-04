@@ -888,20 +888,7 @@ public void corregirConstantePositivaEntera(String constante) {
 public void constanteConSigno(String constante) {
 	/** Check de float negativos */
 	if (constante.contains(".")) {
-		
 		String negConstante = "-"+constante;
-		Double parsedDouble = Double.parseDouble(negConstante);
-		
-		if (parsedDouble < -1.17549435E-38 && -3.40282347E+38 > parsedDouble) {
-			logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
-			
-			if (-3.40282347E+38 < parsedDouble) {
-				negConstante = new String("-3.40282347E+38");
-			} else {
-				negConstante = new String("-1.17549435E-38");
-			}
-		}
-		
 		ts.swapLexemas(constante, negConstante);
 	} else {
 
@@ -970,7 +957,7 @@ public static void main(String[] args) {
 		}
 	}
 }
-//#line 901 "Parser.java"
+//#line 888 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1520,7 +1507,7 @@ case 181:
 //#line 329 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1446 "Parser.java"
+//#line 1433 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
