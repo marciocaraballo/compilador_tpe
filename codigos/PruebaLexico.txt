@@ -16,12 +16,13 @@
         } 
     }
 
-     *{ Comprobaciones de implementar una INTERFACE }*
+     *{ Definicion de una INTERFACE }*
     INTERFACE z {
         VOID a(),
         VOID b(),
     }
 
+	 *{ Implementar una INTERFACE }*
     CLASS a IMPLEMENT z {
         VOID q() { PRINT % HOLA %, RETURN,}
         VOID s() { PRINT % HOLA %, RETURN,}

@@ -9,31 +9,22 @@
                 FLOAT zz, 
                 FLOAT ww, 
                 ww = zz + xx + a, 
+            
+            	RETURN,
             } 
+            RETURN,
         } 
     }
 
-     *{ Comprobaciones de implementar una INTERFACE }*
+     *{ Definicion de una INTERFACE }*
     INTERFACE z {
-        VOID q(),
-        VOID s(),
+        VOID a(),
+        VOID b(),
     }
 
+	 *{ Implementar una INTERFACE }*
     CLASS a IMPLEMENT z {
-        VOID q() { PRINT % HOLA %, }
-        VOID s() { PRINT % HOLA %, }
-    }
-
-
-    VOID fun() {
-        IF (a > b) {
-            a = b,
-            a = b,
-        } ELSE {
-            a = b,
-        }
-        END_IF,
-
-        RETURN,
+        VOID q() { PRINT % HOLA %, RETURN,}
+        VOID s() { PRINT % HOLA %, RETURN,}
     }
 }
