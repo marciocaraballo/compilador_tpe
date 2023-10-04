@@ -18,8 +18,8 @@
 
      *{ Definicion de una INTERFACE }*
     INTERFACE z {
-        VOID a(),
-        VOID b(),
+        VOID a()
+        VOID b()
     }
 
 	 *{ Implementar una INTERFACE }*

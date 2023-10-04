@@ -1,0 +1,15 @@
+[Success] Linea 5: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 7: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 9: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 10: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 11: [Parser] Asignacion detectada
+[Success] Linea 14: [Parser] Declaracion de funcion detectado
+[Success] Linea 16: [Parser] Declaracion de funcion detectado
+[Success] Linea 17: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 23: [Parser] Declaracion de INTERFACE detectada
+[Success] Linea 27: [Parser] Sentencia PRINT detectada
+[Success] Linea 27: [Parser] Declaracion de funcion detectado
+[Success] Linea 28: [Parser] Sentencia PRINT detectada
+[Success] Linea 28: [Parser] Declaracion de funcion detectado
+[Success] Linea 29: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 30: [Parser] Programa correcto detectado

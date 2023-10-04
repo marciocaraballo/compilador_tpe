@@ -217,12 +217,13 @@ bloque_encabezado_funcion_declaracion_interfaz:
 ;
 
 encabezado_funcion_declaracion_interfaz:
-	encabezado_funcion ','
+	encabezado_funcion ',' |
+	encabezado_funcion { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de metodo en CLASS"); }
 ;
 
 sentencia_declarativa_clase:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); } |
-	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en delcaracion de lista de variables en CLASS"); } |
+	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); } |
 	declaracion_funcion |
 	ID ','
 ;

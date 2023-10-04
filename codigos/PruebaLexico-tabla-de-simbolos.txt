@@ -1,0 +1,24 @@
+Lexema: xx
+Atributo: token Valor: 257
+Lexema: zz
+Atributo: token Valor: 257
+Lexema: ww
+Atributo: token Valor: 257
+Lexema: % HOLA %
+Atributo: token Valor: 259
+Lexema: a
+Atributo: token Valor: 257
+Lexema: q
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: s
+Atributo: token Valor: 257
+Lexema: funcion1
+Atributo: token Valor: 257
+Lexema: z
+Atributo: token Valor: 257
+Lexema: m
+Atributo: token Valor: 257
+Lexema: ca
+Atributo: token Valor: 257
