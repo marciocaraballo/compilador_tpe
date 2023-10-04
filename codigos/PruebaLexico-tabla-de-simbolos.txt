@@ -4,11 +4,3 @@ Lexema: sarasa
 Atributo: token Valor: 257
 Lexema: b
 Atributo: token Valor: 257
-Lexema: d
-Atributo: token Valor: 257
-Lexema: e
-Atributo: token Valor: 257
-Lexema: chau
-Atributo: token Valor: 257
-Lexema: hola
-Atributo: token Valor: 257

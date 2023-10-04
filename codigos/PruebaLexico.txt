@@ -1,10 +1,5 @@
 {   
 	VOID sarasa() {
-		DO {
-		  	FLOAT hola,
-		  	a = b,
-		  	FLOAT chau,
-		  	d = e,
-		  } WHILE (a > b),
+		a = b,
 	}
 }

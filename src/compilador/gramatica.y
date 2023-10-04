@@ -257,7 +257,7 @@ cuerpo_funcion:
 	'{' sentencias_funcion sentencia_return '}' |
 	'{' sentencia_return '}' |
 	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' |
-	'{' sentencia_return sentencias_funcion_inalcanzable '}'
+	'{' sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencias_funcion '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
 	'{' '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
  	sentencias_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); } |
