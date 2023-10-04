@@ -160,7 +160,8 @@ sentencia_imprimir:
 	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); } |
 	PRINT CADENA { logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); } |
 	PRINT ',' { logger.logError("[Parser] Se esperaba CADENA en Sentencia PRINT"); } |
-	PRINT ID ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); }
+	PRINT ID ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); } |
+	PRINT ID { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia PRINT"); }
 ;
 
 sentencia_invocacion_funcion:

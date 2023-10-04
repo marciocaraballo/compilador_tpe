@@ -23,7 +23,7 @@ public class ASE extends AccionSemantica {
 			lexema.append(nextCharacter);
 		}
 
-		logger.logError("[Lexico] Lexema no reconocido: " + lexema.toString() + ", se descarta.");
+		logger.logError("[Lexico] Lexema no reconocido: " + lexema.toString() + " se descarta.");
 		lexema.setLength(0);
 
 		return -1;

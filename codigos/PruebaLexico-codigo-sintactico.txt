@@ -1,3 +1,32 @@
-[Success] Linea 3: [Parser] Asignacion detectada
-[Success] Linea 4: [Parser] Declaracion de funcion detectado
-[Success] Linea 5: [Parser] Programa correcto detectado
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[WARNING] Linea 6: Se ha superado la cantidad maxima de caracteres para un identificador (20), se eliminaran los caracteres que estan mas alla de la posicion 20
+[Success] Linea 6: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 9: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 15: [Parser] Asignacion detectada
+[Success] Linea 18: [Parser] Asignacion detectada
+[WARNING] Linea 21: [Parser] Rango invalido para la constante: 32768_i, se trunca al valor 32767_i
+[Success] Linea 21: [Parser] Asignacion detectada
+[Success] Linea 24: [Parser] Asignacion detectada
+[WARNING] Linea 27: [Parser] No se admiten ULONG con valores negativos: -50000_ul, se trunca a 0_ul
+[Success] Linea 27: [Parser] Asignacion detectada
+[Success] Linea 30: [Parser] Asignacion detectada
+[Success] Linea 33: [Parser] Asignacion detectada
+[Success] Linea 36: [Parser] Asignacion detectada
+[Success] Linea 39: [Parser] Asignacion detectada
+[Success] Linea 42: [Parser] Asignacion detectada
+[Success] Linea 43: [Parser] Asignacion detectada
+[Success] Linea 44: [Parser] Asignacion detectada
+[Success] Linea 45: [Parser] Asignacion detectada
+[Success] Linea 46: [Parser] Asignacion detectada
+[Success] Linea 47: [Parser] Asignacion detectada
+[Success] Linea 48: [Parser] Asignacion detectada
+[Success] Linea 49: [Parser] Asignacion detectada
+[Success] Linea 50: [Parser] Asignacion detectada
+[Success] Linea 54: [Parser] Asignacion detectada
+[Success] Linea 56: [Parser] Asignacion detectada
+[Success] Linea 57: [Parser] Sentencia seleccion IF ELSE detectada
+[Success] Linea 61: [Parser] Asignacion detectada
+[Success] Linea 62: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 65: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 66: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 70: [Parser] Sentencia PRINT detectada

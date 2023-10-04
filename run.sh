@@ -2,19 +2,19 @@
 
 if [ ! -d "./target" ] 
 then
-    echo "JAR build not found, please run build.sh first"
+    echo "No se encontro el JAR, por favor ejecutar build.sh primero"
     exit 1
 fi
 
 if [ -z "$1" ]
   then
-    echo "No code file provided, for example, run it as ./run.sh \"./codigos/PruebaLexico.txt\""
+    echo "No se provee archivo de codigo, por ejemplo, proveerlo como ./run.sh \"./codigos/PruebaLexico.txt\""
     exit 1
 fi
 
 if [ ! -f "$1" ] 
 then
-    echo "Code file not found. Please provide a valid code file"
+    echo "No se encontro el archivo de codigo. Por favor proveer un archivo de codigo valido."
     exit 1
 fi
 

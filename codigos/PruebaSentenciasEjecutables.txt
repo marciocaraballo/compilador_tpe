@@ -16,14 +16,12 @@
 
     IF (a>b) {
     	x = 798789798_i,
-    	RETURN,
     }
     END_IF,
     
      DO {
         x = 1.2222222,
         y = 2.0,
-        RETURN,
     } WHILE (x<2_i),
     
     VOID hola()

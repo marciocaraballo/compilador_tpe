@@ -1,0 +1,35 @@
+{
+	*{ Funcion no tiene RETURN al final }*
+	VOID fn1() {
+	
+		IF (a > b) {
+			a = b,
+			RETURN,
+		} END_IF,
+	}
+	
+	*{ Funcion tiene sentencias luego del RETURN al final }*
+	VOID fn2() {
+	
+		IF (a > b) {
+			a = b,
+			RETURN,
+			d = e,
+		} END_IF,
+		
+		RETURN,
+		
+		a = b,
+		
+		DO 
+			c = d,
+		WHILE (a > b),
+	}
+	
+	*{ Funcion tiene mas de un parametro }*
+	VOID fn2(FLOAT a, FLOAT b, FLOAT e, FLOAT d) {
+		a = b,
+		e = d,
+		RETURN,
+	}
+}
