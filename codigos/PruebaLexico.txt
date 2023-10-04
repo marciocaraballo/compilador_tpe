@@ -3,4 +3,9 @@
    
    numero = 3_il,
    
+   VOID fn()
+   		a = b,
+   		b = a,
+   }
+   
 }

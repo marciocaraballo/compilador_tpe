@@ -1,4 +1,12 @@
+Lexema: a
+Atributo: token Valor: 257
 Lexema: _numero
 Atributo: token Valor: 257
 Lexema: numero
 Atributo: token Valor: 257
+Lexema: fn
+Atributo: token Valor: 257
+Lexema: l
+Atributo: token Valor: 257
+Lexema: 3_i
+Atributo: token Valor: 258
