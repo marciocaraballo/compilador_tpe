@@ -1,2 +1,4 @@
 Lexema: _numero
 Atributo: token Valor: 257
+Lexema: numero
+Atributo: token Valor: 257

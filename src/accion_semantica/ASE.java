@@ -15,8 +15,10 @@ public class ASE extends AccionSemantica {
 		 * Algo similar sucede si se esta leyendo un numero, luego un _ y se encuentra
 		 * algun simbolo que cause error (por ejemplo una letra)
 		 */
-		if (lexema.toString().equals(".") || lexema.toString().endsWith("_")) {
-			fileHelper.reset();
+		if (lexema.toString().contains(".") || 
+			lexema.toString().endsWith("_") ||
+			lexema.toString().contains("!")) {
+				fileHelper.reset();
 		} else {
 			lexema.append(nextCharacter);
 		}

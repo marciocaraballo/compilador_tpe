@@ -1,5 +1,7 @@
 [Success] Linea 1: [Lexico] Se reconoce un token para { con el token 123
-[Success] Linea 2: [Lexico] Se reconoce un token para INT con el token 275
+[Success] Linea 2: [Lexico] Se reconoce un token para FLOAT con el token 277
 [Success] Linea 2: [Lexico] Se reconoce un token para _numero con el token 257
 [Success] Linea 2: [Lexico] Se reconoce un token para , con el token 44
-[Success] Linea 3: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 4: [Lexico] Se reconoce un token para numero con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para = con el token 61
+[Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44

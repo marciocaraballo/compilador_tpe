@@ -1,3 +1,6 @@
 {   
-   INT _numero,
+   FLOAT _numero,
+   
+   numero = 3_il,
+   
 }
