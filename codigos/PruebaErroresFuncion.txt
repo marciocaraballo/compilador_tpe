@@ -27,9 +27,12 @@
 	}
 	
 	*{ Funcion tiene mas de un parametro }*
-	VOID fn2(FLOAT a, FLOAT b, FLOAT e, FLOAT d) {
+	VOID fn3(FLOAT a, FLOAT b, FLOAT e, FLOAT d) {
 		a = b,
 		e = d,
 		RETURN,
 	}
+	
+	*{ Invocacion funcion con multiples parametros }*
+	fn3(a, b, c , d),
 }

@@ -1,52 +1,40 @@
-Lexema: 4294967295_ul
-Atributo: token Valor: 258
-Lexema: ficador_22
-Atributo: token Valor: 257
-Lexema: 1.2e+10
-Atributo: token Valor: 258
-Lexema: .6
-Atributo: token Valor: 258
-Lexema: 15.
-Atributo: token Valor: 258
-Lexema: 0_ul
-Atributo: token Valor: 258
-Lexema: holamundo
-Atributo: token Valor: 257
-Lexema: 2.E+34
-Atributo: token Valor: 258
-Lexema: _un_identificador_22
-Atributo: token Valor: 257
-Lexema: 1.
-Atributo: token Valor: 258
-Lexema: if
-Atributo: token Valor: 257
-Lexema: class
-Atributo: token Valor: 257
 Lexema: a
 Atributo: token Valor: 257
+Lexema: 7_i
+Atributo: token Valor: 258
 Lexema: b
 Atributo: token Valor: 257
-Lexema: 2.5E-1
-Atributo: token Valor: 258
-Lexema: _un_ident
+Lexema: c
 Atributo: token Valor: 257
-Lexema: %Hola 	Mundo!%
-Atributo: token Valor: 259
-Lexema: -32768_i
+Lexema: d
+Atributo: token Valor: 257
+Lexema: 1.2222222
 Atributo: token Valor: 258
+Lexema: e
+Atributo: token Valor: 257
+Lexema: fn
+Atributo: token Valor: 257
 Lexema: 0.0
 Atributo: token Valor: 258
 Lexema: 32767_i
 Atributo: token Valor: 258
-Lexema: -3.40282347E+38
+Lexema: % Hola Mundo! %
+Atributo: token Valor: 259
+Lexema: 2.0
 Atributo: token Valor: 258
-Lexema: 3.e-5
-Atributo: token Valor: 258
-Lexema: soyunidentificadormu
+Lexema: t
 Atributo: token Valor: 257
-Lexema: -1.2
+Lexema: 1.2
 Atributo: token Valor: 258
-Lexema: 0.
-Atributo: token Valor: 258
-Lexema: identificador
+Lexema: x
 Atributo: token Valor: 257
+Lexema: y
+Atributo: token Valor: 257
+Lexema: z
+Atributo: token Valor: 257
+Lexema: 2_i
+Atributo: token Valor: 258
+Lexema: 500_i
+Atributo: token Valor: 258
+Lexema: 12_ul
+Atributo: token Valor: 258

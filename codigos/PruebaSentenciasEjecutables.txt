@@ -1,30 +1,54 @@
 { 
+	*{ Sentencia PRINT }*
     PRINT % Hola Mundo! %,
 
-    FLOAT a,
-    ULONG b,
+	*{ Declaracion de variables }*
+    FLOAT a;d,
+    ULONG b;e,
     INT c,
 
+	*{ Sentencia asignacion }*
     x = 12_ul,
 
+	*{ Sentencia asignacion con expresiones }*
     a = b-- * 7_i,
 	z = a---b--,
     
+    *{ Sentencia seleccion con expresiones }*
 	IF (a-- > 2_i) 
 		a = b-- * 7_i,
 	END_IF,
 
     IF (a>b) {
     	x = 798789798_i,
+    } else {
+    	z = 500_i,
     }
     END_IF,
     
-     DO {
+    *{ Sentencia iteracion }*
+    DO {
         x = 1.2222222,
         y = 2.0,
     } WHILE (x<2_i),
     
-    VOID hola()
+    *{ Combinacion de sentencias ejecutables }*
+    IF (a>b) {
+    	DO {
+	        x = 1.2222222,
+	        y = 2.0,
+	    } WHILE (x<2_i),
+    } ELSE {
+    	z = 500_i,
+    	
+    	IF (b > c) {
+    		d = e,
+    	} END_IF,
+    }
+    END_IF,
+    
+    *{ Declaracion de funcion }*
+    VOID fn(FLOAT t)
     {
         FLOAT x,
         x = 1.2,
@@ -50,5 +74,6 @@
         x = 2.0,
     } 
 
-    hola(),
+	*{ Sentencia invocacion de funcion }*
+    fn(t),
 }

@@ -1,29 +1,35 @@
 *{ Prueba de codigo de Herencia por composicion }*
 {
+	*{ Defincion de clase, se reconoce }*
     CLASS ca {
         INT a;c,
         VOID m() {
-            PRINT % HOLA %
+            PRINT % HOLA %,
         }
     }
 
+	*{ Defincion de clase, se reconoce }*
     CLASS cb {
         FLOAT b,
         FLOAT a,
         VOID n() {
-            PRINT % HOLA %
+            PRINT % HOLA %,
         }
         ca,
     }
 
+	*{ Declaracion de variables }*
     ca a1; a2,
     cb b1; b2; b3,
 
+	*{ Asignacion de valores a atributos }*
     a1.a = 3_i,
     b1.ca.a = 3_i,
     b1.a = 2.3, 
     b1.b = 1.2, 
     b1.ca.c = 1_i, 
+    
+    *{ Invocacion de metodos de clase }* 
     b1.ca.m(), 
     b1.n(),
 }

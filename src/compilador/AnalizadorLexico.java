@@ -198,8 +198,8 @@ public class AnalizadorLexico {
 
 			int proximoEstado = matrixEstados.getEstadoSiguiente(estado_actual, columnaCaracter);
 
-			 System.out.println("Caracter: " + inputAsChar + " estado actual: " +
-			 estado_actual + " proximo estado: " + proximoEstado);
+//			 System.out.println("Caracter: " + inputAsChar + " estado actual: " +
+//			 estado_actual + " proximo estado: " + proximoEstado);
 
 			AccionSemantica as = matrixAS.getAccionSemantica(estado_actual, columnaCaracter);
 

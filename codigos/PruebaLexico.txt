@@ -1,74 +1,81 @@
-{
-	*{ Idententificador de menos de 20 caracteres, se reconoce }*
-	INT identificador,
+{ 
+	*{ Sentencia PRINT }*
+    PRINT % Hola Mundo! %,
 
-	*{ Identificador de mas de 20 caracteres, se trunca }*
-	FLOAT soyunidentificadormuylargo,
-	
-	*{ Identificador con letras, digitos, _ }*
-	INT _un_identificador_22,
-	
-	*{ Identificador con caracter invalido, se descartan # y ! }*
-	INT _un_ident#!ficador_22,
-	
-	*{ Valor minimo valido para INT, se reconoce correctamente }*
-	a = -32768_i,
-	
-	*{ Valor maximo valido para INT, se reconoce correctamente }*
-	a = 32767_i,
-	
-	*{ Valor fuera de rango para INT positiva, se trunca a 32767_i }*
-	a = 50000_i,
+	*{ Declaracion de variables }*
+    FLOAT a;d,
+    ULONG b;e,
+    INT c,
 
-	*{ Valor fuera de rango para INT negativa, se trunca a -32768_i }*
-	a = -50000_i,
-	
-	*{ Valor fuera de rango para ULONG negativa, se trunca a 0_ul }*
-	a = -50000_ul,
-	
-	*{ Valor fuera de rango para ULONG positivo, se trunca a 4294967295_ul }*
-	a = 50000000000000_ul,
-	
-	*{ Valor fuera de rango para FLOAT positivo, se trunca a 3.40282347E+38 }*
-	a = 5.40282347E+38,
-	
-	*{ Valor fuera de rango para FLOAT negativo, se trunca a ??? }*
-	a = -5.40282347E+38,
-	
-	*{ Valor 0.0 valido para FLOAT }*
-	a = 0.0,	
-	
-	*{ Sintaxis valida para FLOAT }*
-	a = 1., 
-	a = .6, 
-	a = -1.2, 
-	a = 3.e-5, 
-	a = 2.E+34, 
-	a = 2.5E-1, 
-	a = 15., 
-	a = 0., 
-	a = 1.2e+10,
-	
-	*{ Palabras reservadas en sentencia de seleccion }*
-	IF (a > b) 
-		a = b,
-	ELSE 
-		b = a,
+	*{ Sentencia asignacion }*
+    x = 12_ul,
+
+	*{ Sentencia asignacion con expresiones }*
+    a = b-- * 7_i,
+	z = a---b--,
+    
+    *{ Sentencia seleccion con expresiones }*
+	IF (a-- > 2_i) 
+		a = b-- * 7_i,
 	END_IF,
-	
-	*{ Palabras reservadas en sentencia de iteracion }*
-	DO 
-		a = b,
-	WHILE (b > a),
-	
-	*{ Palabras reservadas en minuscula, se reconocen como identificador }*
-	INT if,
-	FLOAT class,
-	
-	*{ Cadena multilinea valida, se reconoce }*
-	PRINT %Hola 
-	Mundo!%,
-	
-	*{ Cadena invalida, se reconoce }*
-	PRINT holamundo%,
+
+    IF (a>b) {
+    	x = 798789798_i,
+    } ELSE {
+    	z = 500_i,
+    }
+    END_IF,
+    
+    *{ Sentencia iteracion }*
+    DO {
+        x = 1.2222222,
+        y = 2.0,
+    } WHILE (x<2_i),
+    
+    *{ Combinacion de sentencias ejecutables }*
+    IF (a>b) {
+    	DO {
+	        x = 1.2222222,
+	        y = 2.0,
+	    } WHILE (x<2_i),
+    } ELSE {
+    	z = 500_i,
+    	
+    	IF (b > c) {
+    		d = e,
+    	} END_IF,
+    }
+    END_IF,
+    
+    *{ Declaracion de funcion }*
+    VOID fn(FLOAT t)
+    {
+        FLOAT x,
+        x = 1.2,
+
+        FLOAT x,
+        x = 1.2,
+        IF (x > 0.0)
+            x = 2.0,
+        ELSE {
+            x = 2.0,
+
+            DO {
+                x = 1.2,
+                x = 2.0,
+            } WHILE (x<2_i),
+
+            PRINT % Hola Mundo! %,
+
+            x = 2.0,
+        }
+        END_IF,
+
+        x = 2.0,
+        
+        RETURN,
+    } 
+
+	*{ Sentencia invocacion de funcion }*
+    fn(t),
 }

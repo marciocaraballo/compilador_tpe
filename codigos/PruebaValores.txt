@@ -1,6 +1,15 @@
 {
-	*{ Identificador de mas de 20 caracteres }*
+	*{ Idententificador de menos de 20 caracteres, se reconoce }*
+	INT identificador,
+
+	*{ Identificador de mas de 20 caracteres, se trunca }*
 	FLOAT soyunidentificadormuylargo,
+	
+	*{ Identificador con letras, digitos, _ }*
+	INT _un_identificador_22,
+	
+	*{ Identificador con caracter invalido, se descartan # y ! }*
+	INT _un_ident#!ficador_22,
 	
 	*{ Valor minimo valido para INT, se reconoce correctamente }*
 	a = -32768_i,
@@ -33,12 +42,29 @@
 	a = 1., 
 	a = .6, 
 	a = -1.2, 
-	a = 3.e–5, 
+	a = 3.e-5, 
 	a = 2.E+34, 
 	a = 2.5E-1, 
 	a = 15., 
 	a = 0., 
-	a = 1.2e+10
+	a = 1.2e+10,
 	
+	*{ Palabras reservadas en sentencia de seleccion }*
+	IF (a > b) 
+		a = b,
+	ELSE 
+		b = a,
+	END_IF,
 	
+	*{ Palabras reservadas en sentencia de iteracion }*
+	DO 
+		a = b,
+	WHILE (b > a),
+	
+	*{ Palabras reservadas en minuscula, se reconocen como identificador }*
+	INT if,
+	FLOAT class,
+	
+	*{ Comentario sin terminar , se informa que el programa esta incorrecto porque
+	el '}' al final sera abarcado por el comentario sin terminar *
 }

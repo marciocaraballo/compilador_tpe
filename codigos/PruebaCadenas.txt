@@ -1,0 +1,14 @@
+{
+
+	*{ Cadena valida, se reconoce }*
+	PRINT %Hola Mundo!%,
+
+	*{ Cadena multilinea valida, se reconoce }*
+	PRINT %Hola 
+	Mundo!%,
+	
+	*{ Cadena sin terminar, se reconoce holamundo como identificador y se descarta el resto.
+	El programa queda incorrecto dado que el '}' final se reconoceria como parte de la cadena
+	incompleta }*
+	PRINT holamundo%,
+}
