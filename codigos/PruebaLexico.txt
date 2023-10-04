@@ -1,11 +1,10 @@
 {   
-   FLOAT _numero,
-   
-   numero = 3_il,
-   
-   VOID fn()
-   		a = b,
-   		b = a,
-   }
-   
+	VOID sarasa() {
+		DO {
+		  	FLOAT hola,
+		  	a = b,
+		  	FLOAT chau,
+		  	d = e,
+		  } WHILE (a > b),
+	}
 }

@@ -1,1 +1,7 @@
-[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 5: [Parser] Asignacion detectada
+[Success] Linea 6: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 8: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 11: [Parser] Declaracion de funcion detectado
+[Success] Linea 12: [Parser] Programa correcto detectado

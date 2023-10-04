@@ -1,12 +1,14 @@
 Lexema: a
 Atributo: token Valor: 257
-Lexema: _numero
+Lexema: sarasa
 Atributo: token Valor: 257
-Lexema: numero
+Lexema: b
 Atributo: token Valor: 257
-Lexema: fn
+Lexema: d
 Atributo: token Valor: 257
-Lexema: l
+Lexema: e
 Atributo: token Valor: 257
-Lexema: 3_i
-Atributo: token Valor: 258
+Lexema: chau
+Atributo: token Valor: 257
+Lexema: hola
+Atributo: token Valor: 257
