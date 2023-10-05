@@ -936,7 +936,6 @@ public static AnalizadorLexico lexico = null;
 public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;
-public static int MIN_INT_VALUE = -(int) (Math.pow(2, 15));
 public static int MAX_INT_VALUE = (int) (Math.pow(2, 15) - 1);
 
 /** Chequea, para los INT, que el valor positivo no supere el valor maximo */
@@ -976,24 +975,7 @@ public void constanteConSigno(String constante) {
 		} else {
 			// se recibio un INT negativo
 			String negConstante = "-"+constante;
-			boolean exceptionOutOfRange = false;
-			int cte = 0;
-
-			String negConstanteValue = negConstante.toString().split("_")[0];
-
-			try {
-				cte = Integer.parseInt(negConstanteValue);
-			} catch (NumberFormatException e) {
-				exceptionOutOfRange = true;
-			}
-
-			if (cte < MIN_INT_VALUE || exceptionOutOfRange) {
-				logger.logWarning("[Parser] Rango invalido para la constante: " + negConstante + ", se trunca al rango permitido");
-
-				ts.swapLexemas(constante, MIN_INT_VALUE + "_i");
-			} else {
-				ts.swapLexemas(constante, negConstante);
-			}
+			ts.swapLexemas(constante, negConstante);
 		}
 	}
 }	
@@ -1033,7 +1015,7 @@ public static void main(String[] args) {
 		}
 	}
 }
-//#line 964 "Parser.java"
+//#line 946 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1635,7 +1617,7 @@ case 194:
 //#line 345 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1561 "Parser.java"
+//#line 1543 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
