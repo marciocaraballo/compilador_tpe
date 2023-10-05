@@ -60,7 +60,7 @@ sentencia_ejecutable_funcion:
 
 sentencia_return:
 	RETURN ',' | 
-	RETURN { logger.logError("[Parser] Se esperaba ',' luego del RETURN"); }
+	RETURN { logger.logError("[Parser] Se esperab un simbolo ',' luego del RETURN"); }
 ;
 
 sentencia_iterativa_do_while:
@@ -161,7 +161,9 @@ sentencia_imprimir:
 	PRINT CADENA { logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); } |
 	PRINT ',' { logger.logError("[Parser] Se esperaba CADENA en Sentencia PRINT"); } |
 	PRINT ID ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); } |
-	PRINT ID { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia PRINT"); }
+	PRINT ID { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia PRINT"); } |
+	PRINT constante ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro una constante en sentencia PRINT"); } |
+	PRINT constante { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia PRINT"); }
 ;
 
 sentencia_invocacion_funcion:
@@ -180,8 +182,8 @@ lista_expresiones_invocacion_funcion_exceso:
 
 sentencia_asignacion:
 	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); } |
-	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentenecia asignacion"); } |
-	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentenecia asignacion"); }
+	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
+	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
 ;
 
 sentencia_objeto_identificador:
@@ -198,8 +200,8 @@ sentencia_declarativa:
 
 declaracion_variable:
 	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
-	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en sentenecia declaracion de variables"); } |
-	tipo ',' { logger.logError("[Parser] Se esperaba una lista de variables en sentenecia declaracion de variables"); }
+	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia declaracion de variables"); } |
+	tipo ',' { logger.logError("[Parser] Se esperaba una lista de variables en sentencia declaracion de variables"); }
 ;
 
 declaracion_interfaz:

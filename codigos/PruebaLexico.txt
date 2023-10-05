@@ -1,9 +1,8 @@
-
 {
 
-	INT numero,
-	
-	numero = 32768_i,
+	PRINT 3_ul,
 
-   
 }
+
+
+
