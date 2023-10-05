@@ -3,7 +3,7 @@
 
 	INT numero,
 	
-	numero = -_i,
+	numero = 32768_i,
 
    
 }

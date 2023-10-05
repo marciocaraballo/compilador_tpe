@@ -5,7 +5,7 @@
 	*{ Identificador de mas de 20 caracteres, se trunca }*
 	FLOAT soyunidentificadormuylargo,
 	
-	*{ Identificador con letras, digitos, _ }*
+	*{ Identificador con letras, digitos, _ se reconoce}*
 	INT _un_identificador_22,
 	
 	*{ Identificador con caracter invalido, se descartan # y ! }*
@@ -16,6 +16,9 @@
 	
 	*{ Valor maximo valido para INT, se reconoce correctamente }*
 	a = 32767_i,
+	
+	*{ Valor fuera de rango para INT positiva, se trunca a 32767_i }*
+	a = 32768_i,
 	
 	*{ Valor fuera de rango para INT positiva, se trunca a 32767_i }*
 	a = 50000_i,
