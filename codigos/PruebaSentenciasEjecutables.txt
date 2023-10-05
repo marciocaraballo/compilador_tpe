@@ -21,7 +21,7 @@
 
     IF (a>b) {
     	x = 798789798_i,
-    } else {
+    } ELSE {
     	z = 500_i,
     }
     END_IF,
@@ -72,6 +72,8 @@
         END_IF,
 
         x = 2.0,
+        
+        RETURN,
     } 
 
 	*{ Sentencia invocacion de funcion }*
