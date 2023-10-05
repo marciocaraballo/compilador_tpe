@@ -177,7 +177,7 @@ sentencia_invocacion_funcion:
 
 lista_expresiones_invocacion_funcion_exceso: 
 	expresion |
-	expresion ',' expresion
+	lista_expresiones_invocacion_funcion_exceso ',' expresion
 ;
 
 sentencia_asignacion:
