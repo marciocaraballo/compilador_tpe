@@ -312,7 +312,8 @@ tipo:
 condicion:
 	expresion comparador expresion |
 	expresion comparador { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); } |
-	comparador expresion { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
+	comparador expresion { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); } |
+	expresion '=' expresion { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
 ;
 
 comparador:
