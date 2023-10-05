@@ -1,0 +1,8 @@
+Lexema: a
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: c
+Atributo: token Valor: 257
+Lexema: fn
+Atributo: token Valor: 257

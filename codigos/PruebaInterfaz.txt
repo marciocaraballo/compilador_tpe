@@ -16,13 +16,13 @@
         } 
     }
 
-     *{ Definicion de una INTERFACE }*
+     *{ Definicion de una INTERFACE, se reconoce como valida }*
     INTERFACE z {
-        VOID a()
-        VOID b()
+        VOID a(),
+        VOID b(),
     }
 
-	 *{ Implementar una INTERFACE }*
+	 *{ Implementar una INTERFACE, se reconoce como valida }*
     CLASS a IMPLEMENT z {
         VOID q() { PRINT % HOLA %, RETURN,}
         VOID s() { PRINT % HOLA %, RETURN,}

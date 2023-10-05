@@ -1,5 +1,4 @@
 {
-
 	*{ Cadena valida, se reconoce }*
 	PRINT %Hola Mundo!%,
 

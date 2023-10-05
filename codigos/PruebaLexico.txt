@@ -1,6 +1,6 @@
 {
-
-	PRINT 3_ul,
+	
+	fn(a, b, c),
 
 }
 

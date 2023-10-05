@@ -1,5 +1,5 @@
 {
-	*{ Funcion no tiene RETURN al final }*
+	*{ Funcion no tiene RETURN al final, no se reconoce la funcion como valida }*
 	VOID fn1() {
 	
 		IF (a > b) {
@@ -8,7 +8,7 @@
 		} END_IF,
 	}
 	
-	*{ Funcion tiene sentencias luego del RETURN al final }*
+	*{ Funcion tiene sentencias luego del RETURN al final, se informa que las sentencias seran ignoradas }*
 	VOID fn2() {
 	
 		IF (a > b) {
@@ -26,13 +26,13 @@
 		WHILE (a > b),
 	}
 	
-	*{ Funcion tiene mas de un parametro }*
+	*{ Funcion tiene mas de un parametro, se informa que los parametros sobrantes se ignoran }*
 	VOID fn3(FLOAT a, FLOAT b, FLOAT e, FLOAT d) {
 		a = b,
 		e = d,
 		RETURN,
 	}
 	
-	*{ Invocacion funcion con multiples parametros }*
+	*{ Invocacion funcion con multiples parametros, se informa que los parametros sobrantes se ignoran }*
 	fn3(a, b, c , d),
 }
