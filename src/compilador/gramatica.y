@@ -118,7 +118,9 @@ sentencia_seleccion_funcion:
 bloque_sentencias_ejecutables:
 	sentencia_ejecutable |
 	'{' sentencias_ejecutables '}' |
-	'{'  '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); } |
+	'{' sentencias_ejecutables  { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); } |
 	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 ;
 
@@ -129,6 +131,10 @@ bloque_sentencias_ejecutables_funcion:
 	'{' sentencias_ejecutables_funcion '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' |
+	sentencias_ejecutables_funcion '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	sentencias_ejecutables_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	'{' sentencias_ejecutables_funcion { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	'{' sentencias_ejecutables_funcion sentencia_return { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
 	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 ;
 
