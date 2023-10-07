@@ -1,0 +1,26 @@
+{ 
+	*{ 2 errores, no hay sentencias ejecutables dentro del bloque, y falta la condicion en WHILE }*
+	DO {
+	
+	} WHILE (),
+	
+	*{ No se aceptan sentencias declarativas en el DO WHILE }*
+	DO {
+		FLOAT b,
+	} WHILE (a > b),
+	
+	DO
+		FLOAT b,
+	WHILE (a > b),
+	
+	*{ No se acepta sentencia RETURN fuera de funcion }*
+	DO
+		RETURN,
+	WHILE (a > b),
+	
+	*{ Falta una expresion del lado derecho }*
+	a = ,
+	
+	
+
+}

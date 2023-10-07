@@ -33,6 +33,16 @@
 		RETURN,
 	}
 	
+	*{ Se esperaba un simbolo { en la funcion }*
+	VOID fn4()
+		IF (a > b) {
+			a = b,
+			RETURN,
+		} END_IF,
+		
+		RETURN,
+	}
+	
 	*{ Invocacion funcion con multiples parametros, se informa que los parametros sobrantes se ignoran }*
 	fn3(a, b, c , d),
 }

@@ -1,5 +1,49 @@
-{ 
-	DO {
-		a =b,
-	} WHILE(a = b),
+{
+	*{ Funcion no tiene RETURN al final, no se reconoce la funcion como valida }*
+	VOID fn1() {
+	
+		IF (a > b) {
+			a = b,
+			RETURN,
+		} END_IF,
+	}
+	
+	*{ Funcion tiene sentencias luego del RETURN al final, se informa que las sentencias seran ignoradas }*
+	VOID fn2() {
+	
+		IF (a > b) {
+			a = b,
+			RETURN,
+			d = e,
+		} END_IF,
+		
+		RETURN,
+		
+		a = b,
+		
+		DO 
+			c = d,
+		WHILE (a > b),
+	}
+	
+	*{ Funcion tiene mas de un parametro, se informa que los parametros sobrantes se ignoran }*
+	VOID fn3(FLOAT a, FLOAT b, FLOAT e, FLOAT d) {
+		a = b,
+		e = d,
+		RETURN,
+	}
+	
+	*{ Se esperaba un simbolo { en la funcion }*
+	VOID fn4()
+		IF (a > b) {
+			a = b,
+			RETURN,
+		} END_IF,
+		
+		RETURN,
+	}
+	
+	
+	*{ Invocacion funcion con multiples parametros, se informa que los parametros sobrantes se ignoran }*
+	fn3(a, b, c , d),
 }
