@@ -1,4 +1,8 @@
 { 
+	
+	*{ No se admiten expresiones entre parentesis }*
+	a = b + ((c - d) / 4_i) * 3_ul,
+	
 	*{ 2 errores, no hay sentencias ejecutables dentro del bloque, y falta la condicion en WHILE }*
 	DO {
 	

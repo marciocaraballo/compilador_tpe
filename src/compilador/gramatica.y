@@ -346,7 +346,8 @@ termino:
 factor:
 	ID |
 	ID OPERADOR_MENOS |
-	constante
+	constante |
+	'(' expresion ')' { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 ;
 
 constante:
