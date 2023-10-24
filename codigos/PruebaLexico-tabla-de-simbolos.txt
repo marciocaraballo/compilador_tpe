@@ -1,23 +1,8 @@
-Lexema: a
-Atributo: tipo Valor: INT
+Lexema: c:main:fun1
+Atributo: tipo Valor: FLOAT
 Atributo: token Valor: 257
-Lexema: de
-Atributo: tipo Valor: cabbb
+Lexema: fun1:main
 Atributo: token Valor: 257
-Lexema: fg
-Atributo: tipo Valor: cabbb
-Atributo: token Valor: 257
-Lexema: b
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: df
-Atributo: tipo Valor: cabbb
-Atributo: token Valor: 257
-Lexema: cabbb
-Atributo: token Valor: 257
-Lexema: e
-Atributo: tipo Valor: ULONG
-Atributo: token Valor: 257
-Lexema: f
-Atributo: tipo Valor: ULONG
+Lexema: d:main:fun1
+Atributo: tipo Valor: FLOAT
 Atributo: token Valor: 257

@@ -1,5 +1,7 @@
 {	
-	INT a;b,
-	ULONG e;f,
-	cabbb de; df; fg,
+	VOID fun1 () {
+		FLOAT c;d,
+		
+		RETURN,
+	}
 }

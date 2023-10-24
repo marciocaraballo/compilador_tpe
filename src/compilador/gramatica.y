@@ -208,6 +208,8 @@ declaracion_variable:
 	tipo lista_de_variables ',' { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
 		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
+		genCodigoIntermedio.agregarAmbitoAListaDeVariables();
+		genCodigoIntermedio.removerListaVariablesADeclarar();
 	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia declaracion de variables"); } |
 	tipo ',' { logger.logError("[Parser] Se esperaba una lista de variables en sentencia declaracion de variables"); }
@@ -233,7 +235,11 @@ encabezado_funcion_declaracion_interfaz:
 ;
 
 sentencia_declarativa_clase:
-	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); } |
+	tipo lista_de_variables ',' { 
+		logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); 
+		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
+		genCodigoIntermedio.removerListaVariablesADeclarar();
+	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); } |
 	declaracion_funcion |
 	ID ','
@@ -256,12 +262,21 @@ bloque_sentencias_declarativas_clase:
 ;
 
 declaracion_funcion:
-	encabezado_funcion cuerpo_funcion { logger.logSuccess("[Parser] Declaracion de funcion detectado"); }
+	encabezado_funcion cuerpo_funcion { 
+		logger.logSuccess("[Parser] Declaracion de funcion detectado");
+		genCodigoIntermedio.desapilarAmbito(); 
+	}
 ;
 
 encabezado_funcion:
-	VOID ID '(' parametro_funcion ')' |
-	VOID ID '(' ')' |
+	VOID ID '(' parametro_funcion ')' { 
+		genCodigoIntermedio.agregarAmbitoADeclaracionDeFuncion($2.sval);
+		genCodigoIntermedio.apilarAmbito($2.sval); 
+	} |
+	VOID ID '(' ')' { 
+		genCodigoIntermedio.agregarAmbitoADeclaracionDeFuncion($2.sval);
+		genCodigoIntermedio.apilarAmbito($2.sval); 
+	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID '(' parametro_funcion ')' { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); } |
