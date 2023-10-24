@@ -2,22 +2,22 @@ Lexema: a
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
 Lexema: de
-Atributo: tipo Valor: de
+Atributo: tipo Valor: cabbb
+Atributo: token Valor: 257
+Lexema: fg
+Atributo: tipo Valor: cabbb
 Atributo: token Valor: 257
 Lexema: b
-Atributo: tipo Valor: FLOAT
+Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: c
-Atributo: tipo Valor: ULONG
+Lexema: df
+Atributo: tipo Valor: cabbb
 Atributo: token Valor: 257
 Lexema: cabbb
 Atributo: token Valor: 257
-Lexema: 315_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: 3.15
-Atributo: tipo Valor: FLOAT
-Atributo: token Valor: 258
-Lexema: 315_ul
+Lexema: e
 Atributo: tipo Valor: ULONG
-Atributo: token Valor: 258
+Atributo: token Valor: 257
+Lexema: f
+Atributo: tipo Valor: ULONG
+Atributo: token Valor: 257

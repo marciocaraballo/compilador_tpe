@@ -1052,7 +1052,7 @@ public void constanteConSigno(String constante) {
 }	
 
 public int yylex() {
-	return lexico.yylex(yylval);
+	return lexico.yylex(parser);
 }
 
 public void yyerror(String error) {
@@ -1715,10 +1715,6 @@ case 178:
 //#line 311 "./src/compilador/gramatica.y"
 { genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval); }
 break;
-case 179:
-//#line 315 "./src/compilador/gramatica.y"
-{ yyval.sval = "INT"; }
-break;
 case 184:
 //#line 323 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
@@ -1743,7 +1739,7 @@ case 204:
 //#line 358 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1669 "Parser.java"
+//#line 1665 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

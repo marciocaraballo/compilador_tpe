@@ -410,7 +410,7 @@ public void constanteConSigno(String constante) {
 }	
 
 public int yylex() {
-	return lexico.yylex(yylval);
+	return lexico.yylex(parser);
 }
 
 public void yyerror(String error) {
