@@ -205,7 +205,10 @@ sentencia_declarativa:
 ;
 
 declaracion_variable:
-	tipo lista_de_variables ',' { logger.logSuccess("[Parser] Declaracion de lista de variables detectado"); } |
+	tipo lista_de_variables ',' { 
+		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
+		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
+	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia declaracion de variables"); } |
 	tipo ',' { logger.logError("[Parser] Se esperaba una lista de variables en sentencia declaracion de variables"); }
 ;
@@ -304,8 +307,8 @@ parametro_funcion:
 ;
 
 lista_de_variables:
-	ID |
-	lista_de_variables ';' ID
+	ID { genCodigoIntermedio.agregarVariableADeclarar($1.sval); } |
+	lista_de_variables ';' ID { genCodigoIntermedio.agregarVariableADeclarar($3.sval); }
 ;
 
 tipo:
@@ -358,6 +361,7 @@ constante:
 %%
 
 public static AnalizadorLexico lexico = null;
+public static GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
 public static Logger logger = Logger.getInstance();
 public static TablaDeSimbolos ts = TablaDeSimbolos.getInstance();
 public static Parser parser = null;

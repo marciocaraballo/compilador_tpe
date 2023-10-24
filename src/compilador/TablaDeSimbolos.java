@@ -21,6 +21,8 @@ public class TablaDeSimbolos {
 
 	/* Keys de atributos */
 	public static final String TOKEN = "token";
+	public static final String TYPE = "tipo";
+	public static final String USE = "uso";
 
 	TablaDeSimbolos() {
 	};
@@ -59,6 +61,18 @@ public class TablaDeSimbolos {
 		tabla_simbolos.put(lexema, atributos);
 	}
 
+	public void putTipo(String lexema, String tipo) {
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		attributes.put(TYPE, tipo);
+	}
+
+	public void putIdentificadorUso(String lexema, String uso) {
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		attributes.put(USE, uso);
+	}
+
 	public boolean has(String lexema) {
 		return tabla_simbolos.containsKey(lexema);
 	}
@@ -68,6 +82,16 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
 
 		return (int) atributos.get(TOKEN);
+	}
+
+	public String getUso(String lexema) {
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+		return (String) atributos.get(USE);
+	}
+
+	public String getTipo(String lexema) {
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+		return (String) atributos.get(TYPE);
 	}
 
 	public void swapLexemas(String lexemaOriginal, String lexemaModificado) {

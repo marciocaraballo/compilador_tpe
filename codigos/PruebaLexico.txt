@@ -1,0 +1,12 @@
+{
+	INT a,
+	FLOAT b,
+	ULONG c,
+	
+	cabbb de,
+
+	a = 315_i,
+	b = 3.15,
+	c = 315_ul,
+
+}

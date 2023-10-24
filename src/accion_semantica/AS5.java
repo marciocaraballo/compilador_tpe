@@ -63,6 +63,13 @@ public class AS5 extends AccionSemantica {
 			return TS.getToken(lexema.toString());
 		} else {
 			TS.putConstante(lexema.toString());
+
+			if (lexema.toString().contains("_i")) {
+				TS.putTipo(lexema.toString(), "INT");
+			} else {
+				TS.putTipo(lexema.toString(), "ULONG");
+			}
+
 			return TS.getToken(lexema.toString());
 		}
 	}

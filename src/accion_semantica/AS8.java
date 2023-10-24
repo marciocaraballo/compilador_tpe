@@ -33,6 +33,7 @@ public class AS8 extends AccionSemantica {
 			return TS.getToken(lexema.toString());
 		} else {
 			TS.putConstante(lexema.toString());
+			TS.putTipo(lexema.toString(), "FLOAT");
 			return TS.getToken(lexema.toString());
 		}
 	}
