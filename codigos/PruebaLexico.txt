@@ -1,6 +1,5 @@
 {	
-	 VOID m(INT a) {
-        PRINT % HOLA %,
-        RETURN,
-    }
+	INT c,
+	
+	c = d,
 }

@@ -281,22 +281,22 @@ declaracion_funcion:
 ;
 
 encabezado_funcion:
-	VOID ID '(' parametro_funcion ')' { 
+	encabezado_funcion_nombre '(' parametro_funcion ')' |
+	encabezado_funcion_nombre '(' ')' |
+	encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
+	encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
+	encabezado_funcion_nombre ')' { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
+;
+
+encabezado_funcion_nombre:
+	VOID ID {
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
 		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 		genCodigoIntermedio.apilarAmbito($2.sval); 
 	} |
-	VOID ID '(' ')' { 
-		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
-		genCodigoIntermedio.apilarAmbito($2.sval); 
-	} |
-	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
-	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
-	VOID '(' parametro_funcion ')' { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); } |
-	VOID '(' ')' { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); } |
-	VOID ID parametro_funcion ')' { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); } |
-	VOID ID ')' { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
+	VOID {
+		logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); 
+	}
 ;
 
 encabezado_funcion_interfaz:

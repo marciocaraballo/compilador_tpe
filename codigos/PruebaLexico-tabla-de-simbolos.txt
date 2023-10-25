@@ -1,9 +1,8 @@
-Lexema: % HOLA %
-Atributo: token Valor: 259
-Lexema: m:main
-Atributo: uso Valor: nombre_funcion
+Lexema: c
 Atributo: token Valor: 257
-Lexema: a:main
-Atributo: uso Valor: nombre_parametro
+Lexema: c:main
+Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: d
 Atributo: token Valor: 257

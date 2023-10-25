@@ -66,14 +66,11 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void agregarAmbitoAListaDeVariables() {
-
         Iterator<String> it = lista_variables_a_declarar.iterator();
-        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        String ambitoCompleto = generarAmbito();
 
         while (it.hasNext()) {
             String variableActual = it.next();
-            TS.swapLexemas(variableActual, variableActual + ambitoCompleto);
+            this.agregarAmbitoAIdentificador(variableActual);
         }
     }
 
