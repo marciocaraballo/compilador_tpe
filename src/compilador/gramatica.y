@@ -258,8 +258,14 @@ sentencia_declarativa_clase:
 declaracion_clase:
 	CLASS ID '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
-		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito($2.sval)) {
+			logger.logError("[Gen Codigo Intermedio] El identificador " + $2.sval + " existe en el ambito");
+		} else {
+			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $2.sval + " no esta declarado en el ambito");
+			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
+			genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		}
 	} |
 	CLASS ID IMPLEMENT ID '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 

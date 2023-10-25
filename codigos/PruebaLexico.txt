@@ -1,11 +1,4 @@
 {	
-	*{ Defincion de clase, se reconoce }*
-    CLASS ca {
-        INT a;c,
-        VOID m() {
-            PRINT % HOLA %,
-        }
-    }
-    
-    cb c1,
+	INT a,
+	INT a,
 }
