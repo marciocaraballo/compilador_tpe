@@ -219,7 +219,7 @@ declaracion_interfaz:
 	INTERFACE ID '{' bloque_encabezado_funcion_declaracion_interfaz '}' { 
 		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada"); 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_interfaz");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeInterfaz($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	} |
 	INTERFACE '{' bloque_encabezado_funcion_declaracion_interfaz '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
 	INTERFACE bloque_encabezado_funcion_declaracion_interfaz '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
@@ -253,12 +253,12 @@ declaracion_clase:
 	CLASS ID '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeClase($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	} |
 	CLASS ID IMPLEMENT ID '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeClase($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	} |
 	CLASS '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
 	CLASS IMPLEMENT ID { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
@@ -283,12 +283,12 @@ declaracion_funcion:
 encabezado_funcion:
 	VOID ID '(' parametro_funcion ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeFuncion($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 		genCodigoIntermedio.apilarAmbito($2.sval); 
 	} |
 	VOID ID '(' ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeFuncion($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 		genCodigoIntermedio.apilarAmbito($2.sval); 
 	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
@@ -302,11 +302,11 @@ encabezado_funcion:
 encabezado_funcion_interfaz:
 	VOID ID '(' parametro_funcion ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeFuncion($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	} |
 	VOID ID '(' ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
-		genCodigoIntermedio.agregarAmbitoADeclaracionDeFuncion($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
@@ -349,7 +349,11 @@ lista_parametros_funcion_exceso:
 ;
 
 parametro_funcion:
-	tipo ID { genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_parametro"); }
+	tipo ID { 
+		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_parametro");
+		genCodigoIntermedio.agregarTipoAParametroDeFuncion($2.sval, $1.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+	}
 ;
 
 lista_de_variables:

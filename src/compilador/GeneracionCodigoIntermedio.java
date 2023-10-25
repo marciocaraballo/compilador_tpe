@@ -60,6 +60,11 @@ public class GeneracionCodigoIntermedio {
         }
     }
 
+    public void agregarTipoAParametroDeFuncion(String parametro, String type) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        TS.putTipo(parametro, type);
+    }
+
     public void agregarAmbitoAListaDeVariables() {
 
         Iterator<String> it = lista_variables_a_declarar.iterator();
@@ -72,28 +77,11 @@ public class GeneracionCodigoIntermedio {
         }
     }
 
-    public void agregarAmbitoADeclaracionDeFuncion(String identificador_funcion) {
-
+    public void agregarAmbitoAIdentificador(String identificador) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         String ambitoCompleto = generarAmbito();
 
-        TS.swapLexemas(identificador_funcion, identificador_funcion + ambitoCompleto);
-    }
-
-    public void agregarAmbitoADeclaracionDeClase(String identificador_clase) {
-
-        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        String ambitoCompleto = generarAmbito();
-
-        TS.swapLexemas(identificador_clase, identificador_clase + ambitoCompleto);
-    }
-
-    public void agregarAmbitoADeclaracionDeInterfaz(String identificador_interfaz) {
-
-        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        String ambitoCompleto = generarAmbito();
-
-        TS.swapLexemas(identificador_interfaz, identificador_interfaz + ambitoCompleto);
+        TS.swapLexemas(identificador, identificador + ambitoCompleto);
     }
 
     public void removerListaVariablesADeclarar() {
