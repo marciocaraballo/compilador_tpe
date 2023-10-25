@@ -1,8 +1,16 @@
-Lexema: c:main:fun1
-Atributo: tipo Valor: FLOAT
+Lexema: % HOLA %
+Atributo: token Valor: 259
+Lexema: a
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: fun1:main
+Lexema: m:main
+Atributo: uso Valor: nombre_funcion
 Atributo: token Valor: 257
-Lexema: d:main:fun1
-Atributo: tipo Valor: FLOAT
+Lexema: c
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
 Atributo: token Valor: 257

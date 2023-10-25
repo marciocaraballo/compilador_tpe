@@ -68,6 +68,7 @@ public class TablaDeSimbolos {
 	}
 
 	public void putIdentificadorUso(String lexema, String uso) {
+
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
 		attributes.put(USE, uso);

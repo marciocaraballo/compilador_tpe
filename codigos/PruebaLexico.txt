@@ -1,7 +1,10 @@
 {	
-	VOID fun1 () {
-		FLOAT c;d,
-		
-		RETURN,
-	}
+	*{ Defincion de clase, se reconoce }*
+    CLASS ca {
+        INT a;c,
+        VOID m() {
+            PRINT % HOLA %,
+            RETURN,
+        }
+    }
 }

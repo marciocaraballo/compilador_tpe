@@ -80,6 +80,22 @@ public class GeneracionCodigoIntermedio {
         TS.swapLexemas(identificador_funcion, identificador_funcion + ambitoCompleto);
     }
 
+    public void agregarAmbitoADeclaracionDeClase(String identificador_clase) {
+
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        String ambitoCompleto = generarAmbito();
+
+        TS.swapLexemas(identificador_clase, identificador_clase + ambitoCompleto);
+    }
+
+    public void agregarAmbitoADeclaracionDeInterfaz(String identificador_interfaz) {
+
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        String ambitoCompleto = generarAmbito();
+
+        TS.swapLexemas(identificador_interfaz, identificador_interfaz + ambitoCompleto);
+    }
+
     public void removerListaVariablesADeclarar() {
         lista_variables_a_declarar.clear();
     }
