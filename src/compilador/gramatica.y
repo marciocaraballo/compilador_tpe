@@ -377,7 +377,13 @@ tipo:
 	INT |
 	ULONG |
 	FLOAT |
-	ID
+	ID {
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
+			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+		} else {
+			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+		}
+	}
 ;
 
 condicion:

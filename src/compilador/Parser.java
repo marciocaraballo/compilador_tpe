@@ -1016,7 +1016,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 436 "./src/compilador/gramatica.y"
+//#line 442 "./src/compilador/gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
@@ -1816,20 +1816,30 @@ case 185:
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(0).sval, "variable");
 	}
 break;
+case 189:
+//#line 380 "./src/compilador/gramatica.y"
+{
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
+			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + val_peek(0).sval + " existe en el ambito");
+		} else {
+			logger.logError("[Gen Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado en el ambito");
+		}
+	}
+break;
 case 191:
-//#line 385 "./src/compilador/gramatica.y"
+//#line 391 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
 break;
 case 192:
-//#line 386 "./src/compilador/gramatica.y"
+//#line 392 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 break;
 case 193:
-//#line 387 "./src/compilador/gramatica.y"
+//#line 393 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
 break;
 case 206:
-//#line 412 "./src/compilador/gramatica.y"
+//#line 418 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
 			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + val_peek(0).sval + " existe en el ambito");
@@ -1839,7 +1849,7 @@ case 206:
 	}
 break;
 case 207:
-//#line 419 "./src/compilador/gramatica.y"
+//#line 425 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(1).sval)) {
 			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + val_peek(1).sval + " existe en el ambito");
@@ -1849,18 +1859,18 @@ case 207:
 	}
 break;
 case 209:
-//#line 427 "./src/compilador/gramatica.y"
+//#line 433 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 210:
-//#line 431 "./src/compilador/gramatica.y"
+//#line 437 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 211:
-//#line 432 "./src/compilador/gramatica.y"
+//#line 438 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 1786 "Parser.java"
+//#line 1796 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

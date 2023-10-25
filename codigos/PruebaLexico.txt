@@ -1,18 +1,11 @@
 {	
-
-	INT d,
-
-	VOID fun1 () {
-	
-		INT b,
-	
-		VOID fun2() {
-			d = b,
-			
-			RETURN,
-		}
-	
-	
-		RETURN,
-	}
+	*{ Defincion de clase, se reconoce }*
+    CLASS ca {
+        INT a;c,
+        VOID m() {
+            PRINT % HOLA %,
+        }
+    }
+    
+    cb c1,
 }
