@@ -193,7 +193,13 @@ sentencia_asignacion:
 ;
 
 sentencia_objeto_identificador:
-	ID |
+	ID {
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
+			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+		} else {
+			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+		}
+	} |
 	sentencia_objeto_identificador '.' ID
 ;
 
@@ -403,8 +409,20 @@ termino:
 ;
 
 factor:
-	ID |
-	ID OPERADOR_MENOS |
+	ID {
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
+			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+		} else {
+			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+		}
+	} |
+	ID OPERADOR_MENOS {
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
+			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+		} else {
+			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+		}
+	} |
 	constante |
 	'(' expresion ')' { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 ;

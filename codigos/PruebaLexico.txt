@@ -1,5 +1,18 @@
 {	
-	INT c,
+
+	INT d,
+
+	VOID fun1 () {
 	
-	c = d,
+		INT b,
+	
+		VOID fun2() {
+			d = b,
+			
+			RETURN,
+		}
+	
+	
+		RETURN,
+	}
 }
