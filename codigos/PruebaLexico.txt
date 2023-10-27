@@ -1,15 +1,20 @@
 {	
-	*{ Definicion de una INTERFACE, se reconoce como valida }*
-    INTERFACE z {
-        VOID a(),
-        VOID b(),
-    }
-    
-    *{ Definicion de una INTERFACE, se reconoce como valida }*
-    INTERFACE w {
-        VOID a(),
-        VOID b(),
-        VOID q(),
-    }
 
+	VOID fun() {
+		INT d,
+		RETURN,
+	}
+
+	*{ Defincion de clase, se reconoce }*
+    CLASS cb {
+        FLOAT b,
+        FLOAT a,
+        VOID n() {
+        
+	        INT var,
+	        
+            PRINT % HOLA %,
+            RETURN,
+        }
+    }
 }

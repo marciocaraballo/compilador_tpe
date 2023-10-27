@@ -235,6 +235,7 @@ declaracion_interfaz_encabezado:
 declaracion_interfaz:
 	declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz '}' { 
 		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada");
+		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	} |
 	declaracion_interfaz_encabezado '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
 ;
@@ -263,15 +264,17 @@ sentencia_declarativa_clase:
 ;
 
 declaracion_clase_encabezado:
-	CLASS ID { 
-		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval); 
+	CLASS ID {  
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
 		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+		genCodigoIntermedio.apilarAmbito($2.sval);
 	} |
-	CLASS ID IMPLEMENT ID { 
-		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval); 
+	CLASS ID IMPLEMENT ID {
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
 		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+		genCodigoIntermedio.apilarAmbito($2.sval);
 	} |
 	CLASS { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
 	CLASS IMPLEMENT ID { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
@@ -282,6 +285,7 @@ declaracion_clase_encabezado:
 declaracion_clase:
 	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
+		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 ;
 
@@ -307,8 +311,13 @@ encabezado_funcion:
 
 encabezado_funcion_nombre:
 	VOID ID {
-		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		if (genCodigoIntermedio.esDefinicionDeClase()) {
+			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
+			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($2.sval);
+		} else {
+			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
+			genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		}
 		genCodigoIntermedio.apilarAmbito($2.sval); 
 	} |
 	VOID {

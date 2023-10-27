@@ -7,6 +7,7 @@ import java.util.Stack;
 public class GeneracionCodigoIntermedio {
     private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
     private static Stack<String> ambitos = new Stack<String>();
+    private static Stack<String> ambitosClase = new Stack<String>();
     private String ambitoClaseInterfaz = "";
 
     private static GeneracionCodigoIntermedio instance = null;
@@ -24,6 +25,10 @@ public class GeneracionCodigoIntermedio {
         ambitoClaseInterfaz = identificador;
     }
 
+    public void clearAmbitoClaseInterfaz() {
+        ambitoClaseInterfaz = "";
+    }
+
     public String getAmbitoClaseInterfaz() {
         return ambitoClaseInterfaz;
     }
@@ -39,15 +44,40 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void apilarAmbito(String nombre_ambito) {
-        ambitos.push(nombre_ambito);
+        if (esDefinicionDeClase()) {
+            ambitosClase.push(nombre_ambito);
+        } else {
+            ambitos.push(nombre_ambito);
+        }
     }
 
     public void desapilarAmbito() {
-        ambitos.pop();
+        if (esDefinicionDeClase()) {
+            ambitosClase.pop();
+        } else {
+            ambitos.pop();
+        }
     }
 
     public String generarAmbito() {
-        Iterator<String> it = ambitos.iterator();
+        Iterator<String> it = null;
+        String ambitoCompleto = "";
+
+        if (esDefinicionDeClase()) {
+            it = ambitosClase.iterator();
+        } else {
+            it = ambitos.iterator();
+        }
+
+        while (it.hasNext()) {
+            ambitoCompleto += ":" + it.next();
+        }
+
+        return ambitoCompleto;
+    }
+
+    public String generarAmbitoClase() {
+        Iterator<String> it = ambitosClase.iterator();
         String ambitoCompleto = "";
 
         while (it.hasNext()) {
@@ -102,6 +132,10 @@ public class GeneracionCodigoIntermedio {
             String variableActual = it.next();
             this.agregarAmbitoAIdentificador(variableActual);
         }
+    }
+
+    public Boolean esDefinicionDeClase() {
+        return !ambitoClaseInterfaz.equals("");
     }
 
     public void agregarAmbitoAIdentificadorMetodo(String identificadorMetodo) {
