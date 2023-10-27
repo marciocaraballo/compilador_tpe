@@ -28,7 +28,8 @@ sentencias:
 
 sentencia:
 	sentencia_declarativa |
-	sentencia_ejecutable
+	sentencia_ejecutable |
+	error ',' { logger.logError("[Parser] Error de sintaxis en la sentencia"); }
 ;
 
 sentencia_ejecutable:
@@ -60,7 +61,7 @@ sentencia_ejecutable_funcion:
 
 sentencia_return:
 	RETURN ',' | 
-	RETURN { logger.logError("[Parser] Se esperab un simbolo ',' luego del RETURN"); }
+	RETURN { logger.logError("[Parser] Se esperaba un simbolo ',' luego del RETURN"); }
 ;
 
 sentencia_iterativa_do_while:
@@ -214,6 +215,7 @@ declaracion_variable:
 	tipo lista_de_variables ',' { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
 		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
+		genCodigoIntermedio.agregarUsoAListaDeVariables("variable");
 		genCodigoIntermedio.agregarAmbitoAListaDeVariables();
 		genCodigoIntermedio.removerListaVariablesADeclarar();
 	} |
@@ -221,17 +223,20 @@ declaracion_variable:
 	tipo ',' { logger.logError("[Parser] Se esperaba una lista de variables en sentencia declaracion de variables"); }
 ;
 
-declaracion_interfaz:
-	INTERFACE ID '{' bloque_encabezado_funcion_declaracion_interfaz '}' { 
-		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada"); 
+declaracion_interfaz_encabezado:
+	INTERFACE ID {
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_interfaz");
 		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 	} |
-	INTERFACE '{' bloque_encabezado_funcion_declaracion_interfaz '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
-	INTERFACE bloque_encabezado_funcion_declaracion_interfaz '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
-	INTERFACE '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); } |
-	INTERFACE ID bloque_encabezado_funcion_declaracion_interfaz '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); } |
-	INTERFACE ID '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
+	INTERFACE { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
+;
+
+declaracion_interfaz:
+	declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz '}' { 
+		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada");
+	} |
+	declaracion_interfaz_encabezado '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
 ;
 
 bloque_encabezado_funcion_declaracion_interfaz:
@@ -248,6 +253,8 @@ sentencia_declarativa_clase:
 	tipo lista_de_variables ',' { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); 
 		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
+		genCodigoIntermedio.agregarUsoAListaDeVariables("atributo");
+		genCodigoIntermedio.agregarAmbitoAListaDeAtributos();
 		genCodigoIntermedio.removerListaVariablesADeclarar();
 	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); } |
@@ -255,29 +262,27 @@ sentencia_declarativa_clase:
 	ID ','
 ;
 
-declaracion_clase:
-	CLASS ID '{' bloque_sentencias_declarativas_clase '}' { 
-		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
-
-		if (genCodigoIntermedio.existeIdentificadorEnAmbito($2.sval)) {
-			logger.logError("[Gen Codigo Intermedio] El identificador " + $2.sval + " existe en el ambito");
-		} else {
-			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $2.sval + " no esta declarado en el ambito");
-			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-			genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
-		}
-	} |
-	CLASS ID IMPLEMENT ID '{' bloque_sentencias_declarativas_clase '}' { 
-		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
+declaracion_clase_encabezado:
+	CLASS ID { 
+		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval); 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
 		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	} |
-	CLASS '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
+	CLASS ID IMPLEMENT ID { 
+		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval); 
+		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
+		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+	} |
+	CLASS { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
 	CLASS IMPLEMENT ID { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
-	CLASS ID IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en IMPLEMENT de clase"); } |
-	CLASS IMPLEMENT '{' bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
-	CLASS ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de clase"); } |
-	CLASS ID IMPLEMENT ID bloque_sentencias_declarativas_clase '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de clase"); }
+	CLASS ID IMPLEMENT { logger.logError("[Parser] Se esperaba un identificador en IMPLEMENT de clase"); } |
+	CLASS IMPLEMENT { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
+;
+
+declaracion_clase:
+	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
+		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
+	}
 ;
 
 bloque_sentencias_declarativas_clase:
@@ -314,11 +319,11 @@ encabezado_funcion_nombre:
 encabezado_funcion_interfaz:
 	VOID ID '(' parametro_funcion ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($2.sval);
 	} |
 	VOID ID '(' ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($2.sval);
 	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
@@ -370,12 +375,10 @@ parametro_funcion:
 
 lista_de_variables:
 	ID { 
-		genCodigoIntermedio.agregarVariableADeclarar($1.sval); 
-		genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "variable");
+		genCodigoIntermedio.agregarVariableADeclarar($1.sval);
 	} |
 	lista_de_variables ';' ID { 
-		genCodigoIntermedio.agregarVariableADeclarar($3.sval); 
-		genCodigoIntermedio.agregarUsoAIdentificador($3.sval, "variable");
+		genCodigoIntermedio.agregarVariableADeclarar($3.sval);
 	}
 ;
 

@@ -7,6 +7,7 @@ import java.util.Stack;
 public class GeneracionCodigoIntermedio {
     private ArrayList<String> lista_variables_a_declarar = new ArrayList<String>();
     private static Stack<String> ambitos = new Stack<String>();
+    private String ambitoClaseInterfaz = "";
 
     private static GeneracionCodigoIntermedio instance = null;
 
@@ -17,6 +18,24 @@ public class GeneracionCodigoIntermedio {
         }
 
         return instance;
+    }
+
+    public void setAmbitoClaseInterfaz(String identificador) {
+        ambitoClaseInterfaz = identificador;
+    }
+
+    public String getAmbitoClaseInterfaz() {
+        return ambitoClaseInterfaz;
+    }
+
+    public void agregarAmbitoAListaDeAtributos() {
+        Iterator<String> it = lista_variables_a_declarar.iterator();
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+
+        while (it.hasNext()) {
+            String variableActual = it.next();
+            TS.swapLexemas(variableActual, variableActual + ":" + ambitoClaseInterfaz);
+        }
     }
 
     public void apilarAmbito(String nombre_ambito) {
@@ -60,6 +79,17 @@ public class GeneracionCodigoIntermedio {
         }
     }
 
+    public void agregarUsoAListaDeVariables(String use) {
+
+        Iterator<String> it = lista_variables_a_declarar.iterator();
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+
+        while (it.hasNext()) {
+            String variableActual = it.next();
+            TS.putIdentificadorUso(variableActual, use);
+        }
+    }
+
     public void agregarTipoAParametroDeFuncion(String parametro, String type) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         TS.putTipo(parametro, type);
@@ -72,6 +102,11 @@ public class GeneracionCodigoIntermedio {
             String variableActual = it.next();
             this.agregarAmbitoAIdentificador(variableActual);
         }
+    }
+
+    public void agregarAmbitoAIdentificadorMetodo(String identificadorMetodo) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        TS.swapLexemas(identificadorMetodo, identificadorMetodo + ":" + ambitoClaseInterfaz);
     }
 
     public void agregarAmbitoAIdentificador(String identificador) {

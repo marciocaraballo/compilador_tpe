@@ -1,4 +1,15 @@
 {	
-	INT a,
-	INT a,
+	*{ Definicion de una INTERFACE, se reconoce como valida }*
+    INTERFACE z {
+        VOID a(),
+        VOID b(),
+    }
+    
+    *{ Definicion de una INTERFACE, se reconoce como valida }*
+    INTERFACE w {
+        VOID a(),
+        VOID b(),
+        VOID q(),
+    }
+
 }
