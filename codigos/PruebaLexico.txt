@@ -1,12 +1,14 @@
 {	
-	
-	INT a; a1; c; a1,
-	
-	INT a,
-	
-	VOID fun1() {
-		INT a,
-		INT a,
-		RETURN,
-	}
+
+    INT a; b; c; d,
+
+    d = a + b,
+    a = d,
+
+    *{
+    DO
+    { a = b + c,
+      c = d - 3_i, }
+    WHILE ( a + b <= c - d ),
+    }*
 }

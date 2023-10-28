@@ -1,6 +1,9 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 5: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 8: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 9: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 11: [Parser] Declaracion de funcion detectado
-[Success] Linea 12: [Parser] Programa correcto detectado
+[Success] Linea 5: [Codigo Intermedio] El identificador d esta declarado
+[Success] Linea 5: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 5: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 5: [Parser] Asignacion detectada
+[Success] Linea 6: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 6: [Codigo Intermedio] El identificador d esta declarado
+[Success] Linea 6: [Parser] Asignacion detectada
+[Success] Linea 14: [Parser] Programa correcto detectado

@@ -238,6 +238,7 @@ sentencia_asignacion:
 		genCodigoIntermedio.agregarElemento($2.sval);
 		genCodigoIntermedio.incrementarContador();	
 		genCodigoIntermedio.incrementarContador();
+		genCodigoIntermedio.comprobacionUso($1.sval);
 	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
 	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
@@ -518,8 +519,7 @@ factor:
 			genCodigoIntermedio.agregarElemento($1.sval);
 			genCodigoIntermedio.agregarElemento("1");
 			genCodigoIntermedio.agregarElemento("-");
-			genCodigoIntermedio.agregarElemento($1.sval);
-			genCodigoIntermedio.agregarElemento("=");
+
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}

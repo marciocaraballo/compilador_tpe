@@ -23,6 +23,7 @@ public class TablaDeSimbolos {
 	public static final String TOKEN = "token";
 	public static final String TYPE = "tipo";
 	public static final String USE = "uso";
+	public static final String COMPROBACION_USO = "comp_uso";
 
 	TablaDeSimbolos() {
 	};
@@ -39,8 +40,9 @@ public class TablaDeSimbolos {
 	public void putIdentificador(String lexema) {
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(TOKEN, IDENTIFICADOR);
-
+		atributos.put(COMPROBACION_USO, false);
 		tabla_simbolos.put(lexema, atributos);
+
 	}
 
 	/* Agrega un lexema que se reconoce como constante */
@@ -71,7 +73,14 @@ public class TablaDeSimbolos {
 
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
-		attributes.put(USE, uso);
+		attributes.put(USE, true);
+	}
+
+	public void putComprobacionUso(String lexema) {
+
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		attributes.put(COMPROBACION_USO, true);
 	}
 
 	public boolean has(String lexema) {
@@ -124,8 +133,11 @@ public class TablaDeSimbolos {
 			Iterator<String> attributesIterator = attributesKeys.iterator();
 
 			while (attributesIterator.hasNext()) {
+
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
+				if (attributeKey.equals(COMPROBACION_USO) && (Boolean) attributeValue == false)
+					Logger.getInstance().logWarning("La variable " +  lexema + " no se uso del lado izquierdo en asignacion");
 				tsPrint.append("Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n");
 			}
 		}

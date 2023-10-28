@@ -16,6 +16,7 @@ public class GeneracionCodigoIntermedio {
     int contador = 0;
     private static GeneracionCodigoIntermedio instance = null;
 
+
     public static GeneracionCodigoIntermedio getInstance() {
         if (instance == null) {
             instance = new GeneracionCodigoIntermedio();
@@ -241,6 +242,10 @@ public class GeneracionCodigoIntermedio {
 
     public int getContador() {
         return contador;
+    }
+
+    public void comprobacionUso(String lexema){
+        TablaDeSimbolos.getInstance().putComprobacionUso(lexema + generarAmbito());
     }
 
 }
