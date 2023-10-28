@@ -74,10 +74,9 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
 		attributes.put(USE, uso);
-		if (uso.equals("nombre_funcion")){
+		if (uso.equals("nombre_funcion") || uso.equals("nombre_metodo")) {
 			attributes.put(TIENE_PARAMETRO, false);
-		}
-		else {
+		} else {
 			attributes.put(COMPROBACION_USO, false);
 		}
 	}
@@ -119,7 +118,7 @@ public class TablaDeSimbolos {
 		tabla_simbolos.put(lexemaModificado, attributes);
 	}
 
-	public void removeLexema(String lexema){
+	public void removeLexema(String lexema) {
 		tabla_simbolos.remove(lexema);
 	}
 
@@ -146,7 +145,8 @@ public class TablaDeSimbolos {
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
 				if (attributeKey.equals(COMPROBACION_USO) && (Boolean) attributeValue == false)
-					Logger.getInstance().logWarning("La variable " +  lexema + " no se uso del lado izquierdo en asignacion");
+					Logger.getInstance()
+							.logWarning("La variable " + lexema + " no se uso del lado izquierdo en asignacion");
 				tsPrint.append("Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n");
 			}
 		}
