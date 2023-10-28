@@ -8,3 +8,14 @@ Lexema: a:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
+Lexema: fun1:main
+Atributo: uso Valor: nombre_funcion
+Atributo: token Valor: 257
+Lexema: a1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: a:main:fun1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257

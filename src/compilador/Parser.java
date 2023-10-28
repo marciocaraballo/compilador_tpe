@@ -1989,7 +1989,7 @@ case 197:
 		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
 		} else {
-			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + val_peek(2).sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + val_peek(0).sval);
 		}
 	}
 break;
@@ -2048,7 +2048,7 @@ case 218:
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
 			genCodigoIntermedio.agregarElemento(val_peek(0).sval); genCodigoIntermedio.incrementarContador();
 		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado ");
+			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
 		}
 	}
 break;

@@ -1,6 +1,12 @@
 {	
 	
-	INT a; c,
+	INT a; a1; c; a1,
 	
 	INT a,
+	
+	VOID fun1() {
+		INT a,
+		INT a,
+		RETURN,
+	}
 }

@@ -451,7 +451,7 @@ lista_de_variables:
 		if (!genCodigoIntermedio.variableRedeclarada($3.sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar($3.sval);
 		} else {
-			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + $1.sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + $3.sval);
 		}
 	}
 ;
