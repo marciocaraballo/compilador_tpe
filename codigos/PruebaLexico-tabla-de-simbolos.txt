@@ -1,3 +1,5 @@
+Lexema: a
+Atributo: token Valor: 257
 Lexema: c:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT

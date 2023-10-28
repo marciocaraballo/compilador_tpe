@@ -1,4 +1,6 @@
 {	
 	
-	INT a; c; a,
+	INT a; c,
+	
+	INT a,
 }

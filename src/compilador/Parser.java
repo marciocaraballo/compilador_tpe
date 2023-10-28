@@ -1728,7 +1728,7 @@ break;
 case 128:
 //#line 247 "./src/compilador/gramatica.y"
 {
-		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
+		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
@@ -1801,7 +1801,7 @@ break;
 case 149:
 //#line 314 "./src/compilador/gramatica.y"
 {
-		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(1).sval)) {
+		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " existe en el ambito");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(1).sval + " no esta declarado en el ambito");
@@ -1996,7 +1996,7 @@ break;
 case 201:
 //#line 463 "./src/compilador/gramatica.y"
 {
-		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
+		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
@@ -2044,7 +2044,7 @@ break;
 case 218:
 //#line 507 "./src/compilador/gramatica.y"
 {
-		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
+		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
 			genCodigoIntermedio.agregarElemento(val_peek(0).sval); genCodigoIntermedio.incrementarContador();
 		} else {
@@ -2055,7 +2055,7 @@ break;
 case 219:
 //#line 515 "./src/compilador/gramatica.y"
 {
-		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(1).sval)) {
+		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " esta declarado");
 			genCodigoIntermedio.agregarElemento(val_peek(1).sval);
 			genCodigoIntermedio.agregarElemento("1");

@@ -88,7 +88,10 @@ public class GeneracionCodigoIntermedio {
     }
 
     public Boolean variableRedeclarada(String variable) {
-        return lista_variables_a_declarar.contains(variable);
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        String ambitoCompleto = generarAmbito();
+
+        return lista_variables_a_declarar.contains(variable) || TS.has(variable + ambitoCompleto);
     }
 
     public void agregarVariableADeclarar(String variable) {
@@ -127,7 +130,7 @@ public class GeneracionCodigoIntermedio {
 
         while (it.hasNext()) {
             String variableActual = it.next();
-            this.agregarAmbitoAIdentificador(variableActual);
+            agregarAmbitoAIdentificador(variableActual);
         }
     }
 
@@ -147,7 +150,7 @@ public class GeneracionCodigoIntermedio {
         TS.swapLexemas(identificador, identificador + ambitoCompleto);
     }
 
-    public boolean existeIdentificadorEnAmbito(String identificador) {
+    public boolean existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         Iterator<String> it = null;
         String ambitoParcial = "";

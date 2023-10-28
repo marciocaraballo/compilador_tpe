@@ -3,7 +3,8 @@
 [Success] Linea 3: [Lexico] Se reconoce un token para a con el token 257
 [Success] Linea 3: [Lexico] Se reconoce un token para ; con el token 59
 [Success] Linea 3: [Lexico] Se reconoce un token para c con el token 257
-[Success] Linea 3: [Lexico] Se reconoce un token para ; con el token 59
-[Success] Linea 3: [Lexico] Se reconoce un token para a con el token 257
 [Success] Linea 3: [Lexico] Se reconoce un token para , con el token 44
-[Success] Linea 4: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 5: [Lexico] Se reconoce un token para INT con el token 275
+[Success] Linea 5: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 5: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 6: [Lexico] Se reconoce un token para } con el token 125
