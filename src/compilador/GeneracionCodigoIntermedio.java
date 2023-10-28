@@ -16,6 +16,13 @@ public class GeneracionCodigoIntermedio {
     int contador = 0;
     private static GeneracionCodigoIntermedio instance = null;
 
+    private Boolean identificadorRedefinido(String identificador) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        String ambitoCompleto = generarAmbito();
+
+        return TS.has(identificador + ambitoCompleto);
+    }
+
     public static GeneracionCodigoIntermedio getInstance() {
         if (instance == null) {
             instance = new GeneracionCodigoIntermedio();
@@ -88,17 +95,11 @@ public class GeneracionCodigoIntermedio {
     }
 
     public Boolean variableRedeclarada(String variable) {
-        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        String ambitoCompleto = generarAmbito();
-
-        return lista_variables_a_declarar.contains(variable) || TS.has(variable + ambitoCompleto);
+        return lista_variables_a_declarar.contains(variable) || identificadorRedefinido(variable);
     }
 
     public Boolean claseRedeclarada(String clase) {
-        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        String ambitoCompleto = generarAmbito();
-
-        return TS.has(clase + ambitoCompleto);
+        return identificadorRedefinido(clase);
     }
 
     public Boolean functionRedeclarada(String funcion) {
