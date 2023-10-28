@@ -326,25 +326,38 @@ sentencia_declarativa_clase:
 	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
 	ID ',' {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
-			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	}
 ;
 
 declaracion_clase_encabezado:
-	CLASS ID {  
-		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
-		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
-		genCodigoIntermedio.apilarAmbito($2.sval);
+	CLASS ID { 
+		if (!genCodigoIntermedio.claseOInterfazRedeclarada($2.sval)) {
+			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
+			genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+			genCodigoIntermedio.apilarAmbito($2.sval);
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la clase " + $2.sval);
+		}
 	} |
 	CLASS ID IMPLEMENT ID {
-		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
-		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
-		genCodigoIntermedio.apilarAmbito($2.sval);
+		if (!genCodigoIntermedio.claseOInterfazRedeclarada($2.sval)) {
+			if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval)) {
+				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
+				genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
+				genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
+				genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+				genCodigoIntermedio.apilarAmbito($2.sval);
+			} else {
+				logger.logError("[Codigo Intermedio] El identificador " + $4.sval + " no esta declarado");
+			}
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la clase " + $2.sval);
+		}
 	} |
 	CLASS { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
 	CLASS IMPLEMENT ID { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |

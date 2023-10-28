@@ -1,28 +1,19 @@
-{	
+{
+	CLASS cb {
+		FLOAT a,
+		VOID m() {
+			RETURN,
+		}
+	}
 
-    INT a; b; c; d,
-
-
-    VOID f2(){
-        INT a,
-        a = 2_i,
-        RETURN,
-    }
-
-    VOID f1(INT b){
-        INT a,
-        a = 2_i,
-        RETURN,
-    }
-
-    f2(3_i),
-    f1(),
-
-
-    *{
-    DO
-    { a = b + c,
-      c = d - 3_i, }
-    WHILE ( a + b <= c - d ),
-    }*
+	VOID fun1() {
+		CLASS cb {
+			FLOAT a,
+			VOID m() {
+				RETURN,
+			}
+		}
+		
+		RETURN,
+	}
 }

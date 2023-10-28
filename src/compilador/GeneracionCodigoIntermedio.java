@@ -16,7 +16,6 @@ public class GeneracionCodigoIntermedio {
     int contador = 0;
     private static GeneracionCodigoIntermedio instance = null;
 
-
     public static GeneracionCodigoIntermedio getInstance() {
         if (instance == null) {
             instance = new GeneracionCodigoIntermedio();
@@ -93,6 +92,13 @@ public class GeneracionCodigoIntermedio {
         String ambitoCompleto = generarAmbito();
 
         return lista_variables_a_declarar.contains(variable) || TS.has(variable + ambitoCompleto);
+    }
+
+    public Boolean claseOInterfazRedeclarada(String variable) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        String ambitoCompleto = generarAmbito();
+
+        return TS.has(variable + ambitoCompleto);
     }
 
     public void agregarVariableADeclarar(String variable) {
@@ -181,16 +187,16 @@ public class GeneracionCodigoIntermedio {
         lista_variables_a_declarar.clear();
     }
 
-    public void borrarLexemaDeclarado(String lexema){
+    public void borrarLexemaDeclarado(String lexema) {
         TablaDeSimbolos.getInstance().removeLexema(lexema);
     }
 
-    public void modificarCantidadParametros(String lexema){
+    public void modificarCantidadParametros(String lexema) {
         Logger.getInstance().logWarning(lexema + generarAmbito());
         TablaDeSimbolos.getInstance().tieneParametros(lexema + generarAmbito());
     }
 
-    public boolean verificarParametros(String lexema){
+    public boolean verificarParametros(String lexema) {
         return TablaDeSimbolos.getInstance().getTieneParametro(lexema + generarAmbito());
     }
 
@@ -258,7 +264,7 @@ public class GeneracionCodigoIntermedio {
         return contador;
     }
 
-    public void comprobacionUso(String lexema){
+    public void comprobacionUso(String lexema) {
         TablaDeSimbolos.getInstance().putComprobacionUso(lexema + generarAmbito());
     }
 
