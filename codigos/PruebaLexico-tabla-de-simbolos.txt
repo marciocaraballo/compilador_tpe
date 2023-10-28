@@ -3,14 +3,9 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: c:main:f2
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
-Atributo: token Valor: 257
 Lexema: f2:main
 Atributo: uso Valor: nombre_funcion
-Atributo: tiene_param Valor: true
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: f1:main
 Atributo: uso Valor: nombre_funcion
