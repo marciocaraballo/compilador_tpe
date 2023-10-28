@@ -1082,7 +1082,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 537 "gramatica.y"
+//#line 556 "gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
@@ -1731,13 +1731,14 @@ case 128:
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
+			genCodigoIntermedio.borrarLexemaDeclarado(val_peek(0).sval);
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
 		}
 	}
 break;
 case 134:
-//#line 266 "gramatica.y"
+//#line 267 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
 		genCodigoIntermedio.agregarTipoAListaDeVariables(val_peek(2).sval);
@@ -1747,15 +1748,15 @@ case 134:
 	}
 break;
 case 135:
-//#line 273 "gramatica.y"
+//#line 274 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia declaracion de variables"); }
 break;
 case 136:
-//#line 274 "gramatica.y"
+//#line 275 "gramatica.y"
 { logger.logError("[Parser] Se esperaba una lista de variables en sentencia declaracion de variables"); }
 break;
 case 137:
-//#line 278 "gramatica.y"
+//#line 279 "gramatica.y"
 {
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(0).sval, "nombre_interfaz");
 		genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(0).sval);
@@ -1763,26 +1764,26 @@ case 137:
 	}
 break;
 case 138:
-//#line 283 "gramatica.y"
+//#line 284 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
 break;
 case 139:
-//#line 287 "gramatica.y"
+//#line 288 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada");
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 break;
 case 140:
-//#line 291 "gramatica.y"
+//#line 292 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
 break;
 case 144:
-//#line 301 "gramatica.y"
+//#line 302 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de metodo en CLASS"); }
 break;
 case 145:
-//#line 305 "gramatica.y"
+//#line 306 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); 
 		genCodigoIntermedio.agregarTipoAListaDeVariables(val_peek(2).sval);
@@ -1792,15 +1793,15 @@ case 145:
 	}
 break;
 case 146:
-//#line 312 "gramatica.y"
+//#line 313 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); }
 break;
 case 148:
-//#line 314 "gramatica.y"
+//#line 315 "gramatica.y"
 { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); }
 break;
 case 149:
-//#line 315 "gramatica.y"
+//#line 316 "gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " existe en el ambito");
@@ -1810,7 +1811,7 @@ case 149:
 	}
 break;
 case 150:
-//#line 325 "gramatica.y"
+//#line 326 "gramatica.y"
 {  
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(0).sval, "nombre_clase");
 		genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(0).sval);
@@ -1819,7 +1820,7 @@ case 150:
 	}
 break;
 case 151:
-//#line 331 "gramatica.y"
+//#line 332 "gramatica.y"
 {
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(2).sval, "nombre_clase");
 		genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(2).sval);
@@ -1828,154 +1829,179 @@ case 151:
 	}
 break;
 case 152:
-//#line 337 "gramatica.y"
-{ logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
-break;
-case 153:
 //#line 338 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
-case 154:
+case 153:
 //#line 339 "gramatica.y"
+{ logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
+break;
+case 154:
+//#line 340 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en IMPLEMENT de clase"); }
 break;
 case 155:
-//#line 340 "gramatica.y"
+//#line 341 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 156:
-//#line 344 "gramatica.y"
+//#line 345 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 break;
 case 159:
-//#line 356 "gramatica.y"
+//#line 357 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de funcion detectado");
 		genCodigoIntermedio.desapilarAmbito(); 
 	}
 break;
+case 160:
+//#line 364 "gramatica.y"
+{
+		if (genCodigoIntermedio.esDefinicionDeClase()) {
+			genCodigoIntermedio.agregarUsoAIdentificador(val_peek(3).sval, "nombre_metodo");
+			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo(val_peek(3).sval);	
+		} else {
+			genCodigoIntermedio.agregarUsoAIdentificador(val_peek(3).sval, "nombre_funcion");
+			genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(3).sval);
+		}
+		genCodigoIntermedio.modificarCantidadParametros(val_peek(3).sval);
+		genCodigoIntermedio.apilarAmbito(val_peek(3).sval);
+		logger.logWarning("LEXEMA DE PARAMETRO: " + val_peek(1).sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(1).sval);
+	}
+break;
+case 161:
+//#line 377 "gramatica.y"
+{
+		if (genCodigoIntermedio.esDefinicionDeClase()) {
+			genCodigoIntermedio.agregarUsoAIdentificador(val_peek(2).sval, "nombre_metodo");
+			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo(val_peek(2).sval);	
+		} else {
+			genCodigoIntermedio.agregarUsoAIdentificador(val_peek(2).sval, "nombre_funcion");
+			genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(2).sval);
+		}
+		genCodigoIntermedio.apilarAmbito(val_peek(2).sval);
+		logger.logWarning("LEXEMA DE PARAMETRO: " + val_peek(0).sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(0).sval);
+
+	}
+break;
 case 162:
-//#line 365 "gramatica.y"
+//#line 390 "gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 163:
-//#line 366 "gramatica.y"
+//#line 391 "gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 164:
-//#line 367 "gramatica.y"
+//#line 392 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 165:
-//#line 371 "gramatica.y"
+//#line 396 "gramatica.y"
 {
-		if (genCodigoIntermedio.esDefinicionDeClase()) {
-			genCodigoIntermedio.agregarUsoAIdentificador(val_peek(0).sval, "nombre_metodo");
-			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo(val_peek(0).sval);
-		} else {
-			genCodigoIntermedio.agregarUsoAIdentificador(val_peek(0).sval, "nombre_funcion");
-			genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(0).sval);
-		}
-		genCodigoIntermedio.apilarAmbito(val_peek(0).sval); 
+		yyval.sval = val_peek(0).sval;
 	}
 break;
 case 166:
-//#line 381 "gramatica.y"
+//#line 399 "gramatica.y"
 {
 		logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); 
 	}
 break;
 case 167:
-//#line 387 "gramatica.y"
+//#line 405 "gramatica.y"
 { 
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(3).sval, "nombre_metodo");
 		genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo(val_peek(3).sval);
 	}
 break;
 case 168:
-//#line 391 "gramatica.y"
+//#line 409 "gramatica.y"
 { 
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(2).sval, "nombre_metodo");
 		genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo(val_peek(2).sval);
 	}
 break;
 case 169:
-//#line 395 "gramatica.y"
+//#line 413 "gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 170:
-//#line 396 "gramatica.y"
+//#line 414 "gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 171:
-//#line 397 "gramatica.y"
+//#line 415 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); }
 break;
 case 172:
-//#line 398 "gramatica.y"
+//#line 416 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); }
 break;
 case 173:
-//#line 399 "gramatica.y"
+//#line 417 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 174:
-//#line 400 "gramatica.y"
+//#line 418 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 179:
-//#line 408 "gramatica.y"
+//#line 426 "gramatica.y"
 { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); }
 break;
 case 180:
-//#line 409 "gramatica.y"
+//#line 427 "gramatica.y"
 { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); }
 break;
 case 181:
-//#line 410 "gramatica.y"
+//#line 428 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 182:
-//#line 411 "gramatica.y"
+//#line 429 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 183:
-//#line 412 "gramatica.y"
+//#line 430 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 184:
-//#line 413 "gramatica.y"
+//#line 431 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 185:
-//#line 414 "gramatica.y"
+//#line 432 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 186:
-//#line 415 "gramatica.y"
+//#line 433 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 187:
-//#line 419 "gramatica.y"
+//#line 437 "gramatica.y"
 { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
 break;
 case 188:
-//#line 420 "gramatica.y"
+//#line 438 "gramatica.y"
 { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
 break;
 case 195:
-//#line 436 "gramatica.y"
+//#line 454 "gramatica.y"
 { 
+		yyval.sval = val_peek(0).sval;
 		genCodigoIntermedio.agregarUsoAIdentificador(val_peek(0).sval, "nombre_parametro");
 		genCodigoIntermedio.agregarTipoAParametroDeFuncion(val_peek(0).sval, val_peek(1).sval);
-		genCodigoIntermedio.agregarAmbitoAIdentificador(val_peek(0).sval);
 	}
 break;
 case 196:
-//#line 444 "gramatica.y"
+//#line 462 "gramatica.y"
 { 
 		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
@@ -1985,7 +2011,7 @@ case 196:
 	}
 break;
 case 197:
-//#line 451 "gramatica.y"
+//#line 469 "gramatica.y"
 { 
 		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
@@ -1995,7 +2021,7 @@ case 197:
 	}
 break;
 case 201:
-//#line 464 "gramatica.y"
+//#line 482 "gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
@@ -2005,7 +2031,7 @@ case 201:
 	}
 break;
 case 202:
-//#line 474 "gramatica.y"
+//#line 492 "gramatica.y"
 {
 		genCodigoIntermedio.agregarElemento(val_peek(1).sval);
 		genCodigoIntermedio.generarPasoIncompleto("BF");
@@ -2013,40 +2039,41 @@ case 202:
 	}
 break;
 case 203:
-//#line 479 "gramatica.y"
+//#line 497 "gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
 break;
 case 204:
-//#line 480 "gramatica.y"
+//#line 498 "gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 break;
 case 205:
-//#line 481 "gramatica.y"
+//#line 499 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
 break;
 case 212:
-//#line 494 "gramatica.y"
+//#line 512 "gramatica.y"
 { 
 		genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador(); }
 break;
 case 213:
-//#line 496 "gramatica.y"
+//#line 514 "gramatica.y"
 { 
 		genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador(); }
 break;
 case 215:
-//#line 502 "gramatica.y"
+//#line 520 "gramatica.y"
 { genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador();}
 break;
 case 216:
-//#line 503 "gramatica.y"
+//#line 521 "gramatica.y"
 { genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador();}
 break;
 case 218:
-//#line 508 "gramatica.y"
+//#line 526 "gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
+			genCodigoIntermedio.borrarLexemaDeclarado(val_peek(0).sval);
 			genCodigoIntermedio.agregarElemento(val_peek(0).sval); genCodigoIntermedio.incrementarContador();
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
@@ -2054,7 +2081,7 @@ case 218:
 	}
 break;
 case 219:
-//#line 516 "gramatica.y"
+//#line 535 "gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " esta declarado");
@@ -2068,22 +2095,22 @@ case 219:
 	}
 break;
 case 220:
-//#line 527 "gramatica.y"
+//#line 546 "gramatica.y"
 { genCodigoIntermedio.agregarElemento(val_peek(0).sval); genCodigoIntermedio.incrementarContador(); }
 break;
 case 221:
-//#line 528 "gramatica.y"
+//#line 547 "gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 222:
-//#line 532 "gramatica.y"
+//#line 551 "gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 223:
-//#line 533 "gramatica.y"
+//#line 552 "gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2009 "Parser.java"
+//#line 2036 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

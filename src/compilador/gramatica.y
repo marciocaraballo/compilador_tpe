@@ -248,6 +248,7 @@ sentencia_objeto_identificador:
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
+			genCodigoIntermedio.borrarLexemaDeclarado($1.sval);
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
@@ -360,8 +361,32 @@ declaracion_funcion:
 ;
 
 encabezado_funcion:
-	encabezado_funcion_nombre '(' parametro_funcion ')' |
-	encabezado_funcion_nombre '(' ')' |
+	encabezado_funcion_nombre '(' parametro_funcion ')' {
+		if (genCodigoIntermedio.esDefinicionDeClase()) {
+			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
+			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
+		} else {
+			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
+			genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
+		}
+		genCodigoIntermedio.modificarCantidadParametros($1.sval);
+		genCodigoIntermedio.apilarAmbito($1.sval);
+		logger.logWarning("LEXEMA DE PARAMETRO: " + $3.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
+	}|
+	encabezado_funcion_nombre '(' ')' {
+		if (genCodigoIntermedio.esDefinicionDeClase()) {
+			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
+			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
+		} else {
+			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
+			genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
+		}
+		genCodigoIntermedio.apilarAmbito($1.sval);
+		logger.logWarning("LEXEMA DE PARAMETRO: " + $3.sval);
+		genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
+
+	}|
 	encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	encabezado_funcion_nombre ')' { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
@@ -369,14 +394,7 @@ encabezado_funcion:
 
 encabezado_funcion_nombre:
 	VOID ID {
-		if (genCodigoIntermedio.esDefinicionDeClase()) {
-			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
-			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($2.sval);
-		} else {
-			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_funcion");
-			genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
-		}
-		genCodigoIntermedio.apilarAmbito($2.sval); 
+		$$.sval = $2.sval;
 	} |
 	VOID {
 		logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); 
@@ -434,9 +452,9 @@ lista_parametros_funcion_exceso:
 
 parametro_funcion:
 	tipo ID { 
+		$$.sval = $2.sval;
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_parametro");
 		genCodigoIntermedio.agregarTipoAParametroDeFuncion($2.sval, $1.sval);
-		genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 	}
 ;
 
@@ -508,6 +526,7 @@ factor:
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
+			genCodigoIntermedio.borrarLexemaDeclarado($1.sval);
 			genCodigoIntermedio.agregarElemento($1.sval); genCodigoIntermedio.incrementarContador();
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");

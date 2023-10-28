@@ -24,6 +24,7 @@ public class TablaDeSimbolos {
 	public static final String TYPE = "tipo";
 	public static final String USE = "uso";
 	public static final String COMPROBACION_USO = "comp_uso";
+	public static final String TIENE_PARAMETRO = "tiene_param";
 
 	TablaDeSimbolos() {
 	};
@@ -40,7 +41,6 @@ public class TablaDeSimbolos {
 	public void putIdentificador(String lexema) {
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(TOKEN, IDENTIFICADOR);
-		atributos.put(COMPROBACION_USO, false);
 		tabla_simbolos.put(lexema, atributos);
 
 	}
@@ -73,7 +73,13 @@ public class TablaDeSimbolos {
 
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
-		attributes.put(USE, true);
+		attributes.put(USE, uso);
+		if (uso.equals("nombre_funcion")){
+			attributes.put(TIENE_PARAMETRO, false);
+		}
+		else {
+			attributes.put(COMPROBACION_USO, false);
+		}
 	}
 
 	public void putComprobacionUso(String lexema) {
@@ -113,6 +119,10 @@ public class TablaDeSimbolos {
 		tabla_simbolos.put(lexemaModificado, attributes);
 	}
 
+	public void removeLexema(String lexema){
+		tabla_simbolos.remove(lexema);
+	}
+
 	public String print() {
 		System.out.println("Tabla de Simbolos");
 		Set<String> keys = tabla_simbolos.keySet();
@@ -133,7 +143,6 @@ public class TablaDeSimbolos {
 			Iterator<String> attributesIterator = attributesKeys.iterator();
 
 			while (attributesIterator.hasNext()) {
-
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
 				if (attributeKey.equals(COMPROBACION_USO) && (Boolean) attributeValue == false)
@@ -145,5 +154,11 @@ public class TablaDeSimbolos {
 		System.out.println(tsPrint.toString());
 
 		return tsPrint.toString();
+	}
+
+	public void tieneParametros(String lexema) {
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		attributes.put(TIENE_PARAMETRO, true);
 	}
 }

@@ -167,6 +167,7 @@ public class GeneracionCodigoIntermedio {
             Boolean identificadorExisteEnAmbito = TS.has(identificador + ":" + ambitoParcial);
 
             if (identificadorExisteEnAmbito) {
+
                 return true;
             }
 
@@ -178,6 +179,15 @@ public class GeneracionCodigoIntermedio {
 
     public void removerListaVariablesADeclarar() {
         lista_variables_a_declarar.clear();
+    }
+
+    public void borrarLexemaDeclarado(String lexema){
+        TablaDeSimbolos.getInstance().removeLexema(lexema);
+    }
+
+    public void modificarCantidadParametros(String lexema){
+        Logger.getInstance().logWarning(lexema + generarAmbito());
+        TablaDeSimbolos.getInstance().tieneParametros(lexema + generarAmbito());
     }
 
     /*

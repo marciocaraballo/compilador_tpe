@@ -2,8 +2,19 @@
 
     INT a; b; c; d,
 
-    d = a + b,
-    a = d,
+
+    VOID f2(){
+        INT a,
+        a = 2_i,
+        RETURN,
+    }
+
+    VOID f1(INT b){
+        INT a,
+        a = 2_i,
+        RETURN,
+    }
+
 
     *{
     DO
