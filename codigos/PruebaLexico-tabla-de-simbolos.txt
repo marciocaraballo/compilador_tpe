@@ -1,0 +1,22 @@
+Lexema: cc
+Atributo: token Valor: 257
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: token Valor: 257
+Lexema: m:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: c:cb
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: b:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: cb:main
+Atributo: uso Valor: nombre_clase
+Atributo: token Valor: 257
+Lexema: cb
+Atributo: token Valor: 257

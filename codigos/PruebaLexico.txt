@@ -1,9 +1,12 @@
 {
-	VOID fun1() { RETURN, }
+	CLASS cb {
+		FLOAT c,
+	}
 	
-	VOID fun2() {
-		VOID fun1() { RETURN, }
-		VOID fun1() { RETURN, }
-		RETURN,
+	CLASS ca {
+		FLOAT b,
+		VOID m() { RETURN, }
+		cb,
+		cc,
 	}
 }

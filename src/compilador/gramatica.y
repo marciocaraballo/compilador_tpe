@@ -264,7 +264,7 @@ sentencia_objeto_identificador:
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	} |
-	sentencia_objeto_identificador '.' ID
+	sentencia_objeto_identificador '.' ID 
 ;
 
 sentencia_declarativa:
@@ -325,7 +325,7 @@ sentencia_declarativa_clase:
 	declaracion_funcion |
 	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
 	ID ',' {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
+		if (genCodigoIntermedio.existeIdentificadorClaseEnAlgunAmbitoContenedor($1.sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");

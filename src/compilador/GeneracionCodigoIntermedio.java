@@ -165,6 +165,28 @@ public class GeneracionCodigoIntermedio {
         TS.swapLexemas(identificador, identificador + ambitoCompleto);
     }
 
+    public boolean existeIdentificadorClaseEnAlgunAmbitoContenedor(String identificador) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        Iterator<String> it = null;
+        String ambitoParcial = "";
+
+        it = ambitos.iterator();
+
+        while (it.hasNext()) {
+            ambitoParcial += it.next();
+            Boolean identificadorExisteEnAmbito = TS.has(identificador + ":" + ambitoParcial);
+
+            if (identificadorExisteEnAmbito) {
+
+                return true;
+            }
+
+            ambitoParcial += ":";
+        }
+
+        return false;
+    }
+
     public boolean existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         Iterator<String> it = null;

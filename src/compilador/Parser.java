@@ -1814,7 +1814,7 @@ break;
 case 149:
 //#line 327 "./src/compilador/gramatica.y"
 {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval)) {
+		if (genCodigoIntermedio.existeIdentificadorClaseEnAlgunAmbitoContenedor(val_peek(1).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " esta declarado");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(1).sval + " no esta declarado");
