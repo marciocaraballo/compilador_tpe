@@ -1,35 +1,14 @@
 {	
-	INT a,
-	
 	*{ Defincion de clase, se reconoce }*
     CLASS cb {
         FLOAT b,
         FLOAT a,
         VOID n() {
+        
+        	a = b,
+        
             PRINT % HOLA %,
             RETURN,
         }
-        ca,
     }
-	
-	VOID fun2() {
-		ca.b = 3.15,
-		RETURN,
-	}
-
-	
-	VOID fun1() {
-	
-		VOID fun3() {
-			a = b + a,
-			RETURN,
-		}
-		
-		fun2(),
-	
-		a = b + a,
-		RETURN,
-	}
-	
-	fun1(),
 }

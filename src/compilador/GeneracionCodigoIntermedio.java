@@ -80,17 +80,6 @@ public class GeneracionCodigoIntermedio {
         return ambitoCompleto;
     }
 
-    public String generarAmbitoClase() {
-        Iterator<String> it = ambitosClase.iterator();
-        String ambitoCompleto = "";
-
-        while (it.hasNext()) {
-            ambitoCompleto += ":" + it.next();
-        }
-
-        return ambitoCompleto;
-    }
-
     public void agregarUsoAIdentificador(String identificador, String uso) {
 
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
@@ -156,11 +145,17 @@ public class GeneracionCodigoIntermedio {
 
     public boolean existeIdentificadorEnAmbito(String identificador) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        Iterator<String> itAmbitos = ambitos.iterator();
+        Iterator<String> it = null;
         String ambitoParcial = "";
 
-        while (itAmbitos.hasNext()) {
-            ambitoParcial += itAmbitos.next();
+        if (esDefinicionDeClase()) {
+            it = ambitosClase.iterator();
+        } else {
+            it = ambitos.iterator();
+        }
+
+        while (it.hasNext()) {
+            ambitoParcial += it.next();
             Boolean identificadorExisteEnAmbito = TS.has(identificador + ":" + ambitoParcial);
 
             if (identificadorExisteEnAmbito) {
@@ -177,36 +172,35 @@ public class GeneracionCodigoIntermedio {
         lista_variables_a_declarar.clear();
     }
 
-
     /*
-    Metodos manejo de polaca
+     * Metodos manejo de polaca
      */
 
-    public void agregarElemento(String elemento){
+    public void agregarElemento(String elemento) {
         polaca.add(elemento);
     }
 
-    public void apilar(int posicion){
+    public void apilar(int posicion) {
         pila.push(posicion - 1);
     }
 
-    public Integer desapilar(){
+    public Integer desapilar() {
         return pila.pop();
     }
 
-    public void completarPasoIncompleto(){
+    public void completarPasoIncompleto() {
         int posicion = desapilar();
         polaca.remove(posicion);
         polaca.add(posicion, String.valueOf(polaca.size() + 1));
     }
 
-    public void completarPasoIncompletoIteracion(){
+    public void completarPasoIncompletoIteracion() {
         int posicion = desapilar();
         polaca.remove(polaca.size() - 2);
         polaca.add(polaca.size() - 1, String.valueOf(posicion));
     }
 
-    public void completarPasoIncompletoSinElse(){
+    public void completarPasoIncompletoSinElse() {
         int posicion = desapilar();
         polaca.remove(posicion);
         polaca.remove(posicion);
@@ -214,16 +208,15 @@ public class GeneracionCodigoIntermedio {
         polaca.remove(posicion);
         polaca.add(posicion, String.valueOf(polaca.size() + 1));
     }
-    public int polacaSize(){
+
+    public int polacaSize() {
         return polaca.size();
     }
 
-    public void generarPasoIncompleto(String aux){
+    public void generarPasoIncompleto(String aux) {
         polaca.add("VACIO");
         polaca.add(aux);
     }
-
-
 
     public void showPolaca() {
         for (int i = 0; i < polaca.size(); i++) {
@@ -231,15 +224,15 @@ public class GeneracionCodigoIntermedio {
         }
     }
 
-    public void incrementarContador(){
+    public void incrementarContador() {
         contador++;
     }
 
-    public void resetContador(){
+    public void resetContador() {
         contador = 0;
     }
 
-    public int getContador(){
+    public int getContador() {
         return contador;
     }
 

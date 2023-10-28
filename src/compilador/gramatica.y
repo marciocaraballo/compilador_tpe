@@ -246,9 +246,9 @@ sentencia_asignacion:
 sentencia_objeto_identificador:
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
-			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	} |
 	sentencia_objeto_identificador '.' ID

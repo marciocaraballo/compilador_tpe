@@ -1729,9 +1729,9 @@ case 128:
 //#line 247 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
-			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
 		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
 		}
 	}
 break;

@@ -1,0 +1,20 @@
+Lexema: % HOLA %
+Atributo: token Valor: 259
+Lexema: a
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: a:cb
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: n:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: token Valor: 257
+Lexema: b:cb
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: cb:main
+Atributo: uso Valor: nombre_clase
+Atributo: token Valor: 257

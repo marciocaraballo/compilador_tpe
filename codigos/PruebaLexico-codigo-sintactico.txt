@@ -1,0 +1,9 @@
+[Success] Linea 4: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 5: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 8: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 8: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 10: [Parser] Sentencia PRINT detectada
+[Success] Linea 12: [Parser] Declaracion de funcion detectado
+[Success] Linea 13: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 14: [Parser] Programa correcto detectado
