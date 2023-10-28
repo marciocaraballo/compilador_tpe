@@ -87,6 +87,10 @@ public class GeneracionCodigoIntermedio {
         TS.putIdentificadorUso(identificador, uso);
     }
 
+    public Boolean variableRedeclarada(String variable) {
+        return lista_variables_a_declarar.contains(variable);
+    }
+
     public void agregarVariableADeclarar(String variable) {
         lista_variables_a_declarar.add(variable);
     }

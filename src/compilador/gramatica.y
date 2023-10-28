@@ -441,10 +441,18 @@ parametro_funcion:
 
 lista_de_variables:
 	ID { 
-		genCodigoIntermedio.agregarVariableADeclarar($1.sval);
+		if (!genCodigoIntermedio.variableRedeclarada($1.sval)) {
+			genCodigoIntermedio.agregarVariableADeclarar($1.sval);
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + $1.sval);
+		}
 	} |
 	lista_de_variables ';' ID { 
-		genCodigoIntermedio.agregarVariableADeclarar($3.sval);
+		if (!genCodigoIntermedio.variableRedeclarada($3.sval)) {
+			genCodigoIntermedio.agregarVariableADeclarar($3.sval);
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + $1.sval);
+		}
 	}
 ;
 

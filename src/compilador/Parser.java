@@ -1082,7 +1082,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 529 "./src/compilador/gramatica.y"
+//#line 537 "./src/compilador/gramatica.y"
 
 public static AnalizadorLexico lexico = null;
 public static GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
@@ -1976,17 +1976,25 @@ break;
 case 196:
 //#line 443 "./src/compilador/gramatica.y"
 { 
-		genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
+		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
+			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + val_peek(0).sval);
+		}
 	}
 break;
 case 197:
-//#line 446 "./src/compilador/gramatica.y"
+//#line 450 "./src/compilador/gramatica.y"
 { 
-		genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
+		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
+			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + val_peek(2).sval);
+		}
 	}
 break;
 case 201:
-//#line 455 "./src/compilador/gramatica.y"
+//#line 463 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
@@ -1996,7 +2004,7 @@ case 201:
 	}
 break;
 case 202:
-//#line 465 "./src/compilador/gramatica.y"
+//#line 473 "./src/compilador/gramatica.y"
 {
 		genCodigoIntermedio.agregarElemento(val_peek(1).sval);
 		genCodigoIntermedio.generarPasoIncompleto("BF");
@@ -2004,37 +2012,37 @@ case 202:
 	}
 break;
 case 203:
-//#line 470 "./src/compilador/gramatica.y"
+//#line 478 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
 break;
 case 204:
-//#line 471 "./src/compilador/gramatica.y"
+//#line 479 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 break;
 case 205:
-//#line 472 "./src/compilador/gramatica.y"
+//#line 480 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
 break;
 case 212:
-//#line 485 "./src/compilador/gramatica.y"
+//#line 493 "./src/compilador/gramatica.y"
 { 
 		genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador(); }
 break;
 case 213:
-//#line 487 "./src/compilador/gramatica.y"
+//#line 495 "./src/compilador/gramatica.y"
 { 
 		genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador(); }
 break;
 case 215:
-//#line 493 "./src/compilador/gramatica.y"
+//#line 501 "./src/compilador/gramatica.y"
 { genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador();}
 break;
 case 216:
-//#line 494 "./src/compilador/gramatica.y"
+//#line 502 "./src/compilador/gramatica.y"
 { genCodigoIntermedio.agregarElemento(val_peek(1).sval); genCodigoIntermedio.incrementarContador();}
 break;
 case 218:
-//#line 499 "./src/compilador/gramatica.y"
+//#line 507 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(0).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
@@ -2045,7 +2053,7 @@ case 218:
 	}
 break;
 case 219:
-//#line 507 "./src/compilador/gramatica.y"
+//#line 515 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito(val_peek(1).sval)) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " esta declarado");
@@ -2060,22 +2068,22 @@ case 219:
 	}
 break;
 case 220:
-//#line 519 "./src/compilador/gramatica.y"
+//#line 527 "./src/compilador/gramatica.y"
 { genCodigoIntermedio.agregarElemento(val_peek(0).sval); genCodigoIntermedio.incrementarContador(); }
 break;
 case 221:
-//#line 520 "./src/compilador/gramatica.y"
+//#line 528 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 222:
-//#line 524 "./src/compilador/gramatica.y"
+//#line 532 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 223:
-//#line 525 "./src/compilador/gramatica.y"
+//#line 533 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2001 "Parser.java"
+//#line 2009 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

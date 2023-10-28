@@ -1,14 +1,4 @@
 {	
-	*{ Defincion de clase, se reconoce }*
-    CLASS cb {
-        FLOAT b,
-        FLOAT a,
-        VOID n() {
-        
-        	a = b,
-        
-            PRINT % HOLA %,
-            RETURN,
-        }
-    }
+	
+	INT a; c; a,
 }
