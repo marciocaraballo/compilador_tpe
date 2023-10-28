@@ -11,8 +11,6 @@
 [Success] Linea 6: [Lexico] Se reconoce un token para VOID con el token 264
 [Success] Linea 6: [Lexico] Se reconoce un token para f2 con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para ( con el token 40
-[Success] Linea 6: [Lexico] Se reconoce un token para INT con el token 275
-[Success] Linea 6: [Lexico] Se reconoce un token para c con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 6: [Lexico] Se reconoce un token para { con el token 123
 [Success] Linea 7: [Lexico] Se reconoce un token para INT con el token 275

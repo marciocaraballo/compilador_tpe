@@ -371,7 +371,6 @@ encabezado_funcion:
 		}
 		genCodigoIntermedio.modificarCantidadParametros($1.sval);
 		genCodigoIntermedio.apilarAmbito($1.sval);
-		logger.logWarning("LEXEMA DE PARAMETRO: " + $3.sval);
 		genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
 	}|
 	encabezado_funcion_nombre '(' ')' {
@@ -383,8 +382,6 @@ encabezado_funcion:
 			genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
 		}
 		genCodigoIntermedio.apilarAmbito($1.sval);
-		logger.logWarning("LEXEMA DE PARAMETRO: " + $3.sval);
-		genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
 
 	}|
 	encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |

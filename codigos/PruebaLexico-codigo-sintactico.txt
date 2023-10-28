@@ -1,6 +1,4 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[WARNING] Linea 6: f2:main
-[WARNING] Linea 6: LEXEMA DE PARAMETRO: c
 [Success] Linea 7: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 8: [Codigo Intermedio] El identificador a esta declarado
 [Success] Linea 8: [Parser] Asignacion detectada
