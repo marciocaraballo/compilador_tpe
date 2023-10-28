@@ -28,7 +28,7 @@ sentencias:
 
 sentencia:
 	sentencia_declarativa |
-	sentencia_ejecutable |
+	sentencia_ejecutable { genCodigoIntermedio.resetContador(); } |
 	error ',' { logger.logError("[Parser] Error de sintaxis en la sentencia"); }
 ;
 
@@ -65,13 +65,18 @@ sentencia_return:
 ;
 
 sentencia_iterativa_do_while:
-	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
-	DO bloque_sentencias_ejecutables WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_while WHILE '(' condicion ')' ','  { 
+		logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); 
+		genCodigoIntermedio.generarPasoIncompleto("BI");
+		genCodigoIntermedio.completarPasoIncompleto();
+		genCodigoIntermedio.completarPasoIncompletoIteracion();
+		} |
+	DO bloque_sentencias_ejecutables_while WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); } |
 	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_while WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_while '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
 	DO WHILE ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_while WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
 	DO ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
@@ -93,14 +98,20 @@ sentencia_iterativa_do_while_funcion:
 ;
 
 sentencia_seleccion:
-	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); } |
-	IF '(' ')' bloque_sentencias_ejecutables ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
-	IF '(' ')' bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF ',' { 
+		logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); 
+		genCodigoIntermedio.completarPasoIncompleto();
+	} |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then ENDIF ',' { 
+		logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); 
+		genCodigoIntermedio.completarPasoIncompleto(); // ESTA BIEN QUE APAREZCA BIFURCACION INCONDICIONAL ACA?
+	} |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables_then ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
 	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables ELSE ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
 	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 ;
 
@@ -116,11 +127,44 @@ sentencia_seleccion_funcion:
 	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 ;
 
-bloque_sentencias_ejecutables:
-	sentencia_ejecutable |
-	'{' sentencias_ejecutables '}' |
+bloque_sentencias_ejecutables_then:
+	sentencia_ejecutable {
+		// EN LAS FILMINAS ESTA INVERTIDO ... 
+		genCodigoIntermedio.generarPasoIncompleto("BI");
+		genCodigoIntermedio.completarPasoIncompleto();
+		genCodigoIntermedio.apilar(genCodigoIntermedio.polacaSize() - 1);
+	}|
+	'{' sentencias_ejecutables '}' {
+		genCodigoIntermedio.generarPasoIncompleto("BI");
+		genCodigoIntermedio.completarPasoIncompleto();
+		genCodigoIntermedio.apilar(genCodigoIntermedio.polacaSize() - 1);
+	}|
 	'{' sentencias_ejecutables  { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
 	sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); } |
+	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
+;
+
+bloque_sentencias_ejecutables_while:
+	'{' primer_sentencia '}' |
+	'{' primer_sentencia sentencias_ejecutables '}' |
+	'{' primer_sentencia sentencias_ejecutables  { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	primer_sentencia sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); } |
+	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
+;
+
+primer_sentencia:
+	sentencia_ejecutable {
+		genCodigoIntermedio.apilar(genCodigoIntermedio.polacaSize() - genCodigoIntermedio.getContador() + 1);
+		genCodigoIntermedio.resetContador();
+	}
+
+bloque_sentencias_ejecutables:
+	sentencia_ejecutable |
+	'{' sentencia_ejecutable sentencias_ejecutables '}' |
+	'{' sentencia_ejecutable sentencias_ejecutables  { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	sentencia_ejecutable sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
 	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); } |
 	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 ;
@@ -150,7 +194,7 @@ sentencia_ejecutable_funcion_inalcanzable:
 ;
 
 sentencias_ejecutables:
-	sentencia_ejecutable |
+	sentencia_ejecutable { genCodigoIntermedio.resetContador(); } |
 	sentencias_ejecutables sentencia_ejecutable |
 	sentencia_declarativa { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); } |
 	sentencias_ejecutables sentencia_declarativa { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); }
@@ -188,7 +232,13 @@ lista_expresiones_invocacion_funcion_exceso:
 ;
 
 sentencia_asignacion:
-	sentencia_objeto_identificador '=' expresion ',' { logger.logSuccess("[Parser] Asignacion detectada"); } |
+	sentencia_objeto_identificador '=' expresion ',' { 
+		logger.logSuccess("[Parser] Asignacion detectada");
+		genCodigoIntermedio.agregarElemento($1.sval);
+		genCodigoIntermedio.agregarElemento($2.sval);
+		genCodigoIntermedio.incrementarContador();	
+		genCodigoIntermedio.incrementarContador();
+	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
 	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
 ;
@@ -405,7 +455,11 @@ tipo:
 ;
 
 condicion:
-	expresion comparador expresion |
+	expresion comparador expresion {
+		genCodigoIntermedio.agregarElemento($2.sval);
+		genCodigoIntermedio.generarPasoIncompleto("BF");
+		genCodigoIntermedio.apilar(genCodigoIntermedio.polacaSize() - 1);
+	}|
 	expresion comparador { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); } |
 	comparador expresion { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); } |
 	expresion '=' expresion { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
@@ -421,14 +475,16 @@ comparador:
 ;
 
 expresion:
-	expresion '+' termino |
-	expresion '-' termino |
+	expresion '+' termino { 
+		genCodigoIntermedio.agregarElemento($2.sval); genCodigoIntermedio.incrementarContador(); } |
+	expresion '-' termino { 
+		genCodigoIntermedio.agregarElemento($2.sval); genCodigoIntermedio.incrementarContador(); } |
 	termino
 ;
 
 termino:
-	termino '*' factor |
-	termino '/' factor |
+	termino '*' factor { genCodigoIntermedio.agregarElemento($2.sval); genCodigoIntermedio.incrementarContador();}|
+	termino '/' factor { genCodigoIntermedio.agregarElemento($2.sval); genCodigoIntermedio.incrementarContador();} |
 	factor
 ;
 
@@ -436,6 +492,7 @@ factor:
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
 			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			genCodigoIntermedio.agregarElemento($1.sval); genCodigoIntermedio.incrementarContador();
 		} else {
 			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
 		}
@@ -443,11 +500,16 @@ factor:
 	ID OPERADOR_MENOS {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
 			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			genCodigoIntermedio.agregarElemento($1.sval);
+			genCodigoIntermedio.agregarElemento("1");
+			genCodigoIntermedio.agregarElemento("-");
+			genCodigoIntermedio.agregarElemento($1.sval);
+			genCodigoIntermedio.agregarElemento("=");
 		} else {
 			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
 		}
 	} |
-	constante |
+	constante { genCodigoIntermedio.agregarElemento($1.sval); genCodigoIntermedio.incrementarContador(); } |
 	'(' expresion ')' { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 ;
 
@@ -539,6 +601,8 @@ public static void main(String[] args) {
 	        out.saveFile("codigo-lexico.txt", logger.getLexico());
 			out.saveFile("codigo-sintactico.txt", logger.getSintactico());
 			out.saveFile("tabla-de-simbolos.txt", ts.print());
+
+			genCodigoIntermedio.showPolaca();
 		}
 	}
 }

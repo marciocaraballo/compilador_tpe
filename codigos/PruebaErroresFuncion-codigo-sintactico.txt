@@ -1,0 +1,17 @@
+[Success] Linea 6: [Parser] Asignacion detectada
+[Success] Linea 8: [Parser] Sentencia seleccion IF sin ELSE detectada
+[Success] Linea 9: [Parser] Declaracion de funcion detectado
+[Success] Linea 15: [Parser] Asignacion detectada
+[Success] Linea 17: [Parser] Asignacion detectada
+[Success] Linea 18: [Parser] Sentencia seleccion IF sin ELSE detectada
+[Success] Linea 22: [Parser] Asignacion detectada
+[Success] Linea 25: [Parser] Asignacion detectada
+[Success] Linea 26: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 27: [Parser] Declaracion de funcion detectado
+[Success] Linea 31: [Parser] Asignacion detectada
+[Success] Linea 32: [Parser] Asignacion detectada
+[Success] Linea 34: [Parser] Declaracion de funcion detectado
+[Success] Linea 39: [Parser] Asignacion detectada
+[Success] Linea 41: [Parser] Sentencia seleccion IF sin ELSE detectada
+[Success] Linea 44: [Parser] Declaracion de funcion detectado
+[Success] Linea 48: [Parser] Programa correcto detectado

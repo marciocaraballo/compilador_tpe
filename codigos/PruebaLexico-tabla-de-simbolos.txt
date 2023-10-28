@@ -1,27 +1,33 @@
-Lexema: d:main:fun
+Lexema: a
+Atributo: token Valor: 257
+Lexema: b
+Atributo: token Valor: 257
+Lexema: c
+Atributo: token Valor: 257
+Lexema: c:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: % HOLA %
-Atributo: token Valor: 259
-Lexema: a:cb
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: FLOAT
+Lexema: d
 Atributo: token Valor: 257
-Lexema: n:cb
-Atributo: uso Valor: nombre_metodo
-Atributo: token Valor: 257
-Lexema: var:cb:n
+Lexema: d:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: b:cb
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: FLOAT
+Lexema: a:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: cb:main
-Atributo: uso Valor: nombre_clase
-Atributo: token Valor: 257
-Lexema: fun:main
-Atributo: uso Valor: nombre_funcion
+Lexema: 3_ul
+Atributo: tipo Valor: ULONG
+Atributo: token Valor: 258
+Lexema: 2_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: 3_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: b:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
 Atributo: token Valor: 257

@@ -1,9 +1,40 @@
-[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 6: [Parser] Declaracion de funcion detectado
-[Success] Linea 10: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 11: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 14: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 16: [Parser] Sentencia PRINT detectada
-[Success] Linea 18: [Parser] Declaracion de funcion detectado
-[Success] Linea 19: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 20: [Parser] Programa correcto detectado
+[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 4: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 4: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 4: [Gen Codigo Intermedio] El identificador c existe en el ambito
+[Success] Linea 4: [Gen Codigo Intermedio] El identificador d existe en el ambito
+[Success] Linea 4: [Parser] Asignacion detectada
+[Success] Linea 6: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 6: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 7: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 9: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 9: [Parser] Asignacion detectada
+[Success] Linea 10: [Parser] Sentencia seleccion IF ELSE detectada
+[Success] Linea 13: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 13: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 13: [Gen Codigo Intermedio] El identificador c existe en el ambito
+[Success] Linea 13: [Parser] Asignacion detectada
+[Success] Linea 14: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 14: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 15: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 15: [Gen Codigo Intermedio] El identificador d existe en el ambito
+[Success] Linea 15: [Parser] Asignacion detectada
+[Success] Linea 17: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 17: [Gen Codigo Intermedio] El identificador d existe en el ambito
+[Success] Linea 17: [Parser] Asignacion detectada
+[Success] Linea 18: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 18: [Parser] Asignacion detectada
+[Success] Linea 19: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 19: [Gen Codigo Intermedio] El identificador d existe en el ambito
+[Success] Linea 19: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 20: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 20: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 20: [Parser] Asignacion detectada
+[Success] Linea 22: [Parser] Sentencia seleccion IF sin ELSE detectada
+[Success] Linea 23: [Gen Codigo Intermedio] El identificador a existe en el ambito
+[Success] Linea 23: [Gen Codigo Intermedio] El identificador b existe en el ambito
+[Success] Linea 23: [Gen Codigo Intermedio] El identificador c existe en el ambito
+[Success] Linea 23: [Gen Codigo Intermedio] El identificador d existe en el ambito
+[Success] Linea 23: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 25: [Parser] Programa correcto detectado

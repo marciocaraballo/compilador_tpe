@@ -1,20 +1,25 @@
-{	
+{
+    INT a; b; c; d,
 
-	VOID fun() {
-		INT d,
-		RETURN,
-	}
+    a = b + c + 3_ul * 2_i - d,
 
-	*{ Defincion de clase, se reconoce }*
-    CLASS cb {
-        FLOAT b,
-        FLOAT a,
-        VOID n() {
-        
-	        INT var,
-	        
-            PRINT % HOLA %,
-            RETURN,
+    IF ( a > b )
+        a = 2_i,
+    ELSE
+        b = 2_i,
+    END_IF,
+
+    DO {
+        a = b + c,
+        IF ( a > b ) {
+            a = d + 3_i,
+            DO {
+                a = d + 3_i,
+                a = 3_i + 3_i,
+            } WHILE ( a < d ),
+            a = b + 3_ul,
         }
-    }
+        END_IF,
+    } WHILE ( a + b < c -d ),
+
 }
