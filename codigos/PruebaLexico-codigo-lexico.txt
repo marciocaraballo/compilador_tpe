@@ -40,4 +40,13 @@
 [Success] Linea 15: [Lexico] Se reconoce un token para RETURN con el token 265
 [Success] Linea 15: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 16: [Lexico] Se reconoce un token para } con el token 125
-[Success] Linea 25: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 18: [Lexico] Se reconoce un token para f2 con el token 257
+[Success] Linea 18: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 18: [Lexico] Se reconoce un token para 3_i con el token 258
+[Success] Linea 18: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 18: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 19: [Lexico] Se reconoce un token para f1 con el token 257
+[Success] Linea 19: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 19: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 19: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 28: [Lexico] Se reconoce un token para } con el token 125

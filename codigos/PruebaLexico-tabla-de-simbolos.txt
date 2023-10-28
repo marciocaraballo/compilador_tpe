@@ -34,6 +34,9 @@ Atributo: token Valor: 257
 Lexema: 2_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258
+Lexema: 3_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
 Lexema: b:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT

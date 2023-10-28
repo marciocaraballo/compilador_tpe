@@ -4,9 +4,12 @@
 [Success] Linea 8: [Parser] Asignacion detectada
 [Success] Linea 10: [Parser] Declaracion de funcion detectado
 [WARNING] Linea 12: f1:main
-[WARNING] Linea 12: LEXEMA DE PARAMETRO: b
 [Success] Linea 13: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 14: [Codigo Intermedio] El identificador a esta declarado
 [Success] Linea 14: [Parser] Asignacion detectada
 [Success] Linea 16: [Parser] Declaracion de funcion detectado
-[Success] Linea 25: [Parser] Programa correcto detectado
+[Success] Linea 18: [Codigo Intermedio] El identificador f2 esta declarado
+[Success] Linea 18: [Parser] Invocacion de funcion con expresion detectada
+[Success] Linea 19: [Codigo Intermedio] El identificador f1 esta declarado
+[Success] Linea 19: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 28: [Parser] Programa correcto detectado

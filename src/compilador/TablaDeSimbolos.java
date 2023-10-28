@@ -99,6 +99,13 @@ public class TablaDeSimbolos {
 		return (int) atributos.get(TOKEN);
 	}
 
+	public boolean getTieneParametro(String lexema) {
+
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+
+		return (boolean) atributos.get(TIENE_PARAMETRO);
+	}
+
 	public String getUso(String lexema) {
 		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
 		return (String) atributos.get(USE);

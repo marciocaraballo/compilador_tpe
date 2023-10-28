@@ -190,6 +190,10 @@ public class GeneracionCodigoIntermedio {
         TablaDeSimbolos.getInstance().tieneParametros(lexema + generarAmbito());
     }
 
+    public boolean verificarParametros(String lexema){
+        return TablaDeSimbolos.getInstance().getTieneParametro(lexema + generarAmbito());
+    }
+
     /*
      * Metodos manejo de polaca
      */

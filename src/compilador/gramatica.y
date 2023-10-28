@@ -218,8 +218,19 @@ sentencia_imprimir:
 ;
 
 sentencia_invocacion_funcion:
-	sentencia_objeto_identificador '(' expresion ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); } |
-	sentencia_objeto_identificador '(' ')' ',' { logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada"); } |
+	sentencia_objeto_identificador '(' expresion ')' ',' { 
+		logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); 
+		if (!genCodigoIntermedio.verificarParametros($1.sval)){
+			logger.logError("Cantidad de parametros incorrecta");
+		}
+	} |
+	sentencia_objeto_identificador '(' ')' ',' { 
+		logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada");
+		if (genCodigoIntermedio.verificarParametros($1.sval)){
+			logger.logError("Cantidad de parametros incorrecta");
+		}
+
+	} |
 	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); } |
 	sentencia_objeto_identificador '(' expresion ')' { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); } |
 	sentencia_objeto_identificador '(' ')' { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); } |
