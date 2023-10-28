@@ -335,17 +335,17 @@ sentencia_declarativa_clase:
 
 declaracion_clase_encabezado:
 	CLASS ID { 
-		if (!genCodigoIntermedio.claseOInterfazRedeclarada($2.sval)) {
+		if (!genCodigoIntermedio.claseRedeclarada($2.sval)) {
 			genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
 			genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 			genCodigoIntermedio.apilarAmbito($2.sval);
 		} else {
-			logger.logError("[Codigo intermedio] Se intento volver a declarar la clase " + $2.sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
 		}
 	} |
 	CLASS ID IMPLEMENT ID {
-		if (!genCodigoIntermedio.claseOInterfazRedeclarada($2.sval)) {
+		if (!genCodigoIntermedio.claseRedeclarada($2.sval)) {
 			if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval)) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
 				genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
@@ -356,7 +356,7 @@ declaracion_clase_encabezado:
 				logger.logError("[Codigo Intermedio] El identificador " + $4.sval + " no esta declarado");
 			}
 		} else {
-			logger.logError("[Codigo intermedio] Se intento volver a declarar la clase " + $2.sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
 		}
 	} |
 	CLASS { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
@@ -386,27 +386,34 @@ declaracion_funcion:
 
 encabezado_funcion:
 	encabezado_funcion_nombre '(' parametro_funcion ')' {
-		if (genCodigoIntermedio.esDefinicionDeClase()) {
-			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
-			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
+		if (!genCodigoIntermedio.functionRedeclarada($1.sval)) {
+			if (genCodigoIntermedio.esDefinicionDeClase()) {
+				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
+				genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
+			} else {
+				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
+				genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
+			}
+			genCodigoIntermedio.modificarCantidadParametros($1.sval);
+			genCodigoIntermedio.apilarAmbito($1.sval);
+			genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
 		} else {
-			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
-			genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 		}
-		genCodigoIntermedio.modificarCantidadParametros($1.sval);
-		genCodigoIntermedio.apilarAmbito($1.sval);
-		genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
 	}|
 	encabezado_funcion_nombre '(' ')' {
-		if (genCodigoIntermedio.esDefinicionDeClase()) {
-			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
-			genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
-		} else {
-			genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
-			genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
-		}
+		if (!genCodigoIntermedio.functionRedeclarada($1.sval)) {
+			if (genCodigoIntermedio.esDefinicionDeClase()) {
+				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
+				genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
+			} else {
+				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
+				genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
+			}
 		genCodigoIntermedio.apilarAmbito($1.sval);
-
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
+		}
 	}|
 	encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
@@ -484,14 +491,14 @@ lista_de_variables:
 		if (!genCodigoIntermedio.variableRedeclarada($1.sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar($1.sval);
 		} else {
-			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + $1.sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 		}
 	} |
 	lista_de_variables ';' ID { 
 		if (!genCodigoIntermedio.variableRedeclarada($3.sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar($3.sval);
 		} else {
-			logger.logError("[Codigo intermedio] Se intento volver a declarar la variable " + $3.sval);
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $3.sval);
 		}
 	}
 ;

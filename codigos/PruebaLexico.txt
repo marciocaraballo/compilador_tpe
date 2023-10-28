@@ -1,19 +1,9 @@
 {
-	CLASS cb {
-		FLOAT a,
-		VOID m() {
-			RETURN,
-		}
-	}
-
-	VOID fun1() {
-		CLASS cb {
-			FLOAT a,
-			VOID m() {
-				RETURN,
-			}
-		}
-		
+	VOID fun1() { RETURN, }
+	
+	VOID fun2() {
+		VOID fun1() { RETURN, }
+		VOID fun1() { RETURN, }
 		RETURN,
 	}
 }

@@ -1,18 +1,14 @@
-Lexema: a:cb
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: FLOAT
-Atributo: token Valor: 257
-Lexema: cb:main:fun1
-Atributo: uso Valor: nombre_clase
-Atributo: token Valor: 257
-Lexema: cb:main
-Atributo: uso Valor: nombre_clase
-Atributo: token Valor: 257
-Lexema: fun1:main
+Lexema: fun2:main
 Atributo: uso Valor: nombre_funcion
 Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: m:cb
-Atributo: uso Valor: nombre_metodo
+Lexema: fun1
+Atributo: token Valor: 257
+Lexema: fun1:main:fun2
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: fun1:main
+Atributo: uso Valor: nombre_funcion
 Atributo: tiene_param Valor: false
 Atributo: token Valor: 257

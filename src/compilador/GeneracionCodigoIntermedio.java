@@ -94,11 +94,18 @@ public class GeneracionCodigoIntermedio {
         return lista_variables_a_declarar.contains(variable) || TS.has(variable + ambitoCompleto);
     }
 
-    public Boolean claseOInterfazRedeclarada(String variable) {
+    public Boolean claseRedeclarada(String clase) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         String ambitoCompleto = generarAmbito();
 
-        return TS.has(variable + ambitoCompleto);
+        return TS.has(clase + ambitoCompleto);
+    }
+
+    public Boolean functionRedeclarada(String funcion) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        String ambitoCompleto = generarAmbito();
+
+        return TS.has(funcion + ambitoCompleto);
     }
 
     public void agregarVariableADeclarar(String variable) {
