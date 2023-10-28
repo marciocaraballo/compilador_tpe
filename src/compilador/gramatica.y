@@ -196,9 +196,9 @@ sentencia_asignacion:
 sentencia_objeto_identificador:
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
-			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
 		} else {
-			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
 		}
 	} |
 	sentencia_objeto_identificador '.' ID
@@ -260,7 +260,14 @@ sentencia_declarativa_clase:
 	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); } |
 	declaracion_funcion |
-	ID ','
+	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
+	ID ',' {
+		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+		} else {
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+		}
+	}
 ;
 
 declaracion_clase_encabezado:
@@ -397,9 +404,9 @@ tipo:
 	FLOAT |
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
-			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
-			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	}
 ;
@@ -435,16 +442,16 @@ termino:
 factor:
 	ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
-			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
-			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado ");
 		}
 	} |
 	ID OPERADOR_MENOS {
 		if (genCodigoIntermedio.existeIdentificadorEnAmbito($1.sval)) {
-			logger.logSuccess("[Gen Codigo Intermedio] El identificador " + $1.sval + " existe en el ambito");
+			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
-			logger.logError("[Gen Codigo Intermedio] El identificador " + $1.sval + " no esta declarado en el ambito");
+			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	} |
 	constante |
