@@ -385,7 +385,10 @@ bloque_sentencias_declarativas_clase:
 declaracion_funcion:
 	encabezado_funcion cuerpo_funcion { 
 		logger.logSuccess("[Parser] Declaracion de funcion detectado");
-		genCodigoIntermedio.desapilarAmbito(); 
+		if (genCodigoIntermedio.isPuedoDesapilar())
+			genCodigoIntermedio.desapilarAmbito();
+		else 
+			genCodigoIntermedio.setPuedoDesapilar();
 	}
 ;
 
@@ -404,6 +407,7 @@ encabezado_funcion:
 			genCodigoIntermedio.agregarAmbitoAIdentificador($3.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
+			genCodigoIntermedio.setPuedoDesapilar();
 		}
 	}|
 	encabezado_funcion_nombre '(' ')' {
@@ -418,6 +422,7 @@ encabezado_funcion:
 			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
+			genCodigoIntermedio.setPuedoDesapilar();
 		}
 	}|
 	encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |

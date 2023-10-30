@@ -77,7 +77,7 @@ public class TablaDeSimbolos {
 		if (uso.equals("nombre_funcion") || uso.equals("nombre_metodo")) {
 			attributes.put(TIENE_PARAMETRO, false);
 		} else {
-			if (uso.equals("variable")) {
+			if (uso.equals("variable") || uso.equals("nombre_parametro")) {
 				attributes.put(COMPROBACION_USO, false);
 			}
 		}

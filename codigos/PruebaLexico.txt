@@ -4,12 +4,24 @@
 
 	VOID fun2() {
         INT a,
-		VOID fun1() {
+		VOID fun2() {
 	        INT a,
 	        a = 3_i,
+		    RETURN,
+		}
+		VOID fun1(INT a){
+		    a = 4_i,
 		    RETURN,
 		}
         a = 2_i,
 		RETURN,
 	}
+
+	VOID fun1(INT z){
+	    INT b,
+	    b = 3_i,
+	    RETURN,
+	}
+
+	*{ f1(),  CORREGIR -> SI EL ID NO EXISTE, TIRA ERROR POR NO PODER CHEQUEAR PARAMETROS }*
 }

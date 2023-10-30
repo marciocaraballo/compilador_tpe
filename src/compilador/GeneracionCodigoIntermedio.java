@@ -12,7 +12,7 @@ public class GeneracionCodigoIntermedio {
 
     private ArrayList<String> polaca = new ArrayList<>();
     private Stack<Integer> pila = new Stack<>();
-
+    private boolean puedoDesapilar = true;
     int contador = 0;
     private static GeneracionCodigoIntermedio instance = null;
 
@@ -69,6 +69,15 @@ public class GeneracionCodigoIntermedio {
             ambitos.pop();
         }
     }
+
+    public boolean isPuedoDesapilar(){
+        return puedoDesapilar;
+    }
+
+    public void setPuedoDesapilar(){
+        this.puedoDesapilar = !puedoDesapilar;
+    }
+
 
     public String generarAmbito() {
         Iterator<String> it = null;
@@ -227,7 +236,6 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void modificarCantidadParametros(String lexema) {
-        Logger.getInstance().logWarning(lexema + generarAmbito());
         TablaDeSimbolos.getInstance().tieneParametros(lexema + generarAmbito());
     }
 
@@ -300,7 +308,6 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void comprobacionUso(String lexema) {
-        Logger.getInstance().logWarning("LEXEMA ES " + lexema);
         TablaDeSimbolos.getInstance().putComprobacionUso(lexema);
     }
 

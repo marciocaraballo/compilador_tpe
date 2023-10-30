@@ -3,10 +3,15 @@
 [Success] Linea 8: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 9: [Codigo Intermedio] El identificador a esta declarado
 [Success] Linea 9: [Parser] Asignacion detectada
-[WARNING] Linea 9: LEXEMA ES a:main:fun2:fun1
 [Success] Linea 11: [Parser] Declaracion de funcion detectado
-[Success] Linea 12: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 12: [Parser] Asignacion detectada
-[WARNING] Linea 12: LEXEMA ES a:main:fun2
-[Success] Linea 14: [Parser] Declaracion de funcion detectado
-[Success] Linea 15: [Parser] Programa correcto detectado
+[Success] Linea 13: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 13: [Parser] Asignacion detectada
+[Success] Linea 15: [Parser] Declaracion de funcion detectado
+[Success] Linea 16: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 16: [Parser] Asignacion detectada
+[Success] Linea 18: [Parser] Declaracion de funcion detectado
+[Success] Linea 21: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 22: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 22: [Parser] Asignacion detectada
+[Success] Linea 24: [Parser] Declaracion de funcion detectado
+[Success] Linea 27: [Parser] Programa correcto detectado
