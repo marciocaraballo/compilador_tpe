@@ -1,55 +1,20 @@
-Lexema: z:main:fun1
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
 Atributo: token Valor: 257
-Lexema: fun2:main
-Atributo: uso Valor: nombre_funcion
+Lexema: caa:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: m:ca
+Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: a:main:fun2:fun2
+Lexema: cb:main
 Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: b:main:fun1
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: a:main:fun2:fun1
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: fun2:main:fun2
-Atributo: uso Valor: nombre_funcion
-Atributo: tiene_param Valor: false
-Atributo: token Valor: 257
-Lexema: fun1:main:fun2
-Atributo: uso Valor: nombre_funcion
-Atributo: tiene_param Valor: true
-Atributo: token Valor: 257
-Lexema: a:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
+Atributo: tipo Valor: cb
 Atributo: comp_uso Valor: false
-Atributo: token Valor: 257
-Lexema: 2_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: fun1:main
-Atributo: uso Valor: nombre_funcion
-Atributo: tiene_param Valor: true
 Atributo: token Valor: 257
 Lexema: 3_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: a:main:fun2
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: 4_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258

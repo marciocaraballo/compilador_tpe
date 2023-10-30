@@ -208,7 +208,7 @@ public class GeneracionCodigoIntermedio {
         String ambitoParcial = this.generarAmbito();
 
         if (esDefinicionDeClase()) {
-            ambitoParcial = getAmbitoClaseInterfaz();
+            ambitoParcial = ":" + getAmbitoClaseInterfaz();
         } else {
             ambitoParcial = generarAmbito();
         }
