@@ -1,4 +1,5 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 4: [Parser] Asignacion detectada
 [Success] Linea 6: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 8: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 9: [Codigo Intermedio] El identificador a esta declarado
@@ -14,4 +15,6 @@
 [Success] Linea 22: [Codigo Intermedio] El identificador b esta declarado
 [Success] Linea 22: [Parser] Asignacion detectada
 [Success] Linea 24: [Parser] Declaracion de funcion detectado
+[Success] Linea 26: [Codigo Intermedio] El identificador fun1 esta declarado
+[Success] Linea 26: [Parser] Invocacion de funcion con expresion detectada
 [Success] Linea 27: [Parser] Programa correcto detectado

@@ -1,7 +1,7 @@
 {
 
     INT a,
-
+    b = 2_i,
 	VOID fun2() {
         INT a,
 		VOID fun2() {
@@ -23,5 +23,5 @@
 	    RETURN,
 	}
 
-	*{ f1(),  CORREGIR -> SI EL ID NO EXISTE, TIRA ERROR POR NO PODER CHEQUEAR PARAMETROS }*
+	fun1(2_i),  *{ CORREGIR -> SI EL ID NO EXISTE, TIRA ERROR POR NO PODER CHEQUEAR PARAMETROS }*
 }

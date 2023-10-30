@@ -219,17 +219,20 @@ sentencia_imprimir:
 
 sentencia_invocacion_funcion:
 	sentencia_objeto_identificador '(' expresion ')' ',' { 
-		logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); 
-		if (!genCodigoIntermedio.verificarParametros($1.sval)){
-			logger.logError("Cantidad de parametros incorrecta");
+		logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada");
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
+			if (!genCodigoIntermedio.verificarParametros($1.sval)){
+				logger.logError("Cantidad de parametros incorrecta");
+			}
 		}
 	} |
 	sentencia_objeto_identificador '(' ')' ',' { 
 		logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada");
-		if (genCodigoIntermedio.verificarParametros($1.sval)){
-			logger.logError("Cantidad de parametros incorrecta");
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
+			if (genCodigoIntermedio.verificarParametros($1.sval)){
+				logger.logError("Cantidad de parametros incorrecta");
+			}
 		}
-
 	} |
 	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); } |
 	sentencia_objeto_identificador '(' expresion ')' { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); } |
@@ -252,9 +255,6 @@ sentencia_asignacion:
 		String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 		if (!variable.equals(""))
 			genCodigoIntermedio.comprobacionUso($1.sval + variable);
-		else {
-			logger.logError("La variable " + $1.sval + " No fue declarada");
-		}
 	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
 	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }

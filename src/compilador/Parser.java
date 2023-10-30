@@ -1686,40 +1686,43 @@ break;
 case 117:
 //#line 221 "gramatica.y"
 { 
-		logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada"); 
-		if (!genCodigoIntermedio.verificarParametros(val_peek(4).sval)){
-			logger.logError("Cantidad de parametros incorrecta");
+		logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada");
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(4).sval).equals("")){
+			if (!genCodigoIntermedio.verificarParametros(val_peek(4).sval)){
+				logger.logError("Cantidad de parametros incorrecta");
+			}
 		}
 	}
 break;
 case 118:
-//#line 227 "gramatica.y"
+//#line 229 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada");
-		if (genCodigoIntermedio.verificarParametros(val_peek(3).sval)){
-			logger.logError("Cantidad de parametros incorrecta");
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(3).sval).equals("")){
+			if (genCodigoIntermedio.verificarParametros(val_peek(3).sval)){
+				logger.logError("Cantidad de parametros incorrecta");
+			}
 		}
-
 	}
 break;
 case 119:
-//#line 234 "gramatica.y"
+//#line 237 "gramatica.y"
 { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); }
 break;
 case 120:
-//#line 235 "gramatica.y"
+//#line 238 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 121:
-//#line 236 "gramatica.y"
+//#line 239 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 122:
-//#line 237 "gramatica.y"
+//#line 240 "gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 125:
-//#line 246 "gramatica.y"
+//#line 249 "gramatica.y"
 { 
 		logger.logSuccess("[Parser] Asignacion detectada");
 		genCodigoIntermedio.agregarElemento(val_peek(3).sval);
@@ -1729,9 +1732,6 @@ case 125:
 		String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(3).sval);
 		if (!variable.equals(""))
 			genCodigoIntermedio.comprobacionUso(val_peek(3).sval + variable);
-		else {
-			logger.logError("La variable " + val_peek(3).sval + " No fue declarada");
-		}
 	}
 break;
 case 126:

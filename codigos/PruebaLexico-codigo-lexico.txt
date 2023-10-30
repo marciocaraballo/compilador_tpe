@@ -2,6 +2,10 @@
 [Success] Linea 3: [Lexico] Se reconoce un token para INT con el token 275
 [Success] Linea 3: [Lexico] Se reconoce un token para a con el token 257
 [Success] Linea 3: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 4: [Lexico] Se reconoce un token para b con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para = con el token 61
+[Success] Linea 4: [Lexico] Se reconoce un token para 2_i con el token 258
+[Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 5: [Lexico] Se reconoce un token para VOID con el token 264
 [Success] Linea 5: [Lexico] Se reconoce un token para fun2 con el token 257
 [Success] Linea 5: [Lexico] Se reconoce un token para ( con el token 40
@@ -63,4 +67,9 @@
 [Success] Linea 23: [Lexico] Se reconoce un token para RETURN con el token 265
 [Success] Linea 23: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 24: [Lexico] Se reconoce un token para } con el token 125
+[Success] Linea 26: [Lexico] Se reconoce un token para fun1 con el token 257
+[Success] Linea 26: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 26: [Lexico] Se reconoce un token para 2_i con el token 258
+[Success] Linea 26: [Lexico] Se reconoce un token para ) con el token 41
+[Success] Linea 26: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 27: [Lexico] Se reconoce un token para } con el token 125
