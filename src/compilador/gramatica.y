@@ -249,7 +249,12 @@ sentencia_asignacion:
 		genCodigoIntermedio.agregarElemento($2.sval);
 		genCodigoIntermedio.incrementarContador();	
 		genCodigoIntermedio.incrementarContador();
-		genCodigoIntermedio.comprobacionUso($1.sval);
+		String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+		if (!variable.equals(""))
+			genCodigoIntermedio.comprobacionUso($1.sval + variable);
+		else {
+			logger.logError("La variable " + $1.sval + " No fue declarada");
+		}
 	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
 	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
@@ -257,7 +262,7 @@ sentencia_asignacion:
 
 sentencia_objeto_identificador:
 	ID {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 			genCodigoIntermedio.borrarLexemaDeclarado($1.sval);
 		} else {
@@ -325,7 +330,7 @@ sentencia_declarativa_clase:
 	declaracion_funcion |
 	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
 	ID ',' {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
@@ -346,7 +351,7 @@ declaracion_clase_encabezado:
 	} |
 	CLASS ID IMPLEMENT ID {
 		if (!genCodigoIntermedio.claseRedeclarada($2.sval)) {
-			if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval)) {
+			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval).equals("")) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
 				genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
 				genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
@@ -410,7 +415,7 @@ encabezado_funcion:
 				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
 				genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
 			}
-		genCodigoIntermedio.apilarAmbito($1.sval);
+			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 		}
@@ -508,7 +513,7 @@ tipo:
 	ULONG |
 	FLOAT |
 	ID {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
@@ -552,7 +557,7 @@ termino:
 
 factor:
 	ID {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 			genCodigoIntermedio.borrarLexemaDeclarado($1.sval);
 			genCodigoIntermedio.agregarElemento($1.sval); genCodigoIntermedio.incrementarContador();
@@ -561,7 +566,7 @@ factor:
 		}
 	} |
 	ID OPERADOR_MENOS {
-		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval)) {
+		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 			genCodigoIntermedio.agregarElemento($1.sval);
 			genCodigoIntermedio.agregarElemento("1");

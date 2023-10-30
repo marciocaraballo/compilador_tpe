@@ -164,8 +164,8 @@ public class GeneracionCodigoIntermedio {
 
         TS.swapLexemas(identificador, identificador + ambitoCompleto);
     }
-
-    public boolean existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
+/*
+    public String existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         Iterator<String> it = null;
         String ambitoParcial = "";
@@ -177,18 +177,45 @@ public class GeneracionCodigoIntermedio {
         }
 
         while (it.hasNext()) {
+
             ambitoParcial += it.next();
+            System.out.println(ambitoParcial);
             Boolean identificadorExisteEnAmbito = TS.has(identificador + ":" + ambitoParcial);
 
             if (identificadorExisteEnAmbito) {
 
-                return true;
+                return ambitoParcial;
             }
 
             ambitoParcial += ":";
         }
 
-        return false;
+        return "";
+    }
+*/
+    public String existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
+        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
+        Iterator<String> it = null;
+        String ambitoParcial = this.generarAmbito();
+
+        if (esDefinicionDeClase()) {
+            ambitoParcial = getAmbitoClaseInterfaz();
+        } else {
+            ambitoParcial = generarAmbito();
+        }
+
+        while (!ambitoParcial.equals("")) {
+            System.out.println(identificador + ambitoParcial);
+            Boolean identificadorExisteEnAmbito = TS.has(identificador + ambitoParcial);
+            if (identificadorExisteEnAmbito) {
+                return ambitoParcial;
+            }
+            int aux = ambitoParcial.lastIndexOf(":");
+            ambitoParcial = ambitoParcial.substring(0, aux);
+
+        }
+
+        return "";
     }
 
     public void removerListaVariablesADeclarar() {
@@ -273,7 +300,8 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void comprobacionUso(String lexema) {
-        TablaDeSimbolos.getInstance().putComprobacionUso(lexema + generarAmbito());
+        Logger.getInstance().logWarning("LEXEMA ES " + lexema);
+        TablaDeSimbolos.getInstance().putComprobacionUso(lexema);
     }
 
 }

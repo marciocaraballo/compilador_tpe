@@ -1,9 +1,15 @@
 {
-	VOID fun1() { RETURN, }
-	
+
+    INT a,
+
 	VOID fun2() {
-		VOID fun1() { RETURN, }
-		VOID fun1() { RETURN, }
+        INT a,
+		VOID fun1() {
+	        INT a,
+	        a = 3_i,
+		    RETURN,
+		}
+        a = 2_i,
 		RETURN,
 	}
 }
