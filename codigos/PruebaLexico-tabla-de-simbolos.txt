@@ -1,33 +1,25 @@
-Lexema: caa
-Atributo: token Valor: 257
-Lexema: ca:main
-Atributo: uso Valor: nombre_clase
-Atributo: token Valor: 257
-Lexema: caa:ca
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: m:ca
+Lexema: q:z
 Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: cb:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: ca
-Atributo: comp_uso Valor: false
+Lexema: s:z
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: 3_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: m
+Lexema: a:main
+Atributo: uso Valor: nombre_clase
+Atributo: implementa Valor: z
 Atributo: token Valor: 257
-Lexema: b:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
+Lexema: q:a
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: ca
+Lexema: z:main
+Atributo: uso Valor: nombre_interfaz
 Atributo: token Valor: 257
-Lexema: cb
+Lexema: z
+Atributo: token Valor: 257
+Lexema: s:a
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257

@@ -1,18 +1,13 @@
 {
 
-	INT b,
+	INTERFACE z {
+		VOID q(),
+		VOID s(),
+	}
+	
+	CLASS a IMPLEMENT z {
+		VOID q() {}
+		VOID s() {}
+	}
 
-    CLASS ca {
-        INT caa,
-        VOID m(){
-            caa = 3_i,
-            RETURN,
-        }
-        VOID m() {
-        	RETURN,
-        }
-    }
-
-    ca cb,
-    cb.m(),
 }

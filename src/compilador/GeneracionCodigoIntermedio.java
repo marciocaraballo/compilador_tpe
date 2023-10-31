@@ -227,6 +227,19 @@ public class GeneracionCodigoIntermedio {
         return TablaDeSimbolos.getInstance().has(miembro + ":" + tipoInstancia);
     }
 
+    public void putImplementa(String lexema, String interfaz) {
+        TablaDeSimbolos.getInstance().putImplementa(lexema, interfaz);
+    }
+
+    public boolean claseImplementaInterfaz(String identificadorClase) {
+        String claseDeclarada = getAmbitoClaseInterfaz();
+        String interfazAImplementar = TablaDeSimbolos.getInstance().getImplementa(claseDeclarada);
+        
+        if (interfazAImplementar != "") {
+
+        }
+    }
+
     /*
      * Metodos manejo de polaca
      */

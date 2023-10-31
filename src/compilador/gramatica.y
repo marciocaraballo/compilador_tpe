@@ -421,6 +421,7 @@ declaracion_clase_encabezado:
 			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval).equals("")) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
 				genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
+				genCodigoIntermedio.putImplementa($2.sval, $4.sval);
 				genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 				genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 				genCodigoIntermedio.apilarAmbito($2.sval);
@@ -440,6 +441,11 @@ declaracion_clase_encabezado:
 declaracion_clase:
 	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
+
+		String claseDeclarada = genCodigoIntermedio.getAmbitoClaseInterfaz();
+		String claseImplementaInterfaz = genCodigoIntermedio.getInterfazAImplementar(claseDeclarada);
+
+		logger.logError("CACA " + genCodigoIntermedio.getAmbitoClaseInterfaz());
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 ;

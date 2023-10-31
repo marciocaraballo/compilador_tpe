@@ -25,6 +25,7 @@ public class TablaDeSimbolos {
 	public static final String USE = "uso";
 	public static final String COMPROBACION_USO = "comp_uso";
 	public static final String TIENE_PARAMETRO = "tiene_param";
+	public static final String IMPLEMENTA = "implementa";
 
 	TablaDeSimbolos() {
 	};
@@ -88,6 +89,18 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
 		attributes.put(COMPROBACION_USO, true);
+	}
+
+	public void putImplementa(String lexema, String interfaz) {
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		attributes.put(IMPLEMENTA, interfaz);
+	}
+
+	public String getImplementa(String lexema) {
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+
+		return (String) atributos.get(IMPLEMENTA);
 	}
 
 	public boolean has(String lexema) {
