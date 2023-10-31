@@ -1,0 +1,9 @@
+[Success] Linea 1: [Lexico] Se reconoce un token para { con el token 123
+[Success] Linea 3: [Lexico] Se reconoce un token para PRINT con el token 263
+[Success] Linea 3: [Lexico] Se reconoce un token para %Hola Mundo!% con el token 259
+[Success] Linea 3: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 6: [Lexico] Se reconoce un token para PRINT con el token 263
+[Success] Linea 7: [Lexico] Se reconoce un token para %Hola 	Mundo!% con el token 259
+[Success] Linea 7: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 12: [Lexico] Se reconoce un token para PRINT con el token 263
+[Success] Linea 12: [Lexico] Se reconoce un token para holamundo con el token 257

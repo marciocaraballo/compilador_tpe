@@ -1,12 +1,12 @@
 {
-	CLASS cb {
-		FLOAT c,
-	}
-	
-	CLASS ca {
-		FLOAT b,
-		VOID m() { RETURN, }
-		cb,
-		cc,
-	}
+    CLASS ca {
+        INT caa,
+        VOID m(){
+            caa = 3_i,
+            RETURN,
+        }
+    }
+
+    ca cb,
+    cb.d(),
 }

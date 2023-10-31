@@ -12,7 +12,7 @@ public class GeneracionCodigoIntermedio {
 
     private ArrayList<String> polaca = new ArrayList<>();
     private Stack<Integer> pila = new Stack<>();
-
+    private boolean puedoDesapilar = true;
     int contador = 0;
     private static GeneracionCodigoIntermedio instance = null;
 
@@ -68,6 +68,14 @@ public class GeneracionCodigoIntermedio {
         } else {
             ambitos.pop();
         }
+    }
+
+    public boolean isPuedoDesapilar() {
+        return puedoDesapilar;
+    }
+
+    public void setPuedoDesapilar() {
+        this.puedoDesapilar = !puedoDesapilar;
     }
 
     public String generarAmbito() {
@@ -165,52 +173,29 @@ public class GeneracionCodigoIntermedio {
         TS.swapLexemas(identificador, identificador + ambitoCompleto);
     }
 
-    public boolean existeIdentificadorClaseEnAlgunAmbitoContenedor(String identificador) {
+    public String existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
         TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
         Iterator<String> it = null;
-        String ambitoParcial = "";
-
-        it = ambitos.iterator();
-
-        while (it.hasNext()) {
-            ambitoParcial += it.next();
-            Boolean identificadorExisteEnAmbito = TS.has(identificador + ":" + ambitoParcial);
-
-            if (identificadorExisteEnAmbito) {
-
-                return true;
-            }
-
-            ambitoParcial += ":";
-        }
-
-        return false;
-    }
-
-    public boolean existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
-        TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
-        Iterator<String> it = null;
-        String ambitoParcial = "";
+        String ambitoParcial = this.generarAmbito();
 
         if (esDefinicionDeClase()) {
-            it = ambitosClase.iterator();
+            ambitoParcial = ":" + getAmbitoClaseInterfaz();
         } else {
-            it = ambitos.iterator();
+            ambitoParcial = generarAmbito();
         }
 
-        while (it.hasNext()) {
-            ambitoParcial += it.next();
-            Boolean identificadorExisteEnAmbito = TS.has(identificador + ":" + ambitoParcial);
-
+        while (!ambitoParcial.equals("")) {
+            System.out.println(identificador + ambitoParcial);
+            Boolean identificadorExisteEnAmbito = TS.has(identificador + ambitoParcial);
             if (identificadorExisteEnAmbito) {
-
-                return true;
+                return ambitoParcial;
             }
+            int aux = ambitoParcial.lastIndexOf(":");
+            ambitoParcial = ambitoParcial.substring(0, aux);
 
-            ambitoParcial += ":";
         }
 
-        return false;
+        return "";
     }
 
     public void removerListaVariablesADeclarar() {
@@ -222,7 +207,6 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void modificarCantidadParametros(String lexema) {
-        Logger.getInstance().logWarning(lexema + generarAmbito());
         TablaDeSimbolos.getInstance().tieneParametros(lexema + generarAmbito());
     }
 
@@ -295,7 +279,7 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void comprobacionUso(String lexema) {
-        TablaDeSimbolos.getInstance().putComprobacionUso(lexema + generarAmbito());
+        TablaDeSimbolos.getInstance().putComprobacionUso(lexema);
     }
 
 }

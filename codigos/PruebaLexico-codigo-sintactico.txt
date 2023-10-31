@@ -1,7 +1,0 @@
-[Success] Linea 3: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 4: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 7: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 8: [Parser] Declaracion de funcion detectado
-[Success] Linea 9: [Codigo Intermedio] El identificador cb esta declarado
-[Success] Linea 11: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 12: [Parser] Programa correcto detectado

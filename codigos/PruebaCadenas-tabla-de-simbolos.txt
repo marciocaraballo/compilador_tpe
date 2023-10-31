@@ -1,0 +1,6 @@
+Lexema: %Hola 	Mundo!%
+Atributo: token Valor: 259
+Lexema: %Hola Mundo!%
+Atributo: token Valor: 259
+Lexema: holamundo
+Atributo: token Valor: 257
