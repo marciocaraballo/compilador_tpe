@@ -1,0 +1,11 @@
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 6: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 10: [Parser] Declaracion de funcion detectado
+[Success] Linea 13: [Parser] Declaracion de funcion detectado
+[Success] Linea 14: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 16: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 16: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 17: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 17: [Codigo Intermedio] El identificador m esta declarado dentro de la clase ca
+[Success] Linea 18: [Parser] Programa correcto detectado

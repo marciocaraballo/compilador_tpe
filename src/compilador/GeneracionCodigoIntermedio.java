@@ -185,7 +185,6 @@ public class GeneracionCodigoIntermedio {
         }
 
         while (!ambitoParcial.equals("")) {
-            System.out.println(identificador + ambitoParcial);
             Boolean identificadorExisteEnAmbito = TS.has(identificador + ambitoParcial);
             if (identificadorExisteEnAmbito) {
                 return ambitoParcial;
@@ -212,6 +211,20 @@ public class GeneracionCodigoIntermedio {
 
     public boolean verificarParametros(String lexema) {
         return TablaDeSimbolos.getInstance().getTieneParametro(lexema + generarAmbito());
+    }
+
+    public boolean verificarParametrosDeMetodo(String metodo) {
+        return TablaDeSimbolos.getInstance().getTieneParametro(metodo);
+    }
+
+    public String tipoInstanceDeClase(String instanciaClase) {
+        String type = TablaDeSimbolos.getInstance().getTipo(instanciaClase + generarAmbito());
+
+        return type;
+    }
+
+    public boolean perteneceMiembroAClase(String miembro, String tipoInstancia) {
+        return TablaDeSimbolos.getInstance().has(miembro + ":" + tipoInstancia);
     }
 
     /*

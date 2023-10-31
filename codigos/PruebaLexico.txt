@@ -1,12 +1,18 @@
 {
+
+	INT b,
+
     CLASS ca {
         INT caa,
         VOID m(){
             caa = 3_i,
             RETURN,
         }
+        VOID m() {
+        	RETURN,
+        }
     }
 
     ca cb,
-    cb.d(),
+    cb.m(),
 }

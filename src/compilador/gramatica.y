@@ -218,19 +218,66 @@ sentencia_imprimir:
 ;
 
 sentencia_invocacion_funcion:
+
 	sentencia_objeto_identificador '(' expresion ')' ',' { 
-		logger.logSuccess("[Parser] Invocacion de funcion con expresion detectada");
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
-			if (!genCodigoIntermedio.verificarParametros($1.sval)){
-				logger.logError("Cantidad de parametros incorrecta");
+
+		if ($1.sval.contains(".")) {
+
+			String[] splittedIdentificador = $1.sval.split("\\.");
+			String nombreVariable = splittedIdentificador[0];
+			String nombreMiembro = splittedIdentificador[1];
+
+			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable).equals("")){
+
+				String tipoInstancia = genCodigoIntermedio.tipoInstanceDeClase(nombreVariable);
+
+				if (genCodigoIntermedio.perteneceMiembroAClase(nombreMiembro, tipoInstancia)) {
+					if (genCodigoIntermedio.verificarParametrosDeMetodo(nombreMiembro + ":" + tipoInstancia)){
+						logger.logSuccess("[Codigo Intermedio] El identificador " + nombreMiembro + " esta declarado dentro de la clase " + tipoInstancia);
+					} else {
+						logger.logError("[Codigo Intermedio] Cantidad de parametros incorrecta");
+					}
+				} else {
+					logger.logError("[Codigo Intermedio] El identificador " + nombreMiembro + " no esta declarado dentro de la clase " + tipoInstancia);
+				}
+			}
+		} else {
+			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
+				if (!genCodigoIntermedio.verificarParametros($1.sval)){
+					logger.logError("Cantidad de parametros incorrecta");
+				}
 			}
 		}
 	} |
 	sentencia_objeto_identificador '(' ')' ',' { 
 		logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada");
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
-			if (genCodigoIntermedio.verificarParametros($1.sval)){
-				logger.logError("Cantidad de parametros incorrecta");
+
+		if ($1.sval.contains(".")) {
+
+			String[] splittedIdentificador = $1.sval.split("\\.");
+			String nombreVariable = splittedIdentificador[0];
+			String nombreMiembro = splittedIdentificador[1];
+
+			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable).equals("")){
+
+				String tipoInstancia = genCodigoIntermedio.tipoInstanceDeClase(nombreVariable);
+
+				if (genCodigoIntermedio.perteneceMiembroAClase(nombreMiembro, tipoInstancia)) {
+					if (!genCodigoIntermedio.verificarParametrosDeMetodo(nombreMiembro + ":" + tipoInstancia)){
+						logger.logSuccess("[Codigo Intermedio] El identificador " + nombreMiembro + " esta declarado dentro de la clase " + tipoInstancia);
+					} else {
+						logger.logError("[Codigo Intermedio] Cantidad de parametros incorrecta");
+					}
+				} else {
+					logger.logError("[Codigo Intermedio] El identificador " + nombreMiembro + " no esta declarado dentro de la clase " + tipoInstancia);
+				}
+			}
+		} else {
+			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
+				logger.logError("jejje " + $1.sval);
+				if (genCodigoIntermedio.verificarParametros($1.sval)) {
+					logger.logError("Cantidad de parametros incorrecta");
+				}
 			}
 		}
 	} |
@@ -262,14 +309,34 @@ sentencia_asignacion:
 
 sentencia_objeto_identificador:
 	ID {
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
-			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
-			genCodigoIntermedio.borrarLexemaDeclarado($1.sval);
-		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
-		}
+		$$.sval = $1.sval;
+		// if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")) {
+		// 	logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
+		// 	genCodigoIntermedio.borrarLexemaDeclarado($1.sval);
+		// } else {
+		// 	logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
+		// }
 	} |
-	sentencia_objeto_identificador '.' ID 
+	sentencia_objeto_identificador '.' ID {
+
+		$$.sval = $1.sval + "." + $3.sval;
+
+		// if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
+
+		// 	String tipoInstancia = genCodigoIntermedio.tipoInstanceDeClase($1.sval);
+
+		// 	if (genCodigoIntermedio.perteneceMiembroAClase($3.sval, tipoInstancia)) {
+		// 		logger.logError($3.sval + ":" + tipoInstancia);
+		// 		if (genCodigoIntermedio.verificarParametrosDeMetodo($3.sval + ":" + tipoInstancia)){
+		// 			logger.logError("Cantidad de parametros incorrecta");
+		// 		} else {
+		// 			logger.logSuccess("[Codigo Intermedio] El identificador " + $3.sval + " esta declarado dentro de la clase " + tipoInstancia);
+		// 		}
+		// 	} else {
+		// 		logger.logError("[Codigo Intermedio] El identificador " + $3.sval + " no esta declarado dentro de la clase " + tipoInstancia);
+		// 	}
+		// }
+	}
 ;
 
 sentencia_declarativa:
