@@ -1,6 +1,7 @@
 package compilador;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -227,19 +228,37 @@ public class GeneracionCodigoIntermedio {
         return TablaDeSimbolos.getInstance().has(miembro + ":" + tipoInstancia);
     }
 
-    public void putImplementa(String lexema, String interfaz) {
-        TablaDeSimbolos.getInstance().putImplementa(lexema, interfaz);
+    public void agregarMetodosAImplementar(String interfaz) {
+        String aux = ambitoClaseInterfaz;
+        ambitoClaseInterfaz = "";
+        TablaDeSimbolos.getInstance().putMetodosAImplementar(aux + generarAmbito(), interfaz);
+        ambitoClaseInterfaz = aux;
+    }
+
+    public void agregarMetodosImplementados(String clase){
+        String aux = ambitoClaseInterfaz;
+        ambitoClaseInterfaz = "";
+        TablaDeSimbolos.getInstance().putMetodosImplementados(aux + generarAmbito(), clase);
+        ambitoClaseInterfaz = aux;
+    }
+
+    public boolean verificarImplementacion(String clase){
+
+        String aux = ambitoClaseInterfaz;
+        ambitoClaseInterfaz = "";
+        String interfaz = TablaDeSimbolos.getInstance().getInterfaz(clase + generarAmbito());
+        HashSet<String> metodos_implementados = TablaDeSimbolos.getInstance().getMetodosImplementados(clase + generarAmbito());
+        HashSet<String> metodos_a_implementar = TablaDeSimbolos.getInstance().getMetodosAImplementar(interfaz + generarAmbito());
+        ambitoClaseInterfaz = aux;
+        return metodos_implementados.containsAll(metodos_a_implementar);
     }
 
     public boolean claseImplementaInterfaz(String identificadorClase) {
         String claseDeclarada = getAmbitoClaseInterfaz();
         String interfazAImplementar = TablaDeSimbolos.getInstance().getImplementa(claseDeclarada);
         
-        if (interfazAImplementar != "") {
-
-        }
+        return true;
     }
-
     /*
      * Metodos manejo de polaca
      */

@@ -6,9 +6,19 @@ Lexema: s:z
 Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
+Lexema: b:a:s
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
 Lexema: a:main
 Atributo: uso Valor: nombre_clase
+Atributo: metodos_imp Valor: [q, r, s]
 Atributo: implementa Valor: z
+Atributo: token Valor: 257
+Lexema: r:a
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: q:a
 Atributo: uso Valor: nombre_metodo
@@ -16,10 +26,21 @@ Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: z:main
 Atributo: uso Valor: nombre_interfaz
+Atributo: metodos_iter Valor: [q, s]
 Atributo: token Valor: 257
 Lexema: z
 Atributo: token Valor: 257
 Lexema: s:a
 Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: c:a:r
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: a:a:q
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257

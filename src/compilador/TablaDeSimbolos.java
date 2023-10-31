@@ -1,6 +1,8 @@
 package compilador;
 
+import javax.swing.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -26,6 +28,8 @@ public class TablaDeSimbolos {
 	public static final String COMPROBACION_USO = "comp_uso";
 	public static final String TIENE_PARAMETRO = "tiene_param";
 	public static final String IMPLEMENTA = "implementa";
+	public static final String METODOS_A_IMPLEMENTAR = "metodos_iter";
+	public static final String METODOS_IMPLEMENTADOS = "metodos_imp";
 
 	TablaDeSimbolos() {
 	};
@@ -43,7 +47,6 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(TOKEN, IDENTIFICADOR);
 		tabla_simbolos.put(lexema, atributos);
-
 	}
 
 	/* Agrega un lexema que se reconoce como constante */
@@ -82,6 +85,12 @@ public class TablaDeSimbolos {
 				attributes.put(COMPROBACION_USO, false);
 			}
 		}
+		if (uso.equals("nombre_interfaz")){
+			attributes.put(METODOS_A_IMPLEMENTAR, new HashSet<String>());
+		}
+		if (uso.equals("nombre_clase")){
+			attributes.put(METODOS_IMPLEMENTADOS, new HashSet<String>());
+		}
 	}
 
 	public void putComprobacionUso(String lexema) {
@@ -89,6 +98,24 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
 		attributes.put(COMPROBACION_USO, true);
+	}
+
+	public void putMetodosAImplementar(String lexema, String metodo) {
+
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		HashSet<String> aux = (HashSet<String>) attributes.get(METODOS_A_IMPLEMENTAR);
+		aux.add(metodo);
+		attributes.put(METODOS_A_IMPLEMENTAR, aux);
+	}
+
+	public void putMetodosImplementados(String lexema, String metodo) {
+
+		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
+
+		HashSet<String> aux = (HashSet<String>) attributes.get(METODOS_IMPLEMENTADOS);
+		aux.add(metodo);
+		attributes.put(METODOS_IMPLEMENTADOS, aux);
 	}
 
 	public void putImplementa(String lexema, String interfaz) {
@@ -182,5 +209,19 @@ public class TablaDeSimbolos {
 		HashMap<String, Object> attributes = tabla_simbolos.get(lexema);
 
 		attributes.put(TIENE_PARAMETRO, true);
+	}
+
+	public String getInterfaz(String lexema) {
+
+		return (String) tabla_simbolos.get(lexema).get(IMPLEMENTA);
+
+	}
+
+	public HashSet<String> getMetodosImplementados(String lexema) {
+		return (HashSet<String>) tabla_simbolos.get(lexema).get(METODOS_IMPLEMENTADOS);
+	}
+
+	public HashSet<String> getMetodosAImplementar(String lexema) {
+		return (HashSet<String>) tabla_simbolos.get(lexema).get(METODOS_A_IMPLEMENTAR);
 	}
 }

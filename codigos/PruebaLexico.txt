@@ -6,8 +6,18 @@
 	}
 	
 	CLASS a IMPLEMENT z {
-		VOID q() {}
-		VOID s() {}
+		VOID q() {
+		    INT a,
+		    RETURN,
+		}
+		VOID s(){
+		    INT b,
+		    RETURN,
+		}
+		VOID r(){
+		    INT c,
+		    RETURN,
+		}
 	}
 
 }

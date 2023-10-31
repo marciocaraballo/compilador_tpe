@@ -421,10 +421,11 @@ declaracion_clase_encabezado:
 			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval).equals("")) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
 				genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_clase");
-				genCodigoIntermedio.putImplementa($2.sval, $4.sval);
+				ts.putImplementa($2.sval, $4.sval);
 				genCodigoIntermedio.agregarAmbitoAIdentificador($2.sval);
 				genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 				genCodigoIntermedio.apilarAmbito($2.sval);
+				$$.sval = $2.sval;
 			} else {
 				logger.logError("[Codigo Intermedio] El identificador " + $4.sval + " no esta declarado");
 			}
@@ -442,10 +443,16 @@ declaracion_clase:
 	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
 
-		String claseDeclarada = genCodigoIntermedio.getAmbitoClaseInterfaz();
-		String claseImplementaInterfaz = genCodigoIntermedio.getInterfazAImplementar(claseDeclarada);
-
-		logger.logError("CACA " + genCodigoIntermedio.getAmbitoClaseInterfaz());
+		//String claseDeclarada = genCodigoIntermedio.getAmbitoClaseInterfaz();
+		//String claseImplementaInterfaz = genCodigoIntermedio.getInterfazAImplementar(claseDeclarada);
+		
+		if (genCodigoIntermedio.verificarImplementacion($1.sval)){
+			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados");
+		}
+		else{
+			logger.logError("No fueron implementados todos los metodos de la interfaz");
+		}
+		
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 ;
@@ -487,7 +494,9 @@ encabezado_funcion:
 		if (!genCodigoIntermedio.functionRedeclarada($1.sval)) {
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
 				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_metodo");
-				genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);	
+				genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($1.sval);
+				genCodigoIntermedio.agregarMetodosImplementados($1.sval);
+				
 			} else {
 				genCodigoIntermedio.agregarUsoAIdentificador($1.sval, "nombre_funcion");
 				genCodigoIntermedio.agregarAmbitoAIdentificador($1.sval);
@@ -516,10 +525,12 @@ encabezado_funcion_interfaz:
 	VOID ID '(' parametro_funcion ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
 		genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($2.sval);
+		genCodigoIntermedio.agregarMetodosAImplementar($2.sval);
 	} |
 	VOID ID '(' ')' { 
 		genCodigoIntermedio.agregarUsoAIdentificador($2.sval, "nombre_metodo");
 		genCodigoIntermedio.agregarAmbitoAIdentificadorMetodo($2.sval);
+		genCodigoIntermedio.agregarMetodosAImplementar($2.sval);
 	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
