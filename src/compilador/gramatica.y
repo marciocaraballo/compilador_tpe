@@ -116,14 +116,20 @@ sentencia_seleccion:
 ;
 
 sentencia_seleccion_funcion:
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
-	IF '(' ')' bloque_sentencias_ejecutables_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
-	IF '(' ')' bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { 
+		logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); 
+		polaca.completarPasoIncompleto();
+	} |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF ',' { 
+		logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada");
+		polaca.completarPasoIncompleto();
+	} |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
+	IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); } |
+	IF '(' ')' bloque_sentencias_ejecutables_then_funcion ENDIF ',' { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); } |
 	IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
-	IF '(' condicion ')' bloque_sentencias_ejecutables_funcion ELSE ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
+	IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); } |
 	IF '(' condicion ')' ENDIF ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 ;
 
@@ -167,6 +173,28 @@ bloque_sentencias_ejecutables:
 	sentencia_ejecutable sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
 	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); } |
 	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
+;
+
+bloque_sentencias_ejecutables_then_funcion:
+	sentencia_ejecutable_funcion {
+		polaca.generarPasoIncompleto("BI");
+		polaca.completarPasoIncompleto();
+		polaca.apilar(polaca.polacaSize() - 1);
+	}|
+	sentencia_return |
+	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); } |
+	'{' sentencias_ejecutables_funcion '}' {
+		polaca.generarPasoIncompleto("BI");
+		polaca.completarPasoIncompleto();
+		polaca.apilar(polaca.polacaSize() - 1);
+	}|
+	'{' sentencias_ejecutables_funcion sentencia_return '}' |
+	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' |
+	sentencias_ejecutables_funcion '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	sentencias_ejecutables_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	'{' sentencias_ejecutables_funcion { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	'{' sentencias_ejecutables_funcion sentencia_return { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 ;
 
 bloque_sentencias_ejecutables_funcion:
@@ -295,9 +323,9 @@ lista_expresiones_invocacion_funcion_exceso:
 sentencia_asignacion:
 	sentencia_objeto_identificador '=' expresion ',' { 
 		logger.logSuccess("[Parser] Asignacion detectada");
-		polaca.agregarElemento($1.sval);
-		polaca.agregarElemento($2.sval);
 		String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+		polaca.agregarElemento($1.sval + variable);
+		polaca.agregarElemento($2.sval);
 		if (!variable.isEmpty())
 			// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
 			TS.agregarAtributo($1.sval + variable, Constantes.COMPROBACION_USO, true);
@@ -676,7 +704,7 @@ factor:
 		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 			TS.removeLexema($1.sval);
-			polaca.agregarElemento($1.sval);
+			polaca.agregarElemento($1.sval + genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval));
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
@@ -684,7 +712,7 @@ factor:
 	ID OPERADOR_MENOS {
 		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
-			polaca.agregarElemento($1.sval);
+			polaca.agregarElemento($1.sval + genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval));
 			polaca.agregarElemento("1");
 			polaca.agregarElemento("-");
 

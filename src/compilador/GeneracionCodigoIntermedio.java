@@ -149,13 +149,12 @@ public class GeneracionCodigoIntermedio {
         String aux = ambitoClaseInterfaz;
         ambitoClaseInterfaz = "";
         boolean retorno = true;
-        Logger.getInstance().logWarning("CSADSA " + clase + generarAmbito() );
-        String interfaz = (String) TablaDeSimbolos.getInstance().getAtributo(clase + generarAmbito(), Constantes.IMPLEMENTA);
-        if (interfaz != null) {
-            HashSet<String> metodos_implementados = (HashSet<String>) TS.getAtributo(clase + generarAmbito(), Constantes.METODOS);
-            HashSet<String> metodos_a_implementar = (HashSet<String>) TS.getAtributo(interfaz + generarAmbito(), Constantes.METODOS);
-            retorno = metodos_implementados.containsAll(metodos_a_implementar);
-        }
+        String interfaz = (String) TS.getAtributo(clase + generarAmbito(), Constantes.IMPLEMENTA);
+            if (interfaz != null) {
+                HashSet<String> metodos_implementados = (HashSet<String>) TS.getAtributo(clase + generarAmbito(), Constantes.METODOS);
+                HashSet<String> metodos_a_implementar = (HashSet<String>) TS.getAtributo(interfaz + generarAmbito(), Constantes.METODOS);
+                retorno = metodos_implementados.containsAll(metodos_a_implementar);
+            }
         ambitoClaseInterfaz = aux;
         return retorno;
     }

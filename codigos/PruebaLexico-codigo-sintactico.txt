@@ -1,33 +1,16 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 5: [Codigo Intermedio] El identificador b esta declarado
-[Success] Linea 5: [Codigo Intermedio] El identificador c esta declarado
-[Success] Linea 5: [Parser] Asignacion detectada
-[Success] Linea 6: [Codigo Intermedio] El identificador c esta declarado
-[Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 7: [Codigo Intermedio] El identificador d esta declarado
-[Success] Linea 7: [Codigo Intermedio] El identificador c esta declarado
-[Success] Linea 7: [Parser] Asignacion detectada
-[Success] Linea 9: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 12: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 12: [Parser] Asignacion detectada
-[Success] Linea 14: [Parser] Declaracion de funcion detectado
-[Success] Linea 17: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 17: [Codigo Intermedio] El identificador b esta declarado
-[Success] Linea 18: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 18: [Parser] Asignacion detectada
-[Success] Linea 20: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 20: [Parser] Asignacion detectada
-[Success] Linea 21: [Parser] Sentencia seleccion IF ELSE detectada
-[Success] Linea 26: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 28: [Parser] Declaracion de funcion detectado
-[Success] Linea 30: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 32: [Parser] Declaracion de funcion detectado
-[Success] Linea 33: [Parser] Declaracion de clase CLASS detectado
-[WARNING] Linea 33: CSADSA w:main
-[Success] Linea 33: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados
-[Success] Linea 35: [Codigo Intermedio] El identificador w esta declarado
-[Success] Linea 35: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 36: [Codigo Intermedio] El identificador j esta declarado
-[Success] Linea 36: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 36: [Codigo Intermedio] El identificador s esta declarado dentro de la clase w
-[Success] Linea 38: [Parser] Programa correcto detectado
+[Success] Linea 5: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 8: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 8: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 9: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 9: [Parser] Asignacion detectada
+[Success] Linea 10: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 10: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 11: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 11: [Parser] Asignacion detectada
+[Success] Linea 12: [Parser] Sentencia seleccion IF sin ELSE detectada
+[Success] Linea 15: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 15: [Parser] Asignacion detectada
+[Success] Linea 16: [Parser] Sentencia seleccion IF ELSE detectada
+[Success] Linea 18: [Parser] Declaracion de funcion detectado
+[Success] Linea 32: [Parser] Programa correcto detectado

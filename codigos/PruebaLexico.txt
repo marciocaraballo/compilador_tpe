@@ -2,37 +2,31 @@
 
     FLOAT b; c; d,
 
-    b = 2_i + c,
-    c = 3_i,
-    d = 5_i + 3_i + c,
-
     INT a,
 
     VOID f2(INT a){
-        a = 2_i,
+        IF ( a > b ){
+            a = 2_i,
+            IF (a > b)
+                a = 18_i,
+            END_IF,
+        }
+        ELSE
+            a = 23_i,
+        END_IF,
         RETURN,
     }
 
 
-    IF ( a > b )
+    *{
+    IF ( a > b ){
         a = 2_i,
+        IF (a > b)
+            a = 2_i,
+        END_IF,
+    }
     ELSE
         a = 3_i,
-    END_IF,2
-
-	
-	CLASS w {
-		VOID q() {
-		    INT a,
-		    RETURN,
-		}
-		VOID s(){
-		    INT b,
-		    RETURN,
-		}
-	}
-
-	w j,
-	j.s(),
+    END_IF, }*
 
 }
