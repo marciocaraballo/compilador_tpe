@@ -1,5 +1,6 @@
 package accion_semantica;
 
+import compilador.Constantes;
 import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
@@ -60,17 +61,17 @@ public class AS5 extends AccionSemantica {
 		}
 
 		if (TS.has(lexema.toString())) {
-			return TS.getToken(lexema.toString());
+			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		} else {
-			TS.putConstante(lexema.toString());
+			TS.putLexema(lexema.toString(), Constantes.CONSTANTE);
 
 			if (lexema.toString().contains("_i")) {
-				TS.putTipo(lexema.toString(), "INT");
+				TS.agregarAtributo(lexema.toString(), Constantes.TYPE, "INT");
 			} else {
-				TS.putTipo(lexema.toString(), "ULONG");
+				TS.agregarAtributo(lexema.toString(), Constantes.TYPE,"ULONG");
 			}
 
-			return TS.getToken(lexema.toString());
+			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		}
 	}
 }

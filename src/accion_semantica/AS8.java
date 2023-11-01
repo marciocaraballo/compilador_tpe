@@ -1,5 +1,6 @@
 package accion_semantica;
 
+import compilador.Constantes;
 import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
@@ -30,11 +31,11 @@ public class AS8 extends AccionSemantica {
 		}
 
 		if (TS.has(lexema.toString())) {
-			return TS.getToken(lexema.toString());
+			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		} else {
-			TS.putConstante(lexema.toString());
-			TS.putTipo(lexema.toString(), "FLOAT");
-			return TS.getToken(lexema.toString());
+			TS.putLexema(lexema.toString(), Constantes.CONSTANTE);
+			TS.agregarAtributo(lexema.toString(), Constantes.TYPE, "FLOAT");
+			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		}
 	}
 }

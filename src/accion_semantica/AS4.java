@@ -1,5 +1,6 @@
 package accion_semantica;
 
+import compilador.Constantes;
 import compilador.FileReaderHelper;
 import compilador.Logger;
 import compilador.TablaDeSimbolos;
@@ -24,10 +25,10 @@ public class AS4 extends AccionSemantica {
 		}
 
 		if (TS.has(lexema.toString())) {
-			return TS.getToken(lexema.toString());
+			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		} else {
-			TS.putIdentificador(lexema.toString());
-			return TS.getToken(lexema.toString());
+			TS.putLexema(lexema.toString(), Constantes.IDENTIFICADOR);
+			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		}
 	}
 }

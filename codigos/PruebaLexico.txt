@@ -1,23 +1,38 @@
 {
 
-	INTERFACE z {
-		VOID q(),
-		VOID s(),
-	}
+    FLOAT b; c; d,
+
+    b = 2_i + c,
+    c = 3_i,
+    d = 5_i + 3_i + c,
+
+    INT a,
+
+    VOID f2(INT a){
+        a = 2_i,
+        RETURN,
+    }
+
+
+    IF ( a > b )
+        a = 2_i,
+    ELSE
+        a = 3_i,
+    END_IF,2
+
 	
-	CLASS a IMPLEMENT z {
+	CLASS w {
 		VOID q() {
 		    INT a,
 		    RETURN,
 		}
-		VOID s(){
+		VOID q(){
 		    INT b,
 		    RETURN,
 		}
-		VOID r(){
-		    INT c,
-		    RETURN,
-		}
 	}
+
+	w j,
+	j.s(),
 
 }

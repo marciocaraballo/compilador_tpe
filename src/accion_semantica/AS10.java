@@ -1,5 +1,6 @@
 package accion_semantica;
 
+import compilador.Constantes;
 import compilador.FileReaderHelper;
 import compilador.TablaDeSimbolos;
 
@@ -21,10 +22,10 @@ public class AS10 extends AccionSemantica {
 		lexema.append(cadena);
 
 		if (TS.has(cadena))
-			return TS.getToken(cadena);
+			return (int) TS.getAtributo(cadena, Constantes.TOKEN);
 		else {
-			TS.putCadena(cadena);
-			return TS.getToken(cadena);
+			TS.putLexema(cadena, Constantes.CADENA);
+			return (int) TS.getAtributo(cadena, Constantes.TOKEN);
 		}
 	}
 }
