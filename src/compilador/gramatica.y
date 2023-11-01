@@ -60,7 +60,9 @@ sentencia_ejecutable_funcion:
 ;
 
 sentencia_return:
-	RETURN ',' | 
+	RETURN ',' {
+
+	}| 
 	RETURN { logger.logError("[Parser] Se esperaba un simbolo ',' luego del RETURN"); }
 ;
 
@@ -199,8 +201,16 @@ bloque_sentencias_ejecutables_then_funcion:
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
 	}|
-	'{' sentencias_ejecutables_funcion sentencia_return '}' |
-	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' |
+	'{' sentencias_ejecutables_funcion sentencia_return '}' {
+		polaca.generarPasoIncompleto("BI");
+		polaca.completarPasoIncompleto();
+		polaca.apilar(polaca.polacaSize() - 1);
+	}|
+	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' {
+		polaca.generarPasoIncompleto("BI");
+		polaca.completarPasoIncompleto();
+		polaca.apilar(polaca.polacaSize() - 1);
+	}|
 	sentencias_ejecutables_funcion '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
 	sentencias_ejecutables_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
 	'{' sentencias_ejecutables_funcion { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
@@ -224,7 +234,10 @@ bloque_sentencias_ejecutables_funcion_while:
 
 bloque_sentencias_ejecutables_funcion:
 	sentencia_ejecutable_funcion |
-	sentencia_return |
+	sentencia_return {
+		polaca.agregarElemento("" + polaca.desapilar());
+		polaca.agregarElemento("BI");
+	}|
 	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); } |
 	'{' sentencias_ejecutables_funcion '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return '}' |
@@ -327,7 +340,10 @@ sentencia_invocacion_funcion:
 			}
 		} else {
 			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()){
-				logger.logError("jejje " + $1.sval);
+				polaca.apilar(polaca.polacaSize() - 1);
+				polaca.completarPasoIncompleto();
+				polaca.generarPasoIncompleto("BI");
+				polaca.completarPasoIncompleto();
 				if ((boolean) TS.getAtributo($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.TIENE_PARAMETRO)) {
 					logger.logError("Cantidad de parametros incorrecta");
 				}
@@ -483,6 +499,7 @@ declaracion_clase_encabezado:
 		if (!TS.has($2.sval + genCodigoIntermedio.generarAmbito())) {
 			TS.agregarAtributo($2.sval, Constantes.USE, "nombre_clase");
 			//Agrego Ambito a identificador
+			TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, null);
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 			genCodigoIntermedio.apilarAmbito($2.sval);
@@ -621,8 +638,14 @@ encabezado_funcion_interfaz:
 ;
 
 cuerpo_funcion:
-	'{' sentencias_funcion sentencia_return '}' |
-	'{' sentencia_return '}' |
+	'{' sentencias_funcion sentencia_return '}'  {
+		polaca.apilar(polaca.polacaSize() - 1);
+		polaca.generarPasoIncompleto("BI");
+	}|
+	'{' sentencia_return '}' {
+		polaca.apilar(polaca.polacaSize() - 1);
+		polaca.generarPasoIncompleto("BI");		
+	}|
 	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencias_funcion '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |

@@ -1,21 +1,22 @@
+Lexema: k:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
 Lexema: c:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: FLOAT
-Atributo: comp_uso Valor: true
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
 Lexema: d:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: FLOAT
-Atributo: comp_uso Valor: true
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
 Lexema: a:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: fun1:main
-Atributo: uso Valor: nombre_funcion
-Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: 2_i
 Atributo: tipo Valor: INT
@@ -25,9 +26,8 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: FLOAT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: 10_i
+Lexema: j:main
+Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: 5_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257

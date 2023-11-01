@@ -1,20 +1,15 @@
 {
 
     FLOAT b; c; d,
-
-    INT a,
+    INT a; j; k,
 
     VOID fun1(){
-        a = 2_i,
-        DO {
-            c = 10_i,
-            DO {
-                d = 5_i,
-            }
-            WHILE ( a > c),
-        }
-        WHILE (a > c),
+        j = 2_i,
         RETURN,
     }
+
+    fun1(),
+
+    a = 2_i,
 
 }

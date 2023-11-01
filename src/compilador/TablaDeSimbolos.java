@@ -98,10 +98,13 @@ public class TablaDeSimbolos {
 			while (attributesIterator.hasNext()) {
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
-				if (attributeKey.equals(COMPROBACION_USO) && (Boolean) attributeValue == false)
-					Logger.getInstance()
-							.logWarning("La variable " + lexema + " no se uso del lado izquierdo en asignacion");
-				tsPrint.append("Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n");
+				if (attributeValue != null) {
+					if (attributeKey.equals(COMPROBACION_USO) && (Boolean) attributeValue == false)
+						Logger.getInstance()
+								.logWarning("La variable " + lexema + " no se uso del lado izquierdo en asignacion");
+
+					tsPrint.append("Atributo: " + attributeKey + " Valor: " + attributeValue.toString() + "\n");
+				}
 			}
 		}
 
