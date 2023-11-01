@@ -406,6 +406,24 @@ sentencia_declarativa_clase:
 	}
 ;
 
+declaracion_clase:
+	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
+		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
+
+		//String claseDeclarada = genCodigoIntermedio.getAmbitoClaseInterfaz();
+		//String claseImplementaInterfaz = genCodigoIntermedio.getInterfazAImplementar(claseDeclarada);
+		
+		if (genCodigoIntermedio.verificarImplementacion($1.sval)){
+			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados");
+		}
+		else{
+			logger.logError("No fueron implementados todos los metodos de la interfaz");
+		}
+		
+		genCodigoIntermedio.clearAmbitoClaseInterfaz();
+	}
+;
+
 declaracion_clase_encabezado:
 	CLASS ID { 
 		//CHEQUEO QUE CLASE NO HAYA SIDO DECLARADA (DEBERIA CHEQUEAR USO, XQ PUEDE QUE IDENTIF PERTENEZCA A OTRA USO)
@@ -415,6 +433,7 @@ declaracion_clase_encabezado:
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 			genCodigoIntermedio.apilarAmbito($2.sval);
+			$$.sval = $2.sval;
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
 		}
@@ -446,23 +465,7 @@ declaracion_clase_encabezado:
 	CLASS IMPLEMENT { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 ;
 
-declaracion_clase:
-	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
-		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
 
-		//String claseDeclarada = genCodigoIntermedio.getAmbitoClaseInterfaz();
-		//String claseImplementaInterfaz = genCodigoIntermedio.getInterfazAImplementar(claseDeclarada);
-		
-		if (genCodigoIntermedio.verificarImplementacion($1.sval)){
-			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados");
-		}
-		else{
-			logger.logError("No fueron implementados todos los metodos de la interfaz");
-		}
-		
-		genCodigoIntermedio.clearAmbitoClaseInterfaz();
-	}
-;
 
 bloque_sentencias_declarativas_clase:
 	sentencia_declarativa_clase |

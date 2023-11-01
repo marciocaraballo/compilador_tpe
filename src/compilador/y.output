@@ -186,14 +186,14 @@
  148                              | declaracion_funcion ','
  149                              | ID ','
 
- 150  declaracion_clase_encabezado : CLASS ID
- 151                               | CLASS ID IMPLEMENT ID
- 152                               | CLASS
- 153                               | CLASS IMPLEMENT ID
- 154                               | CLASS ID IMPLEMENT
- 155                               | CLASS IMPLEMENT
+ 150  declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}'
 
- 156  declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}'
+ 151  declaracion_clase_encabezado : CLASS ID
+ 152                               | CLASS ID IMPLEMENT ID
+ 153                               | CLASS
+ 154                               | CLASS IMPLEMENT ID
+ 155                               | CLASS ID IMPLEMENT
+ 156                               | CLASS IMPLEMENT
 
  157  bloque_sentencias_declarativas_clase : sentencia_declarativa_clase
  158                                       | bloque_sentencias_declarativas_clase sentencia_declarativa_clase
@@ -409,16 +409,16 @@ state 6
 
 
 state 7
-	declaracion_clase_encabezado : CLASS . ID  (150)
-	declaracion_clase_encabezado : CLASS . ID IMPLEMENT ID  (151)
-	declaracion_clase_encabezado : CLASS .  (152)
-	declaracion_clase_encabezado : CLASS . IMPLEMENT ID  (153)
-	declaracion_clase_encabezado : CLASS . ID IMPLEMENT  (154)
-	declaracion_clase_encabezado : CLASS . IMPLEMENT  (155)
+	declaracion_clase_encabezado : CLASS . ID  (151)
+	declaracion_clase_encabezado : CLASS . ID IMPLEMENT ID  (152)
+	declaracion_clase_encabezado : CLASS .  (153)
+	declaracion_clase_encabezado : CLASS . IMPLEMENT ID  (154)
+	declaracion_clase_encabezado : CLASS . ID IMPLEMENT  (155)
+	declaracion_clase_encabezado : CLASS . IMPLEMENT  (156)
 
 	ID  shift 45
 	IMPLEMENT  shift 46
-	'{'  reduce 152
+	'{'  reduce 153
 
 
 state 8
@@ -706,7 +706,7 @@ state 31
 
 
 state 32
-	declaracion_clase : declaracion_clase_encabezado . '{' bloque_sentencias_declarativas_clase '}'  (156)
+	declaracion_clase : declaracion_clase_encabezado . '{' bloque_sentencias_declarativas_clase '}'  (150)
 
 	'{'  shift 68
 	.  error
@@ -910,20 +910,20 @@ state 44
 
 
 state 45
-	declaracion_clase_encabezado : CLASS ID .  (150)
-	declaracion_clase_encabezado : CLASS ID . IMPLEMENT ID  (151)
-	declaracion_clase_encabezado : CLASS ID . IMPLEMENT  (154)
+	declaracion_clase_encabezado : CLASS ID .  (151)
+	declaracion_clase_encabezado : CLASS ID . IMPLEMENT ID  (152)
+	declaracion_clase_encabezado : CLASS ID . IMPLEMENT  (155)
 
 	IMPLEMENT  shift 105
-	'{'  reduce 150
+	'{'  reduce 151
 
 
 state 46
-	declaracion_clase_encabezado : CLASS IMPLEMENT . ID  (153)
-	declaracion_clase_encabezado : CLASS IMPLEMENT .  (155)
+	declaracion_clase_encabezado : CLASS IMPLEMENT . ID  (154)
+	declaracion_clase_encabezado : CLASS IMPLEMENT .  (156)
 
 	ID  shift 106
-	'{'  reduce 155
+	'{'  reduce 156
 
 
 state 47
@@ -1221,7 +1221,7 @@ state 67
 
 
 state 68
-	declaracion_clase : declaracion_clase_encabezado '{' . bloque_sentencias_declarativas_clase '}'  (156)
+	declaracion_clase : declaracion_clase_encabezado '{' . bloque_sentencias_declarativas_clase '}'  (150)
 
 	ID  shift 131
 	VOID  shift 5
@@ -1764,17 +1764,17 @@ state 104
 
 
 state 105
-	declaracion_clase_encabezado : CLASS ID IMPLEMENT . ID  (151)
-	declaracion_clase_encabezado : CLASS ID IMPLEMENT .  (154)
+	declaracion_clase_encabezado : CLASS ID IMPLEMENT . ID  (152)
+	declaracion_clase_encabezado : CLASS ID IMPLEMENT .  (155)
 
 	ID  shift 177
-	'{'  reduce 154
+	'{'  reduce 155
 
 
 state 106
-	declaracion_clase_encabezado : CLASS IMPLEMENT ID .  (153)
+	declaracion_clase_encabezado : CLASS IMPLEMENT ID .  (154)
 
-	.  reduce 153
+	.  reduce 154
 
 
 state 107
@@ -2155,7 +2155,7 @@ state 134
 
 
 state 135
-	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase . '}'  (156)
+	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase . '}'  (150)
 	bloque_sentencias_declarativas_clase : bloque_sentencias_declarativas_clase . sentencia_declarativa_clase  (158)
 
 	ID  shift 131
@@ -2919,9 +2919,9 @@ state 176
 
 
 state 177
-	declaracion_clase_encabezado : CLASS ID IMPLEMENT ID .  (151)
+	declaracion_clase_encabezado : CLASS ID IMPLEMENT ID .  (152)
 
-	.  reduce 151
+	.  reduce 152
 
 
 state 178
@@ -3189,9 +3189,9 @@ state 201
 
 
 state 202
-	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' .  (156)
+	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' .  (150)
 
-	.  reduce 156
+	.  reduce 150
 
 
 state 203

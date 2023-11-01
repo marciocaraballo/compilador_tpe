@@ -15,12 +15,7 @@ Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
 Lexema: w:main
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: [q]
-Atributo: implementa Valor: z
-Atributo: token Valor: 257
-Lexema: z:main
-Atributo: uso Valor: nombre_interfaz
-Atributo: metodos Valor: [q, s]
+Atributo: metodos Valor: [s]
 Atributo: token Valor: 257
 Lexema: b:main
 Atributo: uso Valor: variable
@@ -41,13 +36,9 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: w
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: q:z
+Lexema: s:w
 Atributo: uso Valor: nombre_metodo
-Atributo: token Valor: 257
-Lexema: q
-Atributo: token Valor: 257
-Lexema: s:z
-Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: s
 Atributo: token Valor: 257
@@ -62,7 +53,10 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
-Lexema: z
+Lexema: b:w:s
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
 Lexema: 2_i
 Atributo: tipo Valor: INT
@@ -70,11 +64,6 @@ Atributo: token Valor: 258
 Lexema: 3_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258
-Lexema: b:w
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
-Atributo: token Valor: 257
 Lexema: 5_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258

@@ -26,7 +26,7 @@
 		    INT a,
 		    RETURN,
 		}
-		VOID q(){
+		VOID s(){
 		    INT b,
 		    RETURN,
 		}
