@@ -4,29 +4,17 @@
 
     INT a,
 
-    VOID f2(INT a){
-        IF ( a > b ){
-            a = 2_i,
-            IF (a > b)
-                a = 18_i,
-            END_IF,
+    VOID fun1(){
+        a = 2_i,
+        DO {
+            c = 10_i,
+            DO {
+                d = 5_i,
+            }
+            WHILE ( a > c),
         }
-        ELSE
-            a = 23_i,
-        END_IF,
+        WHILE (a > c),
         RETURN,
     }
-
-
-    *{
-    IF ( a > b ){
-        a = 2_i,
-        IF (a > b)
-            a = 2_i,
-        END_IF,
-    }
-    ELSE
-        a = 3_i,
-    END_IF, }*
 
 }

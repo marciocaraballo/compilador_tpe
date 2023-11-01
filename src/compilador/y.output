@@ -47,15 +47,15 @@
   37                               | DO '(' ')' ','
   38                               | DO '(' ')'
 
-  39  sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','
+  39  sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' ','
 
   40  $$1 :
 
-  41  sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','
-  42                                       | DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ','
-  43                                       | DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ','
+  41  sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','
+  42                                       | DO bloque_sentencias_ejecutables_funcion_while WHILE '(' ')' ','
+  43                                       | DO bloque_sentencias_ejecutables_funcion_while '(' condicion ')' ','
   44                                       | DO WHILE ','
-  45                                       | DO bloque_sentencias_ejecutables_funcion WHILE ','
+  45                                       | DO bloque_sentencias_ejecutables_funcion_while WHILE ','
   46                                       | DO ','
   47                                       | DO '(' condicion ')' ','
   48                                       | DO '(' ')' ','
@@ -99,198 +99,212 @@
 
   80  primer_sentencia : sentencia_ejecutable
 
-  81  bloque_sentencias_ejecutables : sentencia_ejecutable
-  82                                | '{' sentencia_ejecutable sentencias_ejecutables '}'
-  83                                | '{' sentencia_ejecutable sentencias_ejecutables
-  84                                | sentencia_ejecutable sentencias_ejecutables '}'
-  85                                | '{' '}'
-  86                                | sentencia_declarativa
+  81  primer_sentencia_funcion : sentencia_ejecutable_funcion
 
-  87  bloque_sentencias_ejecutables_then_funcion : sentencia_ejecutable_funcion
-  88                                             | sentencia_return
-  89                                             | sentencia_declarativa
-  90                                             | '{' sentencias_ejecutables_funcion '}'
-  91                                             | '{' sentencias_ejecutables_funcion sentencia_return '}'
-  92                                             | '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
-  93                                             | sentencias_ejecutables_funcion '}'
-  94                                             | sentencias_ejecutables_funcion sentencia_return '}'
-  95                                             | '{' sentencias_ejecutables_funcion
-  96                                             | '{' sentencias_ejecutables_funcion sentencia_return
-  97                                             | '{' '}'
+  82  bloque_sentencias_ejecutables : sentencia_ejecutable
+  83                                | '{' sentencia_ejecutable sentencias_ejecutables '}'
+  84                                | '{' sentencia_ejecutable sentencias_ejecutables
+  85                                | sentencia_ejecutable sentencias_ejecutables '}'
+  86                                | '{' '}'
+  87                                | sentencia_declarativa
 
-  98  bloque_sentencias_ejecutables_funcion : sentencia_ejecutable_funcion
-  99                                        | sentencia_return
- 100                                        | sentencia_declarativa
- 101                                        | '{' sentencias_ejecutables_funcion '}'
- 102                                        | '{' sentencias_ejecutables_funcion sentencia_return '}'
- 103                                        | '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
- 104                                        | sentencias_ejecutables_funcion '}'
- 105                                        | sentencias_ejecutables_funcion sentencia_return '}'
- 106                                        | '{' sentencias_ejecutables_funcion
- 107                                        | '{' sentencias_ejecutables_funcion sentencia_return
- 108                                        | '{' '}'
+  88  bloque_sentencias_ejecutables_then_funcion : sentencia_ejecutable_funcion
+  89                                             | sentencia_return
+  90                                             | sentencia_declarativa
+  91                                             | '{' sentencias_ejecutables_funcion '}'
+  92                                             | '{' sentencias_ejecutables_funcion sentencia_return '}'
+  93                                             | '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
+  94                                             | sentencias_ejecutables_funcion '}'
+  95                                             | sentencias_ejecutables_funcion sentencia_return '}'
+  96                                             | '{' sentencias_ejecutables_funcion
+  97                                             | '{' sentencias_ejecutables_funcion sentencia_return
+  98                                             | '{' '}'
 
- 109  sentencias_ejecutables_funcion_inalcanzable : sentencia_ejecutable_funcion_inalcanzable
- 110                                              | sentencias_ejecutables_funcion_inalcanzable sentencia_ejecutable_funcion_inalcanzable
+  99  bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion '}'
+ 100                                              | sentencia_return
+ 101                                              | sentencia_declarativa
+ 102                                              | '{' primer_sentencia_funcion sentencias_ejecutables_funcion '}'
+ 103                                              | '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}'
+ 104                                              | '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
+ 105                                              | primer_sentencia_funcion sentencias_ejecutables_funcion '}'
+ 106                                              | primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}'
+ 107                                              | '{' primer_sentencia_funcion sentencias_ejecutables_funcion
+ 108                                              | '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return
+ 109                                              | '{' '}'
 
- 111  sentencia_ejecutable_funcion_inalcanzable : sentencia_return
- 112                                            | sentencia_ejecutable_funcion
+ 110  bloque_sentencias_ejecutables_funcion : sentencia_ejecutable_funcion
+ 111                                        | sentencia_return
+ 112                                        | sentencia_declarativa
+ 113                                        | '{' sentencias_ejecutables_funcion '}'
+ 114                                        | '{' sentencias_ejecutables_funcion sentencia_return '}'
+ 115                                        | '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'
+ 116                                        | sentencias_ejecutables_funcion '}'
+ 117                                        | sentencias_ejecutables_funcion sentencia_return '}'
+ 118                                        | '{' sentencias_ejecutables_funcion
+ 119                                        | '{' sentencias_ejecutables_funcion sentencia_return
+ 120                                        | '{' '}'
 
- 113  sentencias_ejecutables : sentencia_ejecutable
- 114                         | sentencias_ejecutables sentencia_ejecutable
- 115                         | sentencia_declarativa
- 116                         | sentencias_ejecutables sentencia_declarativa
+ 121  sentencias_ejecutables_funcion_inalcanzable : sentencia_ejecutable_funcion_inalcanzable
+ 122                                              | sentencias_ejecutables_funcion_inalcanzable sentencia_ejecutable_funcion_inalcanzable
 
- 117  sentencias_ejecutables_funcion : sentencia_ejecutable_funcion
- 118                                 | sentencias_ejecutables_funcion sentencia_ejecutable_funcion
- 119                                 | sentencia_declarativa
- 120                                 | sentencias_ejecutables_funcion sentencia_declarativa
+ 123  sentencia_ejecutable_funcion_inalcanzable : sentencia_return
+ 124                                            | sentencia_ejecutable_funcion
 
- 121  sentencia_imprimir : PRINT CADENA ','
- 122                     | PRINT CADENA
- 123                     | PRINT ','
- 124                     | PRINT ID ','
- 125                     | PRINT ID
- 126                     | PRINT constante ','
- 127                     | PRINT constante
+ 125  sentencias_ejecutables : sentencia_ejecutable
+ 126                         | sentencias_ejecutables sentencia_ejecutable
+ 127                         | sentencia_declarativa
+ 128                         | sentencias_ejecutables sentencia_declarativa
 
- 128  sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' ','
- 129                               | sentencia_objeto_identificador '(' ')' ','
- 130                               | sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ','
- 131                               | sentencia_objeto_identificador '(' expresion ')'
- 132                               | sentencia_objeto_identificador '(' ')'
- 133                               | sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')'
+ 129  sentencias_ejecutables_funcion : sentencia_ejecutable_funcion
+ 130                                 | sentencias_ejecutables_funcion sentencia_ejecutable_funcion
+ 131                                 | sentencia_declarativa
+ 132                                 | sentencias_ejecutables_funcion sentencia_declarativa
 
- 134  lista_expresiones_invocacion_funcion_exceso : expresion
- 135                                              | lista_expresiones_invocacion_funcion_exceso ',' expresion
+ 133  sentencia_imprimir : PRINT CADENA ','
+ 134                     | PRINT CADENA
+ 135                     | PRINT ','
+ 136                     | PRINT ID ','
+ 137                     | PRINT ID
+ 138                     | PRINT constante ','
+ 139                     | PRINT constante
 
- 136  sentencia_asignacion : sentencia_objeto_identificador '=' expresion ','
- 137                       | sentencia_objeto_identificador '=' expresion
- 138                       | sentencia_objeto_identificador '=' ','
+ 140  sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' ','
+ 141                               | sentencia_objeto_identificador '(' ')' ','
+ 142                               | sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ','
+ 143                               | sentencia_objeto_identificador '(' expresion ')'
+ 144                               | sentencia_objeto_identificador '(' ')'
+ 145                               | sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')'
 
- 139  sentencia_objeto_identificador : ID
- 140                                 | sentencia_objeto_identificador '.' ID
+ 146  lista_expresiones_invocacion_funcion_exceso : expresion
+ 147                                              | lista_expresiones_invocacion_funcion_exceso ',' expresion
 
- 141  sentencia_declarativa : declaracion_variable
- 142                        | declaracion_funcion
- 143                        | declaracion_clase
- 144                        | declaracion_interfaz
+ 148  sentencia_asignacion : sentencia_objeto_identificador '=' expresion ','
+ 149                       | sentencia_objeto_identificador '=' expresion
+ 150                       | sentencia_objeto_identificador '=' ','
 
- 145  declaracion_variable : tipo lista_de_variables ','
- 146                       | tipo lista_de_variables
- 147                       | tipo ','
+ 151  sentencia_objeto_identificador : ID
+ 152                                 | sentencia_objeto_identificador '.' ID
 
- 148  declaracion_interfaz_encabezado : INTERFACE ID
- 149                                  | INTERFACE
+ 153  sentencia_declarativa : declaracion_variable
+ 154                        | declaracion_funcion
+ 155                        | declaracion_clase
+ 156                        | declaracion_interfaz
 
- 150  declaracion_interfaz : declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz '}'
- 151                       | declaracion_interfaz_encabezado '}'
+ 157  declaracion_variable : tipo lista_de_variables ','
+ 158                       | tipo lista_de_variables
+ 159                       | tipo ','
 
- 152  bloque_encabezado_funcion_declaracion_interfaz : encabezado_funcion_declaracion_interfaz
- 153                                                 | bloque_encabezado_funcion_declaracion_interfaz encabezado_funcion_declaracion_interfaz
+ 160  declaracion_interfaz_encabezado : INTERFACE ID
+ 161                                  | INTERFACE
 
- 154  encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz ','
- 155                                          | encabezado_funcion_interfaz
+ 162  declaracion_interfaz : declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz '}'
+ 163                       | declaracion_interfaz_encabezado '}'
 
- 156  sentencia_declarativa_clase : tipo lista_de_variables ','
- 157                              | tipo lista_de_variables
- 158                              | declaracion_funcion
- 159                              | declaracion_funcion ','
- 160                              | ID ','
+ 164  bloque_encabezado_funcion_declaracion_interfaz : encabezado_funcion_declaracion_interfaz
+ 165                                                 | bloque_encabezado_funcion_declaracion_interfaz encabezado_funcion_declaracion_interfaz
 
- 161  declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}'
+ 166  encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz ','
+ 167                                          | encabezado_funcion_interfaz
 
- 162  declaracion_clase_encabezado : CLASS ID
- 163                               | CLASS ID IMPLEMENT ID
- 164                               | CLASS
- 165                               | CLASS IMPLEMENT ID
- 166                               | CLASS ID IMPLEMENT
- 167                               | CLASS IMPLEMENT
+ 168  sentencia_declarativa_clase : tipo lista_de_variables ','
+ 169                              | tipo lista_de_variables
+ 170                              | declaracion_funcion
+ 171                              | declaracion_funcion ','
+ 172                              | ID ','
 
- 168  bloque_sentencias_declarativas_clase : sentencia_declarativa_clase
- 169                                       | bloque_sentencias_declarativas_clase sentencia_declarativa_clase
+ 173  declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}'
 
- 170  declaracion_funcion : encabezado_funcion cuerpo_funcion
+ 174  declaracion_clase_encabezado : CLASS ID
+ 175                               | CLASS ID IMPLEMENT ID
+ 176                               | CLASS
+ 177                               | CLASS IMPLEMENT ID
+ 178                               | CLASS ID IMPLEMENT
+ 179                               | CLASS IMPLEMENT
 
- 171  encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ')'
- 172                     | encabezado_funcion_nombre '(' ')'
- 173                     | encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'
- 174                     | encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')'
- 175                     | encabezado_funcion_nombre ')'
+ 180  bloque_sentencias_declarativas_clase : sentencia_declarativa_clase
+ 181                                       | bloque_sentencias_declarativas_clase sentencia_declarativa_clase
 
- 176  encabezado_funcion_nombre : VOID ID
- 177                            | VOID
+ 182  declaracion_funcion : encabezado_funcion cuerpo_funcion
 
- 178  encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ')'
- 179                              | VOID ID '(' ')'
- 180                              | VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'
- 181                              | VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')'
- 182                              | VOID '(' parametro_funcion ')'
- 183                              | VOID '(' ')'
- 184                              | VOID ID parametro_funcion ')'
- 185                              | VOID ID ')'
+ 183  encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ')'
+ 184                     | encabezado_funcion_nombre '(' ')'
+ 185                     | encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'
+ 186                     | encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')'
+ 187                     | encabezado_funcion_nombre ')'
 
- 186  cuerpo_funcion : '{' sentencias_funcion sentencia_return '}'
- 187                 | '{' sentencia_return '}'
- 188                 | '{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'
- 189                 | '{' sentencia_return sentencias_funcion_inalcanzable '}'
- 190                 | '{' sentencias_funcion '}'
- 191                 | '{' '}'
- 192                 | sentencias_funcion sentencia_return '}'
- 193                 | sentencia_return '}'
- 194                 | sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'
- 195                 | sentencia_return sentencias_funcion_inalcanzable '}'
- 196                 | sentencias_funcion '}'
- 197                 | '}'
+ 188  encabezado_funcion_nombre : VOID ID
+ 189                            | VOID
 
- 198  sentencias_funcion_inalcanzable : sentencia_funcion_inalcanzable
- 199                                  | sentencias_funcion_inalcanzable sentencia_funcion_inalcanzable
+ 190  encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ')'
+ 191                              | VOID ID '(' ')'
+ 192                              | VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'
+ 193                              | VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')'
+ 194                              | VOID '(' parametro_funcion ')'
+ 195                              | VOID '(' ')'
+ 196                              | VOID ID parametro_funcion ')'
+ 197                              | VOID ID ')'
 
- 200  sentencia_funcion_inalcanzable : sentencia_declarativa
- 201                                 | sentencia_return
- 202                                 | sentencia_ejecutable_funcion
+ 198  cuerpo_funcion : '{' sentencias_funcion sentencia_return '}'
+ 199                 | '{' sentencia_return '}'
+ 200                 | '{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'
+ 201                 | '{' sentencia_return sentencias_funcion_inalcanzable '}'
+ 202                 | '{' sentencias_funcion '}'
+ 203                 | '{' '}'
+ 204                 | sentencias_funcion sentencia_return '}'
+ 205                 | sentencia_return '}'
+ 206                 | sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'
+ 207                 | sentencia_return sentencias_funcion_inalcanzable '}'
+ 208                 | sentencias_funcion '}'
+ 209                 | '}'
 
- 203  lista_parametros_funcion_exceso : parametro_funcion
- 204                                  | lista_parametros_funcion_exceso ',' parametro_funcion
- 205                                  | lista_parametros_funcion_exceso parametro_funcion
+ 210  sentencias_funcion_inalcanzable : sentencia_funcion_inalcanzable
+ 211                                  | sentencias_funcion_inalcanzable sentencia_funcion_inalcanzable
 
- 206  parametro_funcion : tipo ID
+ 212  sentencia_funcion_inalcanzable : sentencia_declarativa
+ 213                                 | sentencia_return
+ 214                                 | sentencia_ejecutable_funcion
 
- 207  lista_de_variables : ID
- 208                     | lista_de_variables ';' ID
+ 215  lista_parametros_funcion_exceso : parametro_funcion
+ 216                                  | lista_parametros_funcion_exceso ',' parametro_funcion
+ 217                                  | lista_parametros_funcion_exceso parametro_funcion
 
- 209  tipo : INT
- 210       | ULONG
- 211       | FLOAT
- 212       | ID
+ 218  parametro_funcion : tipo ID
 
- 213  condicion : expresion comparador expresion
- 214            | expresion comparador
- 215            | comparador expresion
- 216            | expresion '=' expresion
+ 219  lista_de_variables : ID
+ 220                     | lista_de_variables ';' ID
 
- 217  comparador : COMP_MAYOR_IGUAL
- 218             | COMP_MENOR_IGUAL
- 219             | COMP_IGUAL
- 220             | COMP_DISTINTO
- 221             | '>'
- 222             | '<'
+ 221  tipo : INT
+ 222       | ULONG
+ 223       | FLOAT
+ 224       | ID
 
- 223  expresion : expresion '+' termino
- 224            | expresion '-' termino
- 225            | termino
+ 225  condicion : expresion comparador expresion
+ 226            | expresion comparador
+ 227            | comparador expresion
+ 228            | expresion '=' expresion
 
- 226  termino : termino '*' factor
- 227          | termino '/' factor
- 228          | factor
+ 229  comparador : COMP_MAYOR_IGUAL
+ 230             | COMP_MENOR_IGUAL
+ 231             | COMP_IGUAL
+ 232             | COMP_DISTINTO
+ 233             | '>'
+ 234             | '<'
 
- 229  factor : ID
- 230         | ID OPERADOR_MENOS
- 231         | constante
- 232         | '(' expresion ')'
+ 235  expresion : expresion '+' termino
+ 236            | expresion '-' termino
+ 237            | termino
 
- 233  constante : CTE
- 234            | '-' CTE
+ 238  termino : termino '*' factor
+ 239          | termino '/' factor
+ 240          | factor
+
+ 241  factor : ID
+ 242         | ID OPERADOR_MENOS
+ 243         | constante
+ 244         | '(' expresion ')'
+
+ 245  constante : CTE
+ 246            | '-' CTE
 
 state 0
 	$accept : . programa $end  (0)
@@ -342,14 +356,14 @@ state 1
 
 
 state 2
-	sentencia_objeto_identificador : ID .  (139)
-	tipo : ID .  (212)
+	sentencia_objeto_identificador : ID .  (151)
+	tipo : ID .  (224)
 
-	ID  reduce 212
-	','  reduce 212
-	'('  reduce 139
-	'='  reduce 139
-	'.'  reduce 139
+	ID  reduce 224
+	','  reduce 224
+	'('  reduce 151
+	'='  reduce 151
+	'.'  reduce 151
 
 
 state 3
@@ -368,13 +382,13 @@ state 3
 
 
 state 4
-	sentencia_imprimir : PRINT . CADENA ','  (121)
-	sentencia_imprimir : PRINT . CADENA  (122)
-	sentencia_imprimir : PRINT . ','  (123)
-	sentencia_imprimir : PRINT . ID ','  (124)
-	sentencia_imprimir : PRINT . ID  (125)
-	sentencia_imprimir : PRINT . constante ','  (126)
-	sentencia_imprimir : PRINT . constante  (127)
+	sentencia_imprimir : PRINT . CADENA ','  (133)
+	sentencia_imprimir : PRINT . CADENA  (134)
+	sentencia_imprimir : PRINT . ','  (135)
+	sentencia_imprimir : PRINT . ID ','  (136)
+	sentencia_imprimir : PRINT . ID  (137)
+	sentencia_imprimir : PRINT . constante ','  (138)
+	sentencia_imprimir : PRINT . constante  (139)
 
 	ID  shift 37
 	CTE  shift 38
@@ -387,12 +401,12 @@ state 4
 
 
 state 5
-	encabezado_funcion_nombre : VOID . ID  (176)
-	encabezado_funcion_nombre : VOID .  (177)
+	encabezado_funcion_nombre : VOID . ID  (188)
+	encabezado_funcion_nombre : VOID .  (189)
 
 	ID  shift 43
-	'('  reduce 177
-	')'  reduce 177
+	'('  reduce 189
+	')'  reduce 189
 
 
 state 6
@@ -421,16 +435,16 @@ state 6
 
 
 state 7
-	declaracion_clase_encabezado : CLASS . ID  (162)
-	declaracion_clase_encabezado : CLASS . ID IMPLEMENT ID  (163)
-	declaracion_clase_encabezado : CLASS .  (164)
-	declaracion_clase_encabezado : CLASS . IMPLEMENT ID  (165)
-	declaracion_clase_encabezado : CLASS . ID IMPLEMENT  (166)
-	declaracion_clase_encabezado : CLASS . IMPLEMENT  (167)
+	declaracion_clase_encabezado : CLASS . ID  (174)
+	declaracion_clase_encabezado : CLASS . ID IMPLEMENT ID  (175)
+	declaracion_clase_encabezado : CLASS .  (176)
+	declaracion_clase_encabezado : CLASS . IMPLEMENT ID  (177)
+	declaracion_clase_encabezado : CLASS . ID IMPLEMENT  (178)
+	declaracion_clase_encabezado : CLASS . IMPLEMENT  (179)
 
 	ID  shift 45
 	IMPLEMENT  shift 46
-	'{'  reduce 164
+	'{'  reduce 176
 
 
 state 8
@@ -486,30 +500,30 @@ state 8
 
 
 state 9
-	declaracion_interfaz_encabezado : INTERFACE . ID  (148)
-	declaracion_interfaz_encabezado : INTERFACE .  (149)
+	declaracion_interfaz_encabezado : INTERFACE . ID  (160)
+	declaracion_interfaz_encabezado : INTERFACE .  (161)
 
 	ID  shift 55
-	'{'  reduce 149
-	'}'  reduce 149
+	'{'  reduce 161
+	'}'  reduce 161
 
 
 state 10
-	tipo : INT .  (209)
+	tipo : INT .  (221)
 
-	.  reduce 209
+	.  reduce 221
 
 
 state 11
-	tipo : ULONG .  (210)
+	tipo : ULONG .  (222)
 
-	.  reduce 210
+	.  reduce 222
 
 
 state 12
-	tipo : FLOAT .  (211)
+	tipo : FLOAT .  (223)
 
-	.  reduce 211
+	.  reduce 223
 
 
 state 13
@@ -655,16 +669,16 @@ state 24
 
 
 state 25
-	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ')' ','  (128)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' ')' ','  (129)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ','  (130)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ')'  (131)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' ')'  (132)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')'  (133)
-	sentencia_asignacion : sentencia_objeto_identificador . '=' expresion ','  (136)
-	sentencia_asignacion : sentencia_objeto_identificador . '=' expresion  (137)
-	sentencia_asignacion : sentencia_objeto_identificador . '=' ','  (138)
-	sentencia_objeto_identificador : sentencia_objeto_identificador . '.' ID  (140)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ')' ','  (140)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' ')' ','  (141)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ','  (142)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ')'  (143)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' ')'  (144)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador . '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')'  (145)
+	sentencia_asignacion : sentencia_objeto_identificador . '=' expresion ','  (148)
+	sentencia_asignacion : sentencia_objeto_identificador . '=' expresion  (149)
+	sentencia_asignacion : sentencia_objeto_identificador . '=' ','  (150)
+	sentencia_objeto_identificador : sentencia_objeto_identificador . '.' ID  (152)
 
 	'('  shift 60
 	'='  shift 61
@@ -673,33 +687,33 @@ state 25
 
 
 state 26
-	sentencia_declarativa : declaracion_variable .  (141)
+	sentencia_declarativa : declaracion_variable .  (153)
 
-	.  reduce 141
+	.  reduce 153
 
 
 state 27
-	sentencia_declarativa : declaracion_funcion .  (142)
+	sentencia_declarativa : declaracion_funcion .  (154)
 
-	.  reduce 142
+	.  reduce 154
 
 
 state 28
-	sentencia_declarativa : declaracion_clase .  (143)
+	sentencia_declarativa : declaracion_clase .  (155)
 
-	.  reduce 143
+	.  reduce 155
 
 
 state 29
-	sentencia_declarativa : declaracion_interfaz .  (144)
+	sentencia_declarativa : declaracion_interfaz .  (156)
 
-	.  reduce 144
+	.  reduce 156
 
 
 state 30
-	declaracion_variable : tipo . lista_de_variables ','  (145)
-	declaracion_variable : tipo . lista_de_variables  (146)
-	declaracion_variable : tipo . ','  (147)
+	declaracion_variable : tipo . lista_de_variables ','  (157)
+	declaracion_variable : tipo . lista_de_variables  (158)
+	declaracion_variable : tipo . ','  (159)
 
 	ID  shift 63
 	','  shift 64
@@ -709,8 +723,8 @@ state 30
 
 
 state 31
-	declaracion_interfaz : declaracion_interfaz_encabezado . '{' bloque_encabezado_funcion_declaracion_interfaz '}'  (150)
-	declaracion_interfaz : declaracion_interfaz_encabezado . '}'  (151)
+	declaracion_interfaz : declaracion_interfaz_encabezado . '{' bloque_encabezado_funcion_declaracion_interfaz '}'  (162)
+	declaracion_interfaz : declaracion_interfaz_encabezado . '}'  (163)
 
 	'{'  shift 66
 	'}'  shift 67
@@ -718,14 +732,14 @@ state 31
 
 
 state 32
-	declaracion_clase : declaracion_clase_encabezado . '{' bloque_sentencias_declarativas_clase '}'  (161)
+	declaracion_clase : declaracion_clase_encabezado . '{' bloque_sentencias_declarativas_clase '}'  (173)
 
 	'{'  shift 68
 	.  error
 
 
 state 33
-	declaracion_funcion : encabezado_funcion . cuerpo_funcion  (170)
+	declaracion_funcion : encabezado_funcion . cuerpo_funcion  (182)
 
 	ID  shift 2
 	IF  shift 69
@@ -766,11 +780,11 @@ state 33
 
 
 state 34
-	encabezado_funcion : encabezado_funcion_nombre . '(' parametro_funcion ')'  (171)
-	encabezado_funcion : encabezado_funcion_nombre . '(' ')'  (172)
-	encabezado_funcion : encabezado_funcion_nombre . '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'  (173)
-	encabezado_funcion : encabezado_funcion_nombre . '(' parametro_funcion lista_parametros_funcion_exceso ')'  (174)
-	encabezado_funcion : encabezado_funcion_nombre . ')'  (175)
+	encabezado_funcion : encabezado_funcion_nombre . '(' parametro_funcion ')'  (183)
+	encabezado_funcion : encabezado_funcion_nombre . '(' ')'  (184)
+	encabezado_funcion : encabezado_funcion_nombre . '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'  (185)
+	encabezado_funcion : encabezado_funcion_nombre . '(' parametro_funcion lista_parametros_funcion_exceso ')'  (186)
+	encabezado_funcion : encabezado_funcion_nombre . ')'  (187)
 
 	'('  shift 84
 	')'  shift 85
@@ -816,103 +830,103 @@ state 36
 
 
 state 37
-	sentencia_imprimir : PRINT ID . ','  (124)
-	sentencia_imprimir : PRINT ID .  (125)
+	sentencia_imprimir : PRINT ID . ','  (136)
+	sentencia_imprimir : PRINT ID .  (137)
 
 	','  shift 101
-	$end  reduce 125
-	error  reduce 125
-	ID  reduce 125
-	IF  reduce 125
-	ELSE  reduce 125
-	ENDIF  reduce 125
-	PRINT  reduce 125
-	VOID  reduce 125
-	RETURN  reduce 125
-	CLASS  reduce 125
-	WHILE  reduce 125
-	DO  reduce 125
-	INTERFACE  reduce 125
-	INT  reduce 125
-	ULONG  reduce 125
-	FLOAT  reduce 125
-	'}'  reduce 125
-	'('  reduce 125
+	$end  reduce 137
+	error  reduce 137
+	ID  reduce 137
+	IF  reduce 137
+	ELSE  reduce 137
+	ENDIF  reduce 137
+	PRINT  reduce 137
+	VOID  reduce 137
+	RETURN  reduce 137
+	CLASS  reduce 137
+	WHILE  reduce 137
+	DO  reduce 137
+	INTERFACE  reduce 137
+	INT  reduce 137
+	ULONG  reduce 137
+	FLOAT  reduce 137
+	'}'  reduce 137
+	'('  reduce 137
 
 
 state 38
-	constante : CTE .  (233)
+	constante : CTE .  (245)
 
-	.  reduce 233
+	.  reduce 245
 
 
 state 39
-	sentencia_imprimir : PRINT CADENA . ','  (121)
-	sentencia_imprimir : PRINT CADENA .  (122)
+	sentencia_imprimir : PRINT CADENA . ','  (133)
+	sentencia_imprimir : PRINT CADENA .  (134)
 
 	','  shift 102
-	$end  reduce 122
-	error  reduce 122
-	ID  reduce 122
-	IF  reduce 122
-	ELSE  reduce 122
-	ENDIF  reduce 122
-	PRINT  reduce 122
-	VOID  reduce 122
-	RETURN  reduce 122
-	CLASS  reduce 122
-	WHILE  reduce 122
-	DO  reduce 122
-	INTERFACE  reduce 122
-	INT  reduce 122
-	ULONG  reduce 122
-	FLOAT  reduce 122
-	'}'  reduce 122
-	'('  reduce 122
+	$end  reduce 134
+	error  reduce 134
+	ID  reduce 134
+	IF  reduce 134
+	ELSE  reduce 134
+	ENDIF  reduce 134
+	PRINT  reduce 134
+	VOID  reduce 134
+	RETURN  reduce 134
+	CLASS  reduce 134
+	WHILE  reduce 134
+	DO  reduce 134
+	INTERFACE  reduce 134
+	INT  reduce 134
+	ULONG  reduce 134
+	FLOAT  reduce 134
+	'}'  reduce 134
+	'('  reduce 134
 
 
 state 40
-	constante : '-' . CTE  (234)
+	constante : '-' . CTE  (246)
 
 	CTE  shift 103
 	.  error
 
 
 state 41
-	sentencia_imprimir : PRINT ',' .  (123)
+	sentencia_imprimir : PRINT ',' .  (135)
 
-	.  reduce 123
+	.  reduce 135
 
 
 state 42
-	sentencia_imprimir : PRINT constante . ','  (126)
-	sentencia_imprimir : PRINT constante .  (127)
+	sentencia_imprimir : PRINT constante . ','  (138)
+	sentencia_imprimir : PRINT constante .  (139)
 
 	','  shift 104
-	$end  reduce 127
-	error  reduce 127
-	ID  reduce 127
-	IF  reduce 127
-	ELSE  reduce 127
-	ENDIF  reduce 127
-	PRINT  reduce 127
-	VOID  reduce 127
-	RETURN  reduce 127
-	CLASS  reduce 127
-	WHILE  reduce 127
-	DO  reduce 127
-	INTERFACE  reduce 127
-	INT  reduce 127
-	ULONG  reduce 127
-	FLOAT  reduce 127
-	'}'  reduce 127
-	'('  reduce 127
+	$end  reduce 139
+	error  reduce 139
+	ID  reduce 139
+	IF  reduce 139
+	ELSE  reduce 139
+	ENDIF  reduce 139
+	PRINT  reduce 139
+	VOID  reduce 139
+	RETURN  reduce 139
+	CLASS  reduce 139
+	WHILE  reduce 139
+	DO  reduce 139
+	INTERFACE  reduce 139
+	INT  reduce 139
+	ULONG  reduce 139
+	FLOAT  reduce 139
+	'}'  reduce 139
+	'('  reduce 139
 
 
 state 43
-	encabezado_funcion_nombre : VOID ID .  (176)
+	encabezado_funcion_nombre : VOID ID .  (188)
 
-	.  reduce 176
+	.  reduce 188
 
 
 state 44
@@ -922,20 +936,20 @@ state 44
 
 
 state 45
-	declaracion_clase_encabezado : CLASS ID .  (162)
-	declaracion_clase_encabezado : CLASS ID . IMPLEMENT ID  (163)
-	declaracion_clase_encabezado : CLASS ID . IMPLEMENT  (166)
+	declaracion_clase_encabezado : CLASS ID .  (174)
+	declaracion_clase_encabezado : CLASS ID . IMPLEMENT ID  (175)
+	declaracion_clase_encabezado : CLASS ID . IMPLEMENT  (178)
 
 	IMPLEMENT  shift 105
-	'{'  reduce 162
+	'{'  reduce 174
 
 
 state 46
-	declaracion_clase_encabezado : CLASS IMPLEMENT . ID  (165)
-	declaracion_clase_encabezado : CLASS IMPLEMENT .  (167)
+	declaracion_clase_encabezado : CLASS IMPLEMENT . ID  (177)
+	declaracion_clase_encabezado : CLASS IMPLEMENT .  (179)
 
 	ID  shift 106
-	'{'  reduce 167
+	'{'  reduce 179
 
 
 state 47
@@ -1066,9 +1080,9 @@ state 54
 
 
 state 55
-	declaracion_interfaz_encabezado : INTERFACE ID .  (148)
+	declaracion_interfaz_encabezado : INTERFACE ID .  (160)
 
-	.  reduce 148
+	.  reduce 160
 
 
 state 56
@@ -1131,12 +1145,12 @@ state 59
 
 
 state 60
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ')' ','  (128)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . ')' ','  (129)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ','  (130)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ')'  (131)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . ')'  (132)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ',' lista_expresiones_invocacion_funcion_exceso ')'  (133)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ')' ','  (140)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . ')' ','  (141)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ','  (142)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ')'  (143)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . ')'  (144)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' . expresion ',' lista_expresiones_invocacion_funcion_exceso ')'  (145)
 
 	ID  shift 86
 	CTE  shift 38
@@ -1152,9 +1166,9 @@ state 60
 
 
 state 61
-	sentencia_asignacion : sentencia_objeto_identificador '=' . expresion ','  (136)
-	sentencia_asignacion : sentencia_objeto_identificador '=' . expresion  (137)
-	sentencia_asignacion : sentencia_objeto_identificador '=' . ','  (138)
+	sentencia_asignacion : sentencia_objeto_identificador '=' . expresion ','  (148)
+	sentencia_asignacion : sentencia_objeto_identificador '=' . expresion  (149)
+	sentencia_asignacion : sentencia_objeto_identificador '=' . ','  (150)
 
 	ID  shift 86
 	CTE  shift 38
@@ -1170,53 +1184,53 @@ state 61
 
 
 state 62
-	sentencia_objeto_identificador : sentencia_objeto_identificador '.' . ID  (140)
+	sentencia_objeto_identificador : sentencia_objeto_identificador '.' . ID  (152)
 
 	ID  shift 124
 	.  error
 
 
 state 63
-	lista_de_variables : ID .  (207)
+	lista_de_variables : ID .  (219)
 
-	.  reduce 207
+	.  reduce 219
 
 
 state 64
-	declaracion_variable : tipo ',' .  (147)
+	declaracion_variable : tipo ',' .  (159)
 
-	.  reduce 147
+	.  reduce 159
 
 
 state 65
-	declaracion_variable : tipo lista_de_variables . ','  (145)
-	declaracion_variable : tipo lista_de_variables .  (146)
-	lista_de_variables : lista_de_variables . ';' ID  (208)
+	declaracion_variable : tipo lista_de_variables . ','  (157)
+	declaracion_variable : tipo lista_de_variables .  (158)
+	lista_de_variables : lista_de_variables . ';' ID  (220)
 
 	','  shift 125
 	';'  shift 126
-	$end  reduce 146
-	error  reduce 146
-	ID  reduce 146
-	IF  reduce 146
-	ELSE  reduce 146
-	ENDIF  reduce 146
-	PRINT  reduce 146
-	VOID  reduce 146
-	RETURN  reduce 146
-	CLASS  reduce 146
-	WHILE  reduce 146
-	DO  reduce 146
-	INTERFACE  reduce 146
-	INT  reduce 146
-	ULONG  reduce 146
-	FLOAT  reduce 146
-	'}'  reduce 146
-	'('  reduce 146
+	$end  reduce 158
+	error  reduce 158
+	ID  reduce 158
+	IF  reduce 158
+	ELSE  reduce 158
+	ENDIF  reduce 158
+	PRINT  reduce 158
+	VOID  reduce 158
+	RETURN  reduce 158
+	CLASS  reduce 158
+	WHILE  reduce 158
+	DO  reduce 158
+	INTERFACE  reduce 158
+	INT  reduce 158
+	ULONG  reduce 158
+	FLOAT  reduce 158
+	'}'  reduce 158
+	'('  reduce 158
 
 
 state 66
-	declaracion_interfaz : declaracion_interfaz_encabezado '{' . bloque_encabezado_funcion_declaracion_interfaz '}'  (150)
+	declaracion_interfaz : declaracion_interfaz_encabezado '{' . bloque_encabezado_funcion_declaracion_interfaz '}'  (162)
 
 	VOID  shift 127
 	.  error
@@ -1227,13 +1241,13 @@ state 66
 
 
 state 67
-	declaracion_interfaz : declaracion_interfaz_encabezado '}' .  (151)
+	declaracion_interfaz : declaracion_interfaz_encabezado '}' .  (163)
 
-	.  reduce 151
+	.  reduce 163
 
 
 state 68
-	declaracion_clase : declaracion_clase_encabezado '{' . bloque_sentencias_declarativas_clase '}'  (161)
+	declaracion_clase : declaracion_clase_encabezado '{' . bloque_sentencias_declarativas_clase '}'  (173)
 
 	ID  shift 131
 	VOID  shift 5
@@ -1265,12 +1279,12 @@ state 69
 
 
 state 70
-	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  (39)
-	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
-	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion WHILE '(' ')' ','  (42)
-	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion '(' condicion ')' ','  (43)
+	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' ','  (39)
+	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
+	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion_while WHILE '(' ')' ','  (42)
+	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion_while '(' condicion ')' ','  (43)
 	sentencia_iterativa_do_while_funcion : DO . WHILE ','  (44)
-	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion WHILE ','  (45)
+	sentencia_iterativa_do_while_funcion : DO . bloque_sentencias_ejecutables_funcion_while WHILE ','  (45)
 	sentencia_iterativa_do_while_funcion : DO . ','  (46)
 	sentencia_iterativa_do_while_funcion : DO . '(' condicion ')' ','  (47)
 	sentencia_iterativa_do_while_funcion : DO . '(' ')' ','  (48)
@@ -1301,8 +1315,8 @@ state 70
 	sentencia_ejecutable_funcion  goto 143
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	bloque_sentencias_ejecutables_funcion  goto 144
-	sentencias_ejecutables_funcion  goto 145
+	bloque_sentencias_ejecutables_funcion_while  goto 144
+	primer_sentencia_funcion  goto 145
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -1316,12 +1330,12 @@ state 70
 
 
 state 71
-	cuerpo_funcion : '{' . sentencias_funcion sentencia_return '}'  (186)
-	cuerpo_funcion : '{' . sentencia_return '}'  (187)
-	cuerpo_funcion : '{' . sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'  (188)
-	cuerpo_funcion : '{' . sentencia_return sentencias_funcion_inalcanzable '}'  (189)
-	cuerpo_funcion : '{' . sentencias_funcion '}'  (190)
-	cuerpo_funcion : '{' . '}'  (191)
+	cuerpo_funcion : '{' . sentencias_funcion sentencia_return '}'  (198)
+	cuerpo_funcion : '{' . sentencia_return '}'  (199)
+	cuerpo_funcion : '{' . sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}'  (200)
+	cuerpo_funcion : '{' . sentencia_return sentencias_funcion_inalcanzable '}'  (201)
+	cuerpo_funcion : '{' . sentencias_funcion '}'  (202)
+	cuerpo_funcion : '{' . '}'  (203)
 
 	ID  shift 2
 	IF  shift 69
@@ -1360,9 +1374,9 @@ state 71
 
 
 state 72
-	cuerpo_funcion : '}' .  (197)
+	cuerpo_funcion : '}' .  (209)
 
-	.  reduce 197
+	.  reduce 209
 
 
 state 73
@@ -1390,8 +1404,8 @@ state 76
 
 
 state 77
-	cuerpo_funcion : sentencia_return . '}'  (193)
-	cuerpo_funcion : sentencia_return . sentencias_funcion_inalcanzable '}'  (195)
+	cuerpo_funcion : sentencia_return . '}'  (205)
+	cuerpo_funcion : sentencia_return . sentencias_funcion_inalcanzable '}'  (207)
 
 	ID  shift 2
 	IF  shift 69
@@ -1431,9 +1445,9 @@ state 77
 
 state 78
 	sentencias_funcion : sentencias_funcion . sentencia_funcion  (18)
-	cuerpo_funcion : sentencias_funcion . sentencia_return '}'  (192)
-	cuerpo_funcion : sentencias_funcion . sentencia_return sentencias_funcion_inalcanzable '}'  (194)
-	cuerpo_funcion : sentencias_funcion . '}'  (196)
+	cuerpo_funcion : sentencias_funcion . sentencia_return '}'  (204)
+	cuerpo_funcion : sentencias_funcion . sentencia_return sentencias_funcion_inalcanzable '}'  (206)
+	cuerpo_funcion : sentencias_funcion . '}'  (208)
 
 	ID  shift 2
 	IF  shift 69
@@ -1495,16 +1509,16 @@ state 82
 
 
 state 83
-	declaracion_funcion : encabezado_funcion cuerpo_funcion .  (170)
+	declaracion_funcion : encabezado_funcion cuerpo_funcion .  (182)
 
-	.  reduce 170
+	.  reduce 182
 
 
 state 84
-	encabezado_funcion : encabezado_funcion_nombre '(' . parametro_funcion ')'  (171)
-	encabezado_funcion : encabezado_funcion_nombre '(' . ')'  (172)
-	encabezado_funcion : encabezado_funcion_nombre '(' . parametro_funcion ',' lista_parametros_funcion_exceso ')'  (173)
-	encabezado_funcion : encabezado_funcion_nombre '(' . parametro_funcion lista_parametros_funcion_exceso ')'  (174)
+	encabezado_funcion : encabezado_funcion_nombre '(' . parametro_funcion ')'  (183)
+	encabezado_funcion : encabezado_funcion_nombre '(' . ')'  (184)
+	encabezado_funcion : encabezado_funcion_nombre '(' . parametro_funcion ',' lista_parametros_funcion_exceso ')'  (185)
+	encabezado_funcion : encabezado_funcion_nombre '(' . parametro_funcion lista_parametros_funcion_exceso ')'  (186)
 
 	ID  shift 158
 	INT  shift 10
@@ -1518,75 +1532,75 @@ state 84
 
 
 state 85
-	encabezado_funcion : encabezado_funcion_nombre ')' .  (175)
+	encabezado_funcion : encabezado_funcion_nombre ')' .  (187)
 
-	.  reduce 175
+	.  reduce 187
 
 
 state 86
-	factor : ID .  (229)
-	factor : ID . OPERADOR_MENOS  (230)
+	factor : ID .  (241)
+	factor : ID . OPERADOR_MENOS  (242)
 
 	OPERADOR_MENOS  shift 162
-	$end  reduce 229
-	error  reduce 229
-	ID  reduce 229
-	IF  reduce 229
-	ELSE  reduce 229
-	ENDIF  reduce 229
-	PRINT  reduce 229
-	VOID  reduce 229
-	RETURN  reduce 229
-	COMP_MAYOR_IGUAL  reduce 229
-	COMP_MENOR_IGUAL  reduce 229
-	COMP_IGUAL  reduce 229
-	COMP_DISTINTO  reduce 229
-	CLASS  reduce 229
-	WHILE  reduce 229
-	DO  reduce 229
-	INTERFACE  reduce 229
-	INT  reduce 229
-	ULONG  reduce 229
-	FLOAT  reduce 229
-	'+'  reduce 229
-	'-'  reduce 229
-	'*'  reduce 229
-	'/'  reduce 229
-	'}'  reduce 229
-	','  reduce 229
-	'('  reduce 229
-	')'  reduce 229
-	'='  reduce 229
-	'>'  reduce 229
-	'<'  reduce 229
+	$end  reduce 241
+	error  reduce 241
+	ID  reduce 241
+	IF  reduce 241
+	ELSE  reduce 241
+	ENDIF  reduce 241
+	PRINT  reduce 241
+	VOID  reduce 241
+	RETURN  reduce 241
+	COMP_MAYOR_IGUAL  reduce 241
+	COMP_MENOR_IGUAL  reduce 241
+	COMP_IGUAL  reduce 241
+	COMP_DISTINTO  reduce 241
+	CLASS  reduce 241
+	WHILE  reduce 241
+	DO  reduce 241
+	INTERFACE  reduce 241
+	INT  reduce 241
+	ULONG  reduce 241
+	FLOAT  reduce 241
+	'+'  reduce 241
+	'-'  reduce 241
+	'*'  reduce 241
+	'/'  reduce 241
+	'}'  reduce 241
+	','  reduce 241
+	'('  reduce 241
+	')'  reduce 241
+	'='  reduce 241
+	'>'  reduce 241
+	'<'  reduce 241
 
 
 state 87
-	comparador : COMP_MAYOR_IGUAL .  (217)
+	comparador : COMP_MAYOR_IGUAL .  (229)
 
-	.  reduce 217
+	.  reduce 229
 
 
 state 88
-	comparador : COMP_MENOR_IGUAL .  (218)
+	comparador : COMP_MENOR_IGUAL .  (230)
 
-	.  reduce 218
+	.  reduce 230
 
 
 state 89
-	comparador : COMP_IGUAL .  (219)
+	comparador : COMP_IGUAL .  (231)
 
-	.  reduce 219
+	.  reduce 231
 
 
 state 90
-	comparador : COMP_DISTINTO .  (220)
+	comparador : COMP_DISTINTO .  (232)
 
-	.  reduce 220
+	.  reduce 232
 
 
 state 91
-	factor : '(' . expresion ')'  (232)
+	factor : '(' . expresion ')'  (244)
 
 	ID  shift 86
 	CTE  shift 38
@@ -1641,15 +1655,15 @@ state 92
 
 
 state 93
-	comparador : '>' .  (221)
+	comparador : '>' .  (233)
 
-	.  reduce 221
+	.  reduce 233
 
 
 state 94
-	comparador : '<' .  (222)
+	comparador : '<' .  (234)
 
-	.  reduce 222
+	.  reduce 234
 
 
 state 95
@@ -1666,17 +1680,17 @@ state 95
 
 
 state 96
-	factor : constante .  (231)
+	factor : constante .  (243)
 
-	.  reduce 231
+	.  reduce 243
 
 
 state 97
-	condicion : expresion . comparador expresion  (213)
-	condicion : expresion . comparador  (214)
-	condicion : expresion . '=' expresion  (216)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+	condicion : expresion . comparador expresion  (225)
+	condicion : expresion . comparador  (226)
+	condicion : expresion . '=' expresion  (228)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
 
 	COMP_MAYOR_IGUAL  shift 87
 	COMP_MENOR_IGUAL  shift 88
@@ -1693,7 +1707,7 @@ state 97
 
 
 state 98
-	condicion : comparador . expresion  (215)
+	condicion : comparador . expresion  (227)
 
 	ID  shift 86
 	CTE  shift 38
@@ -1708,85 +1722,85 @@ state 98
 
 
 state 99
-	expresion : termino .  (225)
-	termino : termino . '*' factor  (226)
-	termino : termino . '/' factor  (227)
+	expresion : termino .  (237)
+	termino : termino . '*' factor  (238)
+	termino : termino . '/' factor  (239)
 
 	'*'  shift 175
 	'/'  shift 176
-	$end  reduce 225
-	error  reduce 225
-	ID  reduce 225
-	IF  reduce 225
-	ELSE  reduce 225
-	ENDIF  reduce 225
-	PRINT  reduce 225
-	VOID  reduce 225
-	RETURN  reduce 225
-	COMP_MAYOR_IGUAL  reduce 225
-	COMP_MENOR_IGUAL  reduce 225
-	COMP_IGUAL  reduce 225
-	COMP_DISTINTO  reduce 225
-	CLASS  reduce 225
-	WHILE  reduce 225
-	DO  reduce 225
-	INTERFACE  reduce 225
-	INT  reduce 225
-	ULONG  reduce 225
-	FLOAT  reduce 225
-	'+'  reduce 225
-	'-'  reduce 225
-	'}'  reduce 225
-	','  reduce 225
-	'('  reduce 225
-	')'  reduce 225
-	'='  reduce 225
-	'>'  reduce 225
-	'<'  reduce 225
+	$end  reduce 237
+	error  reduce 237
+	ID  reduce 237
+	IF  reduce 237
+	ELSE  reduce 237
+	ENDIF  reduce 237
+	PRINT  reduce 237
+	VOID  reduce 237
+	RETURN  reduce 237
+	COMP_MAYOR_IGUAL  reduce 237
+	COMP_MENOR_IGUAL  reduce 237
+	COMP_IGUAL  reduce 237
+	COMP_DISTINTO  reduce 237
+	CLASS  reduce 237
+	WHILE  reduce 237
+	DO  reduce 237
+	INTERFACE  reduce 237
+	INT  reduce 237
+	ULONG  reduce 237
+	FLOAT  reduce 237
+	'+'  reduce 237
+	'-'  reduce 237
+	'}'  reduce 237
+	','  reduce 237
+	'('  reduce 237
+	')'  reduce 237
+	'='  reduce 237
+	'>'  reduce 237
+	'<'  reduce 237
 
 
 state 100
-	termino : factor .  (228)
+	termino : factor .  (240)
 
-	.  reduce 228
+	.  reduce 240
 
 
 state 101
-	sentencia_imprimir : PRINT ID ',' .  (124)
+	sentencia_imprimir : PRINT ID ',' .  (136)
 
-	.  reduce 124
+	.  reduce 136
 
 
 state 102
-	sentencia_imprimir : PRINT CADENA ',' .  (121)
+	sentencia_imprimir : PRINT CADENA ',' .  (133)
 
-	.  reduce 121
+	.  reduce 133
 
 
 state 103
-	constante : '-' CTE .  (234)
+	constante : '-' CTE .  (246)
 
-	.  reduce 234
+	.  reduce 246
 
 
 state 104
-	sentencia_imprimir : PRINT constante ',' .  (126)
+	sentencia_imprimir : PRINT constante ',' .  (138)
 
-	.  reduce 126
+	.  reduce 138
 
 
 state 105
-	declaracion_clase_encabezado : CLASS ID IMPLEMENT . ID  (163)
-	declaracion_clase_encabezado : CLASS ID IMPLEMENT .  (166)
+	declaracion_clase_encabezado : CLASS ID IMPLEMENT . ID  (175)
+	declaracion_clase_encabezado : CLASS ID IMPLEMENT .  (178)
 
 	ID  shift 177
-	'{'  reduce 166
+	'{'  reduce 178
 
 
 state 106
-	declaracion_clase_encabezado : CLASS IMPLEMENT ID .  (165)
+	declaracion_clase_encabezado : CLASS IMPLEMENT ID .  (177)
 
-	.  reduce 165
+	.  reduce 177
 
 
 state 107
@@ -1819,9 +1833,9 @@ state 108
 
 
 state 109
-	sentencia_objeto_identificador : ID .  (139)
+	sentencia_objeto_identificador : ID .  (151)
 
-	.  reduce 139
+	.  reduce 151
 
 
 state 110
@@ -1937,21 +1951,21 @@ state 115
 
 
 state 116
-	sentencias_ejecutables : sentencia_declarativa .  (115)
+	sentencias_ejecutables : sentencia_declarativa .  (127)
 
-	.  reduce 115
+	.  reduce 127
 
 
 state 117
-	sentencias_ejecutables : sentencia_ejecutable .  (113)
+	sentencias_ejecutables : sentencia_ejecutable .  (125)
 
-	.  reduce 113
+	.  reduce 125
 
 
 state 118
 	bloque_sentencias_ejecutables_while : primer_sentencia sentencias_ejecutables . '}'  (77)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (114)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (116)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (126)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (128)
 
 	ID  shift 2
 	IF  shift 3
@@ -1994,37 +2008,37 @@ state 119
 
 
 state 120
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' ')' . ','  (129)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' ')' .  (132)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' ')' . ','  (141)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' ')' .  (144)
 
 	','  shift 189
-	$end  reduce 132
-	error  reduce 132
-	ID  reduce 132
-	IF  reduce 132
-	ELSE  reduce 132
-	ENDIF  reduce 132
-	PRINT  reduce 132
-	VOID  reduce 132
-	RETURN  reduce 132
-	CLASS  reduce 132
-	WHILE  reduce 132
-	DO  reduce 132
-	INTERFACE  reduce 132
-	INT  reduce 132
-	ULONG  reduce 132
-	FLOAT  reduce 132
-	'}'  reduce 132
-	'('  reduce 132
+	$end  reduce 144
+	error  reduce 144
+	ID  reduce 144
+	IF  reduce 144
+	ELSE  reduce 144
+	ENDIF  reduce 144
+	PRINT  reduce 144
+	VOID  reduce 144
+	RETURN  reduce 144
+	CLASS  reduce 144
+	WHILE  reduce 144
+	DO  reduce 144
+	INTERFACE  reduce 144
+	INT  reduce 144
+	ULONG  reduce 144
+	FLOAT  reduce 144
+	'}'  reduce 144
+	'('  reduce 144
 
 
 state 121
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ')' ','  (128)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ',' lista_expresiones_invocacion_funcion_exceso ')' ','  (130)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ')'  (131)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ',' lista_expresiones_invocacion_funcion_exceso ')'  (133)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ')' ','  (140)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ',' lista_expresiones_invocacion_funcion_exceso ')' ','  (142)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ')'  (143)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion . ',' lista_expresiones_invocacion_funcion_exceso ')'  (145)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
 
 	'+'  shift 170
 	'-'  shift 171
@@ -2034,68 +2048,68 @@ state 121
 
 
 state 122
-	sentencia_asignacion : sentencia_objeto_identificador '=' ',' .  (138)
+	sentencia_asignacion : sentencia_objeto_identificador '=' ',' .  (150)
 
-	.  reduce 138
+	.  reduce 150
 
 
 state 123
-	sentencia_asignacion : sentencia_objeto_identificador '=' expresion . ','  (136)
-	sentencia_asignacion : sentencia_objeto_identificador '=' expresion .  (137)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+	sentencia_asignacion : sentencia_objeto_identificador '=' expresion . ','  (148)
+	sentencia_asignacion : sentencia_objeto_identificador '=' expresion .  (149)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
 
 	'+'  shift 170
 	'-'  shift 171
 	','  shift 192
-	$end  reduce 137
-	error  reduce 137
-	ID  reduce 137
-	IF  reduce 137
-	ELSE  reduce 137
-	ENDIF  reduce 137
-	PRINT  reduce 137
-	VOID  reduce 137
-	RETURN  reduce 137
-	CLASS  reduce 137
-	WHILE  reduce 137
-	DO  reduce 137
-	INTERFACE  reduce 137
-	INT  reduce 137
-	ULONG  reduce 137
-	FLOAT  reduce 137
-	'}'  reduce 137
-	'('  reduce 137
+	$end  reduce 149
+	error  reduce 149
+	ID  reduce 149
+	IF  reduce 149
+	ELSE  reduce 149
+	ENDIF  reduce 149
+	PRINT  reduce 149
+	VOID  reduce 149
+	RETURN  reduce 149
+	CLASS  reduce 149
+	WHILE  reduce 149
+	DO  reduce 149
+	INTERFACE  reduce 149
+	INT  reduce 149
+	ULONG  reduce 149
+	FLOAT  reduce 149
+	'}'  reduce 149
+	'('  reduce 149
 
 
 state 124
-	sentencia_objeto_identificador : sentencia_objeto_identificador '.' ID .  (140)
+	sentencia_objeto_identificador : sentencia_objeto_identificador '.' ID .  (152)
 
-	.  reduce 140
+	.  reduce 152
 
 
 state 125
-	declaracion_variable : tipo lista_de_variables ',' .  (145)
+	declaracion_variable : tipo lista_de_variables ',' .  (157)
 
-	.  reduce 145
+	.  reduce 157
 
 
 state 126
-	lista_de_variables : lista_de_variables ';' . ID  (208)
+	lista_de_variables : lista_de_variables ';' . ID  (220)
 
 	ID  shift 193
 	.  error
 
 
 state 127
-	encabezado_funcion_interfaz : VOID . ID '(' parametro_funcion ')'  (178)
-	encabezado_funcion_interfaz : VOID . ID '(' ')'  (179)
-	encabezado_funcion_interfaz : VOID . ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'  (180)
-	encabezado_funcion_interfaz : VOID . ID '(' parametro_funcion lista_parametros_funcion_exceso ')'  (181)
-	encabezado_funcion_interfaz : VOID . '(' parametro_funcion ')'  (182)
-	encabezado_funcion_interfaz : VOID . '(' ')'  (183)
-	encabezado_funcion_interfaz : VOID . ID parametro_funcion ')'  (184)
-	encabezado_funcion_interfaz : VOID . ID ')'  (185)
+	encabezado_funcion_interfaz : VOID . ID '(' parametro_funcion ')'  (190)
+	encabezado_funcion_interfaz : VOID . ID '(' ')'  (191)
+	encabezado_funcion_interfaz : VOID . ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'  (192)
+	encabezado_funcion_interfaz : VOID . ID '(' parametro_funcion lista_parametros_funcion_exceso ')'  (193)
+	encabezado_funcion_interfaz : VOID . '(' parametro_funcion ')'  (194)
+	encabezado_funcion_interfaz : VOID . '(' ')'  (195)
+	encabezado_funcion_interfaz : VOID . ID parametro_funcion ')'  (196)
+	encabezado_funcion_interfaz : VOID . ID ')'  (197)
 
 	ID  shift 194
 	'('  shift 195
@@ -2103,8 +2117,8 @@ state 127
 
 
 state 128
-	declaracion_interfaz : declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz . '}'  (150)
-	bloque_encabezado_funcion_declaracion_interfaz : bloque_encabezado_funcion_declaracion_interfaz . encabezado_funcion_declaracion_interfaz  (153)
+	declaracion_interfaz : declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz . '}'  (162)
+	bloque_encabezado_funcion_declaracion_interfaz : bloque_encabezado_funcion_declaracion_interfaz . encabezado_funcion_declaracion_interfaz  (165)
 
 	VOID  shift 127
 	'}'  shift 196
@@ -2115,44 +2129,44 @@ state 128
 
 
 state 129
-	bloque_encabezado_funcion_declaracion_interfaz : encabezado_funcion_declaracion_interfaz .  (152)
+	bloque_encabezado_funcion_declaracion_interfaz : encabezado_funcion_declaracion_interfaz .  (164)
 
-	.  reduce 152
+	.  reduce 164
 
 
 state 130
-	encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz . ','  (154)
-	encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz .  (155)
+	encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz . ','  (166)
+	encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz .  (167)
 
 	','  shift 198
-	VOID  reduce 155
-	'}'  reduce 155
+	VOID  reduce 167
+	'}'  reduce 167
 
 
 state 131
-	sentencia_declarativa_clase : ID . ','  (160)
-	tipo : ID .  (212)
+	sentencia_declarativa_clase : ID . ','  (172)
+	tipo : ID .  (224)
 
 	','  shift 199
-	ID  reduce 212
+	ID  reduce 224
 
 
 state 132
-	sentencia_declarativa_clase : declaracion_funcion .  (158)
-	sentencia_declarativa_clase : declaracion_funcion . ','  (159)
+	sentencia_declarativa_clase : declaracion_funcion .  (170)
+	sentencia_declarativa_clase : declaracion_funcion . ','  (171)
 
 	','  shift 200
-	ID  reduce 158
-	VOID  reduce 158
-	INT  reduce 158
-	ULONG  reduce 158
-	FLOAT  reduce 158
-	'}'  reduce 158
+	ID  reduce 170
+	VOID  reduce 170
+	INT  reduce 170
+	ULONG  reduce 170
+	FLOAT  reduce 170
+	'}'  reduce 170
 
 
 state 133
-	sentencia_declarativa_clase : tipo . lista_de_variables ','  (156)
-	sentencia_declarativa_clase : tipo . lista_de_variables  (157)
+	sentencia_declarativa_clase : tipo . lista_de_variables ','  (168)
+	sentencia_declarativa_clase : tipo . lista_de_variables  (169)
 
 	ID  shift 63
 	.  error
@@ -2161,14 +2175,14 @@ state 133
 
 
 state 134
-	bloque_sentencias_declarativas_clase : sentencia_declarativa_clase .  (168)
+	bloque_sentencias_declarativas_clase : sentencia_declarativa_clase .  (180)
 
-	.  reduce 168
+	.  reduce 180
 
 
 state 135
-	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase . '}'  (161)
-	bloque_sentencias_declarativas_clase : bloque_sentencias_declarativas_clase . sentencia_declarativa_clase  (169)
+	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase . '}'  (173)
+	bloque_sentencias_declarativas_clase : bloque_sentencias_declarativas_clase . sentencia_declarativa_clase  (181)
 
 	ID  shift 131
 	VOID  shift 5
@@ -2224,44 +2238,29 @@ state 137
 
 
 state 138
-	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion '}'  (101)
-	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion sentencia_return '}'  (102)
-	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (103)
-	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion  (106)
-	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion sentencia_return  (107)
-	bloque_sentencias_ejecutables_funcion : '{' . '}'  (108)
+	bloque_sentencias_ejecutables_funcion_while : '{' . primer_sentencia_funcion '}'  (99)
+	bloque_sentencias_ejecutables_funcion_while : '{' . primer_sentencia_funcion sentencias_ejecutables_funcion '}'  (102)
+	bloque_sentencias_ejecutables_funcion_while : '{' . primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}'  (103)
+	bloque_sentencias_ejecutables_funcion_while : '{' . primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (104)
+	bloque_sentencias_ejecutables_funcion_while : '{' . primer_sentencia_funcion sentencias_ejecutables_funcion  (107)
+	bloque_sentencias_ejecutables_funcion_while : '{' . primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return  (108)
+	bloque_sentencias_ejecutables_funcion_while : '{' . '}'  (109)
 
-	ID  shift 2
+	ID  shift 109
 	IF  shift 69
 	PRINT  shift 4
-	VOID  shift 5
-	CLASS  shift 7
 	DO  shift 70
-	INTERFACE  shift 9
-	INT  shift 10
-	ULONG  shift 11
-	FLOAT  shift 12
 	'}'  shift 207
 	.  error
 
-	sentencia_declarativa  goto 208
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_ejecutable_funcion  goto 209
+	sentencia_ejecutable_funcion  goto 143
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	sentencias_ejecutables_funcion  goto 210
+	primer_sentencia_funcion  goto 208
 	sentencia_objeto_identificador  goto 25
-	declaracion_variable  goto 26
-	declaracion_funcion  goto 27
-	declaracion_clase  goto 28
-	declaracion_interfaz  goto 29
-	tipo  goto 30
-	declaracion_interfaz_encabezado  goto 31
-	declaracion_clase_encabezado  goto 32
-	encabezado_funcion  goto 33
-	encabezado_funcion_nombre  goto 34
 
 
 state 139
@@ -2283,12 +2282,12 @@ state 140
 	COMP_DISTINTO  shift 90
 	'-'  shift 40
 	'('  shift 91
-	')'  shift 211
+	')'  shift 209
 	'>'  shift 93
 	'<'  shift 94
 	.  error
 
-	condicion  goto 212
+	condicion  goto 210
 	constante  goto 96
 	expresion  goto 97
 	comparador  goto 98
@@ -2297,93 +2296,59 @@ state 140
 
 
 state 141
-	bloque_sentencias_ejecutables_funcion : sentencia_declarativa .  (100)
-	sentencias_ejecutables_funcion : sentencia_declarativa .  (119)
+	bloque_sentencias_ejecutables_funcion_while : sentencia_declarativa .  (101)
 
-	ID  reduce 119
-	IF  reduce 119
-	ENDIF  reduce 100
-	PRINT  reduce 119
-	VOID  reduce 119
-	RETURN  reduce 119
-	CLASS  reduce 119
-	WHILE  reduce 100
-	DO  reduce 119
-	INTERFACE  reduce 119
-	INT  reduce 119
-	ULONG  reduce 119
-	FLOAT  reduce 119
-	'}'  reduce 119
-	'('  reduce 100
+	.  reduce 101
 
 
 state 142
-	bloque_sentencias_ejecutables_funcion : sentencia_return .  (99)
+	bloque_sentencias_ejecutables_funcion_while : sentencia_return .  (100)
 
-	.  reduce 99
+	.  reduce 100
 
 
 state 143
-	bloque_sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (98)
-	sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (117)
+	primer_sentencia_funcion : sentencia_ejecutable_funcion .  (81)
 
-	ID  reduce 117
-	IF  reduce 117
-	ENDIF  reduce 98
-	PRINT  reduce 117
-	VOID  reduce 117
-	RETURN  reduce 117
-	CLASS  reduce 117
-	WHILE  reduce 98
-	DO  reduce 117
-	INTERFACE  reduce 117
-	INT  reduce 117
-	ULONG  reduce 117
-	FLOAT  reduce 117
-	'}'  reduce 117
-	'('  reduce 98
+	.  reduce 81
 
 
 state 144
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion . WHILE '(' condicion ')' ','  (39)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion . WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion . WHILE '(' ')' ','  (42)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion . '(' condicion ')' ','  (43)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion . WHILE ','  (45)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while . WHILE '(' condicion ')' ','  (39)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while . WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while . WHILE '(' ')' ','  (42)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while . '(' condicion ')' ','  (43)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while . WHILE ','  (45)
 
-	WHILE  shift 213
-	'('  shift 214
+	WHILE  shift 211
+	'('  shift 212
 	.  error
 
 
 state 145
-	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . '}'  (104)
-	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_return '}'  (105)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (118)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (120)
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion . sentencias_ejecutables_funcion '}'  (105)
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion . sentencias_ejecutables_funcion sentencia_return '}'  (106)
 
 	ID  shift 2
 	IF  shift 69
 	PRINT  shift 4
 	VOID  shift 5
-	RETURN  shift 6
 	CLASS  shift 7
 	DO  shift 70
 	INTERFACE  shift 9
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 215
 	.  error
 
-	sentencia_declarativa  goto 216
+	sentencia_declarativa  goto 213
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 217
-	sentencia_ejecutable_funcion  goto 218
+	sentencia_ejecutable_funcion  goto 214
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
+	sentencias_ejecutables_funcion  goto 215
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -2397,14 +2362,14 @@ state 145
 
 
 state 146
-	cuerpo_funcion : '{' '}' .  (191)
+	cuerpo_funcion : '{' '}' .  (203)
 
-	.  reduce 191
+	.  reduce 203
 
 
 state 147
-	cuerpo_funcion : '{' sentencia_return . '}'  (187)
-	cuerpo_funcion : '{' sentencia_return . sentencias_funcion_inalcanzable '}'  (189)
+	cuerpo_funcion : '{' sentencia_return . '}'  (199)
+	cuerpo_funcion : '{' sentencia_return . sentencias_funcion_inalcanzable '}'  (201)
 
 	ID  shift 2
 	IF  shift 69
@@ -2417,7 +2382,7 @@ state 147
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 219
+	'}'  shift 216
 	.  error
 
 	sentencia_declarativa  goto 150
@@ -2438,15 +2403,15 @@ state 147
 	declaracion_clase_encabezado  goto 32
 	encabezado_funcion  goto 33
 	encabezado_funcion_nombre  goto 34
-	sentencias_funcion_inalcanzable  goto 220
+	sentencias_funcion_inalcanzable  goto 217
 	sentencia_funcion_inalcanzable  goto 154
 
 
 state 148
 	sentencias_funcion : sentencias_funcion . sentencia_funcion  (18)
-	cuerpo_funcion : '{' sentencias_funcion . sentencia_return '}'  (186)
-	cuerpo_funcion : '{' sentencias_funcion . sentencia_return sentencias_funcion_inalcanzable '}'  (188)
-	cuerpo_funcion : '{' sentencias_funcion . '}'  (190)
+	cuerpo_funcion : '{' sentencias_funcion . sentencia_return '}'  (198)
+	cuerpo_funcion : '{' sentencias_funcion . sentencia_return sentencias_funcion_inalcanzable '}'  (200)
+	cuerpo_funcion : '{' sentencias_funcion . '}'  (202)
 
 	ID  shift 2
 	IF  shift 69
@@ -2459,14 +2424,14 @@ state 148
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 221
+	'}'  shift 218
 	.  error
 
 	sentencia_declarativa  goto 73
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 222
+	sentencia_return  goto 219
 	sentencia_funcion  goto 157
 	sentencia_ejecutable_funcion  goto 80
 	sentencia_seleccion_funcion  goto 81
@@ -2484,32 +2449,32 @@ state 148
 
 
 state 149
-	cuerpo_funcion : sentencia_return '}' .  (193)
+	cuerpo_funcion : sentencia_return '}' .  (205)
 
-	.  reduce 193
+	.  reduce 205
 
 
 state 150
-	sentencia_funcion_inalcanzable : sentencia_declarativa .  (200)
+	sentencia_funcion_inalcanzable : sentencia_declarativa .  (212)
 
-	.  reduce 200
+	.  reduce 212
 
 
 state 151
-	sentencia_funcion_inalcanzable : sentencia_return .  (201)
+	sentencia_funcion_inalcanzable : sentencia_return .  (213)
 
-	.  reduce 201
+	.  reduce 213
 
 
 state 152
-	sentencia_funcion_inalcanzable : sentencia_ejecutable_funcion .  (202)
+	sentencia_funcion_inalcanzable : sentencia_ejecutable_funcion .  (214)
 
-	.  reduce 202
+	.  reduce 214
 
 
 state 153
-	cuerpo_funcion : sentencia_return sentencias_funcion_inalcanzable . '}'  (195)
-	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (199)
+	cuerpo_funcion : sentencia_return sentencias_funcion_inalcanzable . '}'  (207)
+	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (211)
 
 	ID  shift 2
 	IF  shift 69
@@ -2522,7 +2487,7 @@ state 153
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 223
+	'}'  shift 220
 	.  error
 
 	sentencia_declarativa  goto 150
@@ -2543,24 +2508,24 @@ state 153
 	declaracion_clase_encabezado  goto 32
 	encabezado_funcion  goto 33
 	encabezado_funcion_nombre  goto 34
-	sentencia_funcion_inalcanzable  goto 224
+	sentencia_funcion_inalcanzable  goto 221
 
 
 state 154
-	sentencias_funcion_inalcanzable : sentencia_funcion_inalcanzable .  (198)
+	sentencias_funcion_inalcanzable : sentencia_funcion_inalcanzable .  (210)
 
-	.  reduce 198
+	.  reduce 210
 
 
 state 155
-	cuerpo_funcion : sentencias_funcion '}' .  (196)
+	cuerpo_funcion : sentencias_funcion '}' .  (208)
 
-	.  reduce 196
+	.  reduce 208
 
 
 state 156
-	cuerpo_funcion : sentencias_funcion sentencia_return . '}'  (192)
-	cuerpo_funcion : sentencias_funcion sentencia_return . sentencias_funcion_inalcanzable '}'  (194)
+	cuerpo_funcion : sentencias_funcion sentencia_return . '}'  (204)
+	cuerpo_funcion : sentencias_funcion sentencia_return . sentencias_funcion_inalcanzable '}'  (206)
 
 	ID  shift 2
 	IF  shift 69
@@ -2573,7 +2538,7 @@ state 156
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 225
+	'}'  shift 222
 	.  error
 
 	sentencia_declarativa  goto 150
@@ -2594,7 +2559,7 @@ state 156
 	declaracion_clase_encabezado  goto 32
 	encabezado_funcion  goto 33
 	encabezado_funcion_nombre  goto 34
-	sentencias_funcion_inalcanzable  goto 226
+	sentencias_funcion_inalcanzable  goto 223
 	sentencia_funcion_inalcanzable  goto 154
 
 
@@ -2605,56 +2570,56 @@ state 157
 
 
 state 158
-	tipo : ID .  (212)
+	tipo : ID .  (224)
 
-	.  reduce 212
+	.  reduce 224
 
 
 state 159
-	encabezado_funcion : encabezado_funcion_nombre '(' ')' .  (172)
+	encabezado_funcion : encabezado_funcion_nombre '(' ')' .  (184)
 
-	.  reduce 172
+	.  reduce 184
 
 
 state 160
-	parametro_funcion : tipo . ID  (206)
+	parametro_funcion : tipo . ID  (218)
 
-	ID  shift 227
+	ID  shift 224
 	.  error
 
 
 state 161
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion . ')'  (171)
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion . ',' lista_parametros_funcion_exceso ')'  (173)
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion . lista_parametros_funcion_exceso ')'  (174)
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion . ')'  (183)
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion . ',' lista_parametros_funcion_exceso ')'  (185)
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion . lista_parametros_funcion_exceso ')'  (186)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	','  shift 228
-	')'  shift 229
+	','  shift 225
+	')'  shift 226
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 230
-	lista_parametros_funcion_exceso  goto 231
+	parametro_funcion  goto 227
+	lista_parametros_funcion_exceso  goto 228
 
 
 state 162
-	factor : ID OPERADOR_MENOS .  (230)
+	factor : ID OPERADOR_MENOS .  (242)
 
-	.  reduce 230
+	.  reduce 242
 
 
 state 163
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
-	factor : '(' expresion . ')'  (232)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
+	factor : '(' expresion . ')'  (244)
 
 	'+'  shift 170
 	'-'  shift 171
-	')'  shift 232
+	')'  shift 229
 	.  error
 
 
@@ -2674,7 +2639,7 @@ state 164
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 233
+	'}'  shift 230
 	.  error
 
 	sentencia_declarativa  goto 116
@@ -2685,7 +2650,7 @@ state 164
 	sentencia_seleccion  goto 22
 	sentencia_iterativa_do_while  goto 23
 	sentencia_return  goto 24
-	sentencias_ejecutables  goto 234
+	sentencias_ejecutables  goto 231
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -2700,57 +2665,57 @@ state 164
 
 state 165
 	bloque_sentencias_ejecutables_then : sentencia_declarativa .  (73)
-	sentencias_ejecutables : sentencia_declarativa .  (115)
+	sentencias_ejecutables : sentencia_declarativa .  (127)
 
-	ID  reduce 115
-	IF  reduce 115
+	ID  reduce 127
+	IF  reduce 127
 	ELSE  reduce 73
 	ENDIF  reduce 73
-	PRINT  reduce 115
-	VOID  reduce 115
-	RETURN  reduce 115
-	CLASS  reduce 115
-	DO  reduce 115
-	INTERFACE  reduce 115
-	INT  reduce 115
-	ULONG  reduce 115
-	FLOAT  reduce 115
-	'}'  reduce 115
+	PRINT  reduce 127
+	VOID  reduce 127
+	RETURN  reduce 127
+	CLASS  reduce 127
+	DO  reduce 127
+	INTERFACE  reduce 127
+	INT  reduce 127
+	ULONG  reduce 127
+	FLOAT  reduce 127
+	'}'  reduce 127
 
 
 state 166
 	bloque_sentencias_ejecutables_then : sentencia_ejecutable .  (68)
-	sentencias_ejecutables : sentencia_ejecutable .  (113)
+	sentencias_ejecutables : sentencia_ejecutable .  (125)
 
-	ID  reduce 113
-	IF  reduce 113
+	ID  reduce 125
+	IF  reduce 125
 	ELSE  reduce 68
 	ENDIF  reduce 68
-	PRINT  reduce 113
-	VOID  reduce 113
-	RETURN  reduce 113
-	CLASS  reduce 113
-	DO  reduce 113
-	INTERFACE  reduce 113
-	INT  reduce 113
-	ULONG  reduce 113
-	FLOAT  reduce 113
-	'}'  reduce 113
+	PRINT  reduce 125
+	VOID  reduce 125
+	RETURN  reduce 125
+	CLASS  reduce 125
+	DO  reduce 125
+	INTERFACE  reduce 125
+	INT  reduce 125
+	ULONG  reduce 125
+	FLOAT  reduce 125
+	'}'  reduce 125
 
 
 state 167
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then . ELSE bloque_sentencias_ejecutables ENDIF ','  (54)
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then . ENDIF ','  (55)
 
-	ELSE  shift 235
-	ENDIF  shift 236
+	ELSE  shift 232
+	ENDIF  shift 233
 	.  error
 
 
 state 168
 	bloque_sentencias_ejecutables_then : sentencias_ejecutables . '}'  (71)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (114)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (116)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (126)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (128)
 
 	ID  shift 2
 	IF  shift 3
@@ -2763,7 +2728,7 @@ state 168
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 237
+	'}'  shift 234
 	.  error
 
 	sentencia_declarativa  goto 187
@@ -2797,8 +2762,8 @@ state 169
 
 	ID  shift 2
 	IF  shift 3
-	ELSE  shift 238
-	ENDIF  shift 239
+	ELSE  shift 235
+	ENDIF  shift 236
 	PRINT  shift 4
 	VOID  shift 5
 	RETURN  shift 6
@@ -2819,7 +2784,7 @@ state 169
 	sentencia_seleccion  goto 22
 	sentencia_iterativa_do_while  goto 23
 	sentencia_return  goto 24
-	bloque_sentencias_ejecutables_then  goto 240
+	bloque_sentencias_ejecutables_then  goto 237
 	sentencias_ejecutables  goto 168
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
@@ -2834,7 +2799,7 @@ state 169
 
 
 state 170
-	expresion : expresion '+' . termino  (223)
+	expresion : expresion '+' . termino  (235)
 
 	ID  shift 86
 	CTE  shift 38
@@ -2843,12 +2808,12 @@ state 170
 	.  error
 
 	constante  goto 96
-	termino  goto 241
+	termino  goto 238
 	factor  goto 100
 
 
 state 171
-	expresion : expresion '-' . termino  (224)
+	expresion : expresion '-' . termino  (236)
 
 	ID  shift 86
 	CTE  shift 38
@@ -2857,12 +2822,12 @@ state 171
 	.  error
 
 	constante  goto 96
-	termino  goto 242
+	termino  goto 239
 	factor  goto 100
 
 
 state 172
-	condicion : expresion '=' . expresion  (216)
+	condicion : expresion '=' . expresion  (228)
 
 	ID  shift 86
 	CTE  shift 38
@@ -2871,39 +2836,39 @@ state 172
 	.  error
 
 	constante  goto 96
-	expresion  goto 243
+	expresion  goto 240
 	termino  goto 99
 	factor  goto 100
 
 
 state 173
-	condicion : expresion comparador . expresion  (213)
-	condicion : expresion comparador .  (214)
+	condicion : expresion comparador . expresion  (225)
+	condicion : expresion comparador .  (226)
 
 	ID  shift 86
 	CTE  shift 38
 	'-'  shift 40
 	'('  shift 91
-	')'  reduce 214
+	')'  reduce 226
 
 	constante  goto 96
-	expresion  goto 244
+	expresion  goto 241
 	termino  goto 99
 	factor  goto 100
 
 
 state 174
-	condicion : comparador expresion .  (215)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+	condicion : comparador expresion .  (227)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
 
 	'+'  shift 170
 	'-'  shift 171
-	')'  reduce 215
+	')'  reduce 227
 
 
 state 175
-	termino : termino '*' . factor  (226)
+	termino : termino '*' . factor  (238)
 
 	ID  shift 86
 	CTE  shift 38
@@ -2912,11 +2877,11 @@ state 175
 	.  error
 
 	constante  goto 96
-	factor  goto 245
+	factor  goto 242
 
 
 state 176
-	termino : termino '/' . factor  (227)
+	termino : termino '/' . factor  (239)
 
 	ID  shift 86
 	CTE  shift 38
@@ -2925,19 +2890,19 @@ state 176
 	.  error
 
 	constante  goto 96
-	factor  goto 246
+	factor  goto 243
 
 
 state 177
-	declaracion_clase_encabezado : CLASS ID IMPLEMENT ID .  (163)
+	declaracion_clase_encabezado : CLASS ID IMPLEMENT ID .  (175)
 
-	.  reduce 163
+	.  reduce 175
 
 
 state 178
 	sentencia_iterativa_do_while : DO WHILE '(' condicion . ')' ','  (30)
 
-	')'  shift 247
+	')'  shift 244
 	.  error
 
 
@@ -2950,8 +2915,8 @@ state 179
 state 180
 	bloque_sentencias_ejecutables_while : '{' primer_sentencia sentencias_ejecutables . '}'  (75)
 	bloque_sentencias_ejecutables_while : '{' primer_sentencia sentencias_ejecutables .  (76)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (114)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (116)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (126)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (128)
 
 	ID  shift 2
 	IF  shift 3
@@ -2964,7 +2929,7 @@ state 180
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 248
+	'}'  shift 245
 	WHILE  reduce 76
 	'('  reduce 76
 
@@ -2997,7 +2962,7 @@ state 181
 state 182
 	sentencia_iterativa_do_while : DO '(' condicion ')' . ','  (36)
 
-	','  shift 249
+	','  shift 246
 	.  error
 
 
@@ -3020,12 +2985,12 @@ state 184
 	COMP_DISTINTO  shift 90
 	'-'  shift 40
 	'('  shift 91
-	')'  shift 250
+	')'  shift 247
 	'>'  shift 93
 	'<'  shift 94
 	.  error
 
-	condicion  goto 251
+	condicion  goto 248
 	constante  goto 96
 	expresion  goto 97
 	comparador  goto 98
@@ -3036,7 +3001,7 @@ state 184
 state 185
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while '(' condicion . ')' ','  (32)
 
-	')'  shift 252
+	')'  shift 249
 	.  error
 
 
@@ -3047,26 +3012,26 @@ state 186
 
 
 state 187
-	sentencias_ejecutables : sentencias_ejecutables sentencia_declarativa .  (116)
+	sentencias_ejecutables : sentencias_ejecutables sentencia_declarativa .  (128)
 
-	.  reduce 116
+	.  reduce 128
 
 
 state 188
-	sentencias_ejecutables : sentencias_ejecutables sentencia_ejecutable .  (114)
+	sentencias_ejecutables : sentencias_ejecutables sentencia_ejecutable .  (126)
 
-	.  reduce 114
+	.  reduce 126
 
 
 state 189
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' ')' ',' .  (129)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' ')' ',' .  (141)
 
-	.  reduce 129
+	.  reduce 141
 
 
 state 190
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' . lista_expresiones_invocacion_funcion_exceso ')' ','  (130)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' . lista_expresiones_invocacion_funcion_exceso ')'  (133)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' . lista_expresiones_invocacion_funcion_exceso ')' ','  (142)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' . lista_expresiones_invocacion_funcion_exceso ')'  (145)
 
 	ID  shift 86
 	CTE  shift 38
@@ -3075,139 +3040,139 @@ state 190
 	.  error
 
 	constante  goto 96
-	expresion  goto 253
-	lista_expresiones_invocacion_funcion_exceso  goto 254
+	expresion  goto 250
+	lista_expresiones_invocacion_funcion_exceso  goto 251
 	termino  goto 99
 	factor  goto 100
 
 
 state 191
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' . ','  (128)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' .  (131)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' . ','  (140)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' .  (143)
 
-	','  shift 255
-	$end  reduce 131
-	error  reduce 131
-	ID  reduce 131
-	IF  reduce 131
-	ELSE  reduce 131
-	ENDIF  reduce 131
-	PRINT  reduce 131
-	VOID  reduce 131
-	RETURN  reduce 131
-	CLASS  reduce 131
-	WHILE  reduce 131
-	DO  reduce 131
-	INTERFACE  reduce 131
-	INT  reduce 131
-	ULONG  reduce 131
-	FLOAT  reduce 131
-	'}'  reduce 131
-	'('  reduce 131
+	','  shift 252
+	$end  reduce 143
+	error  reduce 143
+	ID  reduce 143
+	IF  reduce 143
+	ELSE  reduce 143
+	ENDIF  reduce 143
+	PRINT  reduce 143
+	VOID  reduce 143
+	RETURN  reduce 143
+	CLASS  reduce 143
+	WHILE  reduce 143
+	DO  reduce 143
+	INTERFACE  reduce 143
+	INT  reduce 143
+	ULONG  reduce 143
+	FLOAT  reduce 143
+	'}'  reduce 143
+	'('  reduce 143
 
 
 state 192
-	sentencia_asignacion : sentencia_objeto_identificador '=' expresion ',' .  (136)
+	sentencia_asignacion : sentencia_objeto_identificador '=' expresion ',' .  (148)
 
-	.  reduce 136
+	.  reduce 148
 
 
 state 193
-	lista_de_variables : lista_de_variables ';' ID .  (208)
+	lista_de_variables : lista_de_variables ';' ID .  (220)
 
-	.  reduce 208
+	.  reduce 220
 
 
 state 194
-	encabezado_funcion_interfaz : VOID ID . '(' parametro_funcion ')'  (178)
-	encabezado_funcion_interfaz : VOID ID . '(' ')'  (179)
-	encabezado_funcion_interfaz : VOID ID . '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'  (180)
-	encabezado_funcion_interfaz : VOID ID . '(' parametro_funcion lista_parametros_funcion_exceso ')'  (181)
-	encabezado_funcion_interfaz : VOID ID . parametro_funcion ')'  (184)
-	encabezado_funcion_interfaz : VOID ID . ')'  (185)
+	encabezado_funcion_interfaz : VOID ID . '(' parametro_funcion ')'  (190)
+	encabezado_funcion_interfaz : VOID ID . '(' ')'  (191)
+	encabezado_funcion_interfaz : VOID ID . '(' parametro_funcion ',' lista_parametros_funcion_exceso ')'  (192)
+	encabezado_funcion_interfaz : VOID ID . '(' parametro_funcion lista_parametros_funcion_exceso ')'  (193)
+	encabezado_funcion_interfaz : VOID ID . parametro_funcion ')'  (196)
+	encabezado_funcion_interfaz : VOID ID . ')'  (197)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'('  shift 256
-	')'  shift 257
+	'('  shift 253
+	')'  shift 254
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 258
+	parametro_funcion  goto 255
 
 
 state 195
-	encabezado_funcion_interfaz : VOID '(' . parametro_funcion ')'  (182)
-	encabezado_funcion_interfaz : VOID '(' . ')'  (183)
+	encabezado_funcion_interfaz : VOID '(' . parametro_funcion ')'  (194)
+	encabezado_funcion_interfaz : VOID '(' . ')'  (195)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	')'  shift 259
+	')'  shift 256
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 260
+	parametro_funcion  goto 257
 
 
 state 196
-	declaracion_interfaz : declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz '}' .  (150)
+	declaracion_interfaz : declaracion_interfaz_encabezado '{' bloque_encabezado_funcion_declaracion_interfaz '}' .  (162)
 
-	.  reduce 150
+	.  reduce 162
 
 
 state 197
-	bloque_encabezado_funcion_declaracion_interfaz : bloque_encabezado_funcion_declaracion_interfaz encabezado_funcion_declaracion_interfaz .  (153)
+	bloque_encabezado_funcion_declaracion_interfaz : bloque_encabezado_funcion_declaracion_interfaz encabezado_funcion_declaracion_interfaz .  (165)
 
-	.  reduce 153
+	.  reduce 165
 
 
 state 198
-	encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz ',' .  (154)
+	encabezado_funcion_declaracion_interfaz : encabezado_funcion_interfaz ',' .  (166)
 
-	.  reduce 154
+	.  reduce 166
 
 
 state 199
-	sentencia_declarativa_clase : ID ',' .  (160)
+	sentencia_declarativa_clase : ID ',' .  (172)
 
-	.  reduce 160
+	.  reduce 172
 
 
 state 200
-	sentencia_declarativa_clase : declaracion_funcion ',' .  (159)
+	sentencia_declarativa_clase : declaracion_funcion ',' .  (171)
 
-	.  reduce 159
+	.  reduce 171
 
 
 state 201
-	sentencia_declarativa_clase : tipo lista_de_variables . ','  (156)
-	sentencia_declarativa_clase : tipo lista_de_variables .  (157)
-	lista_de_variables : lista_de_variables . ';' ID  (208)
+	sentencia_declarativa_clase : tipo lista_de_variables . ','  (168)
+	sentencia_declarativa_clase : tipo lista_de_variables .  (169)
+	lista_de_variables : lista_de_variables . ';' ID  (220)
 
-	','  shift 261
+	','  shift 258
 	';'  shift 126
-	ID  reduce 157
-	VOID  reduce 157
-	INT  reduce 157
-	ULONG  reduce 157
-	FLOAT  reduce 157
-	'}'  reduce 157
+	ID  reduce 169
+	VOID  reduce 169
+	INT  reduce 169
+	ULONG  reduce 169
+	FLOAT  reduce 169
+	'}'  reduce 169
 
 
 state 202
-	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' .  (161)
+	declaracion_clase : declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' .  (173)
 
-	.  reduce 161
+	.  reduce 173
 
 
 state 203
-	bloque_sentencias_declarativas_clase : bloque_sentencias_declarativas_clase sentencia_declarativa_clase .  (169)
+	bloque_sentencias_declarativas_clase : bloque_sentencias_declarativas_clase sentencia_declarativa_clase .  (181)
 
-	.  reduce 169
+	.  reduce 181
 
 
 state 204
@@ -3224,19 +3189,19 @@ state 204
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'{'  shift 262
+	'{'  shift 259
 	.  error
 
-	sentencia_declarativa  goto 263
+	sentencia_declarativa  goto 260
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 264
-	sentencia_ejecutable_funcion  goto 265
+	sentencia_return  goto 261
+	sentencia_ejecutable_funcion  goto 262
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	bloque_sentencias_ejecutables_then_funcion  goto 266
-	sentencias_ejecutables_funcion  goto 267
+	bloque_sentencias_ejecutables_then_funcion  goto 263
+	sentencias_ejecutables_funcion  goto 264
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -3258,7 +3223,7 @@ state 205
 	sentencia_seleccion_funcion : IF '(' condicion . ')' bloque_sentencias_ejecutables_then_funcion ELSE ENDIF ','  (66)
 	sentencia_seleccion_funcion : IF '(' condicion . ')' ENDIF ','  (67)
 
-	')'  shift 268
+	')'  shift 265
 	.  error
 
 
@@ -3269,56 +3234,40 @@ state 206
 
 
 state 207
-	bloque_sentencias_ejecutables_funcion : '{' '}' .  (108)
+	bloque_sentencias_ejecutables_funcion_while : '{' '}' .  (109)
 
-	.  reduce 108
+	.  reduce 109
 
 
 state 208
-	sentencias_ejecutables_funcion : sentencia_declarativa .  (119)
-
-	.  reduce 119
-
-
-state 209
-	sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (117)
-
-	.  reduce 117
-
-
-state 210
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . '}'  (101)
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . sentencia_return '}'  (102)
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (103)
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion .  (106)
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . sentencia_return  (107)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (118)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (120)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion . '}'  (99)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion . sentencias_ejecutables_funcion '}'  (102)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion . sentencias_ejecutables_funcion sentencia_return '}'  (103)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion . sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (104)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion . sentencias_ejecutables_funcion  (107)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion . sentencias_ejecutables_funcion sentencia_return  (108)
 
 	ID  shift 2
 	IF  shift 69
 	PRINT  shift 4
 	VOID  shift 5
-	RETURN  shift 6
 	CLASS  shift 7
 	DO  shift 70
 	INTERFACE  shift 9
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 269
-	ENDIF  reduce 106
-	WHILE  reduce 106
-	'('  reduce 106
+	'}'  shift 266
+	.  error
 
-	sentencia_declarativa  goto 216
+	sentencia_declarativa  goto 213
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 270
-	sentencia_ejecutable_funcion  goto 218
+	sentencia_ejecutable_funcion  goto 214
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
+	sentencias_ejecutables_funcion  goto 267
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -3331,11 +3280,11 @@ state 210
 	encabezado_funcion_nombre  goto 34
 
 
-state 211
+state 209
 	sentencia_iterativa_do_while_funcion : DO '(' ')' . ','  (48)
 	sentencia_iterativa_do_while_funcion : DO '(' ')' .  (49)
 
-	','  shift 271
+	','  shift 268
 	ID  reduce 49
 	IF  reduce 49
 	ELSE  reduce 49
@@ -3354,26 +3303,26 @@ state 211
 	'('  reduce 49
 
 
-state 212
+state 210
 	sentencia_iterativa_do_while_funcion : DO '(' condicion . ')' ','  (47)
 
-	')'  shift 272
+	')'  shift 269
 	.  error
 
 
-state 213
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE . '(' condicion ')' ','  (39)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE . '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE . '(' ')' ','  (42)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE . ','  (45)
+state 211
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE . '(' condicion ')' ','  (39)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE . '(' condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE . '(' ')' ','  (42)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE . ','  (45)
 
-	','  shift 273
-	'('  shift 274
+	','  shift 270
+	'('  shift 271
 	.  error
 
 
-state 214
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion '(' . condicion ')' ','  (43)
+state 212
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while '(' . condicion ')' ','  (43)
 
 	ID  shift 86
 	CTE  shift 38
@@ -3387,7 +3336,7 @@ state 214
 	'<'  shift 94
 	.  error
 
-	condicion  goto 275
+	condicion  goto 272
 	constante  goto 96
 	expresion  goto 97
 	comparador  goto 98
@@ -3395,40 +3344,67 @@ state 214
 	factor  goto 100
 
 
-state 215
-	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion '}' .  (104)
+state 213
+	sentencias_ejecutables_funcion : sentencia_declarativa .  (131)
 
-	.  reduce 104
+	.  reduce 131
+
+
+state 214
+	sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (129)
+
+	.  reduce 129
+
+
+state 215
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion sentencias_ejecutables_funcion . '}'  (105)
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion sentencias_ejecutables_funcion . sentencia_return '}'  (106)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (130)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (132)
+
+	ID  shift 2
+	IF  shift 69
+	PRINT  shift 4
+	VOID  shift 5
+	RETURN  shift 6
+	CLASS  shift 7
+	DO  shift 70
+	INTERFACE  shift 9
+	INT  shift 10
+	ULONG  shift 11
+	FLOAT  shift 12
+	'}'  shift 273
+	.  error
+
+	sentencia_declarativa  goto 274
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 275
+	sentencia_ejecutable_funcion  goto 276
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencia_objeto_identificador  goto 25
+	declaracion_variable  goto 26
+	declaracion_funcion  goto 27
+	declaracion_clase  goto 28
+	declaracion_interfaz  goto 29
+	tipo  goto 30
+	declaracion_interfaz_encabezado  goto 31
+	declaracion_clase_encabezado  goto 32
+	encabezado_funcion  goto 33
+	encabezado_funcion_nombre  goto 34
 
 
 state 216
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_declarativa .  (120)
+	cuerpo_funcion : '{' sentencia_return '}' .  (199)
 
-	.  reduce 120
+	.  reduce 199
 
 
 state 217
-	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_return . '}'  (105)
-
-	'}'  shift 276
-	.  error
-
-
-state 218
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_ejecutable_funcion .  (118)
-
-	.  reduce 118
-
-
-state 219
-	cuerpo_funcion : '{' sentencia_return '}' .  (187)
-
-	.  reduce 187
-
-
-state 220
-	cuerpo_funcion : '{' sentencia_return sentencias_funcion_inalcanzable . '}'  (189)
-	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (199)
+	cuerpo_funcion : '{' sentencia_return sentencias_funcion_inalcanzable . '}'  (201)
+	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (211)
 
 	ID  shift 2
 	IF  shift 69
@@ -3462,18 +3438,18 @@ state 220
 	declaracion_clase_encabezado  goto 32
 	encabezado_funcion  goto 33
 	encabezado_funcion_nombre  goto 34
-	sentencia_funcion_inalcanzable  goto 224
+	sentencia_funcion_inalcanzable  goto 221
 
 
-state 221
-	cuerpo_funcion : '{' sentencias_funcion '}' .  (190)
+state 218
+	cuerpo_funcion : '{' sentencias_funcion '}' .  (202)
 
-	.  reduce 190
+	.  reduce 202
 
 
-state 222
-	cuerpo_funcion : '{' sentencias_funcion sentencia_return . '}'  (186)
-	cuerpo_funcion : '{' sentencias_funcion sentencia_return . sentencias_funcion_inalcanzable '}'  (188)
+state 219
+	cuerpo_funcion : '{' sentencias_funcion sentencia_return . '}'  (198)
+	cuerpo_funcion : '{' sentencias_funcion sentencia_return . sentencias_funcion_inalcanzable '}'  (200)
 
 	ID  shift 2
 	IF  shift 69
@@ -3511,27 +3487,27 @@ state 222
 	sentencia_funcion_inalcanzable  goto 154
 
 
+state 220
+	cuerpo_funcion : sentencia_return sentencias_funcion_inalcanzable '}' .  (207)
+
+	.  reduce 207
+
+
+state 221
+	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable sentencia_funcion_inalcanzable .  (211)
+
+	.  reduce 211
+
+
+state 222
+	cuerpo_funcion : sentencias_funcion sentencia_return '}' .  (204)
+
+	.  reduce 204
+
+
 state 223
-	cuerpo_funcion : sentencia_return sentencias_funcion_inalcanzable '}' .  (195)
-
-	.  reduce 195
-
-
-state 224
-	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable sentencia_funcion_inalcanzable .  (199)
-
-	.  reduce 199
-
-
-state 225
-	cuerpo_funcion : sentencias_funcion sentencia_return '}' .  (192)
-
-	.  reduce 192
-
-
-state 226
-	cuerpo_funcion : sentencias_funcion sentencia_return sentencias_funcion_inalcanzable . '}'  (194)
-	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (199)
+	cuerpo_funcion : sentencias_funcion sentencia_return sentencias_funcion_inalcanzable . '}'  (206)
+	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (211)
 
 	ID  shift 2
 	IF  shift 69
@@ -3565,17 +3541,17 @@ state 226
 	declaracion_clase_encabezado  goto 32
 	encabezado_funcion  goto 33
 	encabezado_funcion_nombre  goto 34
-	sentencia_funcion_inalcanzable  goto 224
+	sentencia_funcion_inalcanzable  goto 221
 
 
-state 227
-	parametro_funcion : tipo ID .  (206)
+state 224
+	parametro_funcion : tipo ID .  (218)
 
-	.  reduce 206
+	.  reduce 218
 
 
-state 228
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ',' . lista_parametros_funcion_exceso ')'  (173)
+state 225
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ',' . lista_parametros_funcion_exceso ')'  (185)
 
 	ID  shift 158
 	INT  shift 10
@@ -3584,26 +3560,26 @@ state 228
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 230
+	parametro_funcion  goto 227
 	lista_parametros_funcion_exceso  goto 281
 
 
-state 229
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ')' .  (171)
+state 226
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ')' .  (183)
 
-	.  reduce 171
-
-
-state 230
-	lista_parametros_funcion_exceso : parametro_funcion .  (203)
-
-	.  reduce 203
+	.  reduce 183
 
 
-state 231
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso . ')'  (174)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (204)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (205)
+state 227
+	lista_parametros_funcion_exceso : parametro_funcion .  (215)
+
+	.  reduce 215
+
+
+state 228
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso . ')'  (186)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (216)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (217)
 
 	ID  shift 158
 	INT  shift 10
@@ -3617,23 +3593,23 @@ state 231
 	parametro_funcion  goto 284
 
 
-state 232
-	factor : '(' expresion ')' .  (232)
+state 229
+	factor : '(' expresion ')' .  (244)
 
-	.  reduce 232
+	.  reduce 244
 
 
-state 233
+state 230
 	bloque_sentencias_ejecutables_then : '{' '}' .  (72)
 
 	.  reduce 72
 
 
-state 234
+state 231
 	bloque_sentencias_ejecutables_then : '{' sentencias_ejecutables . '}'  (69)
 	bloque_sentencias_ejecutables_then : '{' sentencias_ejecutables .  (70)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (114)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (116)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (126)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (128)
 
 	ID  shift 2
 	IF  shift 3
@@ -3670,7 +3646,7 @@ state 234
 	encabezado_funcion_nombre  goto 34
 
 
-state 235
+state 232
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then ELSE . bloque_sentencias_ejecutables ENDIF ','  (54)
 
 	ID  shift 2
@@ -3708,20 +3684,20 @@ state 235
 	encabezado_funcion_nombre  goto 34
 
 
-state 236
+state 233
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then ENDIF . ','  (55)
 
 	','  shift 290
 	.  error
 
 
-state 237
+state 234
 	bloque_sentencias_ejecutables_then : sentencias_ejecutables '}' .  (71)
 
 	.  reduce 71
 
 
-state 238
+state 235
 	sentencia_seleccion : IF '(' condicion ')' ELSE . bloque_sentencias_ejecutables ENDIF ','  (56)
 
 	ID  shift 2
@@ -3759,14 +3735,14 @@ state 238
 	encabezado_funcion_nombre  goto 34
 
 
-state 239
+state 236
 	sentencia_seleccion : IF '(' condicion ')' ENDIF . ','  (58)
 
 	','  shift 292
 	.  error
 
 
-state 240
+state 237
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then . ELSE bloque_sentencias_ejecutables ENDIF ','  (50)
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then . ENDIF ','  (51)
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then . ELSE bloque_sentencias_ejecutables ENDIF  (52)
@@ -3778,141 +3754,141 @@ state 240
 	.  error
 
 
-state 241
-	expresion : expresion '+' termino .  (223)
-	termino : termino . '*' factor  (226)
-	termino : termino . '/' factor  (227)
+state 238
+	expresion : expresion '+' termino .  (235)
+	termino : termino . '*' factor  (238)
+	termino : termino . '/' factor  (239)
 
 	'*'  shift 175
 	'/'  shift 176
-	$end  reduce 223
-	error  reduce 223
-	ID  reduce 223
-	IF  reduce 223
-	ELSE  reduce 223
-	ENDIF  reduce 223
-	PRINT  reduce 223
-	VOID  reduce 223
-	RETURN  reduce 223
-	COMP_MAYOR_IGUAL  reduce 223
-	COMP_MENOR_IGUAL  reduce 223
-	COMP_IGUAL  reduce 223
-	COMP_DISTINTO  reduce 223
-	CLASS  reduce 223
-	WHILE  reduce 223
-	DO  reduce 223
-	INTERFACE  reduce 223
-	INT  reduce 223
-	ULONG  reduce 223
-	FLOAT  reduce 223
-	'+'  reduce 223
-	'-'  reduce 223
-	'}'  reduce 223
-	','  reduce 223
-	'('  reduce 223
-	')'  reduce 223
-	'='  reduce 223
-	'>'  reduce 223
-	'<'  reduce 223
+	$end  reduce 235
+	error  reduce 235
+	ID  reduce 235
+	IF  reduce 235
+	ELSE  reduce 235
+	ENDIF  reduce 235
+	PRINT  reduce 235
+	VOID  reduce 235
+	RETURN  reduce 235
+	COMP_MAYOR_IGUAL  reduce 235
+	COMP_MENOR_IGUAL  reduce 235
+	COMP_IGUAL  reduce 235
+	COMP_DISTINTO  reduce 235
+	CLASS  reduce 235
+	WHILE  reduce 235
+	DO  reduce 235
+	INTERFACE  reduce 235
+	INT  reduce 235
+	ULONG  reduce 235
+	FLOAT  reduce 235
+	'+'  reduce 235
+	'-'  reduce 235
+	'}'  reduce 235
+	','  reduce 235
+	'('  reduce 235
+	')'  reduce 235
+	'='  reduce 235
+	'>'  reduce 235
+	'<'  reduce 235
+
+
+state 239
+	expresion : expresion '-' termino .  (236)
+	termino : termino . '*' factor  (238)
+	termino : termino . '/' factor  (239)
+
+	'*'  shift 175
+	'/'  shift 176
+	$end  reduce 236
+	error  reduce 236
+	ID  reduce 236
+	IF  reduce 236
+	ELSE  reduce 236
+	ENDIF  reduce 236
+	PRINT  reduce 236
+	VOID  reduce 236
+	RETURN  reduce 236
+	COMP_MAYOR_IGUAL  reduce 236
+	COMP_MENOR_IGUAL  reduce 236
+	COMP_IGUAL  reduce 236
+	COMP_DISTINTO  reduce 236
+	CLASS  reduce 236
+	WHILE  reduce 236
+	DO  reduce 236
+	INTERFACE  reduce 236
+	INT  reduce 236
+	ULONG  reduce 236
+	FLOAT  reduce 236
+	'+'  reduce 236
+	'-'  reduce 236
+	'}'  reduce 236
+	','  reduce 236
+	'('  reduce 236
+	')'  reduce 236
+	'='  reduce 236
+	'>'  reduce 236
+	'<'  reduce 236
+
+
+state 240
+	condicion : expresion '=' expresion .  (228)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
+
+	'+'  shift 170
+	'-'  shift 171
+	')'  reduce 228
+
+
+state 241
+	condicion : expresion comparador expresion .  (225)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
+
+	'+'  shift 170
+	'-'  shift 171
+	')'  reduce 225
 
 
 state 242
-	expresion : expresion '-' termino .  (224)
-	termino : termino . '*' factor  (226)
-	termino : termino . '/' factor  (227)
+	termino : termino '*' factor .  (238)
 
-	'*'  shift 175
-	'/'  shift 176
-	$end  reduce 224
-	error  reduce 224
-	ID  reduce 224
-	IF  reduce 224
-	ELSE  reduce 224
-	ENDIF  reduce 224
-	PRINT  reduce 224
-	VOID  reduce 224
-	RETURN  reduce 224
-	COMP_MAYOR_IGUAL  reduce 224
-	COMP_MENOR_IGUAL  reduce 224
-	COMP_IGUAL  reduce 224
-	COMP_DISTINTO  reduce 224
-	CLASS  reduce 224
-	WHILE  reduce 224
-	DO  reduce 224
-	INTERFACE  reduce 224
-	INT  reduce 224
-	ULONG  reduce 224
-	FLOAT  reduce 224
-	'+'  reduce 224
-	'-'  reduce 224
-	'}'  reduce 224
-	','  reduce 224
-	'('  reduce 224
-	')'  reduce 224
-	'='  reduce 224
-	'>'  reduce 224
-	'<'  reduce 224
+	.  reduce 238
 
 
 state 243
-	condicion : expresion '=' expresion .  (216)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+	termino : termino '/' factor .  (239)
 
-	'+'  shift 170
-	'-'  shift 171
-	')'  reduce 216
+	.  reduce 239
 
 
 state 244
-	condicion : expresion comparador expresion .  (213)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
-
-	'+'  shift 170
-	'-'  shift 171
-	')'  reduce 213
-
-
-state 245
-	termino : termino '*' factor .  (226)
-
-	.  reduce 226
-
-
-state 246
-	termino : termino '/' factor .  (227)
-
-	.  reduce 227
-
-
-state 247
 	sentencia_iterativa_do_while : DO WHILE '(' condicion ')' . ','  (30)
 
 	','  shift 295
 	.  error
 
 
-state 248
+state 245
 	bloque_sentencias_ejecutables_while : '{' primer_sentencia sentencias_ejecutables '}' .  (75)
 
 	.  reduce 75
 
 
-state 249
+state 246
 	sentencia_iterativa_do_while : DO '(' condicion ')' ',' .  (36)
 
 	.  reduce 36
 
 
-state 250
+state 247
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while WHILE '(' ')' . ','  (31)
 
 	','  shift 296
 	.  error
 
 
-state 251
+state 248
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while WHILE '(' condicion . ')' ','  (28)
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while WHILE '(' condicion . ')'  (29)
 
@@ -3920,45 +3896,45 @@ state 251
 	.  error
 
 
-state 252
+state 249
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while '(' condicion ')' . ','  (32)
 
 	','  shift 298
 	.  error
 
 
-state 253
-	lista_expresiones_invocacion_funcion_exceso : expresion .  (134)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+state 250
+	lista_expresiones_invocacion_funcion_exceso : expresion .  (146)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
 
 	'+'  shift 170
 	'-'  shift 171
-	','  reduce 134
-	')'  reduce 134
+	','  reduce 146
+	')'  reduce 146
 
 
-state 254
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso . ')' ','  (130)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso . ')'  (133)
-	lista_expresiones_invocacion_funcion_exceso : lista_expresiones_invocacion_funcion_exceso . ',' expresion  (135)
+state 251
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso . ')' ','  (142)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso . ')'  (145)
+	lista_expresiones_invocacion_funcion_exceso : lista_expresiones_invocacion_funcion_exceso . ',' expresion  (147)
 
 	','  shift 299
 	')'  shift 300
 	.  error
 
 
-state 255
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' ',' .  (128)
+state 252
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ')' ',' .  (140)
 
-	.  reduce 128
+	.  reduce 140
 
 
-state 256
-	encabezado_funcion_interfaz : VOID ID '(' . parametro_funcion ')'  (178)
-	encabezado_funcion_interfaz : VOID ID '(' . ')'  (179)
-	encabezado_funcion_interfaz : VOID ID '(' . parametro_funcion ',' lista_parametros_funcion_exceso ')'  (180)
-	encabezado_funcion_interfaz : VOID ID '(' . parametro_funcion lista_parametros_funcion_exceso ')'  (181)
+state 253
+	encabezado_funcion_interfaz : VOID ID '(' . parametro_funcion ')'  (190)
+	encabezado_funcion_interfaz : VOID ID '(' . ')'  (191)
+	encabezado_funcion_interfaz : VOID ID '(' . parametro_funcion ',' lista_parametros_funcion_exceso ')'  (192)
+	encabezado_funcion_interfaz : VOID ID '(' . parametro_funcion lista_parametros_funcion_exceso ')'  (193)
 
 	ID  shift 158
 	INT  shift 10
@@ -3971,45 +3947,45 @@ state 256
 	parametro_funcion  goto 302
 
 
-state 257
-	encabezado_funcion_interfaz : VOID ID ')' .  (185)
+state 254
+	encabezado_funcion_interfaz : VOID ID ')' .  (197)
 
-	.  reduce 185
+	.  reduce 197
 
 
-state 258
-	encabezado_funcion_interfaz : VOID ID parametro_funcion . ')'  (184)
+state 255
+	encabezado_funcion_interfaz : VOID ID parametro_funcion . ')'  (196)
 
 	')'  shift 303
 	.  error
 
 
-state 259
-	encabezado_funcion_interfaz : VOID '(' ')' .  (183)
+state 256
+	encabezado_funcion_interfaz : VOID '(' ')' .  (195)
 
-	.  reduce 183
+	.  reduce 195
 
 
-state 260
-	encabezado_funcion_interfaz : VOID '(' parametro_funcion . ')'  (182)
+state 257
+	encabezado_funcion_interfaz : VOID '(' parametro_funcion . ')'  (194)
 
 	')'  shift 304
 	.  error
 
 
-state 261
-	sentencia_declarativa_clase : tipo lista_de_variables ',' .  (156)
+state 258
+	sentencia_declarativa_clase : tipo lista_de_variables ',' .  (168)
 
-	.  reduce 156
+	.  reduce 168
 
 
-state 262
-	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion '}'  (90)
-	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion sentencia_return '}'  (91)
-	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (92)
-	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion  (95)
-	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion sentencia_return  (96)
-	bloque_sentencias_ejecutables_then_funcion : '{' . '}'  (97)
+state 259
+	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion '}'  (91)
+	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion sentencia_return '}'  (92)
+	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (93)
+	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion  (96)
+	bloque_sentencias_ejecutables_then_funcion : '{' . sentencias_ejecutables_funcion sentencia_return  (97)
+	bloque_sentencias_ejecutables_then_funcion : '{' . '}'  (98)
 
 	ID  shift 2
 	IF  shift 69
@@ -4024,11 +4000,11 @@ state 262
 	'}'  shift 305
 	.  error
 
-	sentencia_declarativa  goto 208
+	sentencia_declarativa  goto 213
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_ejecutable_funcion  goto 209
+	sentencia_ejecutable_funcion  goto 214
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
 	sentencias_ejecutables_funcion  goto 306
@@ -4044,64 +4020,64 @@ state 262
 	encabezado_funcion_nombre  goto 34
 
 
+state 260
+	bloque_sentencias_ejecutables_then_funcion : sentencia_declarativa .  (90)
+	sentencias_ejecutables_funcion : sentencia_declarativa .  (131)
+
+	ID  reduce 131
+	IF  reduce 131
+	ELSE  reduce 90
+	ENDIF  reduce 90
+	PRINT  reduce 131
+	VOID  reduce 131
+	RETURN  reduce 131
+	CLASS  reduce 131
+	DO  reduce 131
+	INTERFACE  reduce 131
+	INT  reduce 131
+	ULONG  reduce 131
+	FLOAT  reduce 131
+	'}'  reduce 131
+
+
+state 261
+	bloque_sentencias_ejecutables_then_funcion : sentencia_return .  (89)
+
+	.  reduce 89
+
+
+state 262
+	bloque_sentencias_ejecutables_then_funcion : sentencia_ejecutable_funcion .  (88)
+	sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (129)
+
+	ID  reduce 129
+	IF  reduce 129
+	ELSE  reduce 88
+	ENDIF  reduce 88
+	PRINT  reduce 129
+	VOID  reduce 129
+	RETURN  reduce 129
+	CLASS  reduce 129
+	DO  reduce 129
+	INTERFACE  reduce 129
+	INT  reduce 129
+	ULONG  reduce 129
+	FLOAT  reduce 129
+	'}'  reduce 129
+
+
 state 263
-	bloque_sentencias_ejecutables_then_funcion : sentencia_declarativa .  (89)
-	sentencias_ejecutables_funcion : sentencia_declarativa .  (119)
-
-	ID  reduce 119
-	IF  reduce 119
-	ELSE  reduce 89
-	ENDIF  reduce 89
-	PRINT  reduce 119
-	VOID  reduce 119
-	RETURN  reduce 119
-	CLASS  reduce 119
-	DO  reduce 119
-	INTERFACE  reduce 119
-	INT  reduce 119
-	ULONG  reduce 119
-	FLOAT  reduce 119
-	'}'  reduce 119
-
-
-state 264
-	bloque_sentencias_ejecutables_then_funcion : sentencia_return .  (88)
-
-	.  reduce 88
-
-
-state 265
-	bloque_sentencias_ejecutables_then_funcion : sentencia_ejecutable_funcion .  (87)
-	sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (117)
-
-	ID  reduce 117
-	IF  reduce 117
-	ELSE  reduce 87
-	ENDIF  reduce 87
-	PRINT  reduce 117
-	VOID  reduce 117
-	RETURN  reduce 117
-	CLASS  reduce 117
-	DO  reduce 117
-	INTERFACE  reduce 117
-	INT  reduce 117
-	ULONG  reduce 117
-	FLOAT  reduce 117
-	'}'  reduce 117
-
-
-state 266
 	sentencia_seleccion_funcion : IF '(' ')' bloque_sentencias_ejecutables_then_funcion . ENDIF ','  (64)
 
 	ENDIF  shift 307
 	.  error
 
 
-state 267
-	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion . '}'  (93)
-	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion . sentencia_return '}'  (94)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (118)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (120)
+state 264
+	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion . '}'  (94)
+	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion . sentencia_return '}'  (95)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (130)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (132)
 
 	ID  shift 2
 	IF  shift 69
@@ -4117,12 +4093,12 @@ state 267
 	'}'  shift 308
 	.  error
 
-	sentencia_declarativa  goto 216
+	sentencia_declarativa  goto 274
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
 	sentencia_return  goto 309
-	sentencia_ejecutable_funcion  goto 218
+	sentencia_ejecutable_funcion  goto 276
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
 	sentencia_objeto_identificador  goto 25
@@ -4137,7 +4113,7 @@ state 267
 	encabezado_funcion_nombre  goto 34
 
 
-state 268
+state 265
 	sentencia_seleccion_funcion : IF '(' condicion ')' . bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (59)
 	sentencia_seleccion_funcion : IF '(' condicion ')' . bloque_sentencias_ejecutables_then_funcion ENDIF ','  (60)
 	sentencia_seleccion_funcion : IF '(' condicion ')' . bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF  (61)
@@ -4159,19 +4135,19 @@ state 268
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'{'  shift 262
+	'{'  shift 259
 	.  error
 
-	sentencia_declarativa  goto 263
+	sentencia_declarativa  goto 260
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 264
-	sentencia_ejecutable_funcion  goto 265
+	sentencia_return  goto 261
+	sentencia_ejecutable_funcion  goto 262
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
 	bloque_sentencias_ejecutables_then_funcion  goto 312
-	sentencias_ejecutables_funcion  goto 267
+	sentencias_ejecutables_funcion  goto 264
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -4184,112 +4160,20 @@ state 268
 	encabezado_funcion_nombre  goto 34
 
 
-state 269
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion '}' .  (101)
+state 266
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion '}' .  (99)
 
-	.  reduce 101
-
-
-state 270
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return . '}'  (102)
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return . sentencias_ejecutables_funcion_inalcanzable '}'  (103)
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return .  (107)
-
-	ID  shift 109
-	IF  shift 69
-	PRINT  shift 4
-	RETURN  shift 6
-	DO  shift 70
-	'}'  shift 313
-	ENDIF  reduce 107
-	WHILE  reduce 107
-	'('  reduce 107
-
-	sentencia_asignacion  goto 74
-	sentencia_invocacion_funcion  goto 75
-	sentencia_imprimir  goto 76
-	sentencia_return  goto 314
-	sentencia_ejecutable_funcion  goto 315
-	sentencia_seleccion_funcion  goto 81
-	sentencia_iterativa_do_while_funcion  goto 82
-	sentencias_ejecutables_funcion_inalcanzable  goto 316
-	sentencia_ejecutable_funcion_inalcanzable  goto 317
-	sentencia_objeto_identificador  goto 25
+	.  reduce 99
 
 
-state 271
-	sentencia_iterativa_do_while_funcion : DO '(' ')' ',' .  (48)
-
-	.  reduce 48
-
-
-state 272
-	sentencia_iterativa_do_while_funcion : DO '(' condicion ')' . ','  (47)
-
-	','  shift 318
-	.  error
-
-
-state 273
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE ',' .  (45)
-
-	.  reduce 45
-
-
-state 274
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' . condicion ')' ','  (39)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' . condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' . ')' ','  (42)
-
-	ID  shift 86
-	CTE  shift 38
-	COMP_MAYOR_IGUAL  shift 87
-	COMP_MENOR_IGUAL  shift 88
-	COMP_IGUAL  shift 89
-	COMP_DISTINTO  shift 90
-	'-'  shift 40
-	'('  shift 91
-	')'  shift 319
-	'>'  shift 93
-	'<'  shift 94
-	.  error
-
-	condicion  goto 320
-	constante  goto 96
-	expresion  goto 97
-	comparador  goto 98
-	termino  goto 99
-	factor  goto 100
-
-
-state 275
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion '(' condicion . ')' ','  (43)
-
-	')'  shift 321
-	.  error
-
-
-state 276
-	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_return '}' .  (105)
-
-	.  reduce 105
-
-
-state 277
-	cuerpo_funcion : '{' sentencia_return sentencias_funcion_inalcanzable '}' .  (189)
-
-	.  reduce 189
-
-
-state 278
-	cuerpo_funcion : '{' sentencias_funcion sentencia_return '}' .  (186)
-
-	.  reduce 186
-
-
-state 279
-	cuerpo_funcion : '{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable . '}'  (188)
-	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (199)
+state 267
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion . '}'  (102)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion . sentencia_return '}'  (103)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion . sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (104)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion .  (107)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion . sentencia_return  (108)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (130)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (132)
 
 	ID  shift 2
 	IF  shift 69
@@ -4302,7 +4186,135 @@ state 279
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 322
+	'}'  shift 313
+	WHILE  reduce 107
+	'('  reduce 107
+
+	sentencia_declarativa  goto 274
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 314
+	sentencia_ejecutable_funcion  goto 276
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencia_objeto_identificador  goto 25
+	declaracion_variable  goto 26
+	declaracion_funcion  goto 27
+	declaracion_clase  goto 28
+	declaracion_interfaz  goto 29
+	tipo  goto 30
+	declaracion_interfaz_encabezado  goto 31
+	declaracion_clase_encabezado  goto 32
+	encabezado_funcion  goto 33
+	encabezado_funcion_nombre  goto 34
+
+
+state 268
+	sentencia_iterativa_do_while_funcion : DO '(' ')' ',' .  (48)
+
+	.  reduce 48
+
+
+state 269
+	sentencia_iterativa_do_while_funcion : DO '(' condicion ')' . ','  (47)
+
+	','  shift 315
+	.  error
+
+
+state 270
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE ',' .  (45)
+
+	.  reduce 45
+
+
+state 271
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' . condicion ')' ','  (39)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' . condicion ')' $$1 DO WHILE '(' condicion ')' ','  (41)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' . ')' ','  (42)
+
+	ID  shift 86
+	CTE  shift 38
+	COMP_MAYOR_IGUAL  shift 87
+	COMP_MENOR_IGUAL  shift 88
+	COMP_IGUAL  shift 89
+	COMP_DISTINTO  shift 90
+	'-'  shift 40
+	'('  shift 91
+	')'  shift 316
+	'>'  shift 93
+	'<'  shift 94
+	.  error
+
+	condicion  goto 317
+	constante  goto 96
+	expresion  goto 97
+	comparador  goto 98
+	termino  goto 99
+	factor  goto 100
+
+
+state 272
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while '(' condicion . ')' ','  (43)
+
+	')'  shift 318
+	.  error
+
+
+state 273
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion sentencias_ejecutables_funcion '}' .  (105)
+
+	.  reduce 105
+
+
+state 274
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_declarativa .  (132)
+
+	.  reduce 132
+
+
+state 275
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return . '}'  (106)
+
+	'}'  shift 319
+	.  error
+
+
+state 276
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_ejecutable_funcion .  (130)
+
+	.  reduce 130
+
+
+state 277
+	cuerpo_funcion : '{' sentencia_return sentencias_funcion_inalcanzable '}' .  (201)
+
+	.  reduce 201
+
+
+state 278
+	cuerpo_funcion : '{' sentencias_funcion sentencia_return '}' .  (198)
+
+	.  reduce 198
+
+
+state 279
+	cuerpo_funcion : '{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable . '}'  (200)
+	sentencias_funcion_inalcanzable : sentencias_funcion_inalcanzable . sentencia_funcion_inalcanzable  (211)
+
+	ID  shift 2
+	IF  shift 69
+	PRINT  shift 4
+	VOID  shift 5
+	RETURN  shift 6
+	CLASS  shift 7
+	DO  shift 70
+	INTERFACE  shift 9
+	INT  shift 10
+	ULONG  shift 11
+	FLOAT  shift 12
+	'}'  shift 320
 	.  error
 
 	sentencia_declarativa  goto 150
@@ -4323,26 +4335,26 @@ state 279
 	declaracion_clase_encabezado  goto 32
 	encabezado_funcion  goto 33
 	encabezado_funcion_nombre  goto 34
-	sentencia_funcion_inalcanzable  goto 224
+	sentencia_funcion_inalcanzable  goto 221
 
 
 state 280
-	cuerpo_funcion : sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' .  (194)
+	cuerpo_funcion : sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' .  (206)
 
-	.  reduce 194
+	.  reduce 206
 
 
 state 281
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso . ')'  (173)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (204)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (205)
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso . ')'  (185)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (216)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (217)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
 	','  shift 282
-	')'  shift 323
+	')'  shift 321
 	.  error
 
 	tipo  goto 160
@@ -4350,7 +4362,7 @@ state 281
 
 
 state 282
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso ',' . parametro_funcion  (204)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso ',' . parametro_funcion  (216)
 
 	ID  shift 158
 	INT  shift 10
@@ -4359,19 +4371,19 @@ state 282
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 324
+	parametro_funcion  goto 322
 
 
 state 283
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')' .  (174)
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion lista_parametros_funcion_exceso ')' .  (186)
 
-	.  reduce 174
+	.  reduce 186
 
 
 state 284
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso parametro_funcion .  (205)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso parametro_funcion .  (217)
 
-	.  reduce 205
+	.  reduce 217
 
 
 state 285
@@ -4381,19 +4393,19 @@ state 285
 
 
 state 286
-	bloque_sentencias_ejecutables : '{' . sentencia_ejecutable sentencias_ejecutables '}'  (82)
-	bloque_sentencias_ejecutables : '{' . sentencia_ejecutable sentencias_ejecutables  (83)
-	bloque_sentencias_ejecutables : '{' . '}'  (85)
+	bloque_sentencias_ejecutables : '{' . sentencia_ejecutable sentencias_ejecutables '}'  (83)
+	bloque_sentencias_ejecutables : '{' . sentencia_ejecutable sentencias_ejecutables  (84)
+	bloque_sentencias_ejecutables : '{' . '}'  (86)
 
 	ID  shift 109
 	IF  shift 3
 	PRINT  shift 4
 	RETURN  shift 6
 	DO  shift 8
-	'}'  shift 325
+	'}'  shift 323
 	.  error
 
-	sentencia_ejecutable  goto 326
+	sentencia_ejecutable  goto 324
 	sentencia_asignacion  goto 19
 	sentencia_invocacion_funcion  goto 20
 	sentencia_imprimir  goto 21
@@ -4404,14 +4416,14 @@ state 286
 
 
 state 287
-	bloque_sentencias_ejecutables : sentencia_declarativa .  (86)
+	bloque_sentencias_ejecutables : sentencia_declarativa .  (87)
 
-	.  reduce 86
+	.  reduce 87
 
 
 state 288
-	bloque_sentencias_ejecutables : sentencia_ejecutable .  (81)
-	bloque_sentencias_ejecutables : sentencia_ejecutable . sentencias_ejecutables '}'  (84)
+	bloque_sentencias_ejecutables : sentencia_ejecutable .  (82)
+	bloque_sentencias_ejecutables : sentencia_ejecutable . sentencias_ejecutables '}'  (85)
 
 	ID  shift 2
 	IF  shift 3
@@ -4424,7 +4436,7 @@ state 288
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	ENDIF  reduce 81
+	ENDIF  reduce 82
 
 	sentencia_declarativa  goto 116
 	sentencia_ejecutable  goto 117
@@ -4434,7 +4446,7 @@ state 288
 	sentencia_seleccion  goto 22
 	sentencia_iterativa_do_while  goto 23
 	sentencia_return  goto 24
-	sentencias_ejecutables  goto 327
+	sentencias_ejecutables  goto 325
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -4450,7 +4462,7 @@ state 288
 state 289
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables . ENDIF ','  (54)
 
-	ENDIF  shift 328
+	ENDIF  shift 326
 	.  error
 
 
@@ -4463,7 +4475,7 @@ state 290
 state 291
 	sentencia_seleccion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables . ENDIF ','  (56)
 
-	ENDIF  shift 329
+	ENDIF  shift 327
 	.  error
 
 
@@ -4480,7 +4492,7 @@ state 293
 
 	ID  shift 2
 	IF  shift 3
-	ENDIF  shift 330
+	ENDIF  shift 328
 	PRINT  shift 4
 	VOID  shift 5
 	RETURN  shift 6
@@ -4501,7 +4513,7 @@ state 293
 	sentencia_seleccion  goto 22
 	sentencia_iterativa_do_while  goto 23
 	sentencia_return  goto 24
-	bloque_sentencias_ejecutables  goto 331
+	bloque_sentencias_ejecutables  goto 329
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -4518,7 +4530,7 @@ state 294
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ENDIF . ','  (51)
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ENDIF .  (53)
 
-	','  shift 332
+	','  shift 330
 	$end  reduce 53
 	error  reduce 53
 	ID  reduce 53
@@ -4555,7 +4567,7 @@ state 297
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while WHILE '(' condicion ')' . ','  (28)
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while WHILE '(' condicion ')' .  (29)
 
-	','  shift 333
+	','  shift 331
 	$end  reduce 29
 	error  reduce 29
 	ID  reduce 29
@@ -4583,7 +4595,7 @@ state 298
 
 
 state 299
-	lista_expresiones_invocacion_funcion_exceso : lista_expresiones_invocacion_funcion_exceso ',' . expresion  (135)
+	lista_expresiones_invocacion_funcion_exceso : lista_expresiones_invocacion_funcion_exceso ',' . expresion  (147)
 
 	ID  shift 86
 	CTE  shift 38
@@ -4592,86 +4604,86 @@ state 299
 	.  error
 
 	constante  goto 96
-	expresion  goto 334
+	expresion  goto 332
 	termino  goto 99
 	factor  goto 100
 
 
 state 300
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' . ','  (130)
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' .  (133)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' . ','  (142)
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' .  (145)
 
-	','  shift 335
-	$end  reduce 133
-	error  reduce 133
-	ID  reduce 133
-	IF  reduce 133
-	ELSE  reduce 133
-	ENDIF  reduce 133
-	PRINT  reduce 133
-	VOID  reduce 133
-	RETURN  reduce 133
-	CLASS  reduce 133
-	WHILE  reduce 133
-	DO  reduce 133
-	INTERFACE  reduce 133
-	INT  reduce 133
-	ULONG  reduce 133
-	FLOAT  reduce 133
-	'}'  reduce 133
-	'('  reduce 133
+	','  shift 333
+	$end  reduce 145
+	error  reduce 145
+	ID  reduce 145
+	IF  reduce 145
+	ELSE  reduce 145
+	ENDIF  reduce 145
+	PRINT  reduce 145
+	VOID  reduce 145
+	RETURN  reduce 145
+	CLASS  reduce 145
+	WHILE  reduce 145
+	DO  reduce 145
+	INTERFACE  reduce 145
+	INT  reduce 145
+	ULONG  reduce 145
+	FLOAT  reduce 145
+	'}'  reduce 145
+	'('  reduce 145
 
 
 state 301
-	encabezado_funcion_interfaz : VOID ID '(' ')' .  (179)
+	encabezado_funcion_interfaz : VOID ID '(' ')' .  (191)
 
-	.  reduce 179
+	.  reduce 191
 
 
 state 302
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion . ')'  (178)
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion . ',' lista_parametros_funcion_exceso ')'  (180)
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion . lista_parametros_funcion_exceso ')'  (181)
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion . ')'  (190)
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion . ',' lista_parametros_funcion_exceso ')'  (192)
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion . lista_parametros_funcion_exceso ')'  (193)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	','  shift 336
-	')'  shift 337
+	','  shift 334
+	')'  shift 335
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 230
-	lista_parametros_funcion_exceso  goto 338
+	parametro_funcion  goto 227
+	lista_parametros_funcion_exceso  goto 336
 
 
 state 303
-	encabezado_funcion_interfaz : VOID ID parametro_funcion ')' .  (184)
+	encabezado_funcion_interfaz : VOID ID parametro_funcion ')' .  (196)
 
-	.  reduce 184
+	.  reduce 196
 
 
 state 304
-	encabezado_funcion_interfaz : VOID '(' parametro_funcion ')' .  (182)
+	encabezado_funcion_interfaz : VOID '(' parametro_funcion ')' .  (194)
 
-	.  reduce 182
+	.  reduce 194
 
 
 state 305
-	bloque_sentencias_ejecutables_then_funcion : '{' '}' .  (97)
+	bloque_sentencias_ejecutables_then_funcion : '{' '}' .  (98)
 
-	.  reduce 97
+	.  reduce 98
 
 
 state 306
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . '}'  (90)
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . sentencia_return '}'  (91)
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (92)
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion .  (95)
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . sentencia_return  (96)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (118)
-	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (120)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . '}'  (91)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . sentencia_return '}'  (92)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (93)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion .  (96)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion . sentencia_return  (97)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (130)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (132)
 
 	ID  shift 2
 	IF  shift 69
@@ -4684,16 +4696,16 @@ state 306
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 339
-	ELSE  reduce 95
-	ENDIF  reduce 95
+	'}'  shift 337
+	ELSE  reduce 96
+	ENDIF  reduce 96
 
-	sentencia_declarativa  goto 216
+	sentencia_declarativa  goto 274
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 340
-	sentencia_ejecutable_funcion  goto 218
+	sentencia_return  goto 338
+	sentencia_ejecutable_funcion  goto 276
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
 	sentencia_objeto_identificador  goto 25
@@ -4711,20 +4723,20 @@ state 306
 state 307
 	sentencia_seleccion_funcion : IF '(' ')' bloque_sentencias_ejecutables_then_funcion ENDIF . ','  (64)
 
-	','  shift 341
+	','  shift 339
 	.  error
 
 
 state 308
-	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion '}' .  (93)
+	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion '}' .  (94)
 
-	.  reduce 93
+	.  reduce 94
 
 
 state 309
-	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion sentencia_return . '}'  (94)
+	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion sentencia_return . '}'  (95)
 
-	'}'  shift 342
+	'}'  shift 340
 	.  error
 
 
@@ -4742,19 +4754,19 @@ state 310
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'{'  shift 138
+	'{'  shift 341
 	.  error
 
-	sentencia_declarativa  goto 141
+	sentencia_declarativa  goto 342
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 142
-	sentencia_ejecutable_funcion  goto 143
+	sentencia_return  goto 343
+	sentencia_ejecutable_funcion  goto 344
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	bloque_sentencias_ejecutables_funcion  goto 343
-	sentencias_ejecutables_funcion  goto 145
+	bloque_sentencias_ejecutables_funcion  goto 345
+	sentencias_ejecutables_funcion  goto 346
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -4770,7 +4782,7 @@ state 310
 state 311
 	sentencia_seleccion_funcion : IF '(' condicion ')' ENDIF . ','  (67)
 
-	','  shift 344
+	','  shift 347
 	.  error
 
 
@@ -4781,113 +4793,104 @@ state 312
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion . ENDIF $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion . ELSE ENDIF ','  (66)
 
-	ELSE  shift 345
-	ENDIF  shift 346
+	ELSE  shift 348
+	ENDIF  shift 349
 	.  error
 
 
 state 313
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return '}' .  (102)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion '}' .  (102)
 
 	.  reduce 102
 
 
 state 314
-	sentencia_ejecutable_funcion_inalcanzable : sentencia_return .  (111)
-
-	.  reduce 111
-
-
-state 315
-	sentencia_ejecutable_funcion_inalcanzable : sentencia_ejecutable_funcion .  (112)
-
-	.  reduce 112
-
-
-state 316
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable . '}'  (103)
-	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable . sentencia_ejecutable_funcion_inalcanzable  (110)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return . '}'  (103)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return . sentencias_ejecutables_funcion_inalcanzable '}'  (104)
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return .  (108)
 
 	ID  shift 109
 	IF  shift 69
 	PRINT  shift 4
 	RETURN  shift 6
 	DO  shift 70
-	'}'  shift 347
-	.  error
+	'}'  shift 350
+	WHILE  reduce 108
+	'('  reduce 108
 
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 314
-	sentencia_ejecutable_funcion  goto 315
+	sentencia_return  goto 351
+	sentencia_ejecutable_funcion  goto 352
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	sentencia_ejecutable_funcion_inalcanzable  goto 348
+	sentencias_ejecutables_funcion_inalcanzable  goto 353
+	sentencia_ejecutable_funcion_inalcanzable  goto 354
 	sentencia_objeto_identificador  goto 25
 
 
-state 317
-	sentencias_ejecutables_funcion_inalcanzable : sentencia_ejecutable_funcion_inalcanzable .  (109)
-
-	.  reduce 109
-
-
-state 318
+state 315
 	sentencia_iterativa_do_while_funcion : DO '(' condicion ')' ',' .  (47)
 
 	.  reduce 47
 
 
-state 319
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' . ','  (42)
+state 316
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' ')' . ','  (42)
 
-	','  shift 349
+	','  shift 355
 	.  error
+
+
+state 317
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion . ')' ','  (39)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion . ')' $$1 DO WHILE '(' condicion ')' ','  (41)
+
+	')'  shift 356
+	.  error
+
+
+state 318
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while '(' condicion ')' . ','  (43)
+
+	','  shift 357
+	.  error
+
+
+state 319
+	bloque_sentencias_ejecutables_funcion_while : primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}' .  (106)
+
+	.  reduce 106
 
 
 state 320
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion . ')' ','  (39)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion . ')' $$1 DO WHILE '(' condicion ')' ','  (41)
+	cuerpo_funcion : '{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' .  (200)
 
-	')'  shift 350
-	.  error
+	.  reduce 200
 
 
 state 321
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion '(' condicion ')' . ','  (43)
+	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' .  (185)
 
-	','  shift 351
-	.  error
+	.  reduce 185
 
 
 state 322
-	cuerpo_funcion : '{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' .  (188)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso ',' parametro_funcion .  (216)
 
-	.  reduce 188
+	.  reduce 216
 
 
 state 323
-	encabezado_funcion : encabezado_funcion_nombre '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' .  (173)
+	bloque_sentencias_ejecutables : '{' '}' .  (86)
 
-	.  reduce 173
+	.  reduce 86
 
 
 state 324
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso ',' parametro_funcion .  (204)
-
-	.  reduce 204
-
-
-state 325
-	bloque_sentencias_ejecutables : '{' '}' .  (85)
-
-	.  reduce 85
-
-
-state 326
-	bloque_sentencias_ejecutables : '{' sentencia_ejecutable . sentencias_ejecutables '}'  (82)
-	bloque_sentencias_ejecutables : '{' sentencia_ejecutable . sentencias_ejecutables  (83)
+	bloque_sentencias_ejecutables : '{' sentencia_ejecutable . sentencias_ejecutables '}'  (83)
+	bloque_sentencias_ejecutables : '{' sentencia_ejecutable . sentencias_ejecutables  (84)
 
 	ID  shift 2
 	IF  shift 3
@@ -4910,7 +4913,7 @@ state 326
 	sentencia_seleccion  goto 22
 	sentencia_iterativa_do_while  goto 23
 	sentencia_return  goto 24
-	sentencias_ejecutables  goto 352
+	sentencias_ejecutables  goto 358
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -4923,10 +4926,10 @@ state 326
 	encabezado_funcion_nombre  goto 34
 
 
-state 327
-	bloque_sentencias_ejecutables : sentencia_ejecutable sentencias_ejecutables . '}'  (84)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (114)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (116)
+state 325
+	bloque_sentencias_ejecutables : sentencia_ejecutable sentencias_ejecutables . '}'  (85)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (126)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (128)
 
 	ID  shift 2
 	IF  shift 3
@@ -4939,7 +4942,7 @@ state 327
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 353
+	'}'  shift 359
 	.  error
 
 	sentencia_declarativa  goto 187
@@ -4962,66 +4965,66 @@ state 327
 	encabezado_funcion_nombre  goto 34
 
 
-state 328
+state 326
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF . ','  (54)
 
-	','  shift 354
+	','  shift 360
+	.  error
+
+
+state 327
+	sentencia_seleccion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF . ','  (56)
+
+	','  shift 361
+	.  error
+
+
+state 328
+	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE ENDIF . ','  (57)
+
+	','  shift 362
 	.  error
 
 
 state 329
-	sentencia_seleccion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF . ','  (56)
+	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables . ENDIF ','  (50)
+	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables . ENDIF  (52)
 
-	','  shift 355
+	ENDIF  shift 363
 	.  error
 
 
 state 330
-	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE ENDIF . ','  (57)
-
-	','  shift 356
-	.  error
-
-
-state 331
-	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables . ENDIF ','  (50)
-	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables . ENDIF  (52)
-
-	ENDIF  shift 357
-	.  error
-
-
-state 332
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ENDIF ',' .  (51)
 
 	.  reduce 51
 
 
-state 333
+state 331
 	sentencia_iterativa_do_while : DO bloque_sentencias_ejecutables_while WHILE '(' condicion ')' ',' .  (28)
 
 	.  reduce 28
 
 
-state 334
-	lista_expresiones_invocacion_funcion_exceso : lista_expresiones_invocacion_funcion_exceso ',' expresion .  (135)
-	expresion : expresion . '+' termino  (223)
-	expresion : expresion . '-' termino  (224)
+state 332
+	lista_expresiones_invocacion_funcion_exceso : lista_expresiones_invocacion_funcion_exceso ',' expresion .  (147)
+	expresion : expresion . '+' termino  (235)
+	expresion : expresion . '-' termino  (236)
 
 	'+'  shift 170
 	'-'  shift 171
-	','  reduce 135
-	')'  reduce 135
+	','  reduce 147
+	')'  reduce 147
 
 
-state 335
-	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' .  (130)
+state 333
+	sentencia_invocacion_funcion : sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' .  (142)
 
-	.  reduce 130
+	.  reduce 142
 
 
-state 336
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ',' . lista_parametros_funcion_exceso ')'  (180)
+state 334
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ',' . lista_parametros_funcion_exceso ')'  (192)
 
 	ID  shift 158
 	INT  shift 10
@@ -5030,120 +5033,106 @@ state 336
 	.  error
 
 	tipo  goto 160
-	parametro_funcion  goto 230
-	lista_parametros_funcion_exceso  goto 358
+	parametro_funcion  goto 227
+	lista_parametros_funcion_exceso  goto 364
 
 
-state 337
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ')' .  (178)
+state 335
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ')' .  (190)
 
-	.  reduce 178
+	.  reduce 190
 
 
-state 338
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion lista_parametros_funcion_exceso . ')'  (181)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (204)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (205)
+state 336
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion lista_parametros_funcion_exceso . ')'  (193)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (216)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (217)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
 	','  shift 282
-	')'  shift 359
+	')'  shift 365
 	.  error
 
 	tipo  goto 160
 	parametro_funcion  goto 284
 
 
-state 339
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion '}' .  (90)
+state 337
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion '}' .  (91)
 
-	.  reduce 90
+	.  reduce 91
 
 
-state 340
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return . '}'  (91)
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return . sentencias_ejecutables_funcion_inalcanzable '}'  (92)
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return .  (96)
+state 338
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return . '}'  (92)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return . sentencias_ejecutables_funcion_inalcanzable '}'  (93)
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return .  (97)
 
 	ID  shift 109
 	IF  shift 69
 	PRINT  shift 4
 	RETURN  shift 6
 	DO  shift 70
-	'}'  shift 360
-	ELSE  reduce 96
-	ENDIF  reduce 96
+	'}'  shift 366
+	ELSE  reduce 97
+	ENDIF  reduce 97
 
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 314
-	sentencia_ejecutable_funcion  goto 315
+	sentencia_return  goto 351
+	sentencia_ejecutable_funcion  goto 352
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	sentencias_ejecutables_funcion_inalcanzable  goto 361
-	sentencia_ejecutable_funcion_inalcanzable  goto 317
+	sentencias_ejecutables_funcion_inalcanzable  goto 367
+	sentencia_ejecutable_funcion_inalcanzable  goto 354
 	sentencia_objeto_identificador  goto 25
 
 
-state 341
+state 339
 	sentencia_seleccion_funcion : IF '(' ')' bloque_sentencias_ejecutables_then_funcion ENDIF ',' .  (64)
 
 	.  reduce 64
 
 
-state 342
-	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion sentencia_return '}' .  (94)
+state 340
+	bloque_sentencias_ejecutables_then_funcion : sentencias_ejecutables_funcion sentencia_return '}' .  (95)
 
-	.  reduce 94
-
-
-state 343
-	sentencia_seleccion_funcion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion . ENDIF ','  (65)
-
-	ENDIF  shift 362
-	.  error
+	.  reduce 95
 
 
-state 344
-	sentencia_seleccion_funcion : IF '(' condicion ')' ENDIF ',' .  (67)
-
-	.  reduce 67
-
-
-state 345
-	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE . bloque_sentencias_ejecutables_funcion ENDIF ','  (59)
-	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE . bloque_sentencias_ejecutables_funcion ENDIF  (61)
-	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE . ENDIF ','  (66)
+state 341
+	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion '}'  (113)
+	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion sentencia_return '}'  (114)
+	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (115)
+	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion  (118)
+	bloque_sentencias_ejecutables_funcion : '{' . sentencias_ejecutables_funcion sentencia_return  (119)
+	bloque_sentencias_ejecutables_funcion : '{' . '}'  (120)
 
 	ID  shift 2
 	IF  shift 69
-	ENDIF  shift 363
 	PRINT  shift 4
 	VOID  shift 5
-	RETURN  shift 6
 	CLASS  shift 7
 	DO  shift 70
 	INTERFACE  shift 9
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'{'  shift 138
+	'}'  shift 368
 	.  error
 
-	sentencia_declarativa  goto 141
+	sentencia_declarativa  goto 213
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 142
-	sentencia_ejecutable_funcion  goto 143
+	sentencia_ejecutable_funcion  goto 214
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	bloque_sentencias_ejecutables_funcion  goto 364
-	sentencias_ejecutables_funcion  goto 145
+	sentencias_ejecutables_funcion  goto 369
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -5156,57 +5145,231 @@ state 345
 	encabezado_funcion_nombre  goto 34
 
 
+state 342
+	bloque_sentencias_ejecutables_funcion : sentencia_declarativa .  (112)
+	sentencias_ejecutables_funcion : sentencia_declarativa .  (131)
+
+	ID  reduce 131
+	IF  reduce 131
+	ENDIF  reduce 112
+	PRINT  reduce 131
+	VOID  reduce 131
+	RETURN  reduce 131
+	CLASS  reduce 131
+	DO  reduce 131
+	INTERFACE  reduce 131
+	INT  reduce 131
+	ULONG  reduce 131
+	FLOAT  reduce 131
+	'}'  reduce 131
+
+
+state 343
+	bloque_sentencias_ejecutables_funcion : sentencia_return .  (111)
+
+	.  reduce 111
+
+
+state 344
+	bloque_sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (110)
+	sentencias_ejecutables_funcion : sentencia_ejecutable_funcion .  (129)
+
+	ID  reduce 129
+	IF  reduce 129
+	ENDIF  reduce 110
+	PRINT  reduce 129
+	VOID  reduce 129
+	RETURN  reduce 129
+	CLASS  reduce 129
+	DO  reduce 129
+	INTERFACE  reduce 129
+	INT  reduce 129
+	ULONG  reduce 129
+	FLOAT  reduce 129
+	'}'  reduce 129
+
+
+state 345
+	sentencia_seleccion_funcion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion . ENDIF ','  (65)
+
+	ENDIF  shift 370
+	.  error
+
+
 state 346
+	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . '}'  (116)
+	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_return '}'  (117)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (130)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (132)
+
+	ID  shift 2
+	IF  shift 69
+	PRINT  shift 4
+	VOID  shift 5
+	RETURN  shift 6
+	CLASS  shift 7
+	DO  shift 70
+	INTERFACE  shift 9
+	INT  shift 10
+	ULONG  shift 11
+	FLOAT  shift 12
+	'}'  shift 371
+	.  error
+
+	sentencia_declarativa  goto 274
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 372
+	sentencia_ejecutable_funcion  goto 276
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencia_objeto_identificador  goto 25
+	declaracion_variable  goto 26
+	declaracion_funcion  goto 27
+	declaracion_clase  goto 28
+	declaracion_interfaz  goto 29
+	tipo  goto 30
+	declaracion_interfaz_encabezado  goto 31
+	declaracion_clase_encabezado  goto 32
+	encabezado_funcion  goto 33
+	encabezado_funcion_nombre  goto 34
+
+
+state 347
+	sentencia_seleccion_funcion : IF '(' condicion ')' ENDIF ',' .  (67)
+
+	.  reduce 67
+
+
+state 348
+	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE . bloque_sentencias_ejecutables_funcion ENDIF ','  (59)
+	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE . bloque_sentencias_ejecutables_funcion ENDIF  (61)
+	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE . ENDIF ','  (66)
+
+	ID  shift 2
+	IF  shift 69
+	ENDIF  shift 373
+	PRINT  shift 4
+	VOID  shift 5
+	RETURN  shift 6
+	CLASS  shift 7
+	DO  shift 70
+	INTERFACE  shift 9
+	INT  shift 10
+	ULONG  shift 11
+	FLOAT  shift 12
+	'{'  shift 341
+	.  error
+
+	sentencia_declarativa  goto 342
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 343
+	sentencia_ejecutable_funcion  goto 344
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	bloque_sentencias_ejecutables_funcion  goto 374
+	sentencias_ejecutables_funcion  goto 346
+	sentencia_objeto_identificador  goto 25
+	declaracion_variable  goto 26
+	declaracion_funcion  goto 27
+	declaracion_clase  goto 28
+	declaracion_interfaz  goto 29
+	tipo  goto 30
+	declaracion_interfaz_encabezado  goto 31
+	declaracion_clase_encabezado  goto 32
+	encabezado_funcion  goto 33
+	encabezado_funcion_nombre  goto 34
+
+
+state 349
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF . ','  (60)
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF . $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 	$$2 : .  (62)
 
-	','  shift 365
+	','  shift 375
 	IF  reduce 62
 
-	$$2  goto 366
+	$$2  goto 376
 
 
-state 347
-	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' .  (103)
+state 350
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}' .  (103)
 
 	.  reduce 103
 
 
-state 348
-	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable sentencia_ejecutable_funcion_inalcanzable .  (110)
+state 351
+	sentencia_ejecutable_funcion_inalcanzable : sentencia_return .  (123)
 
-	.  reduce 110
+	.  reduce 123
 
 
-state 349
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ',' .  (42)
+state 352
+	sentencia_ejecutable_funcion_inalcanzable : sentencia_ejecutable_funcion .  (124)
+
+	.  reduce 124
+
+
+state 353
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable . '}'  (104)
+	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable . sentencia_ejecutable_funcion_inalcanzable  (122)
+
+	ID  shift 109
+	IF  shift 69
+	PRINT  shift 4
+	RETURN  shift 6
+	DO  shift 70
+	'}'  shift 377
+	.  error
+
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 351
+	sentencia_ejecutable_funcion  goto 352
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencia_ejecutable_funcion_inalcanzable  goto 378
+	sentencia_objeto_identificador  goto 25
+
+
+state 354
+	sentencias_ejecutables_funcion_inalcanzable : sentencia_ejecutable_funcion_inalcanzable .  (121)
+
+	.  reduce 121
+
+
+state 355
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' ')' ',' .  (42)
 
 	.  reduce 42
 
 
-state 350
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' . ','  (39)
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' . $$1 DO WHILE '(' condicion ')' ','  (41)
+state 356
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' . ','  (39)
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' . $$1 DO WHILE '(' condicion ')' ','  (41)
 	$$1 : .  (40)
 
-	','  shift 367
+	','  shift 379
 	DO  reduce 40
 
-	$$1  goto 368
+	$$1  goto 380
 
 
-state 351
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ',' .  (43)
+state 357
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while '(' condicion ')' ',' .  (43)
 
 	.  reduce 43
 
 
-state 352
-	bloque_sentencias_ejecutables : '{' sentencia_ejecutable sentencias_ejecutables . '}'  (82)
-	bloque_sentencias_ejecutables : '{' sentencia_ejecutable sentencias_ejecutables .  (83)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (114)
-	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (116)
+state 358
+	bloque_sentencias_ejecutables : '{' sentencia_ejecutable sentencias_ejecutables . '}'  (83)
+	bloque_sentencias_ejecutables : '{' sentencia_ejecutable sentencias_ejecutables .  (84)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_ejecutable  (126)
+	sentencias_ejecutables : sentencias_ejecutables . sentencia_declarativa  (128)
 
 	ID  shift 2
 	IF  shift 3
@@ -5219,8 +5382,8 @@ state 352
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'}'  shift 369
-	ENDIF  reduce 83
+	'}'  shift 381
+	ENDIF  reduce 84
 
 	sentencia_declarativa  goto 187
 	sentencia_ejecutable  goto 188
@@ -5242,35 +5405,35 @@ state 352
 	encabezado_funcion_nombre  goto 34
 
 
-state 353
-	bloque_sentencias_ejecutables : sentencia_ejecutable sentencias_ejecutables '}' .  (84)
+state 359
+	bloque_sentencias_ejecutables : sentencia_ejecutable sentencias_ejecutables '}' .  (85)
 
-	.  reduce 84
+	.  reduce 85
 
 
-state 354
+state 360
 	sentencia_seleccion : IF '(' ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF ',' .  (54)
 
 	.  reduce 54
 
 
-state 355
+state 361
 	sentencia_seleccion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables ENDIF ',' .  (56)
 
 	.  reduce 56
 
 
-state 356
+state 362
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE ENDIF ',' .  (57)
 
 	.  reduce 57
 
 
-state 357
+state 363
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF . ','  (50)
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF .  (52)
 
-	','  shift 370
+	','  shift 382
 	$end  reduce 52
 	error  reduce 52
 	ID  reduce 52
@@ -5291,147 +5454,258 @@ state 357
 	'('  reduce 52
 
 
-state 358
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso . ')'  (180)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (204)
-	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (205)
+state 364
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso . ')'  (192)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . ',' parametro_funcion  (216)
+	lista_parametros_funcion_exceso : lista_parametros_funcion_exceso . parametro_funcion  (217)
 
 	ID  shift 158
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
 	','  shift 282
-	')'  shift 371
+	')'  shift 383
 	.  error
 
 	tipo  goto 160
 	parametro_funcion  goto 284
 
 
-state 359
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' .  (181)
+state 365
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' .  (193)
 
-	.  reduce 181
-
-
-state 360
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return '}' .  (91)
-
-	.  reduce 91
+	.  reduce 193
 
 
-state 361
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable . '}'  (92)
-	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable . sentencia_ejecutable_funcion_inalcanzable  (110)
+state 366
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return '}' .  (92)
+
+	.  reduce 92
+
+
+state 367
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable . '}'  (93)
+	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable . sentencia_ejecutable_funcion_inalcanzable  (122)
 
 	ID  shift 109
 	IF  shift 69
 	PRINT  shift 4
 	RETURN  shift 6
 	DO  shift 70
-	'}'  shift 372
+	'}'  shift 384
 	.  error
 
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 314
-	sentencia_ejecutable_funcion  goto 315
+	sentencia_return  goto 351
+	sentencia_ejecutable_funcion  goto 352
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	sentencia_ejecutable_funcion_inalcanzable  goto 348
+	sentencia_ejecutable_funcion_inalcanzable  goto 378
 	sentencia_objeto_identificador  goto 25
 
 
-state 362
+state 368
+	bloque_sentencias_ejecutables_funcion : '{' '}' .  (120)
+
+	.  reduce 120
+
+
+state 369
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . '}'  (113)
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . sentencia_return '}'  (114)
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . sentencia_return sentencias_ejecutables_funcion_inalcanzable '}'  (115)
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion .  (118)
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion . sentencia_return  (119)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_ejecutable_funcion  (130)
+	sentencias_ejecutables_funcion : sentencias_ejecutables_funcion . sentencia_declarativa  (132)
+
+	ID  shift 2
+	IF  shift 69
+	PRINT  shift 4
+	VOID  shift 5
+	RETURN  shift 6
+	CLASS  shift 7
+	DO  shift 70
+	INTERFACE  shift 9
+	INT  shift 10
+	ULONG  shift 11
+	FLOAT  shift 12
+	'}'  shift 385
+	ENDIF  reduce 118
+
+	sentencia_declarativa  goto 274
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 386
+	sentencia_ejecutable_funcion  goto 276
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencia_objeto_identificador  goto 25
+	declaracion_variable  goto 26
+	declaracion_funcion  goto 27
+	declaracion_clase  goto 28
+	declaracion_interfaz  goto 29
+	tipo  goto 30
+	declaracion_interfaz_encabezado  goto 31
+	declaracion_clase_encabezado  goto 32
+	encabezado_funcion  goto 33
+	encabezado_funcion_nombre  goto 34
+
+
+state 370
 	sentencia_seleccion_funcion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF . ','  (65)
 
-	','  shift 373
+	','  shift 387
 	.  error
 
 
-state 363
+state 371
+	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion '}' .  (116)
+
+	.  reduce 116
+
+
+state 372
+	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_return . '}'  (117)
+
+	'}'  shift 388
+	.  error
+
+
+state 373
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE ENDIF . ','  (66)
 
-	','  shift 374
+	','  shift 389
 	.  error
 
 
-state 364
+state 374
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion . ENDIF ','  (59)
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion . ENDIF  (61)
 
-	ENDIF  shift 375
+	ENDIF  shift 390
 	.  error
 
 
-state 365
+state 375
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF ',' .  (60)
 
 	.  reduce 60
 
 
-state 366
+state 376
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 . IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 
-	IF  shift 376
+	IF  shift 391
 	.  error
 
 
-state 367
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ',' .  (39)
+state 377
+	bloque_sentencias_ejecutables_funcion_while : '{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' .  (104)
+
+	.  reduce 104
+
+
+state 378
+	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable sentencia_ejecutable_funcion_inalcanzable .  (122)
+
+	.  reduce 122
+
+
+state 379
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' ',' .  (39)
 
 	.  reduce 39
 
 
-state 368
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 . DO WHILE '(' condicion ')' ','  (41)
+state 380
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 . DO WHILE '(' condicion ')' ','  (41)
 
-	DO  shift 377
+	DO  shift 392
 	.  error
 
 
-state 369
-	bloque_sentencias_ejecutables : '{' sentencia_ejecutable sentencias_ejecutables '}' .  (82)
+state 381
+	bloque_sentencias_ejecutables : '{' sentencia_ejecutable sentencias_ejecutables '}' .  (83)
 
-	.  reduce 82
+	.  reduce 83
 
 
-state 370
+state 382
 	sentencia_seleccion : IF '(' condicion ')' bloque_sentencias_ejecutables_then ELSE bloque_sentencias_ejecutables ENDIF ',' .  (50)
 
 	.  reduce 50
 
 
-state 371
-	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' .  (180)
+state 383
+	encabezado_funcion_interfaz : VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' .  (192)
 
-	.  reduce 180
-
-
-state 372
-	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' .  (92)
-
-	.  reduce 92
+	.  reduce 192
 
 
-state 373
+state 384
+	bloque_sentencias_ejecutables_then_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' .  (93)
+
+	.  reduce 93
+
+
+state 385
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion '}' .  (113)
+
+	.  reduce 113
+
+
+state 386
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return . '}'  (114)
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return . sentencias_ejecutables_funcion_inalcanzable '}'  (115)
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return .  (119)
+
+	ID  shift 109
+	IF  shift 69
+	PRINT  shift 4
+	RETURN  shift 6
+	DO  shift 70
+	'}'  shift 393
+	ENDIF  reduce 119
+
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 351
+	sentencia_ejecutable_funcion  goto 352
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencias_ejecutables_funcion_inalcanzable  goto 394
+	sentencia_ejecutable_funcion_inalcanzable  goto 354
+	sentencia_objeto_identificador  goto 25
+
+
+state 387
 	sentencia_seleccion_funcion : IF '(' condicion ')' ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' .  (65)
 
 	.  reduce 65
 
 
-state 374
+state 388
+	bloque_sentencias_ejecutables_funcion : sentencias_ejecutables_funcion sentencia_return '}' .  (117)
+
+	.  reduce 117
+
+
+state 389
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE ENDIF ',' .  (66)
 
 	.  reduce 66
 
 
-state 375
+state 390
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF . ','  (59)
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF .  (61)
 
-	','  shift 378
+	','  shift 395
 	ID  reduce 61
 	IF  reduce 61
 	ELSE  reduce 61
@@ -5450,41 +5724,76 @@ state 375
 	'('  reduce 61
 
 
-state 376
+state 391
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF . '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 
-	'('  shift 379
+	'('  shift 396
 	.  error
 
 
-state 377
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO . WHILE '(' condicion ')' ','  (41)
+state 392
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO . WHILE '(' condicion ')' ','  (41)
 
-	WHILE  shift 380
+	WHILE  shift 397
 	.  error
 
 
-state 378
+state 393
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return '}' .  (114)
+
+	.  reduce 114
+
+
+state 394
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable . '}'  (115)
+	sentencias_ejecutables_funcion_inalcanzable : sentencias_ejecutables_funcion_inalcanzable . sentencia_ejecutable_funcion_inalcanzable  (122)
+
+	ID  shift 109
+	IF  shift 69
+	PRINT  shift 4
+	RETURN  shift 6
+	DO  shift 70
+	'}'  shift 398
+	.  error
+
+	sentencia_asignacion  goto 74
+	sentencia_invocacion_funcion  goto 75
+	sentencia_imprimir  goto 76
+	sentencia_return  goto 351
+	sentencia_ejecutable_funcion  goto 352
+	sentencia_seleccion_funcion  goto 81
+	sentencia_iterativa_do_while_funcion  goto 82
+	sentencia_ejecutable_funcion_inalcanzable  goto 378
+	sentencia_objeto_identificador  goto 25
+
+
+state 395
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' .  (59)
 
 	.  reduce 59
 
 
-state 379
+state 396
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' . ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 
-	')'  shift 381
+	')'  shift 399
 	.  error
 
 
-state 380
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE . '(' condicion ')' ','  (41)
+state 397
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE . '(' condicion ')' ','  (41)
 
-	'('  shift 382
+	'('  shift 400
 	.  error
 
 
-state 381
+state 398
+	bloque_sentencias_ejecutables_funcion : '{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' .  (115)
+
+	.  reduce 115
+
+
+state 399
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' ')' . bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 
 	ID  shift 2
@@ -5498,19 +5807,19 @@ state 381
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'{'  shift 262
+	'{'  shift 259
 	.  error
 
-	sentencia_declarativa  goto 263
+	sentencia_declarativa  goto 260
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 264
-	sentencia_ejecutable_funcion  goto 265
+	sentencia_return  goto 261
+	sentencia_ejecutable_funcion  goto 262
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	bloque_sentencias_ejecutables_then_funcion  goto 383
-	sentencias_ejecutables_funcion  goto 267
+	bloque_sentencias_ejecutables_then_funcion  goto 401
+	sentencias_ejecutables_funcion  goto 264
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -5523,8 +5832,8 @@ state 381
 	encabezado_funcion_nombre  goto 34
 
 
-state 382
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE '(' . condicion ')' ','  (41)
+state 400
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE '(' . condicion ')' ','  (41)
 
 	ID  shift 86
 	CTE  shift 38
@@ -5538,7 +5847,7 @@ state 382
 	'<'  shift 94
 	.  error
 
-	condicion  goto 384
+	condicion  goto 402
 	constante  goto 96
 	expresion  goto 97
 	comparador  goto 98
@@ -5546,21 +5855,21 @@ state 382
 	factor  goto 100
 
 
-state 383
+state 401
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion . ELSE bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 
-	ELSE  shift 385
+	ELSE  shift 403
 	.  error
 
 
-state 384
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE '(' condicion . ')' ','  (41)
+state 402
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE '(' condicion . ')' ','  (41)
 
-	')'  shift 386
+	')'  shift 404
 	.  error
 
 
-state 385
+state 403
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE . bloque_sentencias_ejecutables_funcion ENDIF ','  (63)
 
 	ID  shift 2
@@ -5574,19 +5883,19 @@ state 385
 	INT  shift 10
 	ULONG  shift 11
 	FLOAT  shift 12
-	'{'  shift 138
+	'{'  shift 341
 	.  error
 
-	sentencia_declarativa  goto 141
+	sentencia_declarativa  goto 342
 	sentencia_asignacion  goto 74
 	sentencia_invocacion_funcion  goto 75
 	sentencia_imprimir  goto 76
-	sentencia_return  goto 142
-	sentencia_ejecutable_funcion  goto 143
+	sentencia_return  goto 343
+	sentencia_ejecutable_funcion  goto 344
 	sentencia_seleccion_funcion  goto 81
 	sentencia_iterativa_do_while_funcion  goto 82
-	bloque_sentencias_ejecutables_funcion  goto 387
-	sentencias_ejecutables_funcion  goto 145
+	bloque_sentencias_ejecutables_funcion  goto 405
+	sentencias_ejecutables_funcion  goto 346
 	sentencia_objeto_identificador  goto 25
 	declaracion_variable  goto 26
 	declaracion_funcion  goto 27
@@ -5599,38 +5908,38 @@ state 385
 	encabezado_funcion_nombre  goto 34
 
 
-state 386
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' . ','  (41)
+state 404
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' . ','  (41)
 
-	','  shift 388
+	','  shift 406
 	.  error
 
 
-state 387
+state 405
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion . ENDIF ','  (63)
 
-	ENDIF  shift 389
+	ENDIF  shift 407
 	.  error
 
 
-state 388
-	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ',' .  (41)
+state 406
+	sentencia_iterativa_do_while_funcion : DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' $$1 DO WHILE '(' condicion ')' ',' .  (41)
 
 	.  reduce 41
 
 
-state 389
+state 407
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF . ','  (63)
 
-	','  shift 390
+	','  shift 408
 	.  error
 
 
-state 390
+state 408
 	sentencia_seleccion_funcion : IF '(' condicion ')' bloque_sentencias_ejecutables_then_funcion ENDIF $$2 IF '(' ')' bloque_sentencias_ejecutables_then_funcion ELSE bloque_sentencias_ejecutables_funcion ENDIF ',' .  (63)
 
 	.  reduce 63
 
 
-38 terminals, 57 nonterminals
-235 grammar rules, 391 states
+38 terminals, 59 nonterminals
+247 grammar rules, 409 states

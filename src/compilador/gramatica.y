@@ -48,7 +48,7 @@ sentencias_funcion:
 
 sentencia_funcion:
 	sentencia_declarativa |
-	sentencia_ejecutable_funcion
+	sentencia_ejecutable_funcion {polaca.resetContador();}
 ;
 
 sentencia_ejecutable_funcion:
@@ -84,13 +84,18 @@ sentencia_iterativa_do_while:
 ;
 
 sentencia_iterativa_do_while_funcion:
-	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' ','  { logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); } |
-	DO bloque_sentencias_ejecutables_funcion WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
+	DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' ','  { 
+		logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada");
+		polaca.generarPasoIncompleto("BI");
+		polaca.completarPasoIncompleto();
+		polaca.completarPasoIncompletoIteracion();	
+	} |
+	DO bloque_sentencias_ejecutables_funcion_while WHILE '(' condicion ')' { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
 	DO WHILE '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables_funcion WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables_funcion '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion_while WHILE '(' ')' ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion_while '(' condicion ')' ',' { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); } |
 	DO WHILE ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
-	DO bloque_sentencias_ejecutables_funcion WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
+	DO bloque_sentencias_ejecutables_funcion_while WHILE ',' { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); } |
 	DO ',' { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' condicion ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
 	DO '(' ')' ','  { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); } |
@@ -166,6 +171,12 @@ primer_sentencia:
 		polaca.resetContador();
 	}
 
+primer_sentencia_funcion:
+	sentencia_ejecutable_funcion {
+		polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+		polaca.resetContador();
+	}
+
 bloque_sentencias_ejecutables:
 	sentencia_ejecutable |
 	'{' sentencia_ejecutable sentencias_ejecutables '}' |
@@ -194,6 +205,20 @@ bloque_sentencias_ejecutables_then_funcion:
 	sentencias_ejecutables_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
 	'{' sentencias_ejecutables_funcion { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
 	'{' sentencias_ejecutables_funcion sentencia_return { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
+;
+
+bloque_sentencias_ejecutables_funcion_while:
+	'{' primer_sentencia_funcion '}'|
+	sentencia_return |
+	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); } |
+	'{' primer_sentencia_funcion sentencias_ejecutables_funcion '}' |
+	'{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}' |
+	'{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' |
+	primer_sentencia_funcion sentencias_ejecutables_funcion '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
+	'{' primer_sentencia_funcion sentencias_ejecutables_funcion { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
+	'{' primer_sentencia_funcion sentencias_ejecutables_funcion sentencia_return { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
 	'{' '}' { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 ;
 
@@ -519,6 +544,7 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				// Agrego Ambito a metodo
 				TS.swapLexemas($1.sval, $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
+				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_funcion");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
@@ -577,6 +603,7 @@ encabezado_funcion_interfaz:
 		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_metodo");
 		//Agrego Ambito a identificador
 		TS.swapLexemas($2.sval, $2.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
+		TS.agregarAtributo($3.sval, Constantes.TIENE_PARAMETRO , true);
 		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
 	} |
 	VOID ID '(' ')' { 
