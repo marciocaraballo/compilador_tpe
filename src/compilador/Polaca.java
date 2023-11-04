@@ -37,6 +37,7 @@ public class Polaca {
         pila_llamados_polacas.pop();
     }
     public void apilar(int posicion) {
+        Logger.getInstance().logError("APILO:  " + posicion);
         pila.get(pila_llamados_polacas.peek()).push(posicion - 1);
     }
 
@@ -71,8 +72,8 @@ public class Polaca {
     }
 
     public void generarPasoIncompleto(String aux) {
-        polaca.get(pila_llamados_polacas.peek()).add("VACIO");
-        polaca.get(pila_llamados_polacas.peek()).add(aux);
+        agregarElemento("VACIO");
+        agregarElemento(aux);
     }
 
     public void completarPasoIncompletoInvocacion(String etiqueta){

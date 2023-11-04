@@ -4,33 +4,34 @@
     INT a; j; k; w; z; x,
 
     DO {
-        a = w,
-        IF ( a > w ) {
+        IF ( x < w )
+            IF ( k > j )
+                a = 2_i,
+            ELSE
+                a = 8_i,
+            END_IF,
+        END_IF,
+        a = 2_i,
+        c = k,
+    } WHILE ( a > c ), }*
+
+    *{
+    DO {
+        IF ( a > w )
             a = 3_i,
-            b = 40_i,
-        } ELSE {
-            w = 500_i,
-            z = 200_ul,
-        } END_IF,
-    } WHILE ( a < j ),
+        END_IF,
+    } WHILE ( a < j ), }*
 
     *{
     DO {
         DO {
-            a = 1450000_i,
-            IF ( k > j ){
+            IF ( k > j )
                 a = 2_i,
-                b = c,
-            }
-            ELSE{
+            ELSE
                 a = 8_i,
-                j = 132_ul,
-            }
             END_IF,
         } WHILE ( x < w ),
         a = 2_i,
         c = k,
-    } WHILE ( a > c ),
-    }*
-
+    } WHILE ( a > c ), }*
 }
