@@ -1,15 +1,36 @@
 {
 
     FLOAT b; c; d,
-    INT a; j; k,
+    INT a; j; k; w; z; x,
 
-    VOID fun1(){
-        j = 2_i,
-        RETURN,
-    }
+    DO {
+        a = w,
+        IF ( a > w ) {
+            a = 3_i,
+            b = 40_i,
+        } ELSE {
+            w = 500_i,
+            z = 200_ul,
+        } END_IF,
+    } WHILE ( a < j ),
 
-    fun1(),
-
-    a = 2_i,
+    *{
+    DO {
+        DO {
+            a = 1450000_i,
+            IF ( k > j ){
+                a = 2_i,
+                b = c,
+            }
+            ELSE{
+                a = 8_i,
+                j = 132_ul,
+            }
+            END_IF,
+        } WHILE ( x < w ),
+        a = 2_i,
+        c = k,
+    } WHILE ( a > c ),
+    }*
 
 }

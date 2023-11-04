@@ -60,9 +60,7 @@ sentencia_ejecutable_funcion:
 ;
 
 sentencia_return:
-	RETURN ',' {
-
-	}| 
+	RETURN ',' | 
 	RETURN { logger.logError("[Parser] Se esperaba un simbolo ',' luego del RETURN"); }
 ;
 
@@ -234,10 +232,7 @@ bloque_sentencias_ejecutables_funcion_while:
 
 bloque_sentencias_ejecutables_funcion:
 	sentencia_ejecutable_funcion |
-	sentencia_return {
-		polaca.agregarElemento("" + polaca.desapilar());
-		polaca.agregarElemento("BI");
-	}|
+	sentencia_return |
 	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); } |
 	'{' sentencias_ejecutables_funcion '}' |
 	'{' sentencias_ejecutables_funcion sentencia_return '}' |
@@ -339,14 +334,13 @@ sentencia_invocacion_funcion:
 				}
 			}
 		} else {
-			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()){
-				polaca.apilar(polaca.polacaSize() - 1);
-				polaca.completarPasoIncompleto();
-				polaca.generarPasoIncompleto("BI");
-				polaca.completarPasoIncompleto();
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+			if (!ambito.isEmpty()){
 				if ((boolean) TS.getAtributo($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.TIENE_PARAMETRO)) {
 					logger.logError("Cantidad de parametros incorrecta");
 				}
+				polaca.generarPasoIncompleto("BI");
+				polaca.completarPasoIncompletoInvocacion($1.sval + ambito);
 			}
 		}
 	} |
@@ -545,8 +539,10 @@ bloque_sentencias_declarativas_clase:
 declaracion_funcion:
 	encabezado_funcion cuerpo_funcion { 
 		logger.logSuccess("[Parser] Declaracion de funcion detectado");
-		if (genCodigoIntermedio.isPuedoDesapilar())
+		if (genCodigoIntermedio.isPuedoDesapilar()) {
 			genCodigoIntermedio.desapilarAmbito();
+			polaca.desapilarAmbito();
+		}
 		else 
 			genCodigoIntermedio.setPuedoDesapilar();
 	}
@@ -567,6 +563,7 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
+				polaca.crearPolacaAmbitoNuevo($1.sval + genCodigoIntermedio.generarAmbito());
 			}
 
 			// INDICO QUE LA FUNCION TIENE PARAMETRO
@@ -594,6 +591,7 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
+				polaca.crearPolacaAmbitoNuevo($1.sval + genCodigoIntermedio.generarAmbito());
 			}
 			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {
@@ -638,14 +636,8 @@ encabezado_funcion_interfaz:
 ;
 
 cuerpo_funcion:
-	'{' sentencias_funcion sentencia_return '}'  {
-		polaca.apilar(polaca.polacaSize() - 1);
-		polaca.generarPasoIncompleto("BI");
-	}|
-	'{' sentencia_return '}' {
-		polaca.apilar(polaca.polacaSize() - 1);
-		polaca.generarPasoIncompleto("BI");		
-	}|
+	'{' sentencias_funcion sentencia_return '}'|
+	'{' sentencia_return '}'|
 	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencias_funcion '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |

@@ -1,5 +1,21 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 4: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 6: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 8: [Parser] Programa correcto detectado
+[Success] Linea 7: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 7: [Codigo Intermedio] El identificador w esta declarado
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 8: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 8: [Codigo Intermedio] El identificador w esta declarado
+[Success] Linea 9: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 9: [Parser] Asignacion detectada
+[Success] Linea 10: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 10: [Parser] Asignacion detectada
+[Success] Linea 12: [Codigo Intermedio] El identificador w esta declarado
+[Success] Linea 12: [Parser] Asignacion detectada
+[Success] Linea 13: [Codigo Intermedio] El identificador z esta declarado
+[Success] Linea 13: [Parser] Asignacion detectada
+[Success] Linea 14: [Parser] Sentencia seleccion IF ELSE detectada
+[Success] Linea 15: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 15: [Codigo Intermedio] El identificador j esta declarado
+[Success] Linea 15: [Parser] Sentencia iterativa DO WHILE detectada
+[WARNING] Linea 15: asdasd 0
+[Success] Linea 36: [Parser] Programa correcto detectado

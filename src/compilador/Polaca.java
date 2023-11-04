@@ -1,8 +1,6 @@
 package compilador;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 public class Polaca {
 
@@ -17,8 +15,8 @@ public class Polaca {
             instance = new Polaca();
             ArrayList<String> aux = new ArrayList<>();
             polaca.put("main", aux);
-            ArrayList<String> aux_pila = new ArrayList<>();
-            polaca.put("main", aux_pila);
+            Stack<Integer> aux_pila = new Stack<>();
+            pila.put("main", aux_pila);
             pila_llamados_polacas.push("main");
         }
         return instance;
@@ -26,45 +24,62 @@ public class Polaca {
 
     public void agregarElemento(String elemento) {
         incrementarContador();
-        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.firstElement());
+        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
 
         polaca_auxiliar.add(elemento);
-        polaca.put(pila_llamados_polacas.firstElement(), polaca_auxiliar);
+        polaca.put(pila_llamados_polacas.peek(), polaca_auxiliar);
     }
 
+    public void apilarAmbito(String identificador){
+        pila_llamados_polacas.push(identificador);
+    }
+    public void desapilarAmbito(){
+        pila_llamados_polacas.pop();
+    }
     public void apilar(int posicion) {
-        pila.get(pila_llamados_polacas.firstElement()).push(posicion - 1);
+        pila.get(pila_llamados_polacas.peek()).push(posicion - 1);
     }
 
     public Integer desapilar() {
 
-        return pila.get(pila_llamados_polacas.firstElement()).pop();
+        return pila.get(pila_llamados_polacas.peek()).pop();
     }
 
     public void crearPolacaAmbitoNuevo(String identificador){
         ArrayList<String> polaca_auxiliar = new ArrayList<>();
+        this.apilarAmbito(identificador);
         polaca.put(identificador, polaca_auxiliar);
     }
 
     public void completarPasoIncompleto() {
-        int posicion = pila.get(pila_llamados_polacas.firstElement()).pop();
-        polaca.remove(posicion);
-        polaca.get(pila_llamados_polacas.firstElement()).add(posicion, String.valueOf(polaca.size() + 1));
+        int posicion = desapilar();
+        ArrayList<String>  polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
+        polaca_auxiliar.remove(posicion);
+        polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));
     }
 
     public void completarPasoIncompletoIteracion() {
         int posicion = desapilar();
-        polaca.remove(polaca.get(pila_llamados_polacas.firstElement()).size() - 2);
-        polaca.get(pila_llamados_polacas.firstElement()).add(polaca.get(pila_llamados_polacas.firstElement()).size() - 1, String.valueOf(posicion));
+        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
+        polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
+        polaca_auxiliar.add(polaca_auxiliar.size() - 1, String.valueOf(posicion));
+        Logger.getInstance().logWarning("asdasd " + pila.get(pila_llamados_polacas.peek()).size());
     }
 
     public int polacaSize() {
-        return polaca.get(pila_llamados_polacas.firstElement()).size();
+        return polaca.get(pila_llamados_polacas.peek()).size();
     }
 
     public void generarPasoIncompleto(String aux) {
-        polaca.get(pila_llamados_polacas.firstElement()).add("VACIO");
-        polaca.get(pila_llamados_polacas.firstElement()).add(aux);
+        polaca.get(pila_llamados_polacas.peek()).add("VACIO");
+        polaca.get(pila_llamados_polacas.peek()).add(aux);
+    }
+
+    public void completarPasoIncompletoInvocacion(String etiqueta){
+        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
+        polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
+        polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
+        polaca.put(pila_llamados_polacas.peek(), polaca_auxiliar);
     }
 
     public void incrementarContador() {
@@ -81,8 +96,13 @@ public class Polaca {
 
 
     public void showPolaca() {
-        for (int i = 0; i < polaca.get("main").size(); i++) {
-            System.out.println("[" + i + "] " + polaca.get("main").get(i));
+
+        for (String nombre_polaca : polaca.keySet()) {
+            Logger.getInstance().logSuccess("NOMBRE POLACA: " + nombre_polaca);
+            for (int i = 0; i < polaca.get(nombre_polaca).size(); i++) {
+                System.out.println("[" + i + "] " + polaca.get(nombre_polaca).get(i));
+            }
+            System.out.println("----------------------------------------------------------");
         }
     }
 
