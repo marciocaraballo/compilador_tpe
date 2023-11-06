@@ -289,10 +289,11 @@ sentencia_invocacion_funcion:
 			String[] splittedIdentificador = $1.sval.split("\\.");
 			String nombreVariable = splittedIdentificador[0];
 			String nombreMiembro = splittedIdentificador[1];
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable);
 
-			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable).isEmpty()){
+			if (!ambito.isEmpty()){
 
-				String tipoInstancia = (String) TS.getAtributo(nombreVariable + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+				String tipoInstancia = (String) TS.getAtributo(nombreVariable + ambito, Constantes.TYPE);
 				
 				if (TS.has(nombreMiembro + ":" + tipoInstancia)) {
 					if ((boolean) TS.getAtributo(nombreMiembro + ":" + tipoInstancia, Constantes.TIENE_PARAMETRO)){
@@ -305,8 +306,9 @@ sentencia_invocacion_funcion:
 				}
 			}
 		} else {
-			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()){
-				if (!(boolean) TS.getAtributo($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.TIENE_PARAMETRO)){
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable);
+			if (!ambito.isEmpty()){
+				if (!(boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)){
 					logger.logError("Cantidad de parametros incorrecta");
 				}
 			}
@@ -321,9 +323,11 @@ sentencia_invocacion_funcion:
 			String nombreVariable = splittedIdentificador[0];
 			String nombreMiembro = splittedIdentificador[1];
 
-			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable).isEmpty()){
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable);
 
-				String tipoInstancia = (String) TS.getAtributo(nombreVariable + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+			if (!ambito.isEmpty()){
+
+				String tipoInstancia = (String) TS.getAtributo(nombreVariable + ambito, Constantes.TYPE);
 
 				if (TS.has(nombreMiembro + ":" + tipoInstancia)) {
 					
@@ -383,14 +387,14 @@ sentencia_asignacion:
 				*/
 				if (partes.length == 2) {
 					/** 0 -> instancia de clase (variable), 1 -> miembro de clase */
-					String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+					String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
 					/** Instancia clase esta definida */
-					if (!variable.isEmpty()) {
-						String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+					if (!ambito.isEmpty()) {
+						String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
 						if (TS.has(partes[1] + ":" + tipo)) {
 							polaca.agregarElemento($1.sval);
 							polaca.agregarElemento($2.sval);
-							TS.agregarAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.COMPROBACION_USO, true);
+							TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
 						} else {
 							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
 						}
@@ -403,17 +407,17 @@ sentencia_asignacion:
 					* 1 -> miembro de clase que deberia ser otra clase valida
 					* 2 -> miembro de la clase en parte 1
 					*/
-					String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+					String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
 					/** Instancia clase esta definida */
-					if (!variable.isEmpty()) {
-						String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+					if (!ambito.isEmpty()) {
+						String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
 
 						if (TS.has(partes[1] + ":" + tipo)) {
 							/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
 							if (TS.has(partes[2] + ":" + partes[1])) {
 								polaca.agregarElemento($1.sval);
 								polaca.agregarElemento($2.sval);
-								TS.agregarAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.COMPROBACION_USO, true);
+								TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
 							} else {
 								logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
 							}
@@ -430,10 +434,10 @@ sentencia_asignacion:
 					* 2 -> miembro de clase que deberia ser otra clase valida
 					* 3 -> miembro de la clase en parte 2
 					*/
-					String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+					String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
 					/** Instancia clase esta definida */
-					if (!variable.isEmpty()) {
-						String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+					if (!ambito.isEmpty()) {
+						String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
 
 						if (TS.has(partes[1] + ":" + tipo)) {
 							/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
@@ -441,7 +445,7 @@ sentencia_asignacion:
 								if (TS.has(partes[3] + ":" + partes[2] )) {
 									polaca.agregarElemento($1.sval);
 									polaca.agregarElemento($2.sval);
-									TS.agregarAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.COMPROBACION_USO, true);
+									TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
 								} else {
 									logger.logError("[Codigo intermedio] El identificador " + partes[3] + " no esta declarado como miembro de la clase " + partes[2]);
 								}
@@ -457,14 +461,14 @@ sentencia_asignacion:
 				}
 			}
 		} else {
-			String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 			/** "expresion" parece apilar cosas en la polaca, pero recien aca sabemos si la asignacion
 				es sintacticamente correcta, capaz se pueda procesar aca la expresion o desapilar */
-			if (!variable.isEmpty()) {
-				polaca.agregarElemento($1.sval + variable);
+			if (!ambito.isEmpty()) {
+				polaca.agregarElemento($1.sval + ambito);
 				polaca.agregarElemento($2.sval);
 					// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
-					TS.agregarAtributo($1.sval + variable, Constantes.COMPROBACION_USO, true);
+					TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
 			} else {
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
@@ -848,18 +852,24 @@ termino:
 
 factor:
 	ID {
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
+
+		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+
+		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 			TS.removeLexema($1.sval);
-			polaca.agregarElemento($1.sval + genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval));
+			polaca.agregarElemento($1.sval + ambito);
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	} |
 	ID OPERADOR_MENOS {
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
+
+		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+
+		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
-			polaca.agregarElemento($1.sval + genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval));
+			polaca.agregarElemento($1.sval + ambito);
 			polaca.agregarElemento("1");
 			polaca.agregarElemento("-");
 

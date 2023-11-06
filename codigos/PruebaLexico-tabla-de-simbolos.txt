@@ -1,10 +1,22 @@
-Lexema: fun1
+Lexema: e
 Atributo: token Valor: 257
-Lexema: fun1:main
-Atributo: uso Valor: variable
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: niveles_herencia Valor: 0
+Atributo: token Valor: 257
+Lexema: f:ca
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
 Lexema: 3_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258
+Lexema: ca
+Atributo: token Valor: 257
+Lexema: c1
+Atributo: token Valor: 257
+Lexema: c1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ca
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
