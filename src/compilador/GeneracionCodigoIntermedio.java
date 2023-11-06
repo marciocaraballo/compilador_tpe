@@ -12,9 +12,6 @@ public class GeneracionCodigoIntermedio {
     private static Stack<String> ambitos = new Stack<String>();
     private static Stack<String> ambitosClase = new Stack<String>();
     private String ambitoClaseInterfaz = "";
-
-    private ArrayList<String> polaca = new ArrayList<>();
-    private Stack<Integer> pila = new Stack<>();
     private boolean puedoDesapilar = true;
     int contador = 0;
     private static GeneracionCodigoIntermedio instance = null;
@@ -26,6 +23,10 @@ public class GeneracionCodigoIntermedio {
         }
 
         return instance;
+    }
+
+    public String getTopePila(){
+        return ambitos.peek();
     }
 
     public void setAmbitoClaseInterfaz(String identificador) {

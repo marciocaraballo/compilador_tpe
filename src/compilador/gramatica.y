@@ -543,14 +543,14 @@ bloque_sentencias_declarativas_clase:
 declaracion_funcion:
 	encabezado_funcion cuerpo_funcion { 
 		logger.logSuccess("[Parser] Declaracion de funcion detectado");
-		if (genCodigoIntermedio.isPuedoDesapilar() && genCodigoIntermedio.esDefinicionDeClase()) {
-
-			if (genCodigoIntermedio.esMayorAMaximoNivelAnidamientoFuncionEnMetodo()) {
-				logger.logError("[Parser] Se permite hasta un maximo de un nivel de anidamiento en una funcion dentro de un metodo de clase");
+		if (genCodigoIntermedio.isPuedoDesapilar()){
+			// ESTA LINEa ESTABA CON EL IF DE ARRIBA, Y NO ENTRABA NUNCA POR ESO NO SALIA DEL AMBITO, CAMBIA ALGO?
+			if (genCodigoIntermedio.esDefinicionDeClase()) {
+				if (genCodigoIntermedio.esMayorAMaximoNivelAnidamientoFuncionEnMetodo()) {
+					logger.logError("[Parser] Se permite hasta un maximo de un nivel de anidamiento en una funcion dentro de un metodo de clase");
+				}
 			}
-
 			genCodigoIntermedio.desapilarAmbito();
-			//polaca.desapilarAmbito();
 		}
 		else 
 			genCodigoIntermedio.setPuedoDesapilar();
@@ -573,7 +573,7 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
-				polaca.crearPolacaAmbitoNuevo($1.sval + genCodigoIntermedio.generarAmbito());
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			}
 
 			// INDICO QUE LA FUNCION TIENE PARAMETRO
@@ -601,9 +601,10 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
-				polaca.crearPolacaAmbitoNuevo($1.sval + genCodigoIntermedio.generarAmbito());
+				//polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			}
 			genCodigoIntermedio.apilarAmbito($1.sval);
+			polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito().toString());
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 			genCodigoIntermedio.setPuedoDesapilar();
@@ -722,7 +723,7 @@ condicion:
 		polaca.agregarElemento($2.sval);
 		polaca.generarPasoIncompleto("BF");
 		polaca.apilar(polaca.polacaSize() - 1);
-	}|
+	} |
 	expresion comparador { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); } |
 	comparador expresion { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); } |
 	expresion '=' expresion { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }

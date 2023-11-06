@@ -1,5 +1,6 @@
 package compilador;
 
+import javax.security.auth.login.LoginException;
 import java.util.*;
 
 public class Polaca {
@@ -8,67 +9,59 @@ public class Polaca {
     static private HashMap<String, Stack<Integer>> pila = new HashMap<>();
     private int contador = 0;
     private static Polaca instance = null;
-    private static Stack<String> pila_llamados_polacas = new Stack<>();
+    GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
 
     public static Polaca getInstance() {
         if (instance == null) {
             instance = new Polaca();
             ArrayList<String> aux = new ArrayList<>();
-            polaca.put("main", aux);
+            polaca.put(":main", aux);
             Stack<Integer> aux_pila = new Stack<>();
-            pila.put("main", aux_pila);
-            pila_llamados_polacas.push("main");
+            pila.put(":main", aux_pila);
         }
         return instance;
     }
 
     public void agregarElemento(String elemento) {
         incrementarContador();
-        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
-
+        Logger.getInstance().logWarning("ASDasdasd" + genCodigoIntermedio.generarAmbito());
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.add(elemento);
-        polaca.put(pila_llamados_polacas.peek(), polaca_auxiliar);
+        polaca.put(genCodigoIntermedio.generarAmbito().toString(), polaca_auxiliar);
     }
 
-    public void apilarAmbito(String identificador){
-        pila_llamados_polacas.push(identificador);
-    }
-    public void desapilarAmbito(){
-        pila_llamados_polacas.pop();
-    }
     public void apilar(int posicion) {
-        Logger.getInstance().logError("APILO:  " + posicion);
-        pila.get(pila_llamados_polacas.peek()).push(posicion - 1);
+        pila.get(genCodigoIntermedio.generarAmbito().toString()).push(posicion - 1);
     }
 
     public Integer desapilar() {
 
-        return pila.get(pila_llamados_polacas.peek()).pop();
+        return pila.get(genCodigoIntermedio.generarAmbito().toString()).pop();
     }
 
     public void crearPolacaAmbitoNuevo(String identificador){
         ArrayList<String> polaca_auxiliar = new ArrayList<>();
-        this.apilarAmbito(identificador);
+        Stack<Integer> pila_auxiliar = new Stack<>();
         polaca.put(identificador, polaca_auxiliar);
+        pila.put(identificador, pila_auxiliar);
     }
 
     public void completarPasoIncompleto() {
         int posicion = desapilar();
-        ArrayList<String>  polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
+        ArrayList<String>  polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(posicion);
         polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));
     }
 
     public void completarPasoIncompletoIteracion() {
         int posicion = desapilar();
-        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, String.valueOf(posicion));
-        Logger.getInstance().logWarning("asdasd " + pila.get(pila_llamados_polacas.peek()).size());
     }
 
     public int polacaSize() {
-        return polaca.get(pila_llamados_polacas.peek()).size();
+        return polaca.get(genCodigoIntermedio.generarAmbito().toString()).size();
     }
 
     public void generarPasoIncompleto(String aux) {
@@ -77,10 +70,10 @@ public class Polaca {
     }
 
     public void completarPasoIncompletoInvocacion(String etiqueta){
-        ArrayList<String> polaca_auxiliar = polaca.get(pila_llamados_polacas.peek());
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.getTopePila());
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
-        polaca.put(pila_llamados_polacas.peek(), polaca_auxiliar);
+        polaca.put(genCodigoIntermedio.getTopePila(), polaca_auxiliar);
     }
 
     public void incrementarContador() {
@@ -97,7 +90,7 @@ public class Polaca {
 
 
     public void showPolaca() {
-
+        System.out.println(polaca.size());
         for (String nombre_polaca : polaca.keySet()) {
             Logger.getInstance().logSuccess("NOMBRE POLACA: " + nombre_polaca);
             for (int i = 0; i < polaca.get(nombre_polaca).size(); i++) {
