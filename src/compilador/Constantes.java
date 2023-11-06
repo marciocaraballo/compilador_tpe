@@ -5,8 +5,6 @@ public class Constantes {
     public static final int IDENTIFICADOR = 257;
     public static final int CONSTANTE = 258;
     public static final int CADENA = 259;
-
-
     /* Keys de atributos */
     public static final String TOKEN = "token";
     public static final String TYPE = "tipo";
@@ -16,4 +14,9 @@ public class Constantes {
     public static final String IMPLEMENTA = "implementa";
     public static final String METODOS = "metodos";
     public static final String NIVELES_HERENCIA = "niveles_herencia";
+    /* Valores de atributos */
+    public static final String NOMBRE_FUNCION = "nombre_funcion";
+    public static final String NOMBRE_INTERFAZ = "nombre_interfaz";
+    public static final String USO_VARIABLE = "variable";
+    public static final String USO_ATRIBUTO = "atributo";
 }

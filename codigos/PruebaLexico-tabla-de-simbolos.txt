@@ -1,64 +1,10 @@
-Lexema: cc
+Lexema: fun1
 Atributo: token Valor: 257
-Lexema: cd
-Atributo: token Valor: 257
-Lexema: ca:main
-Atributo: uso Valor: nombre_clase
-Atributo: niveles_herencia Valor: 2
-Atributo: token Valor: 257
-Lexema: f
-Atributo: token Valor: 257
-Lexema: cx:main
-Atributo: uso Valor: nombre_clase
-Atributo: niveles_herencia Valor: 0
-Atributo: token Valor: 257
-Lexema: p:cx
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: cc:main
-Atributo: uso Valor: nombre_clase
-Atributo: niveles_herencia Valor: 0
-Atributo: token Valor: 257
-Lexema: c1
-Atributo: token Valor: 257
-Lexema: c1:main
+Lexema: fun1:main
 Atributo: uso Valor: variable
-Atributo: tipo Valor: ca
-Atributo: comp_uso Valor: false
-Atributo: token Valor: 257
-Lexema: b:cc
-Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: cc:cb
-Atributo: uso Valor: nombre_clase
-Atributo: tipo Valor: cc
-Atributo: token Valor: 257
-Lexema: cb:ca
-Atributo: uso Valor: nombre_clase
-Atributo: tipo Valor: cb
-Atributo: token Valor: 257
-Lexema: d:ca
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: f:cc
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: c:cb
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: cb:main
-Atributo: uso Valor: nombre_clase
-Atributo: niveles_herencia Valor: 1
+Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
 Lexema: 3_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258
-Lexema: ca
-Atributo: token Valor: 257
-Lexema: cb
-Atributo: token Valor: 257

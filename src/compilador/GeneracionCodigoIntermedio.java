@@ -135,7 +135,7 @@ public class GeneracionCodigoIntermedio {
         for (String variableActual : lista_variables_a_declarar) {
             TS.agregarAtributo(variableActual, Constantes.USE, use);
             /** Se pidio para variables, no para atributos de clas */
-            if (use == "variable") {
+            if (use == Constantes.USO_VARIABLE) {
                 TS.agregarAtributo(variableActual, Constantes.COMPROBACION_USO, false);
             }
         }

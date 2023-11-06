@@ -338,12 +338,18 @@ sentencia_invocacion_funcion:
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
-			if (!ambito.isEmpty()){
-				if ((boolean) TS.getAtributo($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.TIENE_PARAMETRO)) {
-					logger.logError("Cantidad de parametros incorrecta");
+			if (!ambito.isEmpty()) {
+				if (TS.getAtributo($1.sval + ambito, Constantes.USE) == Constantes.NOMBRE_FUNCION) {
+					if ((boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)) {
+						logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
+					}
+					polaca.generarPasoIncompleto("BI");
+					polaca.completarPasoIncompletoInvocacion($1.sval + ambito);
+				} else {
+					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no es una funcion");
 				}
-				polaca.generarPasoIncompleto("BI");
-				polaca.completarPasoIncompletoInvocacion($1.sval + ambito);
+			} else {
+				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
 		}
 	} |
@@ -488,7 +494,7 @@ declaracion_variable:
 	tipo lista_de_variables ',' { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
 		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
-		genCodigoIntermedio.agregarUsoAListaDeVariables("variable");
+		genCodigoIntermedio.agregarUsoAListaDeVariables(Constantes.USO_VARIABLE);
 		genCodigoIntermedio.agregarAmbitoAListaDeVariables();
 		genCodigoIntermedio.removerListaVariablesADeclarar();
 	} |
@@ -498,7 +504,7 @@ declaracion_variable:
 
 declaracion_interfaz_encabezado:
 	INTERFACE ID {
-		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_interfaz");
+		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_INTERFAZ);
 		TS.agregarAtributo($2.sval, Constantes.METODOS, null);
 		//Agrego Ambito a identificador
 		TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
@@ -529,7 +535,7 @@ sentencia_declarativa_clase:
 	tipo lista_de_variables ',' { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); 
 		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
-		genCodigoIntermedio.agregarUsoAListaDeVariables("atributo");
+		genCodigoIntermedio.agregarUsoAListaDeVariables(Constantes.USO_ATRIBUTO);
 		genCodigoIntermedio.agregarAmbitoAListaDeAtributos();
 		genCodigoIntermedio.removerListaVariablesADeclarar();
 	} |
@@ -658,7 +664,7 @@ encabezado_funcion:
 				TS.swapLexemas($1.sval, $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
 				
 			} else {
-				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_funcion");
+				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
@@ -686,7 +692,7 @@ encabezado_funcion:
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
 				
 			} else {
-				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_funcion");
+				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());

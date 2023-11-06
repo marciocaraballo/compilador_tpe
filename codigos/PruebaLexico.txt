@@ -1,26 +1,5 @@
 {
-	
-	CLASS cx {
-		INT p,
-	}
-	
-	CLASS cc {
-		INT b,
-		INT f,
-	}
-	
-	CLASS cb {
-		INT c,
-		cc,
-	}
-	
-	CLASS ca {
-		INT d,
- 		cb, 
-	}
-	
-	ca c1,
-	
-	c1.cb.cc.cd.f = 3_i,
-	
+	INT fun1,
+
+	fun1 = 3_i,
 }
