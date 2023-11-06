@@ -457,13 +457,12 @@ sentencia_asignacion:
 			if (!variable.isEmpty()) {
 				polaca.agregarElemento($1.sval + variable);
 				polaca.agregarElemento($2.sval);
-				if (!variable.isEmpty())
 					// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
 					TS.agregarAtributo($1.sval + variable, Constantes.COMPROBACION_USO, true);
-				} else {
-					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
-				}
+			} else {
+				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
+		}
 	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
 	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
