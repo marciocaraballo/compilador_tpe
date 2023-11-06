@@ -496,12 +496,27 @@ sentencia_declarativa_clase:
 	declaracion_funcion |
 	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
 	ID ',' {
+
+		String ambitoDeClase = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval);
+
 		if (!genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
-			String nuevoLexema = $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz();
-			TS.getInstance().swapLexemas($1.sval, nuevoLexema);
-			TS.getInstance().agregarAtributo(nuevoLexema, "tipo", $1.sval);
-			TS.getInstance().agregarAtributo(nuevoLexema, "uso", "nombre_clase");
+
+			int nivelesDeHerencia = (int) TS.getInstance().getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
+
+			/** Se permiten hasta 3 niveles de herencia, se hace +1 para ver si con la nueva herencia no se viola la restriccion */
+			if (nivelesDeHerencia + 1 >= 3) {
+				logger.logError("[Codigo Intermedio] Se superaron los niveles de herencia validos para la clase " + genCodigoIntermedio.getAmbitoClaseInterfaz());
+			} else {
+				String nuevoLexema = $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz();
+				TS.getInstance().swapLexemas($1.sval, nuevoLexema);
+				TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
+				TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
+
+				String ambitoClaseDefinidaActual = genCodigoIntermedio.getAmbitoClaseInterfaz() + genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(genCodigoIntermedio.getAmbitoClaseInterfaz());
+
+				TS.getInstance().agregarAtributo(ambitoClaseDefinidaActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+			}
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
@@ -528,8 +543,8 @@ declaracion_clase_encabezado:
 		//CHEQUEO QUE CLASE NO HAYA SIDO DECLARADA (DEBERIA CHEQUEAR USO, XQ PUEDE QUE IDENTIF PERTENEZCA A OTRA USO)
 		if (!TS.has($2.sval + genCodigoIntermedio.generarAmbito())) {
 			TS.agregarAtributo($2.sval, Constantes.USE, "nombre_clase");
-			//Agrego Ambito a identificador
 			TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, null);
+			TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 			genCodigoIntermedio.apilarAmbito($2.sval);
@@ -545,6 +560,7 @@ declaracion_clase_encabezado:
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
 				TS.agregarAtributo($2.sval, Constantes.USE, "nombre_clase");
 				TS.agregarAtributo($2.sval, Constantes.METODOS, null);
+				TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
 				// REGISTRO EN LA TABLA DE SIMBOLOS, CUAL ES LA INTERFAZ QUE ESTA IMPLEMENTANDO
 				TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, $4.sval);
 				//Agrego Ambito a identificador

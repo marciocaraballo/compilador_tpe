@@ -1,27 +1,18 @@
 {
 
-	INT a,
-
-    CLASS ca {
-	    INT a;c,
-	    VOID m() {
-	        PRINT % HOLA %,
-	        RETURN,
-	    }
+	CLASS cx {
+ 		INT a,
 	}
-
+	
+	CLASS cc {
+		cx,
+	}
+	
 	CLASS cb {
-	    FLOAT b, 
-	    FLOAT a,
-	    VOID n() {
-	        PRINT % HOLA %,
-	        RETURN,
-	    } 
-	    ca,
+		cc,
 	}
 	
-	ca a1,
-	cb b1; b2; b3,
-	
-	a1.a(),
+	CLASS ca {
+ 		cb, 
+	}
 }

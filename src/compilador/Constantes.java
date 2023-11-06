@@ -15,4 +15,5 @@ public class Constantes {
     public static final String TIENE_PARAMETRO = "tiene_param";
     public static final String IMPLEMENTA = "implementa";
     public static final String METODOS = "metodos";
+    public static final String NIVELES_HERENCIA = "niveles_herencia";
 }
