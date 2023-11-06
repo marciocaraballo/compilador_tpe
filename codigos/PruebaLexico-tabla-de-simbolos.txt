@@ -30,6 +30,11 @@ Lexema: b:cc
 Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
+Lexema: a:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
 Lexema: cc:cb
 Atributo: uso Valor: nombre_clase
 Atributo: tipo Valor: cc

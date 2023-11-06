@@ -1,5 +1,7 @@
 {
 
+	INT a,
+
 	CLASS cx {
 		INT g,
 	}
@@ -7,7 +9,7 @@
 	CLASS cc {
 		INT b,
 		INT f,
-		VOID n() { RETURN, }
+		VOID n(INT c) { RETURN, }
 	}
 	
 	CLASS cb {
@@ -24,6 +26,6 @@
 	
 	ca c1,
 	
-	c1.cb.cc.n(),
+	c1.cb.cc.n(a),
 	
 }
