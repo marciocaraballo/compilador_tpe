@@ -4,7 +4,7 @@ Lexema: ca:main
 Atributo: uso Valor: nombre_clase
 Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
-Lexema: f:ca
+Lexema: e:ca
 Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
@@ -18,5 +18,5 @@ Atributo: token Valor: 257
 Lexema: c1:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: ca
-Atributo: comp_uso Valor: false
+Atributo: comp_uso Valor: true
 Atributo: token Valor: 257

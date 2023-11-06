@@ -1,6 +1,6 @@
 {
 	CLASS ca {
-		INT f,
+		INT e,
 	}
 	
 	ca c1,
