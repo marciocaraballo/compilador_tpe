@@ -7,7 +7,6 @@
 	CLASS cc {
 		INT b,
 		INT f,
-		cx,
 	}
 	
 	CLASS cb {
@@ -23,6 +22,6 @@
 	
 	ca c1,
 	
-	c1.cb.cc.cx.g = 3_i,
+	c1.cb.cc.w = 3_i,
 	
 }

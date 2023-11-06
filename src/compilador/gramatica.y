@@ -373,50 +373,17 @@ sentencia_asignacion:
 		logger.logSuccess("[Parser] Asignacion detectada");
 		/** Se llama a miembro de clase */ 
 		if ($1.sval.contains(".")) {
-			String[] partes = $1.sval.split("\\."); 
-			/** Caso invalido b1.cb.cc.cd.a, hay 4 niveles de anidamiento */
-			if (partes.length >= 5) {
-				logger.logError("[Generacion codigo] Se supera el maximo permitido de niveles de anidamiento de herencia en " + $1.sval);
-			} else {
-				/** 
-				* Casos validos
-				*
-				* b1.a
-				* b1.cb.a
-				* b1.cb.cc.a 
-				*/
 
+			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
+
+			if (esCadenaValida) {
+
+				String[] partes = $1.sval.split("\\."); 
 				String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
 
-				/** Instancia clase esta definida */
-				if (!ambito.isEmpty()) {
-					String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
-					boolean error = false;
-
-					for (int i = 1; i < partes.length; i++) {
-						/** El primer nivel debe validar contra el tipo de la variable */
-						if (i == 1) {
-							if (!TS.has(partes[i] + ":" + tipo)) {
-								error = true;
-								logger.logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + tipo);
-							}
-						} else {
-							System.out.println("TESTING hehe " + (partes[i] + ":" + partes[i - 1]));
-							if (!TS.has(partes[i] + ":" + partes[i - 1])) { 
-								error = true;
-								logger.logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + partes[i - 1]);
-							}
-						}
-					}
-
-					if (!error) {
-						polaca.agregarElemento($1.sval);
-						polaca.agregarElemento($2.sval);
-						TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
-					}
-				} else {
-					logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
-				}
+				polaca.agregarElemento($1.sval);
+				polaca.agregarElemento($2.sval);
+				TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
