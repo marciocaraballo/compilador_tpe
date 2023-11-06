@@ -22,6 +22,7 @@ public class TablaDeSimbolos {
 	public static final String COMPROBACION_USO = "comp_uso";
 	public static final String TIENE_PARAMETRO = "tiene_param";
 	public static final String METODOS_A_IMPLEMENTAR = "metodos_iter";
+	public static final String CLASES_A_EXTENDER = "clases_extend";
 
 	TablaDeSimbolos() {
 	};
@@ -35,15 +36,15 @@ public class TablaDeSimbolos {
 	}
 
 	/* Agrega un lexema que se reconoce como identificador, constante o cadena */
-	public void putLexema(String lexema, int tipo){
+	public void putLexema(String lexema, int tipo) {
 		HashMap<String, Object> atributos = new HashMap<String, Object>();
 		atributos.put(Constantes.TOKEN, tipo);
 		tabla_simbolos.put(lexema, atributos);
 	}
 
-	public void agregarAtributo(String lexema, String nombre_atributo, Object valor){
+	public void agregarAtributo(String lexema, String nombre_atributo, Object valor) {
 		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
-		if (nombre_atributo.equals(Constantes.METODOS)){
+		if (nombre_atributo.equals(Constantes.METODOS)) {
 			HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.METODOS);
 			if (aux == null)
 				atributos.put(Constantes.METODOS, new HashSet<>());
@@ -51,10 +52,10 @@ public class TablaDeSimbolos {
 				aux.add((String) valor);
 				atributos.put(Constantes.METODOS, aux);
 			}
-		}
-		else
+		} else
 			atributos.put(nombre_atributo, valor);
 	}
+
 	public Object getAtributo(String lexema, String atributo) {
 		return tabla_simbolos.get(lexema).get(atributo);
 	}

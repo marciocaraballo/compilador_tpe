@@ -1,22 +1,19 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 7: [Codigo Intermedio] El identificador x esta declarado
-[Success] Linea 7: [Codigo Intermedio] El identificador w esta declarado
-[Success] Linea 8: [Codigo Intermedio] El identificador k esta declarado
-[Success] Linea 8: [Codigo Intermedio] El identificador j esta declarado
-[Success] Linea 9: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 9: [Parser] Asignacion detectada
-[Success] Linea 11: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 11: [Parser] Asignacion detectada
-[Success] Linea 12: [Parser] Sentencia seleccion IF ELSE detectada
-[Success] Linea 13: [Parser] Sentencia seleccion IF sin ELSE detectada
-[Success] Linea 14: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 14: [Parser] Asignacion detectada
-[Success] Linea 15: [Codigo Intermedio] El identificador c esta declarado
-[Success] Linea 15: [Codigo Intermedio] El identificador k esta declarado
-[Success] Linea 15: [Parser] Asignacion detectada
-[Success] Linea 16: [Codigo Intermedio] El identificador a esta declarado
-[Success] Linea 16: [Codigo Intermedio] El identificador c esta declarado
-[Success] Linea 16: [Parser] Sentencia iterativa DO WHILE detectada
-[WARNING] Linea 16: asdasd 0
-[Success] Linea 16: [Parser] Programa correcto detectado
+[Success] Linea 6: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 8: [Parser] Sentencia PRINT detectada
+[Success] Linea 10: [Parser] Declaracion de funcion detectado
+[Success] Linea 11: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 11: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados
+[Success] Linea 14: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 15: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 17: [Parser] Sentencia PRINT detectada
+[Success] Linea 19: [Parser] Declaracion de funcion detectado
+[Success] Linea 20: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 21: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 21: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados
+[Success] Linea 23: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 23: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 24: [Codigo Intermedio] El identificador cb esta declarado
+[Success] Linea 24: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 26: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 27: [Parser] Programa correcto detectado

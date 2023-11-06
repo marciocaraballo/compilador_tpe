@@ -34,6 +34,7 @@ public class GeneracionCodigoIntermedio {
 
     public void clearAmbitoClaseInterfaz() {
         ambitoClaseInterfaz = "";
+        ambitosClase = new Stack<String>();
     }
 
     public String getAmbitoClaseInterfaz() {
@@ -79,7 +80,34 @@ public class GeneracionCodigoIntermedio {
         Iterator<String> it = null;
         StringBuilder ambitoCompleto = new StringBuilder();
 
-        if (esDefinicionDeClase()) it = ambitosClase.iterator(); else it = ambitos.iterator();
+        if (esDefinicionDeClase())
+            it = ambitosClase.iterator();
+        else
+            it = ambitos.iterator();
+
+        while (it.hasNext()) {
+            ambitoCompleto.append(":").append(it.next());
+        }
+
+        return ambitoCompleto;
+    }
+
+    /**
+     * Es un caso mas que habria que ver si podemos hacerlo mejor, actualmente
+     * tenemos
+     * 
+     * estamos por fuera de definicion de clase
+     * estamos definiendo una clase, entonces el de todo lo que se define es la
+     * clase
+     * estamos definiendo una clase pero encontramos otro identificador de clase,
+     * luego
+     * debe existir fuera de la clase para ser valido
+     */
+    public StringBuilder generarAmbitoIdentificadorDeClase() {
+        Iterator<String> it = null;
+        StringBuilder ambitoCompleto = new StringBuilder();
+
+        it = ambitos.iterator();
 
         while (it.hasNext()) {
             ambitoCompleto.append(":").append(it.next());
@@ -121,12 +149,8 @@ public class GeneracionCodigoIntermedio {
         lista_variables_a_declarar.clear();
     }
 
-    public String existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
-        Iterator<String> it = null;
-        String ambitoParcial = "";
-
-        if (esDefinicionDeClase()) ambitoParcial = ":" + getAmbitoClaseInterfaz(); else
-            ambitoParcial = String.valueOf(generarAmbito());
+    public String existeIdentificadorDeClaseEnAlgunAmbitoContenedor(String identificador) {
+        String ambitoParcial = String.valueOf(generarAmbitoIdentificadorDeClase());
 
         while (!ambitoParcial.isEmpty()) {
             if (TS.has(identificador + ambitoParcial))
@@ -134,6 +158,37 @@ public class GeneracionCodigoIntermedio {
             ambitoParcial = ambitoParcial.substring(0, ambitoParcial.lastIndexOf(":"));
         }
         return "";
+    }
+
+    public String existeIdentificadorEnAlgunAmbitoContenedor(String identificador) {
+
+        String ambitoParcial = String.valueOf(generarAmbito());
+
+        while (!ambitoParcial.isEmpty()) {
+            if (TS.has(identificador + ambitoParcial))
+                return ambitoParcial;
+            ambitoParcial = ambitoParcial.substring(0, ambitoParcial.lastIndexOf(":"));
+        }
+        return "";
+    }
+
+    public Boolean esMayorAMaximoNivelAnidamientoFuncionEnMetodo() {
+        /**
+         * Como venimos apilando ambientes, en el caso de una clase, 3 es el maximo
+         * permitido
+         * 
+         * Por ejemplo, en ca:m:funcion1:funcion2
+         * 
+         * ca: estamos en un ambito de una definicion de clase (nivel 1)
+         * m: metodo definido dentro de ca (nivel 2)
+         * funcion1: funcion definida dentro de m() de ca (nivel 3)
+         * funcion2: una funcion dentro de funcion1() dentro de m() de ca(nivel 4)
+         * 
+         * Como solo se permite 1 nivel de anidamiento dentro de una fn en un metodo
+         * de clase, la pila de ambitos solo deberia llegar hasta 3 elementos apilados.
+         * A partir de 4 ya deberia informar error el compilador y no generar codigo.
+         */
+        return (ambitosClase.size() >= 4);
     }
 
     public void agregarAtributoMetodos(String interfaz) {
@@ -151,8 +206,10 @@ public class GeneracionCodigoIntermedio {
         boolean retorno = true;
         String interfaz = (String) TS.getAtributo(clase + generarAmbito(), Constantes.IMPLEMENTA);
         if (interfaz != null) {
-            HashSet<String> metodos_implementados = (HashSet<String>) TS.getAtributo(clase + generarAmbito(), Constantes.METODOS);
-            HashSet<String> metodos_a_implementar = (HashSet<String>) TS.getAtributo(interfaz + generarAmbito(), Constantes.METODOS);
+            HashSet<String> metodos_implementados = (HashSet<String>) TS.getAtributo(clase + generarAmbito(),
+                    Constantes.METODOS);
+            HashSet<String> metodos_a_implementar = (HashSet<String>) TS.getAtributo(interfaz + generarAmbito(),
+                    Constantes.METODOS);
             retorno = metodos_implementados.containsAll(metodos_a_implementar);
         }
         ambitoClaseInterfaz = aux;

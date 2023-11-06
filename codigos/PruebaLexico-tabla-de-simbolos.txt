@@ -1,51 +1,75 @@
-Lexema: k:main
+Lexema: b1:main
 Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
+Atributo: tipo Valor: cb
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: x:main
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
+Atributo: token Valor: 257
+Lexema: b3:main
 Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
+Atributo: tipo Valor: cb
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: 8_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: c:main
-Atributo: uso Valor: variable
+Lexema: % HOLA %
+Atributo: token Valor: 259
+Lexema: a1
+Atributo: token Valor: 257
+Lexema: a:cb
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: FLOAT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
-Lexema: d:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: FLOAT
 Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: w
 Atributo: token Valor: 257
 Lexema: a:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: w:main
-Atributo: uso Valor: variable
+Lexema: c:ca
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: z:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
+Lexema: m:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: 2_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: b:main
-Atributo: uso Valor: variable
+Lexema: n:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: b:cb
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: FLOAT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: j:main
+Lexema: b2:main
 Atributo: uso Valor: variable
+Atributo: tipo Valor: cb
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: a:ca
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: ca:cb
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: ca
+Atributo: token Valor: 257
+Lexema: cb:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
+Atributo: token Valor: 257
+Lexema: a1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ca
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: ca
+Atributo: token Valor: 257
+Lexema: cb
 Atributo: token Valor: 257

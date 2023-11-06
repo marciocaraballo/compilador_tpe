@@ -1,37 +1,27 @@
 {
 
-    FLOAT b; c; d,
-    INT a; j; k; w; z; x,
+	INT a,
 
-    DO {
-        IF ( x < w )
-            IF ( k > j )
-                a = 2_i,
-            ELSE
-                a = 8_i,
-            END_IF,
-        END_IF,
-        a = 2_i,
-        c = k,
-    } WHILE ( a > c ), }*
+    CLASS ca {
+	    INT a;c,
+	    VOID m() {
+	        PRINT % HOLA %,
+	        RETURN,
+	    }
+	}
 
-    *{
-    DO {
-        IF ( a > w )
-            a = 3_i,
-        END_IF,
-    } WHILE ( a < j ), }*
-
-    *{
-    DO {
-        DO {
-            IF ( k > j )
-                a = 2_i,
-            ELSE
-                a = 8_i,
-            END_IF,
-        } WHILE ( x < w ),
-        a = 2_i,
-        c = k,
-    } WHILE ( a > c ), }*
+	CLASS cb {
+	    FLOAT b, 
+	    FLOAT a,
+	    VOID n() {
+	        PRINT % HOLA %,
+	        RETURN,
+	    } 
+	    ca,
+	}
+	
+	ca a1,
+	cb b1; b2; b3,
+	
+	a1.a(),
 }

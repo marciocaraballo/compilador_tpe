@@ -361,12 +361,67 @@ lista_expresiones_invocacion_funcion_exceso:
 sentencia_asignacion:
 	sentencia_objeto_identificador '=' expresion ',' { 
 		logger.logSuccess("[Parser] Asignacion detectada");
-		String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
-		polaca.agregarElemento($1.sval + variable);
-		polaca.agregarElemento($2.sval);
-		if (!variable.isEmpty())
-			// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
-			TS.agregarAtributo($1.sval + variable, Constantes.COMPROBACION_USO, true);
+		/** Se llama a miembro de clase */ 
+		if ($1.sval.contains(".")) {
+			String[] partes = $1.sval.split("\\."); 
+			/** b1.a */
+			if (partes.length == 2) {
+				/** 0 -> instancia de clase (variable), 1 -> miembro de clase */
+				String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+				/** Instancia clase esta definida */
+				if (!variable.isEmpty()) {
+					String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+					if (TS.has(partes[1] + ":" + tipo)) {
+						polaca.agregarElemento($1.sval);
+						polaca.agregarElemento($2.sval);
+					} else {
+						logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
+					}
+				} else {
+					logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
+				}
+			} else {
+				/** b1.ca.a, solo para ejemplo, puedde hacerse recursivo */
+
+				/** 
+				* 0 -> instancia de clase (variable) 
+				* 1 -> miembro de clase que deberia ser otra clase valida
+				* 2 -> miembro de la clase en parte 1
+				*/
+				String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+
+				/** Instancia clase esta definida */
+				if (!variable.isEmpty()) {
+					String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+					if (TS.has(partes[1] + ":" + tipo)) {
+						/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
+						if (TS.has(partes[2] + ":" + partes[1])) {
+							polaca.agregarElemento($1.sval);
+							polaca.agregarElemento($2.sval);
+						} else {
+							logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
+						}
+					} else {
+						logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
+					}
+				} else {
+					logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
+				}
+			}
+		} else {
+			String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+			/** "expresion" parece apilar cosas en la polaca, pero recien aca sabemos si la asignacion
+				es sintacticamente correcta, capaz se pueda procesar aca la expresion o desapilar */
+			if (!variable.isEmpty()) {
+				polaca.agregarElemento($1.sval + variable);
+				polaca.agregarElemento($2.sval);
+				if (!variable.isEmpty())
+					// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
+					TS.agregarAtributo($1.sval + variable, Constantes.COMPROBACION_USO, true);
+				} else {
+					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
+				}
+			}
 	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
 	sentencia_objeto_identificador '=' ',' { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
@@ -375,32 +430,9 @@ sentencia_asignacion:
 sentencia_objeto_identificador:
 	ID {
 		$$.sval = $1.sval;
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
-		 	logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
-			TS.removeLexema($1.sval);
-		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
-		}
 	} |
 	sentencia_objeto_identificador '.' ID {
-
 		$$.sval = $1.sval + "." + $3.sval;
-
-		// if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).equals("")){
-
-		// 	String tipoInstancia = genCodigoIntermedio.tipoInstanceDeClase($1.sval);
-
-		// 	if (genCodigoIntermedio.perteneceMiembroAClase($3.sval, tipoInstancia)) {
-		// 		logger.logError($3.sval + ":" + tipoInstancia);
-		// 		if (genCodigoIntermedio.verificarParametrosDeMetodo($3.sval + ":" + tipoInstancia)){
-		// 			logger.logError("Cantidad de parametros incorrecta");
-		// 		} else {
-		// 			logger.logSuccess("[Codigo Intermedio] El identificador " + $3.sval + " esta declarado dentro de la clase " + tipoInstancia);
-		// 		}
-		// 	} else {
-		// 		logger.logError("[Codigo Intermedio] El identificador " + $3.sval + " no esta declarado dentro de la clase " + tipoInstancia);
-		// 	}
-		// }
 	}
 ;
 
@@ -464,8 +496,12 @@ sentencia_declarativa_clase:
 	declaracion_funcion |
 	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
 	ID ',' {
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
+		if (!genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
+			String nuevoLexema = $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz();
+			TS.getInstance().swapLexemas($1.sval, nuevoLexema);
+			TS.getInstance().agregarAtributo(nuevoLexema, "tipo", $1.sval);
+			TS.getInstance().agregarAtributo(nuevoLexema, "uso", "nombre_clase");
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
@@ -474,16 +510,13 @@ sentencia_declarativa_clase:
 
 declaracion_clase:
 	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
-		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado"); 
-
-		//String claseDeclarada = genCodigoIntermedio.getAmbitoClaseInterfaz();
-		//String claseImplementaInterfaz = genCodigoIntermedio.getInterfazAImplementar(claseDeclarada);
+		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado");
 		
 		if (genCodigoIntermedio.verificarImplementacion($1.sval)){
 			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados");
 		}
 		else{
-			logger.logError("No fueron implementados todos los metodos de la interfaz");
+			logger.logError("[Codigo Intermedio] No fueron implementados todos los metodos de la interfaz");
 		}
 		
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
@@ -542,9 +575,14 @@ bloque_sentencias_declarativas_clase:
 declaracion_funcion:
 	encabezado_funcion cuerpo_funcion { 
 		logger.logSuccess("[Parser] Declaracion de funcion detectado");
-		if (genCodigoIntermedio.isPuedoDesapilar()) {
+		if (genCodigoIntermedio.isPuedoDesapilar() && genCodigoIntermedio.esDefinicionDeClase()) {
+
+			if (genCodigoIntermedio.esMayorAMaximoNivelAnidamientoFuncionEnMetodo()) {
+				logger.logError("[Parser] Se permite hasta un maximo de un nivel de anidamiento en una funcion dentro de un metodo de clase");
+			}
+
 			genCodigoIntermedio.desapilarAmbito();
-			polaca.desapilarAmbito();
+			//polaca.desapilarAmbito();
 		}
 		else 
 			genCodigoIntermedio.setPuedoDesapilar();
@@ -556,6 +594,7 @@ encabezado_funcion:
 		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
 		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
+				genCodigoIntermedio.apilarAmbito($1.sval);
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				// Agrego Ambito a metodo
