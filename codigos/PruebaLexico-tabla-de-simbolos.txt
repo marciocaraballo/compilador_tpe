@@ -14,20 +14,21 @@ Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
 Lexema: cc:main
 Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
 Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
 Lexema: c1
 Atributo: token Valor: 257
+Lexema: n
+Atributo: token Valor: 257
 Lexema: c1:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: ca
-Atributo: comp_uso Valor: true
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
 Lexema: b:cc
 Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: w
 Atributo: token Valor: 257
 Lexema: cc:cb
 Atributo: uso Valor: nombre_clase
@@ -51,11 +52,17 @@ Atributo: tipo Valor: INT
 Atributo: token Valor: 257
 Lexema: cb:main
 Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
 Atributo: niveles_herencia Valor: 1
 Atributo: token Valor: 257
-Lexema: 3_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
+Lexema: n:cc
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: m:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
 Lexema: ca
 Atributo: token Valor: 257
 Lexema: cb

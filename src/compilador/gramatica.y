@@ -318,27 +318,14 @@ sentencia_invocacion_funcion:
 		logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada");
 
 		if ($1.sval.contains(".")) {
-			
-			String[] splittedIdentificador = $1.sval.split("\\.");
-			String nombreVariable = splittedIdentificador[0];
-			String nombreMiembro = splittedIdentificador[1];
 
-			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable);
+			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
 
-			if (!ambito.isEmpty()){
-
-				String tipoInstancia = (String) TS.getAtributo(nombreVariable + ambito, Constantes.TYPE);
-
-				if (TS.has(nombreMiembro + ":" + tipoInstancia)) {
-					
-					if (!(boolean) TS.getAtributo(nombreMiembro + ":" + tipoInstancia, Constantes.TIENE_PARAMETRO)){
-						logger.logSuccess("[Codigo Intermedio] El identificador " + nombreMiembro + " esta declarado dentro de la clase " + tipoInstancia);
-					} else {
-						logger.logError("[Codigo Intermedio] Cantidad de parametros incorrecta");
-					}
-				} else {
-					logger.logError("[Codigo Intermedio] El identificador " + nombreMiembro + " no esta declarado dentro de la clase " + tipoInstancia);
-				}
+			/* FALTA CHEQUEO PARAMS, ACA IRIA TAMBIEN EL QUE HACER CON EL CASO VALIDO */
+			if (esCadenaValida) {
+				logger.logSuccess("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " es valida ");
+			} else {
+				logger.logError("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " no es valida ");
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);

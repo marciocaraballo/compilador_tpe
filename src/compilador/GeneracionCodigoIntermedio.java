@@ -231,33 +231,33 @@ public class GeneracionCodigoIntermedio {
         /** Caso invalido b1.cb.cc.cd.a, hay 4 niveles de anidamiento */
         if (partes.length >= 5) {
             Logger.getInstance().logError("[Generacion codigo] Se supera el maximo permitido de niveles de anidamiento de herencia en " + cadenaLlamados);
-            return true;
+            return false;
         } else {
             String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
             /** Instancia clase esta definida */
             if (!ambito.isEmpty()) {
                 String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
-                boolean error = false;
+                boolean isValid = true;
 
-                for (int i = 1; i < partes.length && !error; i++) {
+                for (int i = 1; i < partes.length && isValid; i++) {
                     /** El primer nivel debe validar contra el tipo de la variable */
                     if (i == 1) {
                         if (!TS.has(partes[i] + ":" + tipo)) {
-                            error = true;
+                            isValid = false;
                             Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + tipo);
                         }
                     } else {
                         if (!TS.has(partes[i] + ":" + partes[i - 1])) { 
-                            error = true;
+                            isValid = false;
                             Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + partes[i - 1]);
                         }
                     }
                 }
 
-                return error;
+                return isValid;
             } else {
                 Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
-                return true;
+                return false;
             }
         }
     }
