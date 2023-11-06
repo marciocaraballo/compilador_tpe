@@ -220,7 +220,7 @@ public class GeneracionCodigoIntermedio {
     }
 
     /** 
-    * Casos validos
+    * Casos validos (aplica tambien para funciones)
     *
     * b1.a
     * b1.cb.a
