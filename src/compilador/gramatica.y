@@ -385,79 +385,37 @@ sentencia_asignacion:
 				* b1.cb.a
 				* b1.cb.cc.a 
 				*/
-				if (partes.length == 2) {
-					/** 0 -> instancia de clase (variable), 1 -> miembro de clase */
-					String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
-					/** Instancia clase esta definida */
-					if (!ambito.isEmpty()) {
-						String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
-						if (TS.has(partes[1] + ":" + tipo)) {
-							polaca.agregarElemento($1.sval);
-							polaca.agregarElemento($2.sval);
-							TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
-						} else {
-							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
-						}
-					} else {
-						logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
-					}
-				} else if (partes.length == 3) { /** b1.ca.a */
-					/** 
-					* 0 -> instancia de clase (variable) 
-					* 1 -> miembro de clase que deberia ser otra clase valida
-					* 2 -> miembro de la clase en parte 1
-					*/
-					String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
-					/** Instancia clase esta definida */
-					if (!ambito.isEmpty()) {
-						String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
 
-						if (TS.has(partes[1] + ":" + tipo)) {
-							/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
-							if (TS.has(partes[2] + ":" + partes[1])) {
-								polaca.agregarElemento($1.sval);
-								polaca.agregarElemento($2.sval);
-								TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
-							} else {
-								logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
+				String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+
+				/** Instancia clase esta definida */
+				if (!ambito.isEmpty()) {
+					String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
+					boolean error = false;
+
+					for (int i = 1; i < partes.length; i++) {
+						/** El primer nivel debe validar contra el tipo de la variable */
+						if (i == 1) {
+							if (!TS.has(partes[i] + ":" + tipo)) {
+								error = true;
+								logger.logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + tipo);
 							}
 						} else {
-							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
-						}
-					} else {
-						logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
-					}
-				} else { /** b1.ca.cc.a */
-					/** 
-					* 0 -> instancia de clase (variable) 
-					* 1 -> miembro de clase que deberia ser otra clase valida
-					* 2 -> miembro de clase que deberia ser otra clase valida
-					* 3 -> miembro de la clase en parte 2
-					*/
-					String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
-					/** Instancia clase esta definida */
-					if (!ambito.isEmpty()) {
-						String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
-
-						if (TS.has(partes[1] + ":" + tipo)) {
-							/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
-							if (TS.has(partes[2] + ":" + partes[1])) {
-								if (TS.has(partes[3] + ":" + partes[2] )) {
-									polaca.agregarElemento($1.sval);
-									polaca.agregarElemento($2.sval);
-									TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
-								} else {
-									logger.logError("[Codigo intermedio] El identificador " + partes[3] + " no esta declarado como miembro de la clase " + partes[2]);
-								}
-							} else {
-								logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
+							System.out.println("TESTING hehe " + (partes[i] + ":" + partes[i - 1]));
+							if (!TS.has(partes[i] + ":" + partes[i - 1])) { 
+								error = true;
+								logger.logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + partes[i - 1]);
 							}
-						} else {
-							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
 						}
-					} else {
-						logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
 					}
+
+					if (!error) {
+						polaca.agregarElemento($1.sval);
+						polaca.agregarElemento($2.sval);
+						TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
+					}
+				} else {
+					logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
 				}
 			}
 		} else {
@@ -467,8 +425,8 @@ sentencia_asignacion:
 			if (!ambito.isEmpty()) {
 				polaca.agregarElemento($1.sval + ambito);
 				polaca.agregarElemento($2.sval);
-					// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
-					TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
+				// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
+				TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
 			} else {
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}

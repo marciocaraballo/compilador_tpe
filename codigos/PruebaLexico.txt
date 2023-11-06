@@ -1,9 +1,28 @@
 {
+
+	CLASS cx {
+		INT g,
+	}
+
+	CLASS cc {
+		INT b,
+		INT f,
+		cx,
+	}
+	
+	CLASS cb {
+		INT c,
+		cc,
+	}
+	
+	
 	CLASS ca {
-		INT e,
+		INT d,
+ 		cb, 
 	}
 	
 	ca c1,
 	
-	c1.e = 3_i,
+	c1.cb.cc.cx.g = 3_i,
+	
 }
