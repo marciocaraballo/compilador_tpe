@@ -5,14 +5,21 @@
 	}
 	
 	CLASS cc {
+		INT b,
 		cx,
 	}
 	
 	CLASS cb {
+		INT c,
 		cc,
 	}
 	
 	CLASS ca {
+		INT d,
  		cb, 
 	}
+	
+	ca c1,
+	
+	c1.d = 3_i,
 }
