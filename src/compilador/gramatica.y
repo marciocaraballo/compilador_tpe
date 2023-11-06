@@ -306,7 +306,7 @@ sentencia_invocacion_funcion:
 				}
 			}
 		} else {
-			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable);
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 			if (!ambito.isEmpty()){
 				if (!(boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)){
 					logger.logError("Cantidad de parametros incorrecta");

@@ -1900,7 +1900,7 @@ case 140:
 				}
 			}
 		} else {
-			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(nombreVariable);
+			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(4).sval);
 			if (!ambito.isEmpty()){
 				if (!(boolean) TS.getAtributo(val_peek(4).sval + ambito, Constantes.TIENE_PARAMETRO)){
 					logger.logError("Cantidad de parametros incorrecta");
