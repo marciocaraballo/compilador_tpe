@@ -1,12 +1,12 @@
 {
-
+	
 	CLASS cx {
- 		INT a,
+		INT p,
 	}
 	
 	CLASS cc {
 		INT b,
-		cx,
+		INT f,
 	}
 	
 	CLASS cb {
@@ -21,5 +21,6 @@
 	
 	ca c1,
 	
-	c1.d = 3_i,
+	c1.cb.cc.cd.f = 3_i,
+	
 }

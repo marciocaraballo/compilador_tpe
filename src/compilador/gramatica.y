@@ -364,48 +364,90 @@ sentencia_asignacion:
 		/** Se llama a miembro de clase */ 
 		if ($1.sval.contains(".")) {
 			String[] partes = $1.sval.split("\\."); 
-			/** b1.a */
-			if (partes.length == 2) {
-				/** 0 -> instancia de clase (variable), 1 -> miembro de clase */
-				String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
-				/** Instancia clase esta definida */
-				if (!variable.isEmpty()) {
-					String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
-					if (TS.has(partes[1] + ":" + tipo)) {
-						polaca.agregarElemento($1.sval);
-						polaca.agregarElemento($2.sval);
-					} else {
-						logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
-					}
-				} else {
-					logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
-				}
+			/** Caso invalido b1.cb.cc.cd.a, hay 4 niveles de anidamiento */
+			if (partes.length >= 5) {
+				logger.logError("[Generacion codigo] Se supera el maximo permitido de niveles de anidamiento de herencia en " + $1.sval);
 			} else {
-				/** b1.ca.a, solo para ejemplo, puedde hacerse recursivo */
-
 				/** 
-				* 0 -> instancia de clase (variable) 
-				* 1 -> miembro de clase que deberia ser otra clase valida
-				* 2 -> miembro de la clase en parte 1
+				* Casos validos
+				*
+				* b1.a
+				* b1.cb.a
+				* b1.cb.cc.a 
 				*/
-				String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
-
-				/** Instancia clase esta definida */
-				if (!variable.isEmpty()) {
-					String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
-					if (TS.has(partes[1] + ":" + tipo)) {
-						/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
-						if (TS.has(partes[2] + ":" + partes[1])) {
+				if (partes.length == 2) {
+					/** 0 -> instancia de clase (variable), 1 -> miembro de clase */
+					String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+					/** Instancia clase esta definida */
+					if (!variable.isEmpty()) {
+						String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+						if (TS.has(partes[1] + ":" + tipo)) {
 							polaca.agregarElemento($1.sval);
 							polaca.agregarElemento($2.sval);
+							TS.agregarAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.COMPROBACION_USO, true);
 						} else {
-							logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
+							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
 						}
 					} else {
-						logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
+						logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
 					}
-				} else {
-					logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
+				} else if (partes.length == 3) { /** b1.ca.a */
+					/** 
+					* 0 -> instancia de clase (variable) 
+					* 1 -> miembro de clase que deberia ser otra clase valida
+					* 2 -> miembro de la clase en parte 1
+					*/
+					String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+					/** Instancia clase esta definida */
+					if (!variable.isEmpty()) {
+						String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+
+						if (TS.has(partes[1] + ":" + tipo)) {
+							/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
+							if (TS.has(partes[2] + ":" + partes[1])) {
+								polaca.agregarElemento($1.sval);
+								polaca.agregarElemento($2.sval);
+								TS.agregarAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.COMPROBACION_USO, true);
+							} else {
+								logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
+							}
+						} else {
+							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
+						}
+					} else {
+						logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
+					}
+				} else { /** b1.ca.cc.a */
+					/** 
+					* 0 -> instancia de clase (variable) 
+					* 1 -> miembro de clase que deberia ser otra clase valida
+					* 2 -> miembro de clase que deberia ser otra clase valida
+					* 3 -> miembro de la clase en parte 2
+					*/
+					String variable = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+					/** Instancia clase esta definida */
+					if (!variable.isEmpty()) {
+						String tipo = (String) TS.getAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.TYPE);
+
+						if (TS.has(partes[1] + ":" + tipo)) {
+							/** Verifica que el miembro final partes[2] es partes de la clase heredada partes[1] */
+							if (TS.has(partes[2] + ":" + partes[1])) {
+								if (TS.has(partes[3] + ":" + partes[2] )) {
+									polaca.agregarElemento($1.sval);
+									polaca.agregarElemento($2.sval);
+									TS.agregarAtributo(partes[0] + genCodigoIntermedio.generarAmbito(), Constantes.COMPROBACION_USO, true);
+								} else {
+									logger.logError("[Codigo intermedio] El identificador " + partes[3] + " no esta declarado como miembro de la clase " + partes[2]);
+								}
+							} else {
+								logger.logError("[Codigo intermedio] El identificador " + partes[2] + " no esta declarado como miembro de la clase " + partes[1]);
+							}
+						} else {
+							logger.logError("[Codigo intermedio] El identificador " + partes[1] + " no esta declarado como miembro de la clase " + tipo);
+						}
+					} else {
+						logger.logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
+					}
 				}
 			}
 		} else {

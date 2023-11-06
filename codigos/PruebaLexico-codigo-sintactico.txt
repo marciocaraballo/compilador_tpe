@@ -2,7 +2,7 @@
 [Success] Linea 5: [Parser] Declaracion de clase CLASS detectado
 [Success] Linea 5: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados
 [Success] Linea 8: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 9: [Codigo Intermedio] El identificador cx esta declarado
+[Success] Linea 9: [Parser] Declaracion de lista de variables en CLASS detectado
 [Success] Linea 10: [Parser] Declaracion de clase CLASS detectado
 [Success] Linea 10: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados
 [Success] Linea 13: [Parser] Declaracion de lista de variables en CLASS detectado
@@ -16,4 +16,4 @@
 [Success] Linea 22: [Codigo Intermedio] El identificador ca esta declarado
 [Success] Linea 22: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 24: [Parser] Asignacion detectada
-[Success] Linea 25: [Parser] Programa correcto detectado
+[Success] Linea 26: [Parser] Programa correcto detectado
