@@ -1,6 +1,5 @@
 package compilador;
 
-import javax.security.auth.login.LoginException;
 import java.util.*;
 
 public class Polaca {
@@ -10,6 +9,7 @@ public class Polaca {
     private int contador = 0;
     private static Polaca instance = null;
     GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
+    int ultimo_desapilado;
 
     public static Polaca getInstance() {
         if (instance == null) {
@@ -24,7 +24,6 @@ public class Polaca {
 
     public void agregarElemento(String elemento) {
         incrementarContador();
-        Logger.getInstance().logWarning("ASDasdasd" + genCodigoIntermedio.generarAmbito());
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.add(elemento);
         polaca.put(genCodigoIntermedio.generarAmbito().toString(), polaca_auxiliar);
@@ -34,9 +33,21 @@ public class Polaca {
         pila.get(genCodigoIntermedio.generarAmbito().toString()).push(posicion - 1);
     }
 
-    public Integer desapilar() {
+    public Integer getTope() {
+        return pila.get(genCodigoIntermedio.generarAmbito().toString()).peek();
+    }
 
-        return pila.get(genCodigoIntermedio.generarAmbito().toString()).pop();
+    public Integer desapilar() {
+        ultimo_desapilado = pila.get(genCodigoIntermedio.generarAmbito().toString()).pop();
+        return ultimo_desapilado;
+    }
+
+    //public void guardarPosicion(int i){
+    //    posicion_aux.push(i);
+    //}
+
+    public int getPosicion(){
+        return ultimo_desapilado;
     }
 
     public void crearPolacaAmbitoNuevo(String identificador){
@@ -90,7 +101,6 @@ public class Polaca {
 
 
     public void showPolaca() {
-        System.out.println(polaca.size());
         for (String nombre_polaca : polaca.keySet()) {
             Logger.getInstance().logSuccess("NOMBRE POLACA: " + nombre_polaca);
             for (int i = 0; i < polaca.get(nombre_polaca).size(); i++) {

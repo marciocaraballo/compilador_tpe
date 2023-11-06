@@ -1,29 +1,21 @@
 {
-	INT a,
 
-	CLASS cx {
-		INT g,
-	}
+    INT a;b;c;d;e;f;g;h;w;z;x;y,
 
-	CLASS cc {
-		INT b,
-		INT f,
-		VOID n() { RETURN, }
-	}
+    DO {
+        DO {
+            w = 500_i,
+            DO {
+                h = 200_i,
+            } WHILE ( e > f ),
+        } WHILE ( b > d ),
+    } WHILE ( a > d),
 
-	CLASS cb {
-		INT c,
-		VOID m() { RETURN, }
-		cc,
-	}
+    DO {
+        DO {
+            c = 123_i,
+        } WHILE ( w > z ),
+    } WHILE ( x > y),
 
 
-	CLASS ca {
-		INT d,
- 		cb,
-	}
-
-	ca c1,
-
-	c1.cb.cc.n(),
 }

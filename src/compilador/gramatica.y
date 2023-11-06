@@ -167,10 +167,13 @@ bloque_sentencias_ejecutables_while:
 
 primer_sentencia:
 	sentencia_ejecutable {
-		logger.logError("PRIMER SENT " + polaca.polacaSize());
-		int aux = polaca.getContador() + 1;
-		logger.logError("ASDASDASD  " + aux);
-		polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+		logger.logError($1.sval + "" + $1.sval.equals("DO"));
+		if ($1.sval.equals("DO")){
+			polaca.apilar(polaca.getPosicion() + 1);
+		}
+		else{
+			polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+		}
 		polaca.resetContador();
 	}
 
@@ -258,7 +261,7 @@ sentencia_ejecutable_funcion_inalcanzable:
 ;
 
 sentencias_ejecutables:
-	sentencia_ejecutable { } |
+	sentencia_ejecutable |
 	sentencias_ejecutables sentencia_ejecutable |
 	sentencia_declarativa { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); } |
 	sentencias_ejecutables sentencia_declarativa { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); }
