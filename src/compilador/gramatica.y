@@ -376,6 +376,7 @@ sentencia_asignacion:
 				// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
 				TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
 			} else {
+				polaca.removeElementos();
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
 		}
@@ -744,9 +745,9 @@ comparador:
 ;
 
 expresion:
-	expresion '+' termino { 
+	expresion '+' termino {
 		polaca.agregarElemento($2.sval);} |
-	expresion '-' termino { 
+	expresion '-' termino {
 		polaca.agregarElemento($2.sval);} |
 	termino
 ;
@@ -767,6 +768,7 @@ factor:
 			TS.removeLexema($1.sval);
 			polaca.agregarElemento($1.sval + ambito);
 		} else {
+			polaca.removeElementos();
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	} |

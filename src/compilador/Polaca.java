@@ -87,6 +87,15 @@ public class Polaca {
         polaca.put(genCodigoIntermedio.getTopePila(), polaca_auxiliar);
     }
 
+    public void removeElementos(){
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
+        int cantidad_elementos = polacaSize() - getContador();
+        if (polacaSize() + 1> cantidad_elementos) {
+            polaca_auxiliar.subList(cantidad_elementos, polacaSize()).clear();
+        }
+        polaca.put(genCodigoIntermedio.generarAmbito().toString(), polaca_auxiliar);
+    }
+
     public void incrementarContador() {
         contador++;
     }
