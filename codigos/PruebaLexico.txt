@@ -2,20 +2,16 @@
 
     INT a;b;c;d;e;f;g;h;w;z;x;y,
 
+    VOID f1(){
     DO {
         DO {
-            w = 500_i,
+            w = 402_i,
             DO {
                 h = 200_i,
             } WHILE ( e > f ),
         } WHILE ( b > d ),
     } WHILE ( a > d),
-
-    DO {
-        DO {
-            c = 123_i,
-        } WHILE ( w > z ),
-    } WHILE ( x > y),
-
+    RETURN,
+    }
 
 }

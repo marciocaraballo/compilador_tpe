@@ -1,20 +1,14 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 7: [Parser] Asignacion detectada
-[Success] Linea 9: [Parser] Asignacion detectada
-[Success] Linea 10: [Codigo Intermedio] El identificador e esta declarado
-[Success] Linea 10: [Codigo Intermedio] El identificador f esta declarado
-[Success] Linea 10: [Parser] Sentencia iterativa DO WHILE detectada
-[Success] Linea 11: [Codigo Intermedio] El identificador b esta declarado
-[Success] Linea 11: [Codigo Intermedio] El identificador d esta declarado
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 10: [Parser] Asignacion detectada
+[Success] Linea 11: [Codigo Intermedio] El identificador e esta declarado
+[Success] Linea 11: [Codigo Intermedio] El identificador f esta declarado
 [Success] Linea 11: [Parser] Sentencia iterativa DO WHILE detectada
-[Success] Linea 12: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 12: [Codigo Intermedio] El identificador b esta declarado
 [Success] Linea 12: [Codigo Intermedio] El identificador d esta declarado
 [Success] Linea 12: [Parser] Sentencia iterativa DO WHILE detectada
-[Success] Linea 16: [Parser] Asignacion detectada
-[Success] Linea 17: [Codigo Intermedio] El identificador w esta declarado
-[Success] Linea 17: [Codigo Intermedio] El identificador z esta declarado
-[Success] Linea 17: [Parser] Sentencia iterativa DO WHILE detectada
-[Success] Linea 18: [Codigo Intermedio] El identificador x esta declarado
-[Success] Linea 18: [Codigo Intermedio] El identificador y esta declarado
-[Success] Linea 18: [Parser] Sentencia iterativa DO WHILE detectada
-[Success] Linea 21: [Parser] Programa correcto detectado
+[Success] Linea 13: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 13: [Codigo Intermedio] El identificador d esta declarado
+[Success] Linea 13: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 15: [Parser] Declaracion de funcion detectado
+[Success] Linea 17: [Parser] Programa correcto detectado

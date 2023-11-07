@@ -167,7 +167,6 @@ bloque_sentencias_ejecutables_while:
 
 primer_sentencia:
 	sentencia_ejecutable {
-		logger.logError($1.sval + "" + $1.sval.equals("DO"));
 		if ($1.sval.equals("DO")){
 			polaca.apilar(polaca.getPosicion() + 1);
 		}
@@ -179,7 +178,10 @@ primer_sentencia:
 
 primer_sentencia_funcion:
 	sentencia_ejecutable_funcion {
-		polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+		if ($1.sval.equals("DO"))
+			polaca.apilar(polaca.getPosicion() + 1);
+		else
+			polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
 		polaca.resetContador();
 	}
 
