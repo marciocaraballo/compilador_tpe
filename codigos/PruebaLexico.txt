@@ -2,6 +2,15 @@
 
     INT a;b;c;d;e;f;g;h;w;z;x;y,
 
-    zi = z * 4_i + z * w,
+    VOID f1(){
+        DO {
+            DO {
+                a = 300_i,
+            } WHILE ( b > 2_i ),
+        } WHILE ( c > 4_i ),
+        RETURN,
+    }
+
+    f1(),
 
 }

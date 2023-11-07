@@ -1,6 +1,9 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 5: [Codigo Intermedio] El identificador z esta declarado
-[Success] Linea 5: [Codigo Intermedio] El identificador z esta declarado
-[Success] Linea 5: [Codigo Intermedio] El identificador w esta declarado
-[Success] Linea 5: [Parser] Asignacion detectada
-[Success] Linea 7: [Parser] Programa correcto detectado
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 9: [Codigo Intermedio] El identificador b esta declarado
+[Success] Linea 9: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 10: [Codigo Intermedio] El identificador c esta declarado
+[Success] Linea 10: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 12: [Parser] Declaracion de funcion detectado
+[Success] Linea 14: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 16: [Parser] Programa correcto detectado

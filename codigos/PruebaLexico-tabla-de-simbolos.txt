@@ -1,3 +1,5 @@
+Lexema: a
+Atributo: token Valor: 257
 Lexema: c:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
@@ -28,12 +30,12 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
+Lexema: f1
+Atributo: token Valor: 257
 Lexema: b:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
-Atributo: token Valor: 257
-Lexema: zi
 Atributo: token Valor: 257
 Lexema: x:main
 Atributo: uso Valor: variable
@@ -45,6 +47,10 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
+Lexema: f1:main
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
 Lexema: h:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
@@ -53,8 +59,14 @@ Atributo: token Valor: 257
 Lexema: a:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
+Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
+Lexema: 300_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: 2_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
 Lexema: 4_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258

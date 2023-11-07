@@ -305,6 +305,10 @@ sentencia_invocacion_funcion:
 				if (!(boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)){
 					logger.logError("Cantidad de parametros incorrecta");
 				}
+				else {
+					polaca.generarPasoIncompleto("BI");
+					polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG", true);
+				}
 			}
 		}
 	} |
@@ -328,8 +332,10 @@ sentencia_invocacion_funcion:
 					if ((boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)) {
 						logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
 					}
-					polaca.generarPasoIncompleto("BI");
-					polaca.completarPasoIncompletoInvocacion($1.sval + ambito);
+					else{
+						polaca.generarPasoIncompleto("BI");
+						polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG", false);
+					}
 				} else {
 					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no es una funcion");
 				}

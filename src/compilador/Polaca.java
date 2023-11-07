@@ -26,7 +26,6 @@ public class Polaca {
         incrementarContador();
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.add(elemento);
-        polaca.put(genCodigoIntermedio.generarAmbito().toString(), polaca_auxiliar);
     }
 
     public void apilar(int posicion) {
@@ -80,11 +79,12 @@ public class Polaca {
         agregarElemento(aux);
     }
 
-    public void completarPasoIncompletoInvocacion(String etiqueta){
-        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.getTopePila());
+    public void completarPasoIncompletoInvocacion(String etiqueta, boolean borrar_parametro){
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
+        if (borrar_parametro)
+            polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
-        polaca.put(genCodigoIntermedio.getTopePila(), polaca_auxiliar);
     }
 
     public void removeElementos(){
@@ -93,7 +93,6 @@ public class Polaca {
         if (polacaSize() + 1> cantidad_elementos) {
             polaca_auxiliar.subList(cantidad_elementos, polacaSize()).clear();
         }
-        polaca.put(genCodigoIntermedio.generarAmbito().toString(), polaca_auxiliar);
     }
 
     public void incrementarContador() {
