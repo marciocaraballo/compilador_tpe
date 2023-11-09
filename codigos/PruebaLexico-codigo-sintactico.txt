@@ -1,0 +1,12 @@
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 5: [Parser] Asignacion detectada
+[Success] Linea 9: [Parser] Declaracion de INTERFACE detectada
+[Success] Linea 13: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 15: [Parser] Declaracion de funcion detectado
+[Success] Linea 17: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 19: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 19: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 20: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 20: [Codigo Intermedio] La cadena de llamadas b1.p es valida 
+[Success] Linea 20: [Codigo Intermedio] Se llamo al metodo b1.p correctamente sin parametro
+[Success] Linea 21: [Parser] Programa correcto detectado

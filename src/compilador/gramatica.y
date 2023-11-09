@@ -300,6 +300,11 @@ sentencia_invocacion_funcion:
 
 				if (tieneParam) {
 					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente con un parametro");
+					String[] cadena = $1.sval.split("\\.");
+					String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
+					String salto = ":" + cadena[cadena.length - 1] + genCodigoIntermedio.generarAmbito() + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE);
+					polaca.generarPasoIncompleto("BI");
+					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
 					// @TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
@@ -335,7 +340,11 @@ sentencia_invocacion_funcion:
 
 				if (!tieneParam) {
 					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente sin parametro");
-					// @TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
+					String[] cadena = $1.sval.split("\\.");
+					String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
+					String salto = ":" + cadena[cadena.length - 1] + genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE);
+					polaca.generarPasoIncompleto("BI");
+					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
 				}
@@ -399,6 +408,7 @@ sentencia_asignacion:
 				polaca.agregarElemento($2.sval);
 				TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
 			} else {
+				// Si la variable no fue declarada, descarto los elementos apilados en la polaca
 				polaca.removeElementos();
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
@@ -607,6 +617,7 @@ encabezado_funcion:
 				TS.swapLexemas($1.sval, nuevoLexema);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
+				polaca.crearPolacaAmbitoNuevo($1.sval + ambitoClaseDefinidaActual);
 				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
@@ -616,8 +627,8 @@ encabezado_funcion:
 				
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito());
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			}
-			polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
@@ -634,6 +645,9 @@ encabezado_funcion:
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
+				polaca.crearPolacaAmbitoNuevo($1.sval + ambitoClaseDefinidaActual);
+			
+
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
@@ -644,10 +658,9 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
-				//polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			}
 			genCodigoIntermedio.apilarAmbito($1.sval);
-			polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito().toString());
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 			genCodigoIntermedio.setPuedoDesapilar();

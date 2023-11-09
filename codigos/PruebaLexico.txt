@@ -8,15 +8,14 @@
 		VOID p(INT h),
 	}
 
-    CLASS ca IMPLEMENT z {
-        VOID p(INT a){
-            INT d,
-            d = 3_i,
-           	a = 3_i,
-            
+    CLASS ca {
+        VOID p(){
+            INT c,
             RETURN,
         }
+
     }
 	
 	ca b1,
+	b1.p(),
 }
