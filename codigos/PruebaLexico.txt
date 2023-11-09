@@ -1,11 +1,19 @@
 {
 
 	INT c,
+	
+	c = 3_i,
+	
+	INTERFACE z {
+		VOID p(INT h),
+	}
 
-    CLASS ca {
+    CLASS ca IMPLEMENT z {
         VOID p(INT a){
-            INT c,
-            c = 3_i,
+            INT d,
+            d = 3_i,
+           	a = 3_i,
+            
             RETURN,
         }
     }
