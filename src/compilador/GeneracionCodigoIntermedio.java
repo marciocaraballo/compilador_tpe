@@ -261,6 +261,8 @@ public class GeneracionCodigoIntermedio {
                             isValid = false;
                             Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
                                     + " no esta declarado como miembro de la clase " + partes[i - 1]);
+                        } else {
+                            /** Encuentra el */
                         }
                     }
                 }
@@ -271,6 +273,27 @@ public class GeneracionCodigoIntermedio {
                         .logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
                 return false;
             }
+        }
+    }
+
+    public boolean tieneParametroElMetodoLlamado(String cadenaLlamados) {
+        String[] partes = cadenaLlamados.split("\\.");
+
+        /** Caso b1.p(a), donde b1 es un nombre de variable y NO un type heredado, y se llama con un param */
+        if (partes.length == 2) {
+            String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+            String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
+            String ambitoClaseTipo =  existeIdentificadorEnAlgunAmbitoContenedor(tipo);
+            boolean tieneParametro = (boolean) TS.getAtributo(partes[1] + ambitoClaseTipo + ":" + tipo, Constantes.TIENE_PARAMETRO);
+
+            return tieneParametro;
+        } else {
+            /** Caso b1.ca.d(), donde se chequea la ultima parte (metodo) con la anterior (type) */
+            String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[partes.length - 2]);
+            String tipo = partes[partes.length - 2];
+            boolean tieneParametro = (boolean) TS.getAtributo(partes[partes.length - 1] + ambito + ":" + tipo, Constantes.TIENE_PARAMETRO);
+        
+            return tieneParametro;
         }
     }
 }

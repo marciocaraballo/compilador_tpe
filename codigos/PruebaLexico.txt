@@ -1,15 +1,22 @@
 {
 
-	INTERFACE base {
-		VOID p(),
-		VOID z(),
-		VOID n(),
+	INT c,
+
+	CLASS cc {
+		VOID m(INT b) { RETURN, }
 	}
 
-	CLASS baseimpl IMPLEMENT base {
-		VOID p() { RETURN, }
-		VOID z() { RETURN, }
+	CLASS cb {
+		VOID n(INT a) { RETURN, }
+		cc,
+	}
+
+	CLASS ca {
+		INT f,
+		cb,
 	}
 	
-	baseimpl b1,
+	ca b1,
+	
+	b1.cb.cc.m(),
 }

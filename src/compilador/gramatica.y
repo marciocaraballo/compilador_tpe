@@ -293,9 +293,17 @@ sentencia_invocacion_funcion:
 		if ($1.sval.contains(".")) {
 			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
 
-			/* FALTA CHEQUEO PARAMS, ACA IRIA TAMBIEN EL QUE HACER CON EL CASO VALIDO */
 			if (esCadenaValida) {
 				logger.logSuccess("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " es valida ");
+
+				boolean tieneParam = genCodigoIntermedio.tieneParametroElMetodoLlamado($1.sval);
+
+				if (tieneParam) {
+					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente con un parametro");
+					// TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
+				} else {
+					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
+				}
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " no es valida ");
 			}
@@ -303,7 +311,7 @@ sentencia_invocacion_funcion:
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 			if (!ambito.isEmpty()){
 				if (!(boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)){
-					logger.logError("Cantidad de parametros incorrecta");
+					logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
 				}
 				else {
 					polaca.generarPasoIncompleto("BI");
@@ -319,9 +327,18 @@ sentencia_invocacion_funcion:
 
 			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
 
-			/* FALTA CHEQUEO PARAMS, ACA IRIA TAMBIEN EL QUE HACER CON EL CASO VALIDO */
 			if (esCadenaValida) {
+
 				logger.logSuccess("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " es valida ");
+
+				boolean tieneParam = genCodigoIntermedio.tieneParametroElMetodoLlamado($1.sval);
+
+				if (!tieneParam) {
+					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente sin parametro");
+					// TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
+				} else {
+					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
+				}
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " no es valida ");
 			}

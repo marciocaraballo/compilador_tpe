@@ -1,8 +1,17 @@
-[Success] Linea 7: [Parser] Declaracion de INTERFACE detectada
-[Success] Linea 9: [Codigo Intermedio] El identificador base esta declarado
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 6: [Parser] Declaracion de funcion detectado
+[Success] Linea 7: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 7: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase cc
 [Success] Linea 10: [Parser] Declaracion de funcion detectado
-[Success] Linea 11: [Parser] Declaracion de funcion detectado
+[Success] Linea 11: [Codigo Intermedio] El identificador cc esta declarado
 [Success] Linea 12: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 14: [Codigo Intermedio] El identificador baseimpl esta declarado
-[Success] Linea 14: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 15: [Parser] Programa correcto detectado
+[Success] Linea 12: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase cb
+[Success] Linea 15: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 16: [Codigo Intermedio] El identificador cb esta declarado
+[Success] Linea 17: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 17: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase ca
+[Success] Linea 19: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 19: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 21: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 21: [Codigo Intermedio] La cadena de llamadas b1.cb.cc.m es valida 
+[Success] Linea 22: [Parser] Programa correcto detectado

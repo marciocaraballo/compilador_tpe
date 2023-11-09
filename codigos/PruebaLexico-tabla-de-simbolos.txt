@@ -1,36 +1,60 @@
 Lexema: b1:main
 Atributo: uso Valor: variable
-Atributo: tipo Valor: baseimpl
+Atributo: tipo Valor: ca
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: p:main:base
-Atributo: uso Valor: nombre_metodo
+Lexema: cc
 Atributo: token Valor: 257
-Lexema: n:main:base
-Atributo: uso Valor: nombre_metodo
-Atributo: token Valor: 257
-Lexema: z:main:baseimpl
-Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: false
-Atributo: token Valor: 257
-Lexema: z:main:base
-Atributo: uso Valor: nombre_metodo
-Atributo: token Valor: 257
-Lexema: p:main:baseimpl
-Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: false
-Atributo: token Valor: 257
-Lexema: baseimpl:main
+Lexema: cb:main:ca
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: [p, z]
+Atributo: tipo Valor: cb
+Atributo: token Valor: 257
+Lexema: c:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: niveles_herencia Valor: 2
+Atributo: token Valor: 257
+Lexema: n:main:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: true
+Atributo: token Valor: 257
+Lexema: m
+Atributo: token Valor: 257
+Lexema: cc:main
+Atributo: uso Valor: nombre_clase
 Atributo: niveles_herencia Valor: 0
-Atributo: implementa Valor: base
 Atributo: token Valor: 257
-Lexema: base:main
-Atributo: uso Valor: nombre_interfaz
-Atributo: metodos Valor: [p, z, n]
+Lexema: cc:main:cb
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: cc
 Atributo: token Valor: 257
-Lexema: baseimpl
+Lexema: b1
 Atributo: token Valor: 257
-Lexema: base
+Lexema: b:main:cc:m
+Atributo: uso Valor: nombre_parametro
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: a:main:cb:n
+Atributo: uso Valor: nombre_parametro
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: m:main:cc
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: true
+Atributo: token Valor: 257
+Lexema: f:main:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: cb:main
+Atributo: uso Valor: nombre_clase
+Atributo: niveles_herencia Valor: 1
+Atributo: token Valor: 257
+Lexema: ca
+Atributo: token Valor: 257
+Lexema: cb
 Atributo: token Valor: 257
