@@ -148,8 +148,14 @@ public class GeneracionCodigoIntermedio {
 
     public void agregarAmbitoAListaDeVariables() {
 
+        String ambitoClase = "";
+
+        if (esDefinicionDeClase()) {
+            ambitoClase = String.valueOf(generarAmbitoIdentificadorDeClase());
+        }
+
         for (String variableActual : lista_variables_a_declarar) {
-            TS.swapLexemas(variableActual, variableActual + generarAmbito());
+            TS.swapLexemas(variableActual, variableActual + ambitoClase + generarAmbito());
         }
     }
 
