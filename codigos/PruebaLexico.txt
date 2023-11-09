@@ -2,16 +2,13 @@
 
 	INT c,
 
-	INTERFACE z {
-		VOID p(INT a),
-	}
-
-	CLASS ca IMPLEMENT z {
-		INT f,
-		VOID p() { RETURN, }
-	}
+    CLASS ca {
+        VOID p(INT a){
+            INT c,
+            c = 3_i,
+            RETURN,
+        }
+    }
 	
 	ca b1,
-	
-	b1.f = 3_i,
 }

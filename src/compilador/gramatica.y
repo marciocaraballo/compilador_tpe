@@ -605,15 +605,17 @@ encabezado_funcion:
 				TS.swapLexemas($1.sval, nuevoLexema);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
+				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
-				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
+				
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito());
 			}
+			polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
