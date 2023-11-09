@@ -3,12 +3,13 @@
 	INT c,
 
     CLASS ca {
-        VOID p(INT a){
+        VOID p(){
             INT c,
-            c = 3_i,
             RETURN,
         }
+
     }
 	
 	ca b1,
+	b1.p(),
 }

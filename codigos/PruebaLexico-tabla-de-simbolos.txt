@@ -3,32 +3,28 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: ca
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: c
+Lexema: p
+Atributo: token Valor: 257
+Lexema: c:main:ca:p
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
 Lexema: c:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: c:ca:p
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
-Atributo: token Valor: 257
 Lexema: ca:main
 Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
 Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
 Lexema: p:main:ca
 Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: true
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
-Lexema: 3_i
-Atributo: tipo Valor: INT
-Atributo: token Valor: 258
 Lexema: ca
 Atributo: token Valor: 257
-Lexema: a:main:ca:p
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
+Lexema: b1
 Atributo: token Valor: 257
