@@ -25,7 +25,7 @@ public class GeneracionCodigoIntermedio {
         return instance;
     }
 
-    public String getTopePila(){
+    public String getTopePila() {
         return ambitos.peek();
     }
 
@@ -44,8 +44,12 @@ public class GeneracionCodigoIntermedio {
 
     public void agregarAmbitoAListaDeAtributos() {
 
+        String claseActual = ambitoClaseInterfaz;
+        String ambitoClaseActual = existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+        String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+
         for (String variableActual : lista_variables_a_declarar) {
-            TS.swapLexemas(variableActual, variableActual + ":" + ambitoClaseInterfaz);
+            TS.swapLexemas(variableActual, variableActual + ambitoClaseDefinidaActual);
         }
     }
 
@@ -220,18 +224,20 @@ public class GeneracionCodigoIntermedio {
         return retorno;
     }
 
-    /** 
-    * Casos validos (aplica tambien para funciones)
-    *
-    * b1.a
-    * b1.cb.a
-    * b1.cb.cc.a 
-    */
+    /**
+     * Casos validos (aplica tambien para funciones)
+     *
+     * b1.a
+     * b1.cb.a
+     * b1.cb.cc.a
+     */
     public boolean esCadenaDeLlamadasValida(String cadenaLlamados) {
-        String[] partes = cadenaLlamados.split("\\."); 
+        String[] partes = cadenaLlamados.split("\\.");
         /** Caso invalido b1.cb.cc.cd.a, hay 4 niveles de anidamiento */
         if (partes.length >= 5) {
-            Logger.getInstance().logError("[Generacion codigo] Se supera el maximo permitido de niveles de anidamiento de herencia en " + cadenaLlamados);
+            Logger.getInstance().logError(
+                    "[Generacion codigo] Se supera el maximo permitido de niveles de anidamiento de herencia en "
+                            + cadenaLlamados);
             return false;
         } else {
             String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
@@ -243,21 +249,26 @@ public class GeneracionCodigoIntermedio {
                 for (int i = 1; i < partes.length && isValid; i++) {
                     /** El primer nivel debe validar contra el tipo de la variable */
                     if (i == 1) {
-                        if (!TS.has(partes[i] + ":" + tipo)) {
+                        String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(tipo);
+                        if (!TS.has(partes[i] + ambitoClaseTipo + ":" + tipo)) {
                             isValid = false;
-                            Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + tipo);
+                            Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
+                                    + " no esta declarado como miembro de la clase " + tipo);
                         }
                     } else {
-                        if (!TS.has(partes[i] + ":" + partes[i - 1])) { 
+                        String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(partes[i - 1]);
+                        if (!TS.has(partes[i] + ambitoClaseTipo + ":" + partes[i - 1])) {
                             isValid = false;
-                            Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i] + " no esta declarado como miembro de la clase " + partes[i - 1]);
+                            Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
+                                    + " no esta declarado como miembro de la clase " + partes[i - 1]);
                         }
                     }
                 }
 
                 return isValid;
             } else {
-                Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
+                Logger.getInstance()
+                        .logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");
                 return false;
             }
         }

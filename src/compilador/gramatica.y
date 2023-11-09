@@ -472,14 +472,16 @@ sentencia_declarativa_clase:
 			if (nivelesDeHerencia + 1 >= 3) {
 				logger.logError("[Codigo Intermedio] Se superaron los niveles de herencia validos para la clase " + genCodigoIntermedio.getAmbitoClaseInterfaz());
 			} else {
-				String nuevoLexema = $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz();
+
+				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+
 				TS.getInstance().swapLexemas($1.sval, nuevoLexema);
 				TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
 				TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
-
-				String ambitoClaseDefinidaActual = genCodigoIntermedio.getAmbitoClaseInterfaz() + genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(genCodigoIntermedio.getAmbitoClaseInterfaz());
-
-				TS.getInstance().agregarAtributo(ambitoClaseDefinidaActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+				TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
 			}
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
@@ -574,11 +576,17 @@ encabezado_funcion:
 		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
 		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
+
+				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+
 				genCodigoIntermedio.apilarAmbito($1.sval);
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				// Agrego Ambito a metodo
-				TS.swapLexemas($1.sval, $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
+				TS.swapLexemas($1.sval, nuevoLexema);
 				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
@@ -602,12 +610,17 @@ encabezado_funcion:
 		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
 		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
+
+				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
-				//Agrego Ambito a identificador
-				TS.swapLexemas($1.sval, $1.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
-				
+				//Agrego Ambito a identificador
+				TS.swapLexemas($1.sval, nuevoLexema);
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);

@@ -1,16 +1,25 @@
 {
+	
+	INTERFACE z {
+		VOID p(),
+	}
 
-    INT a;b;c;d;e;f;g;h;w;z;x;y,
+	CLASS cc {
+		INT w,
+	}
 
-    VOID f1(){
-        DO {
-            DO {
-                a = 300_i,
-            } WHILE ( b > 2_i ),
-        } WHILE ( c > 4_i ),
-        RETURN,
-    }
-
-    f1(),
-
+	CLASS cb {
+		INT f,
+		cc,
+	}
+	
+	CLASS ca {
+		INT d,
+		VOID m() { RETURN, }
+		cb,
+	}
+	
+	ca c1,
+	
+	c1.cb.f = 3_i,
 }
