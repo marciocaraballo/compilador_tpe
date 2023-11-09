@@ -2,6 +2,8 @@ Lexema: w:main:gege:z
 Atributo: uso Valor: nombre_parametro
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
+Lexema: p
+Atributo: token Valor: 257
 Lexema: z:main:gege
 Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: true
@@ -10,11 +12,20 @@ Lexema: gege:main
 Atributo: uso Valor: nombre_clase
 Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
+Lexema: gege
+Atributo: token Valor: 257
 Lexema: a:main:gege:p
 Atributo: uso Valor: nombre_parametro
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
+Lexema: c1
+Atributo: token Valor: 257
 Lexema: p:main:gege
 Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: true
+Atributo: token Valor: 257
+Lexema: c1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: gege
+Atributo: comp_uso Valor: false
 Atributo: token Valor: 257

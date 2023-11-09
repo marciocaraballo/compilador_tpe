@@ -576,8 +576,6 @@ encabezado_funcion:
 		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
 		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
 
-			genCodigoIntermedio.apilarAmbito($1.sval);
-
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
 
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
@@ -601,6 +599,7 @@ encabezado_funcion:
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito());
 			}
+			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 			genCodigoIntermedio.setPuedoDesapilar();

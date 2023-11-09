@@ -3,4 +3,8 @@
 		VOID p(INT a) { RETURN, }
 		VOID z(INT w) { RETURN, }
 	}
+	
+	gege c1,
+	
+	c1.p(),
 }
