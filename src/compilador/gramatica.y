@@ -547,8 +547,6 @@ declaracion_clase_encabezado:
 	CLASS IMPLEMENT { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 ;
 
-
-
 bloque_sentencias_declarativas_clase:
 	sentencia_declarativa_clase |
 	bloque_sentencias_declarativas_clase sentencia_declarativa_clase
@@ -582,8 +580,7 @@ encabezado_funcion:
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
-
-				genCodigoIntermedio.apilarAmbito($1.sval);
+				
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				// Agrego Ambito a metodo
