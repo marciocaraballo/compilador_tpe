@@ -494,10 +494,10 @@ declaracion_clase:
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado");
 		
 		if (genCodigoIntermedio.verificarImplementacion($1.sval)){
-			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados");
+			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase " + $1.sval);
 		}
 		else{
-			logger.logError("[Codigo Intermedio] No fueron implementados todos los metodos de la interfaz");
+			logger.logError("[Codigo Intermedio] No fueron implementados todos los metodos de la interfaz para la clase " + $1.sval);
 		}
 		
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
@@ -580,7 +580,7 @@ encabezado_funcion:
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
-				
+
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				// Agrego Ambito a metodo

@@ -1,10 +1,15 @@
 {
-	CLASS gege {
-		VOID p(INT a) { RETURN, }
-		VOID z(INT w) { RETURN, }
+
+	INTERFACE base {
+		VOID p(),
+		VOID z(),
+		VOID n(),
+	}
+
+	CLASS baseimpl IMPLEMENT base {
+		VOID p() { RETURN, }
+		VOID z() { RETURN, }
 	}
 	
-	gege c1,
-	
-	c1.p(),
+	baseimpl b1,
 }
