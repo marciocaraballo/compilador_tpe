@@ -391,6 +391,7 @@ sentencia_asignacion:
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+
 			/** @TODO "expresion" parece apilar cosas en la polaca, pero recien aca sabemos si la asignacion
 				es sintacticamente correcta, capaz se pueda procesar aca la expresion o desapilar */
 			if (!ambito.isEmpty()) {

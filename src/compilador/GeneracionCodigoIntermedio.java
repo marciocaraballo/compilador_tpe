@@ -85,13 +85,18 @@ public class GeneracionCodigoIntermedio {
         Iterator<String> it = null;
         StringBuilder ambitoCompleto = new StringBuilder();
 
-        if (esDefinicionDeClase())
-            it = ambitosClase.iterator();
-        else
-            it = ambitos.iterator();
+        it = ambitos.iterator();
 
         while (it.hasNext()) {
             ambitoCompleto.append(":").append(it.next());
+        }
+
+        if (esDefinicionDeClase()) {
+            it = ambitosClase.iterator();
+
+            while (it.hasNext()) {
+                ambitoCompleto.append(":").append(it.next());
+            }
         }
 
         return ambitoCompleto;
@@ -147,15 +152,8 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void agregarAmbitoAListaDeVariables() {
-
-        String ambitoClase = "";
-
-        if (esDefinicionDeClase()) {
-            ambitoClase = String.valueOf(generarAmbitoIdentificadorDeClase());
-        }
-
         for (String variableActual : lista_variables_a_declarar) {
-            TS.swapLexemas(variableActual, variableActual + ambitoClase + generarAmbito());
+            TS.swapLexemas(variableActual, variableActual + generarAmbito());
         }
     }
 
