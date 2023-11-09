@@ -301,8 +301,13 @@ sentencia_invocacion_funcion:
 				if (tieneParam) {
 					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente con un parametro");
 					String[] cadena = $1.sval.split("\\.");
-					String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
-					String salto = ":" + cadena[cadena.length - 1] + genCodigoIntermedio.generarAmbito() + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE);
+					String salto = "";
+					if (cadena.length == 2){
+						String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
+						salto = genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1];
+					}
+					else
+						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
 					polaca.generarPasoIncompleto("BI");
 					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
 					// @TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
@@ -341,8 +346,14 @@ sentencia_invocacion_funcion:
 				if (!tieneParam) {
 					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente sin parametro");
 					String[] cadena = $1.sval.split("\\.");
-					String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
-					String salto = ":" + cadena[cadena.length - 1] + genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE);
+					String salto = "";
+					if (cadena.length == 2){
+						String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
+						salto = genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1];
+					}
+					else
+						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
+					
 					polaca.generarPasoIncompleto("BI");
 					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
 				} else {
@@ -617,7 +628,7 @@ encabezado_funcion:
 				TS.swapLexemas($1.sval, nuevoLexema);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
-				polaca.crearPolacaAmbitoNuevo($1.sval + ambitoClaseDefinidaActual);
+				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  $1.sval);
 				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
@@ -645,7 +656,7 @@ encabezado_funcion:
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
-				polaca.crearPolacaAmbitoNuevo($1.sval + ambitoClaseDefinidaActual);
+				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  $1.sval);
 			
 
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");

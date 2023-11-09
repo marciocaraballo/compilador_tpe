@@ -1,12 +1,45 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[WARNING] Linea 5: :main
 [Success] Linea 5: [Parser] Asignacion detectada
+[WARNING] Linea 5: :main
+[WARNING] Linea 5: :main
 [Success] Linea 9: [Parser] Declaracion de INTERFACE detectada
+[WARNING] Linea 12: :main:cb:d
 [Success] Linea 13: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 15: [Parser] Declaracion de funcion detectado
+[WARNING] Linea 14: :main:cb:d
+[Success] Linea 14: [Parser] Asignacion detectada
+[WARNING] Linea 14: :main:cb:d
+[WARNING] Linea 14: :main:cb:d
+[Success] Linea 16: [Parser] Declaracion de funcion detectado
 [Success] Linea 17: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 19: [Codigo Intermedio] El identificador ca esta declarado
-[Success] Linea 19: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 20: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 20: [Codigo Intermedio] La cadena de llamadas b1.p es valida 
-[Success] Linea 20: [Codigo Intermedio] Se llamo al metodo b1.p correctamente sin parametro
-[Success] Linea 21: [Parser] Programa correcto detectado
+[WARNING] Linea 20: :main:ca:p
+[Success] Linea 21: [Parser] Declaracion de lista de variables detectado
+[WARNING] Linea 22: :main:ca:p
+[Success] Linea 22: [Parser] Asignacion detectada
+[WARNING] Linea 22: :main:ca:p
+[WARNING] Linea 22: :main:ca:p
+[Success] Linea 24: [Parser] Declaracion de funcion detectado
+[Success] Linea 25: [Codigo Intermedio] El identificador cb esta declarado
+[Success] Linea 26: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 28: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 28: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 29: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 29: [Codigo Intermedio] La cadena de llamadas b1.p es valida 
+[Success] Linea 29: [Codigo Intermedio] Se llamo al metodo b1.p correctamente sin parametro
+[WARNING] Linea 29: :main
+[WARNING] Linea 29: :main
+[Success] Linea 30: [Codigo Intermedio] La cadena de llamadas b1.cb.d es valida 
+[Success] Linea 30: [Codigo Intermedio] Se llamo al metodo b1.cb.d correctamente con un parametro
+[WARNING] Linea 30: :main
+[WARNING] Linea 30: :main
+[WARNING] Linea 32: :main:f1
+[Success] Linea 33: [Parser] Declaracion de lista de variables detectado
+[WARNING] Linea 34: :main:f1
+[Success] Linea 34: [Parser] Asignacion detectada
+[WARNING] Linea 34: :main:f1
+[WARNING] Linea 34: :main:f1
+[Success] Linea 36: [Parser] Declaracion de funcion detectado
+[Success] Linea 38: [Parser] Invocacion de funcion sin expresion detectada
+[WARNING] Linea 38: :main
+[WARNING] Linea 38: :main
+[Success] Linea 40: [Parser] Programa correcto detectado
