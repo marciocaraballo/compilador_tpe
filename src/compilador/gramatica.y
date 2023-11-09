@@ -510,11 +510,13 @@ declaracion_clase:
 	declaracion_clase_encabezado '{' bloque_sentencias_declarativas_clase '}' { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado");
 		
-		if (genCodigoIntermedio.verificarImplementacion($1.sval)){
-			logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase " + $1.sval);
-		}
-		else{
-			logger.logError("[Codigo Intermedio] No fueron implementados todos los metodos de la interfaz para la clase " + $1.sval);
+		if (genCodigoIntermedio.implementaAlgunaInterfaz($1.sval)) {
+			if (genCodigoIntermedio.verificarImplementacionCompletaDeInterfaz($1.sval)){
+				logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase " + $1.sval);
+			}
+			else{
+				logger.logError("[Codigo Intermedio] No fueron implementados todos los metodos de la interfaz para la clase " + $1.sval);
+			}
 		}
 		
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();

@@ -206,21 +206,29 @@ public class GeneracionCodigoIntermedio {
         ambitoClaseInterfaz = aux;
     }
 
+    public boolean implementaAlgunaInterfaz(String clase) {
+        String ambito = existeIdentificadorDeClaseEnAlgunAmbitoContenedor(clase);
+        return TS.getAtributo(clase + ambito, Constantes.IMPLEMENTA) != null;
+    }
+
     /* Chequeo que los metodos de la interfaz fueron implementados en la clase */
-    public boolean verificarImplementacion(String clase) {
+    public boolean verificarImplementacionCompletaDeInterfaz(String clase) {
 
         String aux = ambitoClaseInterfaz;
         ambitoClaseInterfaz = "";
         boolean retorno = true;
         String interfaz = (String) TS.getAtributo(clase + generarAmbito(), Constantes.IMPLEMENTA);
+
         if (interfaz != null) {
             HashSet<String> metodos_implementados = (HashSet<String>) TS.getAtributo(clase + generarAmbito(),
                     Constantes.METODOS);
             HashSet<String> metodos_a_implementar = (HashSet<String>) TS.getAtributo(interfaz + generarAmbito(),
                     Constantes.METODOS);
             retorno = metodos_implementados.containsAll(metodos_a_implementar);
+
+            ambitoClaseInterfaz = aux;
         }
-        ambitoClaseInterfaz = aux;
+
         return retorno;
     }
 
@@ -279,20 +287,28 @@ public class GeneracionCodigoIntermedio {
     public boolean tieneParametroElMetodoLlamado(String cadenaLlamados) {
         String[] partes = cadenaLlamados.split("\\.");
 
-        /** Caso b1.p(a), donde b1 es un nombre de variable y NO un type heredado, y se llama con un param */
+        /**
+         * Caso b1.p(a), donde b1 es un nombre de variable y NO un type heredado, y se
+         * llama con un param
+         */
         if (partes.length == 2) {
             String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
             String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
-            String ambitoClaseTipo =  existeIdentificadorEnAlgunAmbitoContenedor(tipo);
-            boolean tieneParametro = (boolean) TS.getAtributo(partes[1] + ambitoClaseTipo + ":" + tipo, Constantes.TIENE_PARAMETRO);
+            String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(tipo);
+            boolean tieneParametro = (boolean) TS.getAtributo(partes[1] + ambitoClaseTipo + ":" + tipo,
+                    Constantes.TIENE_PARAMETRO);
 
             return tieneParametro;
         } else {
-            /** Caso b1.ca.d(), donde se chequea la ultima parte (metodo) con la anterior (type) */
+            /**
+             * Caso b1.ca.d(), donde se chequea la ultima parte (metodo) con la anterior
+             * (type)
+             */
             String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[partes.length - 2]);
             String tipo = partes[partes.length - 2];
-            boolean tieneParametro = (boolean) TS.getAtributo(partes[partes.length - 1] + ambito + ":" + tipo, Constantes.TIENE_PARAMETRO);
-        
+            boolean tieneParametro = (boolean) TS.getAtributo(partes[partes.length - 1] + ambito + ":" + tipo,
+                    Constantes.TIENE_PARAMETRO);
+
             return tieneParametro;
         }
     }
