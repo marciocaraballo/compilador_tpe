@@ -575,6 +575,9 @@ encabezado_funcion:
 	encabezado_funcion_nombre '(' parametro_funcion ')' {
 		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
 		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
+
+			genCodigoIntermedio.apilarAmbito($1.sval);
+
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
 
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
@@ -584,23 +587,20 @@ encabezado_funcion:
 
 				genCodigoIntermedio.apilarAmbito($1.sval);
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
-				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
+				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				// Agrego Ambito a metodo
 				TS.swapLexemas($1.sval, nuevoLexema);
-				
+				//Agrego Ambito a identificador
+				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
-				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
+				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
 				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
+				//Agrego Ambito a identificador
+				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito());
 			}
-
-			// INDICO QUE LA FUNCION TIENE PARAMETRO
-			TS.agregarAtributo($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.TIENE_PARAMETRO, true);
-			genCodigoIntermedio.apilarAmbito($1.sval);
-			//Agrego Ambito a identificador
-			TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito());
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $1.sval);
 			genCodigoIntermedio.setPuedoDesapilar();
@@ -651,16 +651,26 @@ encabezado_funcion_nombre:
 
 encabezado_funcion_interfaz:
 	VOID ID '(' parametro_funcion ')' { 
+
+		String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+		String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
+
 		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_metodo");
-		//Agrego Ambito a identificador
-		TS.swapLexemas($2.sval, $2.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
-		TS.agregarAtributo($3.sval, Constantes.TIENE_PARAMETRO , true);
+		TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , true);
+		TS.swapLexemas($2.sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
+		TS.swapLexemas($4.sval, $4.sval + ambitoClaseDefinidaActual + ":" + $2.sval);
 	} |
 	VOID ID '(' ')' { 
+		String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+		String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
+
 		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_metodo");
-		//Agrego Ambito a identificador
-		TS.swapLexemas($2.sval, $2.sval + ":" + genCodigoIntermedio.getAmbitoClaseInterfaz());
+		TS.swapLexemas($2.sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
 	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
@@ -707,7 +717,6 @@ parametro_funcion:
 	tipo ID { 
 		$$.sval = $2.sval;
 		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_parametro");
-		TS.agregarAtributo($2.sval, Constantes.COMPROBACION_USO, false);
 		// Agrego tipo a parametro de funcion
 		TS.agregarAtributo($2.sval, Constantes.TYPE, $1.sval);
 	}

@@ -1,25 +1,6 @@
 {
-	
-	INTERFACE z {
-		VOID p(),
+	CLASS gege {
+		VOID p(INT a) { RETURN, }
+		VOID z(INT w) { RETURN, }
 	}
-
-	CLASS cc {
-		INT w,
-	}
-
-	CLASS cb {
-		INT f,
-		cc,
-	}
-	
-	CLASS ca {
-		INT d,
-		VOID m() { RETURN, }
-		cb,
-	}
-	
-	ca c1,
-	
-	c1.cb.f = 3_i,
 }
