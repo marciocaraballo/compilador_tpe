@@ -2,9 +2,13 @@
 
 	INT c,
 
+	INTERFACE z {
+		VOID p(INT a),
+	}
 
-	CLASS ca {
+	CLASS ca IMPLEMENT z {
 		INT f,
+		VOID p() { RETURN, }
 	}
 	
 	ca b1,

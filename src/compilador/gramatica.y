@@ -300,7 +300,7 @@ sentencia_invocacion_funcion:
 
 				if (tieneParam) {
 					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente con un parametro");
-					// TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
+					// @TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
 				}
@@ -335,7 +335,7 @@ sentencia_invocacion_funcion:
 
 				if (!tieneParam) {
 					logger.logSuccess("[Codigo Intermedio] Se llamo al metodo " + $1.sval + " correctamente sin parametro");
-					// TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
+					// @TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
 				}
@@ -391,12 +391,11 @@ sentencia_asignacion:
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
-			/** "expresion" parece apilar cosas en la polaca, pero recien aca sabemos si la asignacion
+			/** @TODO "expresion" parece apilar cosas en la polaca, pero recien aca sabemos si la asignacion
 				es sintacticamente correcta, capaz se pueda procesar aca la expresion o desapilar */
 			if (!ambito.isEmpty()) {
 				polaca.agregarElemento($1.sval + ambito);
 				polaca.agregarElemento($2.sval);
-				// INDICO EN LA TABLA DE SIMBOLOS QUE LA VARIABLE SE UTILIZO DEL LADO IZQUIERDO
 				TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
 			} else {
 				polaca.removeElementos();

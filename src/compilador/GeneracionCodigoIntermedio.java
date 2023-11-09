@@ -226,6 +226,8 @@ public class GeneracionCodigoIntermedio {
                     Constantes.METODOS);
             retorno = metodos_implementados.containsAll(metodos_a_implementar);
 
+            // @TODO capaz aca pueda validar la cantidad de parametros correcta tambien?
+
             ambitoClaseInterfaz = aux;
         }
 
