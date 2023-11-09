@@ -232,7 +232,33 @@ public class GeneracionCodigoIntermedio {
                     Constantes.METODOS);
             retorno = metodos_implementados.containsAll(metodos_a_implementar);
 
-            // @TODO capaz aca pueda validar la cantidad de parametros correcta tambien?
+            /**
+             * Indicaria que todos los metodos fueron implementados, falta ver si con la
+             * cantidad de params correcta
+             */
+            if (retorno) {
+                Iterator<String> it = metodos_implementados.iterator();
+
+                while (it.hasNext()) {
+                    String metodo = it.next();
+                    String ambitoCompletoMetodoInterfaz = metodo + generarAmbito() + ":" + interfaz;
+                    String ambitocompletoMetodoClase = metodo + generarAmbito() + ":" + clase;
+
+                    boolean mismaCantidadParams = TS.getAtributo(ambitoCompletoMetodoInterfaz,
+                            Constantes.TIENE_PARAMETRO) == TS
+                                    .getAtributo(ambitocompletoMetodoClase, Constantes.TIENE_PARAMETRO);
+
+                    /** Informar que metodo fallo el chequeo de cantidad de params */
+                    if (!mismaCantidadParams) {
+                        Logger.getInstance()
+                                .logError("[Generacion codigo] El metodo " + metodo + " de la clase " + clase
+                                        + " no tiene la misma cantidad de parametros que el metodo " + metodo
+                                        + " en la interfaz " + interfaz);
+
+                        retorno = false;
+                    }
+                }
+            }
 
             ambitoClaseInterfaz = aux;
         }

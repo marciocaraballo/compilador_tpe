@@ -511,10 +511,10 @@ declaracion_clase:
 		
 		if (genCodigoIntermedio.implementaAlgunaInterfaz($1.sval)) {
 			if (genCodigoIntermedio.verificarImplementacionCompletaDeInterfaz($1.sval)){
-				logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados para la clase " + $1.sval);
+				logger.logSuccess("[Codigo Intermedio] Metodos declarados en interfaz fueron implementados correctamente para la clase " + $1.sval);
 			}
 			else{
-				logger.logError("[Codigo Intermedio] No fueron implementados todos los metodos de la interfaz para la clase " + $1.sval);
+				logger.logError("[Codigo Intermedio] No fueron implementados correctamente todos los metodos de la interfaz para la clase " + $1.sval);
 			}
 		}
 		
@@ -601,6 +601,7 @@ encabezado_funcion:
 
 				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
+				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
 				// Agrego Ambito a metodo
 				TS.swapLexemas($1.sval, nuevoLexema);
 				//Agrego Ambito a identificador
@@ -686,6 +687,7 @@ encabezado_funcion_interfaz:
 		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
 
 		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_metodo");
+		TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , false);
 		TS.swapLexemas($2.sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
 	} |
