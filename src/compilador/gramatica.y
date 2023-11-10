@@ -872,6 +872,7 @@ constante:
 
 %%
 
+public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
 public static GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
 public static Logger logger = Logger.getInstance();
@@ -956,6 +957,8 @@ public static void main(String[] args) {
 			out.saveFile("tabla-de-simbolos.txt", TS.print());
 
 			polaca.showPolaca();
+
+			GeneracionCodigo.getInstance().generar();
 		}
 	}
 }
