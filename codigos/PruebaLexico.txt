@@ -3,38 +3,16 @@
 	INT c,
 	
 	c = 3_i,
-	
-	INTERFACE z {
-		VOID p(INT h),
-	}
 
-	CLASS cb {
-	    VOID d(INT a){
-	        INT k,
-	        k = 2_i,
-	        RETURN,
-	    }
-	}
-
-    CLASS ca {
-        VOID p(){
-            INT c,
-            c = 3_i,
-            RETURN,
-        }
-        cb,
-    }
-	
-	ca b1,
-	b1.p(),
-	b1.cb.d(a),
 
 	VOID f1(){
 	    INT a,
-	    a = 2_i,
-	    RETURN,
-	}
+        f1(),
+        RETURN,
+    }
 
 	f1(),
+
+	PRINT % HOLA %,
 
 }

@@ -277,7 +277,12 @@ sentencias_ejecutables_funcion:
 ;
 
 sentencia_imprimir:
-	PRINT CADENA ',' { logger.logSuccess("[Parser] Sentencia PRINT detectada"); } |
+	PRINT CADENA ',' {
+		logger.logSuccess("[Parser] Sentencia PRINT detectada");
+		$2.sval = $2.sval.replace("% ", "").replace("%", "");
+		polaca.agregarElemento($2.sval); 
+		polaca.agregarElemento($1.sval);
+	} |
 	PRINT CADENA { logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); } |
 	PRINT ',' { logger.logError("[Parser] Se esperaba CADENA en Sentencia PRINT"); } |
 	PRINT ID ',' { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); } |
@@ -310,7 +315,6 @@ sentencia_invocacion_funcion:
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
 					polaca.generarPasoIncompleto("BI");
 					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
-					// @TODO aca deberia ir que hacer cuando la llamada es valida -> polaca?
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
 				}
