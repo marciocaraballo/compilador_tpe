@@ -53,6 +53,19 @@ public class GeneracionCodigoIntermedio {
         }
     }
 
+    public void agregarListaDeVariablesComoAtributos() {
+
+        String claseActual = ambitoClaseInterfaz;
+        String ambitoClaseActual = existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+        String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+
+        String claseActualConAmbito = claseActual + ambitoClaseActual;
+
+        for (String variableActual : lista_variables_a_declarar) {
+            TS.agregarAtributo(claseActualConAmbito, Constantes.ATRIBUTOS, variableActual);
+        }
+    }
+
     public void apilarAmbito(String nombre_ambito) {
         if (esDefinicionDeClase()) {
             ambitosClase.push(nombre_ambito);
@@ -343,5 +356,30 @@ public class GeneracionCodigoIntermedio {
 
             return tieneParametro;
         }
+    }
+
+    /**
+     * Una clase hija no puede sobreescribir atributos definidos en la clase padre
+     */
+    public boolean verificaSobreescrituraDeAtributos(String claseQueHereda, String claseBaseHeredada) {
+        HashSet<String> atributosClaseQueHereda = (HashSet<String>) TS.getAtributo(claseQueHereda,
+                Constantes.ATRIBUTOS);
+        HashSet<String> atributosClaseBaseHeredada = (HashSet<String>) TS.getAtributo(
+                claseBaseHeredada,
+                Constantes.ATRIBUTOS);
+
+        Iterator<String> it = atributosClaseQueHereda.iterator();
+
+        while (it.hasNext()) {
+            String atributo = it.next();
+            if (atributosClaseBaseHeredada.contains(atributo)) {
+                Logger.getInstance().logError("[Generacion codigo] La clase que hereda " + claseQueHereda
+                        + " esta intentando sobreescribir el atributo " + atributo + " definido en la clase base "
+                        + claseBaseHeredada);
+                return false;
+            }
+        }
+
+        return true;
     }
 }

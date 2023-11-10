@@ -496,6 +496,7 @@ sentencia_declarativa_clase:
 		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
 		genCodigoIntermedio.agregarUsoAListaDeVariables(Constantes.USO_ATRIBUTO);
 		genCodigoIntermedio.agregarAmbitoAListaDeAtributos();
+		genCodigoIntermedio.agregarListaDeVariablesComoAtributos();
 		genCodigoIntermedio.removerListaVariablesADeclarar();
 	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); } |
@@ -520,10 +521,12 @@ sentencia_declarativa_clase:
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
-				TS.getInstance().swapLexemas($1.sval, nuevoLexema);
-				TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
-				TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
-				TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+				if (genCodigoIntermedio.verificaSobreescrituraDeAtributos(claseActual + ambitoClaseActual, $1.sval + ambitoDeClase)) {
+					TS.getInstance().swapLexemas($1.sval, nuevoLexema);
+					TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
+					TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
+					TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+				}
 			}
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
@@ -554,6 +557,7 @@ declaracion_clase_encabezado:
 		if (!TS.has($2.sval + genCodigoIntermedio.generarAmbito())) {
 			TS.agregarAtributo($2.sval, Constantes.USE, "nombre_clase");
 			TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, null);
+			TS.agregarAtributo($2.sval, Constantes.ATRIBUTOS, null);
 			TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
@@ -897,7 +901,6 @@ public void corregirConstantePositivaEntera(String constante) {
 
 		if (cte > MAX_INT_VALUE || exceptionOutOfRange) {
 			logger.logWarning("[Parser] Rango invalido para la constante: " + constante + ", se trunca al valor " + MAX_INT_VALUE + "_i");
-
 			TS.swapLexemas(constante, MAX_INT_VALUE + "_i");
 		}
 	}
@@ -909,11 +912,9 @@ public void constanteConSigno(String constante) {
 		String negConstante = "-"+constante;
 		TS.swapLexemas(constante, negConstante);
 	} else {
-
 		if (constante.contains("_ul")) {
 			//se recibio un ULONG con signo negativo
 			logger.logWarning("[Parser] No se admiten ULONG con valores negativos: " + "-"+constante + ", se trunca a 0_ul");
-		
 			TS.swapLexemas(constante, "0_ul");
 		} else {
 			// se recibio un INT negativo
@@ -946,19 +947,19 @@ public static void main(String[] args) {
 			parser = new Parser();
 			lexico = new AnalizadorLexico(fileHelper);
 			
-	        parser.run();
+	    parser.run();
 	
 			String path = new File(archivo_a_leer).getAbsolutePath();
 	        
-	        Output out = new Output(path);
+	    Output out = new Output(path);
 	        
-	        out.saveFile("codigo-lexico.txt", logger.getLexico());
+	    out.saveFile("codigo-lexico.txt", logger.getLexico());
 			out.saveFile("codigo-sintactico.txt", logger.getSintactico());
 			out.saveFile("tabla-de-simbolos.txt", TS.print());
 
 			polaca.showPolaca();
 
-			GeneracionCodigo.getInstance().generar();
+			//GeneracionCodigo.getInstance().generar();
 		}
 	}
 }

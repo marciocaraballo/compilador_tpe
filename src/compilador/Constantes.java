@@ -14,6 +14,8 @@ public class Constantes {
     public static final String IMPLEMENTA = "implementa";
     public static final String METODOS = "metodos";
     public static final String NIVELES_HERENCIA = "niveles_herencia";
+    public static final String ATRIBUTOS = "atributos";
+    public static final String EXTIENDE = "extiende";
     /* Valores de atributos */
     public static final String NOMBRE_FUNCION = "nombre_funcion";
     public static final String NOMBRE_INTERFAZ = "nombre_interfaz";

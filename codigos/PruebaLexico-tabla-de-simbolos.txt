@@ -1,23 +1,38 @@
-Lexema: c:main
-Atributo: uso Valor: variable
+Lexema: b:main:cb
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
-Lexema: d:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
+Atributo: atributos Valor: [a, b]
+Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
-Lexema: a:main
-Atributo: uso Valor: variable
+Lexema: b:main:ca
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
-Lexema: 3_i
+Lexema: c:main:cb
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: token Valor: 258
-Lexema: b:main
-Atributo: uso Valor: variable
+Atributo: token Valor: 257
+Lexema: cb:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: []
+Atributo: atributos Valor: [b, c]
+Atributo: niveles_herencia Valor: 0
+Atributo: token Valor: 257
+Lexema: m:main:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: a:main:ca
+Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: m:main:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: cb
 Atributo: token Valor: 257

@@ -10,7 +10,7 @@ public class GeneracionCodigo {
     private int numero_var_auxiliar = 0;
     private String ultimo_comparador;
 
-    public GeneracionCodigo(){
+    public GeneracionCodigo() {
         for (String token: Polaca.getInstance().getPolaca())
             switch (token) {
                 case "+", "-", "*", "/", "<", ">", ">=", "<=", "=", "!!" -> generarOperador(token);

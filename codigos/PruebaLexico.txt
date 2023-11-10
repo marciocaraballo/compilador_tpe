@@ -1,7 +1,16 @@
 {
 
-	INT c; a; b; d,
-	
-	c = 3_i - c * 3_i,
+	CLASS cb {
+		INT c,
+		INT b,
+		VOID m() { RETURN, } 
+	}
+
+	CLASS ca {
+		INT a,
+		INT b,
+		VOID m() { RETURN, } 
+		cb,
+	}
 
 }

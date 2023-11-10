@@ -1,11 +1,12 @@
-[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[WARNING] Linea 5: :main
-[Success] Linea 5: [Codigo Intermedio] El identificador c esta declarado
-[WARNING] Linea 5: :main
-[WARNING] Linea 5: :main
-[WARNING] Linea 5: :main
-[WARNING] Linea 5: :main
-[Success] Linea 5: [Parser] Asignacion detectada
-[WARNING] Linea 5: :main
-[WARNING] Linea 5: :main
-[Success] Linea 7: [Parser] Programa correcto detectado
+[Success] Linea 4: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 5: [Parser] Declaracion de lista de variables en CLASS detectado
+[WARNING] Linea 6: :main:cb:m
+[Success] Linea 6: [Parser] Declaracion de funcion detectado
+[Success] Linea 7: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 10: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 11: [Parser] Declaracion de lista de variables en CLASS detectado
+[WARNING] Linea 12: :main:ca:m
+[Success] Linea 12: [Parser] Declaracion de funcion detectado
+[Success] Linea 13: [Codigo Intermedio] El identificador cb esta declarado
+[Success] Linea 14: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 16: [Parser] Programa correcto detectado

@@ -52,8 +52,19 @@ public class TablaDeSimbolos {
 				aux.add((String) valor);
 				atributos.put(Constantes.METODOS, aux);
 			}
-		} else
-			atributos.put(nombre_atributo, valor);
+		} else {
+			if (nombre_atributo.equals(Constantes.ATRIBUTOS)) {
+				HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);
+				if (aux == null)
+					atributos.put(Constantes.ATRIBUTOS, new HashSet<>());
+				else {
+					aux.add((String) valor);
+					atributos.put(Constantes.ATRIBUTOS, aux);
+				}
+			} else {
+				atributos.put(nombre_atributo, valor);
+			}
+		} 
 	}
 
 	public Object getAtributo(String lexema, String atributo) {
