@@ -280,7 +280,7 @@ sentencia_imprimir:
 	PRINT CADENA ',' {
 		logger.logSuccess("[Parser] Sentencia PRINT detectada");
 		$2.sval = $2.sval.replace("% ", "").replace("%", "");
-		polaca.agregarElemento($2.sval); 
+		polaca.agregarElemento($2.sval);
 		polaca.agregarElemento($1.sval);
 	} |
 	PRINT CADENA { logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); } |

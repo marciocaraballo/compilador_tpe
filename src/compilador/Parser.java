@@ -1254,6 +1254,7 @@ public static void main(String[] args) {
 			out.saveFile("tabla-de-simbolos.txt", TS.print());
 
 			polaca.showPolaca();
+            GeneracionCodigo g = new GeneracionCodigo();
 		}
 	}
 }

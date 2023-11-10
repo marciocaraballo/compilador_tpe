@@ -120,5 +120,9 @@ public class Polaca {
         }
     }
 
+    public ArrayList<String> getPolaca(){
+        return polaca.get(":main");
+    }
+
 
 }

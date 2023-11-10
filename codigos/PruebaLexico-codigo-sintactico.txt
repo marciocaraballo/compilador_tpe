@@ -1,18 +1,11 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
 [WARNING] Linea 5: :main
+[Success] Linea 5: [Codigo Intermedio] El identificador c esta declarado
+[WARNING] Linea 5: :main
+[WARNING] Linea 5: :main
+[WARNING] Linea 5: :main
+[WARNING] Linea 5: :main
 [Success] Linea 5: [Parser] Asignacion detectada
 [WARNING] Linea 5: :main
 [WARNING] Linea 5: :main
-[WARNING] Linea 8: :main:f1
-[Success] Linea 9: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 10: [Parser] Invocacion de funcion sin expresion detectada
-[WARNING] Linea 10: :main:f1
-[WARNING] Linea 10: :main:f1
-[Success] Linea 12: [Parser] Declaracion de funcion detectado
-[Success] Linea 14: [Parser] Invocacion de funcion sin expresion detectada
-[WARNING] Linea 14: :main
-[WARNING] Linea 14: :main
-[Success] Linea 16: [Parser] Sentencia PRINT detectada
-[WARNING] Linea 16: :main
-[WARNING] Linea 16: :main
-[Success] Linea 18: [Parser] Programa correcto detectado
+[Success] Linea 7: [Parser] Programa correcto detectado

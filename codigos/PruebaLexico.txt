@@ -1,18 +1,7 @@
 {
 
-	INT c,
+	INT c; a; b; d,
 	
-	c = 3_i,
-
-
-	VOID f1(){
-	    INT a,
-        f1(),
-        RETURN,
-    }
-
-	f1(),
-
-	PRINT % HOLA %,
+	c = 3_i - c * 3_i,
 
 }
