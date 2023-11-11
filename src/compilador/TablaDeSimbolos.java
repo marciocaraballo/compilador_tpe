@@ -16,8 +16,7 @@ public class TablaDeSimbolos {
 	private static TablaDeSimbolos instance = null;
 
 	private HashMap<String, HashMap<String, Object>> tabla_simbolos = new HashMap<String, HashMap<String, Object>>();
-	private final HashMap<String, Object[]> atributos_de_uso = new HashMap<>();
-	/* Keys de atributos */
+	/** Keys de atributos */
 	public static final String USE = "uso";
 	public static final String COMPROBACION_USO = "comp_uso";
 	public static final String TIENE_PARAMETRO = "tiene_param";
@@ -30,6 +29,15 @@ public class TablaDeSimbolos {
 	public static TablaDeSimbolos getInstance() {
 		if (instance == null) {
 			instance = new TablaDeSimbolos();
+
+			instance.putLexema("1_i", Constantes.CONSTANTE);
+			instance.agregarAtributo("1_i", Constantes.TYPE, "INT");
+
+			instance.putLexema("1_ul", Constantes.CONSTANTE);
+			instance.agregarAtributo("1_ul", Constantes.TYPE, "ULONG");
+
+			instance.putLexema("1.0", Constantes.CONSTANTE);
+			instance.agregarAtributo("1.0", Constantes.TYPE, "FLOAT");
 		}
 
 		return instance;

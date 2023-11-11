@@ -16,6 +16,9 @@ public class Constantes {
     public static final String NIVELES_HERENCIA = "niveles_herencia";
     public static final String ATRIBUTOS = "atributos";
     public static final String EXTIENDE = "extiende";
+
+    /** Types existentes */
+
     /* Valores de atributos */
     public static final String NOMBRE_METODO = "nombre_metodo";
     public static final String NOMBRE_CLASE = "nombre_clase";

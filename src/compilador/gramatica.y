@@ -900,14 +900,25 @@ factor:
 		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 
-			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.USO_VARIABLE)) {
+			String identificadorAmbito = $1.sval + genCodigoIntermedio.generarAmbito();
+
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_VARIABLE)) {
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una variable");
 			} else {
 				polaca.agregarElemento($1.sval + ambito);
-				polaca.agregarElemento("1");
+
+				String valorResta = "";
+
+				switch (type) {
+            case "INT": { valorResta = "1_i"; break; }
+            case "ULONG": { valorResta = "1_ul"; break; }
+            case "FLOAT": { valorResta = "1.0"; break; }
+            default: { valorResta = ""; break; }
+        }
+
+				polaca.agregarElemento(valorResta);
 				polaca.agregarElemento("-");
 			}
-
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}

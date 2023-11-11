@@ -1168,7 +1168,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 925 "./src/compilador/gramatica.y"
+//#line 941 "./src/compilador/gramatica.y"
 
 public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
@@ -2577,36 +2577,52 @@ case 242:
 		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(1).sval + " esta declarado");
 
-			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(val_peek(1).sval + genCodigoIntermedio.generarAmbito(), Constantes.USO_VARIABLE)) {
+			String identificadorAmbito = val_peek(1).sval + genCodigoIntermedio.generarAmbito();
+
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_VARIABLE)) {
 				logger.logError("[Codigo Intermedio] El identificador " + val_peek(1).sval + " no es una variable");
 			} else {
 				polaca.agregarElemento(val_peek(1).sval + ambito);
-				polaca.agregarElemento("1");
+
+				String type = (String) TS.getAtributo(identificadorAmbito, Constantes.TYPE);
+
+				System.out.println("TODO " + identificadorAmbito);
+				System.out.println("TYPE " + type);
+
+				String valorResta = "";
+
+				switch (type) {
+            case "INT": { valorResta = "1_i"; break; }
+            case "ULONG": { valorResta = "1_ul"; break; }
+            case "FLOAT": { valorResta = "1.0"; break; }
+            default: { valorResta = ""; break; }
+        }
+
+				polaca.agregarElemento(valorResta);
 				polaca.agregarElemento("-");
 			}
-
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(1).sval + " no esta declarado");
 		}
 	}
 break;
 case 243:
-//#line 915 "./src/compilador/gramatica.y"
+//#line 931 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(0).sval);}
 break;
 case 244:
-//#line 916 "./src/compilador/gramatica.y"
+//#line 932 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 245:
-//#line 920 "./src/compilador/gramatica.y"
+//#line 936 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 246:
-//#line 921 "./src/compilador/gramatica.y"
+//#line 937 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2532 "Parser.java"
+//#line 2548 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
