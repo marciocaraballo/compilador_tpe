@@ -1168,7 +1168,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 937 "./src/compilador/gramatica.y"
+//#line 940 "./src/compilador/gramatica.y"
 
 public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
@@ -2582,7 +2582,7 @@ case 242:
 			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_VARIABLE)) {
 				logger.logError("[Codigo Intermedio] El identificador " + val_peek(1).sval + " no es una variable");
 			} else {
-				polaca.agregarElemento(val_peek(1).sval + ambito);
+				polaca.agregarElemento(identificadorAmbito);
 
 				String tipo = (String) TS.getAtributo(identificadorAmbito, Constantes.TYPE);
 				String valorResta = "";
@@ -2596,6 +2596,9 @@ case 242:
 
 				polaca.agregarElemento(valorResta);
 				polaca.agregarElemento("-");
+				polaca.agregarElemento(identificadorAmbito);
+				polaca.agregarElemento("=");
+				polaca.agregarElemento(identificadorAmbito);
 			}
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(1).sval + " no esta declarado");
@@ -2603,22 +2606,22 @@ case 242:
 	}
 break;
 case 243:
-//#line 927 "./src/compilador/gramatica.y"
+//#line 930 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(0).sval);}
 break;
 case 244:
-//#line 928 "./src/compilador/gramatica.y"
+//#line 931 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 245:
-//#line 932 "./src/compilador/gramatica.y"
+//#line 935 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 246:
-//#line 933 "./src/compilador/gramatica.y"
+//#line 936 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2544 "Parser.java"
+//#line 2547 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

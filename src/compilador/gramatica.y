@@ -905,7 +905,7 @@ factor:
 			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_VARIABLE)) {
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una variable");
 			} else {
-				polaca.agregarElemento($1.sval + ambito);
+				polaca.agregarElemento(identificadorAmbito);
 
 				String tipo = (String) TS.getAtributo(identificadorAmbito, Constantes.TYPE);
 				String valorResta = "";
@@ -919,6 +919,9 @@ factor:
 
 				polaca.agregarElemento(valorResta);
 				polaca.agregarElemento("-");
+				polaca.agregarElemento(identificadorAmbito);
+				polaca.agregarElemento("=");
+				polaca.agregarElemento(identificadorAmbito);
 			}
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
