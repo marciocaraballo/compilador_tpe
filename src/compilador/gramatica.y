@@ -690,7 +690,6 @@ encabezado_funcion:
 
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
-				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema =  $1.sval + ambitoCompleto;
 
 				polaca.crearPolacaAmbitoNuevo(ambitoCompleto + ":" +  $1.sval);

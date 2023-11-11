@@ -53,12 +53,13 @@ public class TablaDeSimbolos {
 			HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
 			if (nombre_atributo.equals(Constantes.METODOS)) {
 				HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.METODOS);
-				if (aux == null)
-					atributos.put(Constantes.METODOS, new HashSet<>());
-				else {
-					aux.add((String) valor);
-					atributos.put(Constantes.METODOS, aux);
+				if (aux == null) {
+					aux = new HashSet<String>();
 				}
+
+				aux.add((String) valor);
+				atributos.put(Constantes.METODOS, aux);
+
 			} else {
 				if (nombre_atributo.equals(Constantes.ATRIBUTOS)) {
 					HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);

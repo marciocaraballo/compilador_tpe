@@ -217,9 +217,12 @@ public class GeneracionCodigoIntermedio {
 
         String aux = ambitoClaseInterfaz;
         ambitoClaseInterfaz = "";
-        TS.agregarAtributo(aux + generarAmbito(), Constantes.METODOS, identificadorMetodo);
 
         System.out.println("DONDE VAMOS " + aux + generarAmbito());
+        System.out.println("TS " + TS.has(aux + generarAmbito()));
+        System.out.println("IDENTIFICADOR " + identificadorMetodo);
+
+        TS.agregarAtributo(aux + generarAmbito(), Constantes.METODOS, identificadorMetodo);
 
         ambitoClaseInterfaz = aux;
     }
