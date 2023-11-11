@@ -1,6 +1,11 @@
 {
-	INT a,
-	INT b,
-	
-	a = 3_i,
+	CLASS ca {
+		INT a,
+		VOID m() {
+			VOID n() {
+				RETURN,
+			}
+			RETURN,
+		}
+	}
 }
