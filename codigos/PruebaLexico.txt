@@ -1,11 +1,11 @@
 {
-	CLASS ca {
-		INT a,
-		VOID m() {
-			VOID n() {
-				RETURN,
-			}
-			RETURN,
-		}
-	}
+
+    INT d,
+
+    IF ( d + 100_i == 3_i * d ) {
+        d = 4_i,
+    } END_IF,
+
+
+
 }
