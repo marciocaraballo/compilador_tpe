@@ -899,9 +899,14 @@ factor:
 
 		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
-			polaca.agregarElemento($1.sval + ambito);
-			polaca.agregarElemento("1");
-			polaca.agregarElemento("-");
+
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.USO_VARIABLE)) {
+				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una variable");
+			} else {
+				polaca.agregarElemento($1.sval + ambito);
+				polaca.agregarElemento("1");
+				polaca.agregarElemento("-");
+			}
 
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
