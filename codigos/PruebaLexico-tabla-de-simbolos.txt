@@ -1,71 +1,26 @@
-Lexema: n:main:ca
+Lexema: inner:main:cb:n
 Atributo: uso Valor: nombre_metodo
 Atributo: tiene_param Valor: true
-Atributo: token Valor: 257
-Lexema: cb:main:ca
-Atributo: uso Valor: nombre_clase
-Atributo: tipo Valor: cb
-Atributo: token Valor: 257
-Lexema: cd:main
-Atributo: uso Valor: nombre_clase
-Atributo: atributos Valor: [w]
-Atributo: niveles_herencia Valor: 0
-Atributo: token Valor: 257
-Lexema: w:main:cd
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: ca:main
-Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: []
-Atributo: atributos Valor: [a]
-Atributo: niveles_herencia Valor: 2
-Atributo: token Valor: 257
-Lexema: n:main:cb
-Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: true
-Atributo: token Valor: 257
-Lexema: cd:main:cb
-Atributo: uso Valor: nombre_clase
-Atributo: tipo Valor: cd
-Atributo: token Valor: 257
-Lexema: cc:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: INT
-Atributo: comp_uso Valor: false
-Atributo: token Valor: 257
-Lexema: c1
-Atributo: token Valor: 257
-Lexema: n
-Atributo: token Valor: 257
-Lexema: c1:main
-Atributo: uso Valor: variable
-Atributo: tipo Valor: ca
-Atributo: comp_uso Valor: false
 Atributo: token Valor: 257
 Lexema: b:main:cb
 Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: a:main:cb:n
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
+Lexema: n:main:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: true
 Atributo: token Valor: 257
-Lexema: a:main:ca:n
+Lexema: a:main:cb:n
 Atributo: uso Valor: nombre_parametro
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
 Lexema: cb:main
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: []
+Atributo: metodos Valor: [inner]
 Atributo: atributos Valor: [b]
-Atributo: niveles_herencia Valor: 1
+Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
-Lexema: a:main:ca
-Atributo: uso Valor: atributo
+Lexema: c:main:cb:inner
+Atributo: uso Valor: nombre_parametro
 Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: ca
-Atributo: token Valor: 257
-Lexema: cb
 Atributo: token Valor: 257

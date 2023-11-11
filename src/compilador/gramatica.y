@@ -652,7 +652,9 @@ encabezado_funcion:
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+				String nuevoLexema =  $1.sval + genCodigoIntermedio.generarAmbito();
+
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" +  $1.sval);
 
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
@@ -661,7 +663,6 @@ encabezado_funcion:
 				TS.swapLexemas($1.sval, nuevoLexema);
 				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
-				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  $1.sval);
 				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
@@ -687,11 +688,10 @@ encabezado_funcion:
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+				String nuevoLexema =  $1.sval + genCodigoIntermedio.generarAmbito();
 
-				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  $1.sval);
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" +  $1.sval);
 			
-
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);

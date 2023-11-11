@@ -2278,7 +2278,9 @@ case 183:
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-				String nuevoLexema = val_peek(3).sval + ambitoClaseDefinidaActual;
+				String nuevoLexema =  val_peek(3).sval + genCodigoIntermedio.generarAmbito();
+
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" +  val_peek(3).sval);
 
 				TS.agregarAtributo(val_peek(3).sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo(val_peek(3).sval, Constantes.TIENE_PARAMETRO, true);
@@ -2287,7 +2289,6 @@ case 183:
 				TS.swapLexemas(val_peek(3).sval, nuevoLexema);
 				/*Agrego Ambito a identificador*/
 				TS.swapLexemas(val_peek(1).sval, val_peek(1).sval + ambitoClaseDefinidaActual + ":" + val_peek(3).sval);
-				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  val_peek(3).sval);
 				
 			} else {
 				TS.agregarAtributo(val_peek(3).sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
@@ -2307,7 +2308,7 @@ case 183:
 	}
 break;
 case 184:
-//#line 682 "./src/compilador/gramatica.y"
+//#line 683 "./src/compilador/gramatica.y"
 {
 		/* CHEQUEO QUE LA FUNCION NO ESTE DECLARADA*/
 		if (!TS.has(val_peek(2).sval + genCodigoIntermedio.generarAmbito())) {
@@ -2316,11 +2317,10 @@ case 184:
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-				String nuevoLexema = val_peek(2).sval + ambitoClaseDefinidaActual;
+				String nuevoLexema =  val_peek(2).sval + genCodigoIntermedio.generarAmbito();
 
-				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  val_peek(2).sval);
+				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" +  val_peek(2).sval);
 			
-
 				TS.agregarAtributo(val_peek(2).sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo(val_peek(2).sval, Constantes.TIENE_PARAMETRO, false);
 				genCodigoIntermedio.agregarAtributoMetodos(val_peek(2).sval);

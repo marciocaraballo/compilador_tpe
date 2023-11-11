@@ -1,23 +1,14 @@
 {
-	INT cc,
-	
-	CLASS cd {
-		INT w,
-	}
-
 	CLASS cb {
 		INT b,
-		VOID n(INT a) { RETURN, }
-		cd,
+		VOID n(INT a) { 
+		
+			VOID inner(INT c) {
+			
+				RETURN,
+			}
+			
+			RETURN, 
+		}
 	}
-
-	CLASS ca {
-		INT a,
-		VOID n(INT a) { RETURN, }
-		cb,
-	}
-	
-	ca c1,
-	
-	c1.cb.n(),
 }

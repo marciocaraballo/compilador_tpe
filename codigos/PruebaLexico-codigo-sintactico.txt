@@ -1,16 +1,5 @@
-[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 5: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 6: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 9: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 10: [Parser] Declaracion de funcion detectado
-[Success] Linea 11: [Codigo Intermedio] El identificador cd esta declarado
-[Success] Linea 12: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 15: [Parser] Declaracion de lista de variables en CLASS detectado
-[Success] Linea 16: [Parser] Declaracion de funcion detectado
-[Success] Linea 17: [Codigo Intermedio] El identificador cb esta declarado
-[Success] Linea 18: [Parser] Declaracion de clase CLASS detectado
-[Success] Linea 20: [Codigo Intermedio] El identificador ca esta declarado
-[Success] Linea 20: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 22: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 22: [Codigo Intermedio] La cadena de llamadas c1.cb.n es valida 
-[Success] Linea 23: [Parser] Programa correcto detectado
+[Success] Linea 3: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 9: [Parser] Declaracion de funcion detectado
+[Success] Linea 12: [Parser] Declaracion de funcion detectado
+[Success] Linea 13: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 14: [Parser] Programa correcto detectado
