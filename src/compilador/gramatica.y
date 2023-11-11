@@ -671,7 +671,7 @@ encabezado_funcion:
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
 				
 				//Agrego Ambito a identificador
-				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito());
+				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito()+ ":" + $1.sval);
 				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			}
 			genCodigoIntermedio.apilarAmbito($1.sval);

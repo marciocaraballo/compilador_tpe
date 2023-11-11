@@ -2297,7 +2297,7 @@ case 183:
 				TS.swapLexemas(val_peek(3).sval, val_peek(3).sval + genCodigoIntermedio.generarAmbito());
 				
 				/*Agrego Ambito a identificador*/
-				TS.swapLexemas(val_peek(1).sval, val_peek(1).sval + genCodigoIntermedio.generarAmbito());
+				TS.swapLexemas(val_peek(1).sval, val_peek(1).sval + genCodigoIntermedio.generarAmbito()+ ":" + val_peek(3).sval);
 				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + val_peek(3).sval);
 			}
 			genCodigoIntermedio.apilarAmbito(val_peek(3).sval);
