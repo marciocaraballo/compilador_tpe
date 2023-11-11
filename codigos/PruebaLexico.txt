@@ -1,12 +1,21 @@
 {
 	INT cc,
-
-	INTERFACE z {
-		VOID m(),
+	
+	CLASS cd {
+		INT w,
 	}
 
-	CLASS ca IMPLEMENT z {
+	CLASS cb {
+		INT b,
+		cd,
+	}
+
+	CLASS ca {
 		INT a,
-		VOID m() { RETURN, }
+		cb,
 	}
+	
+	ca c1,
+	
+	c1.cb.b = 3_i,
 }

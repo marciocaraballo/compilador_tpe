@@ -291,33 +291,46 @@ public class GeneracionCodigoIntermedio {
             return false;
         } else {
             String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
-            /** Instancia clase esta definida */
+            /** Identificador definido */
             if (!ambito.isEmpty()) {
-                String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
-                boolean isValid = true;
+                if (verificaUsoCorrectoIdentificador(partes[0] + ambito, Constantes.USO_VARIABLE)) {
+                    String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
+                    boolean isValid = true;
 
-                for (int i = 1; i < partes.length && isValid; i++) {
-                    /** El primer nivel debe validar contra el tipo de la variable */
-                    if (i == 1) {
-                        String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(tipo);
-                        if (!TS.has(partes[i] + ambitoClaseTipo + ":" + tipo)) {
-                            isValid = false;
-                            Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
-                                    + " no esta declarado como miembro de la clase " + tipo);
-                        }
-                    } else {
-                        String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(partes[i - 1]);
-                        if (!TS.has(partes[i] + ambitoClaseTipo + ":" + partes[i - 1])) {
-                            isValid = false;
-                            Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
-                                    + " no esta declarado como miembro de la clase " + partes[i - 1]);
+                    for (int i = 1; i < partes.length && isValid; i++) {
+                        /** El primer nivel debe validar contra el tipo de la variable */
+                        if (i == 1) {
+                            String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(tipo);
+                            String identificadorAmbito = partes[i] + ambitoClaseTipo + ":" + tipo;
+                            if (!TS.has(identificadorAmbito)) {
+                                isValid = false;
+                                Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
+                                        + " no esta declarado como miembro de la clase " + tipo);
+                            }
                         } else {
-                            /** Encuentra el */
+                            String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(partes[i - 1]);
+                            if (!TS.has(partes[i] + ambitoClaseTipo + ":" + partes[i - 1])) {
+                                isValid = false;
+                                Logger.getInstance().logError("[Codigo intermedio] El identificador " + partes[i]
+                                        + " no esta declarado como miembro de la clase " + partes[i - 1]);
+                            } else {
+                                if (!verificaUsoCorrectoIdentificador(partes[i - 1] + ambitoClaseTipo,
+                                        Constantes.NOMBRE_CLASE)) {
+                                    isValid = false;
+                                    Logger.getInstance()
+                                            .logError("[Codigo intermedio] El identificador " + partes[i - 1]
+                                                    + " no es una clase ");
+                                }
+                            }
                         }
                     }
-                }
 
-                return isValid;
+                    return isValid;
+                } else {
+                    Logger.getInstance()
+                            .logError("[Generacion codigo] El identificador " + partes[0] + " no es una variable ");
+                    return false;
+                }
             } else {
                 Logger.getInstance()
                         .logError("[Codigo intermedio] El identificador " + partes[0] + " no esta declarado");

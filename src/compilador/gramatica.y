@@ -318,8 +318,6 @@ sentencia_invocacion_funcion:
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
 				}
-			} else {
-				logger.logError("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " no es valida ");
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
@@ -363,8 +361,6 @@ sentencia_invocacion_funcion:
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
 				}
-			} else {
-				logger.logError("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " no es valida ");
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
