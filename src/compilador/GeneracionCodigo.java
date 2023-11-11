@@ -8,7 +8,7 @@ public class GeneracionCodigo {
     private TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
     private StringBuilder codigo_assembler = new StringBuilder();
     private int numero_var_auxiliar = 0;
-    private String ultimo_comparador;
+    private String tipo_salto;
 
     public GeneracionCodigo() {
         generarCabecera();
@@ -74,7 +74,7 @@ public class GeneracionCodigo {
             }
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar("INT");
-                codigo_assembler.append("MV AX, ").append(op1).append("\n"); //EN MULTIPLICACION SOLO PUEDO UTILIZAR REG EAX
+                codigo_assembler.append("MV AX, ").append(op1).append("\n"); //EN MULTIPLICACION SOLO PUEDO UTILIZAR REG AX
                 codigo_assembler.append("MULI AX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
@@ -88,10 +88,35 @@ public class GeneracionCodigo {
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE QUEDO EN AX A VAR AUX
                 tokens.push(variable_auxiliar);
             }
-            case "<", ">", ">=", "<=", "!!", "==" -> {
+            case "<" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                ultimo_comparador = operador;
+                tipo_salto = "JL";
+            }
+            case ">" -> {
+                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP AX, ").append(op2).append("\n");
+                tipo_salto = "JG";
+            }
+            case ">=" -> {
+                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP AX, ").append(op2).append("\n");
+                tipo_salto = "JGE";
+            }
+            case "<=" -> {
+                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP AX, ").append(op2).append("\n");
+                tipo_salto = "JLE";
+            }
+            case"!!" -> {
+                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP AX, ").append(op2).append("\n");
+                tipo_salto = "JNE";
+            }
+            case "==" -> {
+                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP AX, ").append(op2).append("\n");
+                tipo_salto = "JE";
             }
             case "=" -> {
                 codigo_assembler.append("MV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
@@ -133,10 +158,35 @@ public class GeneracionCodigo {
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE QUEDO EN AX A VAR AUX
                 tokens.push(variable_auxiliar);
             }
-            case "<", ">", ">=", "<=", "!!", "==" -> {
+            case "<" -> {
                 codigo_assembler.append("MV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
-                ultimo_comparador = operador;
+                tipo_salto = "JB";
+            }
+            case ">" -> {
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
+                tipo_salto = "JA";
+            }
+            case ">=" -> {
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
+                tipo_salto = "JAE";
+            }
+            case "<=" -> {
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
+                tipo_salto = "JBE";
+            }
+            case"!!" -> {
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
+                tipo_salto = "JNE";
+            }
+            case "==" -> {
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
+                tipo_salto = "JE";
             }
             case "=" -> {
                 codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
@@ -145,7 +195,77 @@ public class GeneracionCodigo {
         }
     }
 
+    public void comparacionesParaFlotantes(String op1, String op2){
+        codigo_assembler.append("FLD ").append(op2).append("\n");
+        codigo_assembler.append("FCOM ").append(op1).append("\n");
+        codigo_assembler.append("FSTSW aux_mem").append(op1).append("\n");
+        codigo_assembler.append("MOV AX, aux_mem").append(op1).append("\n");
+        codigo_assembler.append("SAHF").append(op1).append("\n");
+    }
+
     private void generarInstruccionesFlotantes(String op1, String op2, String operador) {
+        String variable_auxiliar;
+        switch (operador) {
+            case "+" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                codigo_assembler.append("FLD ").append(op2).append('\n');
+                codigo_assembler.append("FLD ").append(op1).append('\n');
+                codigo_assembler.append("FADD ").append('\n');
+                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                tokens.push(variable_auxiliar);
+            }
+            case "-" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                codigo_assembler.append("FLD ").append(op2).append('\n');
+                codigo_assembler.append("FLD ").append(op1).append('\n');
+                codigo_assembler.append("FSUB ").append('\n');
+                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                tokens.push(variable_auxiliar);
+            }
+            case "*" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                codigo_assembler.append("FLD ").append(op2).append('\n');
+                codigo_assembler.append("FLD ").append(op1).append('\n');
+                codigo_assembler.append("FMUL ").append('\n');
+                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                tokens.push(variable_auxiliar);
+            }
+            case "/" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                codigo_assembler.append("FLD ").append(op2).append('\n');
+                codigo_assembler.append("FLD ").append(op1).append('\n');
+                codigo_assembler.append("FDIV ").append('\n');
+                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                tokens.push(variable_auxiliar);
+            }
+            case "<" -> {
+                comparacionesParaFlotantes(op1, op2);
+                tipo_salto = "JB";
+            }
+            case ">" -> {
+                comparacionesParaFlotantes(op1, op2);
+            }
+            case ">=" -> {
+                comparacionesParaFlotantes(op1, op2);
+                tipo_salto = "JAE";
+            }
+            case "<=" -> {
+                comparacionesParaFlotantes(op1, op2);
+                tipo_salto = "JBE";
+            }
+            case"!!" -> {
+                comparacionesParaFlotantes(op1, op2);
+                tipo_salto = "JNE";
+            }
+            case "==" -> {
+                comparacionesParaFlotantes(op1, op2);
+                tipo_salto = "JE";
+            }
+            case "=" -> {
+                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
+                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en la var del lado izquierdo
+            }
+        }
     }
 
 
@@ -154,19 +274,10 @@ public class GeneracionCodigo {
 
     private void generarSalto(String tipo) {
         String direccion_salto = tokens.pop();
-        if (tipo.equals("BI")){
+        if (tipo.equals("BI"))
             codigo_assembler.append("JMP ").append("L").append(direccion_salto).append('\n');
-        }
-        else {
-            switch (ultimo_comparador) {
-                case "<" -> codigo_assembler.append("JB ").append("L").append(direccion_salto).append('\n');
-                case "<=" -> codigo_assembler.append("JBE ").append("L").append(direccion_salto).append('\n');
-                case ">=" -> codigo_assembler.append("JAE ").append("L").append(direccion_salto).append('\n');
-                case ">" -> codigo_assembler.append("JA ").append("L").append(direccion_salto).append('\n');
-                case "!!" -> codigo_assembler.append("JNE ").append("L").append(direccion_salto).append('\n');
-                case "==" -> codigo_assembler.append("JE ").append("L").append(direccion_salto).append('\n');
-            }
-        }
+        else
+            codigo_assembler.append(tipo_salto).append(" ").append("L").append(direccion_salto).append('\n');
     }
 
     private String nuevaVariableAuxiliar(String tipo) {
