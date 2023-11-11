@@ -17,6 +17,7 @@ public class Constantes {
     public static final String ATRIBUTOS = "atributos";
     public static final String EXTIENDE = "extiende";
     /* Valores de atributos */
+    public static final String NOMBRE_METODO = "nombre_metodo";
     public static final String NOMBRE_CLASE = "nombre_clase";
     public static final String NOMBRE_FUNCION = "nombre_funcion";
     public static final String NOMBRE_INTERFAZ = "nombre_interfaz";

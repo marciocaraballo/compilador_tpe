@@ -2274,7 +2274,7 @@ case 183:
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = val_peek(3).sval + ambitoClaseDefinidaActual;
 
-				TS.agregarAtributo(val_peek(3).sval, Constantes.USE, "nombre_metodo");
+				TS.agregarAtributo(val_peek(3).sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo(val_peek(3).sval, Constantes.TIENE_PARAMETRO, true);
 				genCodigoIntermedio.agregarAtributoMetodos(val_peek(3).sval);
 				/* Agrego Ambito a metodo*/
@@ -2315,7 +2315,7 @@ case 184:
 				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  val_peek(2).sval);
 			
 
-				TS.agregarAtributo(val_peek(2).sval, Constantes.USE, "nombre_metodo");
+				TS.agregarAtributo(val_peek(2).sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo(val_peek(2).sval, Constantes.TIENE_PARAMETRO, false);
 				genCodigoIntermedio.agregarAtributoMetodos(val_peek(2).sval);
 				/*Agrego Ambito a identificador*/
@@ -2367,7 +2367,7 @@ case 190:
 		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 		String nuevoLexema = val_peek(3).sval + ambitoClaseDefinidaActual;
 
-		TS.agregarAtributo(val_peek(3).sval, Constantes.USE, "nombre_metodo");
+		TS.agregarAtributo(val_peek(3).sval, Constantes.USE, Constantes.NOMBRE_METODO);
 		TS.agregarAtributo(val_peek(3).sval, Constantes.TIENE_PARAMETRO , true);
 		TS.swapLexemas(val_peek(3).sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos(val_peek(3).sval);
@@ -2382,7 +2382,7 @@ case 191:
 		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 		String nuevoLexema = val_peek(2).sval + ambitoClaseDefinidaActual;
 
-		TS.agregarAtributo(val_peek(2).sval, Constantes.USE, "nombre_metodo");
+		TS.agregarAtributo(val_peek(2).sval, Constantes.USE, Constantes.NOMBRE_METODO);
 		TS.agregarAtributo(val_peek(2).sval, Constantes.TIENE_PARAMETRO , false);
 		TS.swapLexemas(val_peek(2).sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos(val_peek(2).sval);

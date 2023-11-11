@@ -648,7 +648,7 @@ encabezado_funcion:
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
-				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
+				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
 				// Agrego Ambito a metodo
@@ -686,7 +686,7 @@ encabezado_funcion:
 				polaca.crearPolacaAmbitoNuevo(ambitoClaseDefinidaActual + ":" +  $1.sval);
 			
 
-				TS.agregarAtributo($1.sval, Constantes.USE, "nombre_metodo");
+				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
 				//Agrego Ambito a identificador
@@ -726,7 +726,7 @@ encabezado_funcion_interfaz:
 		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
 
-		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_metodo");
+		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 		TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , true);
 		TS.swapLexemas($2.sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
@@ -738,7 +738,7 @@ encabezado_funcion_interfaz:
 		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
 		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
 
-		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_metodo");
+		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 		TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , false);
 		TS.swapLexemas($2.sval, nuevoLexema);
 		genCodigoIntermedio.agregarAtributoMetodos($2.sval);

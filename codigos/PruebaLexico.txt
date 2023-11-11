@@ -7,15 +7,17 @@
 
 	CLASS cb {
 		INT b,
+		VOID n(INT a) { RETURN, }
 		cd,
 	}
 
 	CLASS ca {
 		INT a,
+		VOID n(INT a) { RETURN, }
 		cb,
 	}
 	
 	ca c1,
 	
-	c1.cb.b = 3_i,
+	c1.a(),
 }
