@@ -1168,7 +1168,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 941 "./src/compilador/gramatica.y"
+//#line 936 "./src/compilador/gramatica.y"
 
 public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
@@ -2584,14 +2584,9 @@ case 242:
 			} else {
 				polaca.agregarElemento(val_peek(1).sval + ambito);
 
-				String type = (String) TS.getAtributo(identificadorAmbito, Constantes.TYPE);
-
-				System.out.println("TODO " + identificadorAmbito);
-				System.out.println("TYPE " + type);
-
 				String valorResta = "";
 
-				switch (type) {
+				switch (valorResta) {
             case "INT": { valorResta = "1_i"; break; }
             case "ULONG": { valorResta = "1_ul"; break; }
             case "FLOAT": { valorResta = "1.0"; break; }
@@ -2607,22 +2602,22 @@ case 242:
 	}
 break;
 case 243:
-//#line 931 "./src/compilador/gramatica.y"
+//#line 926 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(0).sval);}
 break;
 case 244:
-//#line 932 "./src/compilador/gramatica.y"
+//#line 927 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 245:
-//#line 936 "./src/compilador/gramatica.y"
+//#line 931 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 246:
-//#line 937 "./src/compilador/gramatica.y"
+//#line 932 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2548 "Parser.java"
+//#line 2543 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -909,7 +909,7 @@ factor:
 
 				String valorResta = "";
 
-				switch (type) {
+				switch (valorResta) {
             case "INT": { valorResta = "1_i"; break; }
             case "ULONG": { valorResta = "1_ul"; break; }
             case "FLOAT": { valorResta = "1.0"; break; }
