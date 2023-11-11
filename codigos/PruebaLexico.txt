@@ -1,17 +1,6 @@
 {
-	CLASS cb {
-
-		INT a,
-
-		VOID n() { 
-		
-			VOID inner() {
-			
-				RETURN,
-			}
-			
-			RETURN, 
-		}
-		VOID m() { RETURN, }
-	}
+	INT a,
+	INT b,
+	
+	a = 3_i,
 }
