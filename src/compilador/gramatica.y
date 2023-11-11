@@ -298,7 +298,7 @@ sentencia_invocacion_funcion:
 		if ($1.sval.contains(".")) {
 			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
 
-			if (esCadenaValida) {
+			if (esCadenaValida && genCodigoIntermedio.verificaUsoCorrectoIdentificadorEnCadenaDeLlamadas($1.sval, Constantes.NOMBRE_METODO)) {
 				logger.logSuccess("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " es valida ");
 
 				boolean tieneParam = genCodigoIntermedio.tieneParametroElMetodoLlamado($1.sval);
@@ -318,6 +318,8 @@ sentencia_invocacion_funcion:
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
 				}
+			} else {
+				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida como llamado a metodo");
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
@@ -339,7 +341,7 @@ sentencia_invocacion_funcion:
 
 			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
 
-			if (esCadenaValida) {
+			if (esCadenaValida && genCodigoIntermedio.verificaUsoCorrectoIdentificadorEnCadenaDeLlamadas($1.sval, Constantes.NOMBRE_METODO)) {
 
 				logger.logSuccess("[Codigo Intermedio] La cadena de llamadas " + $1.sval + " es valida ");
 
@@ -361,6 +363,8 @@ sentencia_invocacion_funcion:
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
 				}
+			} else {
+				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida como llamado a metodo");
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
@@ -400,7 +404,7 @@ sentencia_asignacion:
 
 			boolean esCadenaValida = genCodigoIntermedio.esCadenaDeLlamadasValida($1.sval);
 
-			if (esCadenaValida) {
+			if (esCadenaValida && genCodigoIntermedio.verificaUsoCorrectoIdentificadorEnCadenaDeLlamadas($1.sval, Constantes.USO_ATRIBUTO)) {
 
 				String[] partes = $1.sval.split("\\."); 
 				String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
@@ -408,6 +412,8 @@ sentencia_asignacion:
 				polaca.agregarElemento($1.sval);
 				polaca.agregarElemento($2.sval);
 				TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
+			} else {
+				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida en una asignacion");
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);

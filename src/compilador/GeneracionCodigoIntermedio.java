@@ -396,4 +396,28 @@ public class GeneracionCodigoIntermedio {
     public boolean verificaUsoCorrectoIdentificador(String identificador, String usoEsperado) {
         return TS.getAtributo(identificador, Constantes.USE).equals(usoEsperado);
     }
+
+    public boolean verificaUsoCorrectoIdentificadorEnCadenaDeLlamadas(String cadenaLlamados, String usoEsperado) {
+        String[] partes = cadenaLlamados.split("\\.");
+
+        /**
+         * Caso b1.p(a), donde b1 es un nombre de variable y NO un type heredado, y se
+         * llama con un param
+         */
+        if (partes.length == 2) {
+            String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
+            String tipo = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
+            String ambitoClaseTipo = existeIdentificadorEnAlgunAmbitoContenedor(tipo);
+            return verificaUsoCorrectoIdentificador(partes[1] + ambitoClaseTipo + ":" + tipo, usoEsperado);
+        } else {
+            /**
+             * Caso b1.ca.d(), donde se chequea la ultima parte (metodo) con la anterior
+             * (type)
+             */
+            String ambito = existeIdentificadorEnAlgunAmbitoContenedor(partes[partes.length - 2]);
+            String tipo = partes[partes.length - 2];
+            return verificaUsoCorrectoIdentificador(partes[partes.length - 1] + ambito + ":" + tipo,
+                    usoEsperado);
+        }
+    }
 }

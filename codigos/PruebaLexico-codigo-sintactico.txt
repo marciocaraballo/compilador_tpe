@@ -11,7 +11,6 @@
 [Success] Linea 18: [Parser] Declaracion de clase CLASS detectado
 [Success] Linea 20: [Codigo Intermedio] El identificador ca esta declarado
 [Success] Linea 20: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 22: [Codigo Intermedio] El identificador cc esta declarado
+[Success] Linea 22: [Parser] Invocacion de funcion sin expresion detectada
 [Success] Linea 22: [Codigo Intermedio] La cadena de llamadas c1.cb.n es valida 
-[Success] Linea 22: [Codigo Intermedio] Se llamo al metodo c1.cb.n correctamente con un parametro
 [Success] Linea 23: [Parser] Programa correcto detectado

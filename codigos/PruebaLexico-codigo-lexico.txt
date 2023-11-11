@@ -56,7 +56,6 @@
 [Success] Linea 22: [Lexico] Se reconoce un token para . con el token 46
 [Success] Linea 22: [Lexico] Se reconoce un token para n con el token 257
 [Success] Linea 22: [Lexico] Se reconoce un token para ( con el token 40
-[Success] Linea 22: [Lexico] Se reconoce un token para cc con el token 257
 [Success] Linea 22: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 22: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 23: [Lexico] Se reconoce un token para } con el token 125
