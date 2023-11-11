@@ -1,21 +1,5 @@
 {
-	CLASS cx {
-    	INT x,
-	}
+	INT a,
 	
-	CLASS cc {
-		INT c,
-	}
-	
-	CLASS cb {
-		INT b,
-    	cc,
-	}
-	
-	CLASS ca {
-		INT a,
-     	cb,
-     	cx,
-     	cc,
-	}
+	a(),
 }

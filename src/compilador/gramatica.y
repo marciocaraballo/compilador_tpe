@@ -369,7 +369,7 @@ sentencia_invocacion_funcion:
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 			if (!ambito.isEmpty()) {
-				if (TS.getAtributo($1.sval + ambito, Constantes.USE) == Constantes.NOMBRE_FUNCION) {
+				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.NOMBRE_FUNCION)) {
 					if ((boolean) TS.getAtributo($1.sval + ambito, Constantes.TIENE_PARAMETRO)) {
 						logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
 					}
@@ -503,41 +503,45 @@ sentencia_declarativa_clase:
 	declaracion_funcion |
 	declaracion_funcion ',' { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); } | 
 	ID ',' {
+		/** Una clase no puede heredar de si misma */
+		if ($1.sval.equals(genCodigoIntermedio.getAmbitoClaseInterfaz())) {
+			logger.logError("[Codigo Intermedio] La clase " + $1.sval + " no puede heredar de si misma ");
+		} else {
+			String ambitoDeClase = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval);
 
-		String ambitoDeClase = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval);
+			if (!genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
+				logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 
-		if (!genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
-			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
+				int nivelesDeHerencia = (int) TS.getInstance().getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
 
-			int nivelesDeHerencia = (int) TS.getInstance().getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
+				/** Se permiten hasta 3 niveles de herencia, se hace +1 para ver si con la nueva herencia no se viola la restriccion */
+				if (nivelesDeHerencia + 1 >= 3) {
+					logger.logError("[Codigo Intermedio] Se superaron los niveles de herencia validos para la clase " + genCodigoIntermedio.getAmbitoClaseInterfaz());
+				} else {
 
-			/** Se permiten hasta 3 niveles de herencia, se hace +1 para ver si con la nueva herencia no se viola la restriccion */
-			if (nivelesDeHerencia + 1 >= 3) {
-				logger.logError("[Codigo Intermedio] Se superaron los niveles de herencia validos para la clase " + genCodigoIntermedio.getAmbitoClaseInterfaz());
-			} else {
+					String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+					String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+					String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+					String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
-				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
-				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
-				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-				String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+					if (genCodigoIntermedio.verificaSobreescrituraDeAtributos(claseActual + ambitoClaseActual, $1.sval + ambitoDeClase)) {
+						TS.getInstance().swapLexemas($1.sval, nuevoLexema);
+						TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
+						TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
 
-				if (genCodigoIntermedio.verificaSobreescrituraDeAtributos(claseActual + ambitoClaseActual, $1.sval + ambitoDeClase)) {
-					TS.getInstance().swapLexemas($1.sval, nuevoLexema);
-					TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
-					TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
-
-					int nivelesDeHerenciaMaximo = (int) TS.getInstance().getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
-					/** 
-					*	En el caso de heredar de varias clases, con diferente nivel de herencia, se debe quedar
-					* solo con el mayor nivel y evitar sobreescribir un nivel ya existente. 
-					*/
-					if (nivelesDeHerencia + 1 > nivelesDeHerenciaMaximo) {
-						TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+						int nivelesDeHerenciaMaximo = (int) TS.getInstance().getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
+						/** 
+						*	En el caso de heredar de varias clases, con diferente nivel de herencia, se debe quedar
+						* solo con el mayor nivel y evitar sobreescribir un nivel ya existente. 
+						*/
+						if (nivelesDeHerencia + 1 > nivelesDeHerenciaMaximo) {
+							TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+						}
 					}
 				}
+			} else {
+				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
-		} else {
-			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
 	}
 ;

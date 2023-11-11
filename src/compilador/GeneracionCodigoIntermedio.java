@@ -54,11 +54,8 @@ public class GeneracionCodigoIntermedio {
     }
 
     public void agregarListaDeVariablesComoAtributos() {
-
         String claseActual = ambitoClaseInterfaz;
         String ambitoClaseActual = existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
-        String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-
         String claseActualConAmbito = claseActual + ambitoClaseActual;
 
         for (String variableActual : lista_variables_a_declarar) {
@@ -381,5 +378,9 @@ public class GeneracionCodigoIntermedio {
         }
 
         return true;
+    }
+
+    public boolean verificaUsoCorrectoIdentificador(String identificador, String usoEsperado) {
+        return TS.getAtributo(identificador, Constantes.USE).equals(usoEsperado);
     }
 }
