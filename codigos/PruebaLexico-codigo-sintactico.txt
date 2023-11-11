@@ -1,3 +1,8 @@
-[Success] Linea 2: [Parser] Declaracion de funcion detectado
-[Success] Linea 4: [Parser] Asignacion detectada
-[Success] Linea 5: [Parser] Programa correcto detectado
+[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 6: [Parser] Declaracion de INTERFACE detectada
+[Success] Linea 8: [Codigo Intermedio] El identificador z esta declarado
+[Success] Linea 9: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 10: [Parser] Declaracion de funcion detectado
+[Success] Linea 11: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 11: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados correctamente para la clase ca
+[Success] Linea 12: [Parser] Programa correcto detectado

@@ -514,32 +514,36 @@ sentencia_declarativa_clase:
 			if (!genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 
-				int nivelesDeHerencia = (int) TS.getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
+				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambitoDeClase, Constantes.NOMBRE_CLASE)) {
+					int nivelesDeHerencia = (int) TS.getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
 
-				/** Se permiten hasta 3 niveles de herencia, se hace +1 para ver si con la nueva herencia no se viola la restriccion */
-				if (nivelesDeHerencia + 1 >= 3) {
-					logger.logError("[Codigo Intermedio] Se superaron los niveles de herencia validos para la clase " + genCodigoIntermedio.getAmbitoClaseInterfaz());
-				} else {
+					/** Se permiten hasta 3 niveles de herencia, se hace +1 para ver si con la nueva herencia no se viola la restriccion */
+					if (nivelesDeHerencia + 1 >= 3) {
+						logger.logError("[Codigo Intermedio] Se superaron los niveles de herencia validos para la clase " + genCodigoIntermedio.getAmbitoClaseInterfaz());
+					} else {
 
-					String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
-					String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
-					String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-					String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
+						String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
+						String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+						String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+						String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
-					if (genCodigoIntermedio.verificaSobreescrituraDeAtributos(claseActual + ambitoClaseActual, $1.sval + ambitoDeClase)) {
-						TS.swapLexemas($1.sval, nuevoLexema);
-						TS.agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
-						TS.agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
+						if (genCodigoIntermedio.verificaSobreescrituraDeAtributos(claseActual + ambitoClaseActual, $1.sval + ambitoDeClase)) {
+							TS.swapLexemas($1.sval, nuevoLexema);
+							TS.agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
+							TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.NOMBRE_CLASE);
 
-						int nivelesDeHerenciaMaximo = (int) TS.getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
-						/** 
-						*	En el caso de heredar de varias clases, con diferente nivel de herencia, se debe quedar
-						* solo con el mayor nivel y evitar sobreescribir un nivel ya existente. 
-						*/
-						if (nivelesDeHerencia + 1 > nivelesDeHerenciaMaximo) {
-							TS.agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+							int nivelesDeHerenciaMaximo = (int) TS.getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
+							/** 
+							*	En el caso de heredar de varias clases, con diferente nivel de herencia, se debe quedar
+							* solo con el mayor nivel y evitar sobreescribir un nivel ya existente. 
+							*/
+							if (nivelesDeHerencia + 1 > nivelesDeHerenciaMaximo) {
+								TS.agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+							}
 						}
 					}
+				} else {
+					logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una clase heredable");
 				}
 			} else {
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
@@ -569,7 +573,7 @@ declaracion_clase_encabezado:
 	CLASS ID { 
 		//CHEQUEO QUE CLASE NO HAYA SIDO DECLARADA (DEBERIA CHEQUEAR USO, XQ PUEDE QUE IDENTIF PERTENEZCA A OTRA USO)
 		if (!TS.has($2.sval + genCodigoIntermedio.generarAmbito())) {
-			TS.agregarAtributo($2.sval, Constantes.USE, "nombre_clase");
+			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_CLASE);
 			TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, null);
 			TS.agregarAtributo($2.sval, Constantes.ATRIBUTOS, null);
 			TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
@@ -584,18 +588,23 @@ declaracion_clase_encabezado:
 	CLASS ID IMPLEMENT ID {
 		//CHEQUEO QUE CLASE NO HAYA SIDO DECLARADA (DEBERIA CHEQUEAR USO, XQ PUEDE QUE IDENTIF PERTENEZCA A OTRA USO)
 		if (!TS.has($2.sval + genCodigoIntermedio.generarAmbito())) {
-			if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval).isEmpty()) {
+		
+			String ambitoIdentificadorInterfaz = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($4.sval);
+
+			if (!ambitoIdentificadorInterfaz.isEmpty()) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
-				TS.agregarAtributo($2.sval, Constantes.USE, "nombre_clase");
-				TS.agregarAtributo($2.sval, Constantes.METODOS, null);
-				TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
-				// REGISTRO EN LA TABLA DE SIMBOLOS, CUAL ES LA INTERFAZ QUE ESTA IMPLEMENTANDO
-				TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, $4.sval);
-				//Agrego Ambito a identificador
-				TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
-				genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
-				genCodigoIntermedio.apilarAmbito($2.sval);
-				$$.sval = $2.sval;
+				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($4.sval + ambitoIdentificadorInterfaz, Constantes.NOMBRE_INTERFAZ)) {
+					TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_CLASE);
+					TS.agregarAtributo($2.sval, Constantes.METODOS, null);
+					TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
+					TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, $4.sval);
+					TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
+					genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+					genCodigoIntermedio.apilarAmbito($2.sval);
+					$$.sval = $2.sval;
+				} else {
+					logger.logError("[Codigo Intermedio] El identificador " + $4.sval + " no es una interfaz");
+				}
 			} else {
 				logger.logError("[Codigo Intermedio] El identificador " + $4.sval + " no esta declarado");
 			}

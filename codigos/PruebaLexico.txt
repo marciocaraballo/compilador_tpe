@@ -1,5 +1,12 @@
 {
-	VOID a() { RETURN, }
-	
-	a = 3_i,
+	INT cc,
+
+	INTERFACE z {
+		VOID m(),
+	}
+
+	CLASS ca IMPLEMENT z {
+		INT a,
+		VOID m() { RETURN, }
+	}
 }
