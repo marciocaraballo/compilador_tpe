@@ -907,9 +907,10 @@ factor:
 			} else {
 				polaca.agregarElemento($1.sval + ambito);
 
+				String tipo = (String) TS.getAtributo(identificadorAmbito, Constantes.TYPE);
 				String valorResta = "";
 
-				switch (valorResta) {
+				switch (tipo) {
             case "INT": { valorResta = "1_i"; break; }
             case "ULONG": { valorResta = "1_ul"; break; }
             case "FLOAT": { valorResta = "1.0"; break; }
