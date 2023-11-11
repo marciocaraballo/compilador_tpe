@@ -3,10 +3,20 @@ Atributo: tipo Valor: INT
 Atributo: token Valor: 258
 Lexema: d
 Atributo: token Valor: 257
+Lexema: f1:main
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: true
+Atributo: token Valor: 257
 Lexema: d:main
 Atributo: uso Valor: variable
 Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: a:main:f1
+Atributo: uso Valor: nombre_parametro
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: f1
 Atributo: token Valor: 257
 Lexema: 3_i
 Atributo: tipo Valor: INT
