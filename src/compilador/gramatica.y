@@ -313,8 +313,8 @@ sentencia_invocacion_funcion:
 					}
 					else
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
-					polaca.generarPasoIncompleto("BI");
-					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
+					polaca.generarPasoIncompleto("CALL");
+					polaca.completarPasoIncompletoInvocacion(salto + ":TAG");
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
 				}
@@ -328,8 +328,8 @@ sentencia_invocacion_funcion:
 					logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
 				}
 				else {
-					polaca.generarPasoIncompleto("BI");
-					polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG", true);
+					polaca.generarPasoIncompleto("CALL");
+					polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG");
 				}
 			}
 		}
@@ -358,8 +358,8 @@ sentencia_invocacion_funcion:
 					else
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
 					
-					polaca.generarPasoIncompleto("BI");
-					polaca.completarPasoIncompletoInvocacion(salto + ":TAG", false);
+					polaca.generarPasoIncompleto("CALL");
+					polaca.completarPasoIncompletoInvocacion(salto + ":TAG");
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
 				}
@@ -374,8 +374,8 @@ sentencia_invocacion_funcion:
 						logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
 					}
 					else{
-						polaca.generarPasoIncompleto("BI");
-						polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG", false);
+						polaca.generarPasoIncompleto("CALL");
+						polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG");
 					}
 				} else {
 					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no es una funcion");

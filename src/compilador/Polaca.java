@@ -79,11 +79,9 @@ public class Polaca {
         agregarElemento(aux);
     }
 
-    public void completarPasoIncompletoInvocacion(String etiqueta, boolean borrar_parametro){
+    public void completarPasoIncompletoInvocacion(String etiqueta){
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
-        if (borrar_parametro)
-            polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
     }
 
