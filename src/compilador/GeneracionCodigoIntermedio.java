@@ -154,7 +154,7 @@ public class GeneracionCodigoIntermedio {
     public void agregarUsoAListaDeVariables(String use) {
         for (String variableActual : lista_variables_a_declarar) {
             TS.agregarAtributo(variableActual, Constantes.USE, use);
-            /** Se pidio para variables, no para atributos de clas */
+            /** Se pidio para variables, no para atributos de clase */
             if (use == Constantes.USO_VARIABLE) {
                 TS.agregarAtributo(variableActual, Constantes.COMPROBACION_USO, false);
             }
@@ -213,10 +213,14 @@ public class GeneracionCodigoIntermedio {
         return (ambitosClase.size() >= 4);
     }
 
-    public void agregarAtributoMetodos(String interfaz) {
+    public void agregarAtributoMetodos(String identificadorMetodo) {
+
         String aux = ambitoClaseInterfaz;
         ambitoClaseInterfaz = "";
-        TS.agregarAtributo(aux + generarAmbito(), Constantes.METODOS, interfaz);
+        TS.agregarAtributo(aux + generarAmbito(), Constantes.METODOS, identificadorMetodo);
+
+        System.out.println("DONDE VAMOS " + aux + generarAmbito());
+
         ambitoClaseInterfaz = aux;
     }
 

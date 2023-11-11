@@ -1,9 +1,9 @@
 {
 	CLASS cb {
 		INT b,
-		VOID n(INT a) { 
+		VOID n() { 
 		
-			VOID inner(INT c) {
+			VOID inner() {
 			
 				RETURN,
 			}

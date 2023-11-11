@@ -682,27 +682,41 @@ encabezado_funcion:
 	}|
 	encabezado_funcion_nombre '(' ')' {
 		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
-		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
+
+		String ambitoCompleto = genCodigoIntermedio.generarAmbito().toString();
+
+		if (!TS.has($1.sval + ambitoCompleto)) {
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
 
 				String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 				String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
 				String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-				String nuevoLexema =  $1.sval + genCodigoIntermedio.generarAmbito();
+				String nuevoLexema =  $1.sval + ambitoCompleto;
 
-				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" +  $1.sval);
-			
-				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
+				polaca.crearPolacaAmbitoNuevo(ambitoCompleto + ":" +  $1.sval);
+
+				/** @TODO encontrar una mejor forma de detectar si es un metodo o una fn dentro de un metodo */
+				String partes[] = ambitoCompleto.split("\\:");
+				/** 
+				* Si la ultima parte del ambito es el nombre de la clase actual, se asume que se 
+				* esta definiendo un metodo. Si es otra cosa, se asume que se esta definiendo una 
+				* funcion dentro de un metodo de la clase. 
+				*/
+				if (partes[partes.length-1].equals(claseActual)) {
+					/** es metodo de clase */
+					TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
+					genCodigoIntermedio.agregarAtributoMetodos($1.sval);
+				} else {
+					/** es function dentro de metodo de clase */
+					TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
+				}
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
-				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
-				//Agrego Ambito a identificador
 				TS.swapLexemas($1.sval, nuevoLexema);
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, false);
-				//Agrego Ambito a identificador
-				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
-				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
+				TS.swapLexemas($1.sval, $1.sval + ambitoCompleto);
+				polaca.crearPolacaAmbitoNuevo(ambitoCompleto + ":" + $1.sval);
 			}
 			genCodigoIntermedio.apilarAmbito($1.sval);
 		} else {

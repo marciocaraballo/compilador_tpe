@@ -1,6 +1,6 @@
 Lexema: inner:main:cb:n
-Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: true
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: b:main:cb
 Atributo: uso Valor: atributo
@@ -8,19 +8,11 @@ Atributo: tipo Valor: INT
 Atributo: token Valor: 257
 Lexema: n:main:cb
 Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: true
-Atributo: token Valor: 257
-Lexema: a:main:cb:n
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: cb:main
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: [inner]
+Atributo: metodos Valor: []
 Atributo: atributos Valor: [b]
 Atributo: niveles_herencia Valor: 0
-Atributo: token Valor: 257
-Lexema: c:main:cb:inner
-Atributo: uso Valor: nombre_parametro
-Atributo: tipo Valor: INT
 Atributo: token Valor: 257
