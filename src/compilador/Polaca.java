@@ -25,7 +25,6 @@ public class Polaca {
     public void agregarElemento(String elemento) {
         incrementarContador();
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
-        Logger.getInstance().logWarning(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.add(elemento);
     }
 
@@ -53,7 +52,6 @@ public class Polaca {
     public void crearPolacaAmbitoNuevo(String identificador){
         ArrayList<String> polaca_auxiliar = new ArrayList<>();
         Stack<Integer> pila_auxiliar = new Stack<>();
-        Logger.getInstance().logWarning(identificador);
         polaca.put(identificador, polaca_auxiliar);
         pila.put(identificador, pila_auxiliar);
     }

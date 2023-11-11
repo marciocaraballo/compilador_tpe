@@ -512,7 +512,7 @@ sentencia_declarativa_clase:
 			if (!genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 
-				int nivelesDeHerencia = (int) TS.getInstance().getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
+				int nivelesDeHerencia = (int) TS.getAtributo($1.sval + ambitoDeClase, Constantes.NIVELES_HERENCIA);
 
 				/** Se permiten hasta 3 niveles de herencia, se hace +1 para ver si con la nueva herencia no se viola la restriccion */
 				if (nivelesDeHerencia + 1 >= 3) {
@@ -525,17 +525,17 @@ sentencia_declarativa_clase:
 					String nuevoLexema = $1.sval + ambitoClaseDefinidaActual;
 
 					if (genCodigoIntermedio.verificaSobreescrituraDeAtributos(claseActual + ambitoClaseActual, $1.sval + ambitoDeClase)) {
-						TS.getInstance().swapLexemas($1.sval, nuevoLexema);
-						TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
-						TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
+						TS.swapLexemas($1.sval, nuevoLexema);
+						TS.agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
+						TS.agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
 
-						int nivelesDeHerenciaMaximo = (int) TS.getInstance().getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
+						int nivelesDeHerenciaMaximo = (int) TS.getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
 						/** 
 						*	En el caso de heredar de varias clases, con diferente nivel de herencia, se debe quedar
 						* solo con el mayor nivel y evitar sobreescribir un nivel ya existente. 
 						*/
 						if (nivelesDeHerencia + 1 > nivelesDeHerenciaMaximo) {
-							TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+							TS.agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
 						}
 					}
 				}

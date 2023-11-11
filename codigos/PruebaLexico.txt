@@ -1,5 +1,5 @@
 {
-	INT a,
+	VOID a() { RETURN, }
 	
-	a(),
+	a = 3_i,
 }
