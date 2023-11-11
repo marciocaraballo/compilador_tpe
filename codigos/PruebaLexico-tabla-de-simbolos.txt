@@ -3,7 +3,6 @@ Atributo: token Valor: 257
 Lexema: a:main
 Atributo: uso Valor: nombre_funcion
 Atributo: tiene_param Valor: false
-Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
 Lexema: 3_i
 Atributo: tipo Valor: INT

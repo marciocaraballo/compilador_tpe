@@ -416,14 +416,16 @@ sentencia_asignacion:
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 
-			/** @TODO "expresion" parece apilar cosas en la polaca, pero recien aca sabemos si la asignacion
-				es sintacticamente correcta, capaz se pueda procesar aca la expresion o desapilar */
 			if (!ambito.isEmpty()) {
-				polaca.agregarElemento($1.sval + ambito);
-				polaca.agregarElemento($2.sval);
-				TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
+				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.USO_VARIABLE)) {
+					polaca.agregarElemento($1.sval + ambito);
+					polaca.agregarElemento($2.sval);
+					TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
+				} else {
+					polaca.removeElementos();
+					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no es una variable");
+				}
 			} else {
-				// Si la variable no fue declarada, descarto los elementos apilados en la polaca
 				polaca.removeElementos();
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
