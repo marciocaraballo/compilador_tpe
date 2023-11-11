@@ -1253,7 +1253,7 @@ public static void main(String[] args) {
 
 			polaca.showPolaca();
 
-			//GeneracionCodigo.getInstance().generar();
+			GeneracionCodigo gc = new GeneracionCodigo();
 		}
 	}
 }

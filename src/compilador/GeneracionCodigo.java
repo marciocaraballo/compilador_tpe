@@ -20,7 +20,7 @@ public class GeneracionCodigo {
                 case "CALL" -> generarLlamadaAFuncion();
                 default -> tokens.push(token);
             }
-        codigo_assembler.append("invoke ExitProcess, 0");
+        codigo_assembler.append("invoke ExitProcess, 0").append('\n');
         codigo_assembler.append("end start");
         showAssembler();
     }
@@ -35,7 +35,6 @@ public class GeneracionCodigo {
         codigo_assembler.append("includelib \\masm32\\lib\\kernel32.lib").append('\n');
         codigo_assembler.append("includelib \\masm32\\lib\\user32.lib").append('\n');
         codigo_assembler.append(".data").append('\n');
-        //codigoAssembler.append("    HelloWorld db \"Hello World!\", 0").append('\n');
         codigo_assembler.append(".code").append('\n');
         codigo_assembler.append("start:").append('\n');
     }
@@ -76,7 +75,7 @@ public class GeneracionCodigo {
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar("INT");
                 codigo_assembler.append("MV AX, ").append(op1).append("\n"); //EN MULTIPLICACION SOLO PUEDO UTILIZAR REG EAX
-                codigo_assembler.append("MUL AX, ").append(op2).append("\n");
+                codigo_assembler.append("MULI AX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
@@ -85,8 +84,8 @@ public class GeneracionCodigo {
                 codigo_assembler.append("XOR DX, DX").append('\n'); // INICIALIZO DX EN 0,
                 codigo_assembler.append("MV AX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
                 codigo_assembler.append("MV BX, ").append(op2).append('\n');
-                codigo_assembler.append("DIV BX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX = resultado
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX"); // MUEVO LO QUE QUEDO EN AX A VAR AUX
+                codigo_assembler.append("IDIV BX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX = resultado
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE QUEDO EN AX A VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<", ">", ">=", "<=", "!!", "==" -> {
@@ -95,16 +94,58 @@ public class GeneracionCodigo {
                 ultimo_comparador = operador;
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "AX, ").append(op1).append("\n");
-                codigo_assembler.append("MV ").append(op2).append(", AX").append("\n");
+                codigo_assembler.append("MV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
+                codigo_assembler.append("MV ").append(op2).append(", AX").append("\n"); // Almacento guardado en AX en la var del lado izquierdo
+            }
+        }
+    }
+
+    private void generarInstruccionesULong(String op1, String op2, String operador) {
+        String variable_auxiliar;
+        switch (operador) {
+            case "+" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("ADD EAX, ").append(op2).append("\n");
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append("\n");
+                tokens.push(variable_auxiliar);
+            }
+            case "-" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("SUB EAX, ").append(op2).append("\n");
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append("\n");
+                tokens.push(variable_auxiliar);
+            }
+            case "*" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n"); //EN MULTIPLICACION SOLO PUEDO UTILIZAR REG EAX
+                codigo_assembler.append("MUL EAX, ").append(op2).append("\n");
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
+                tokens.push(variable_auxiliar);
+            }
+            case "/" -> {
+                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                codigo_assembler.append("XOR EDX, EDX").append('\n'); // INICIALIZO DX EN 0,
+                codigo_assembler.append("MV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
+                codigo_assembler.append("MV EBX, ").append(op2).append('\n');
+                codigo_assembler.append("IDIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX = resultado
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE QUEDO EN AX A VAR AUX
+                tokens.push(variable_auxiliar);
+            }
+            case "<", ">", ">=", "<=", "!!", "==" -> {
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
+                ultimo_comparador = operador;
+            }
+            case "=" -> {
+                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
+                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en la var del lado izquierdo
             }
         }
     }
 
     private void generarInstruccionesFlotantes(String op1, String op2, String operador) {
-    }
-
-    private void generarInstruccionesULong(String op1, String op2, String operador) {
     }
 
 

@@ -2,13 +2,7 @@
 
     INT d,
 
-    VOID f1(INT a){
-        RETURN,
-    }
-
-    f1(d),
-
-    IF ( d + 100_i == 3_i * d ) {
+    IF ( d + 100_i == 3_i / d ) {
         d = 4_i,
     } END_IF,
 
