@@ -525,7 +525,15 @@ sentencia_declarativa_clase:
 					TS.getInstance().swapLexemas($1.sval, nuevoLexema);
 					TS.getInstance().agregarAtributo(nuevoLexema, Constantes.TYPE, $1.sval);
 					TS.getInstance().agregarAtributo(nuevoLexema, Constantes.USE, "nombre_clase");
-					TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+
+					int nivelesDeHerenciaMaximo = (int) TS.getInstance().getAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA);
+					/** 
+					*	En el caso de heredar de varias clases, con diferente nivel de herencia, se debe quedar
+					* solo con el mayor nivel y evitar sobreescribir un nivel ya existente. 
+					*/
+					if (nivelesDeHerencia + 1 > nivelesDeHerenciaMaximo) {
+						TS.getInstance().agregarAtributo(claseActual + ambitoClaseActual, Constantes.NIVELES_HERENCIA, nivelesDeHerencia + 1);
+					}
 				}
 			}
 		} else {

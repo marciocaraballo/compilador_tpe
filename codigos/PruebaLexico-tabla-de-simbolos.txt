@@ -1,38 +1,52 @@
+Lexema: cb:main:ca
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: cb
+Atributo: token Valor: 257
+Lexema: x:main:cx
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
 Lexema: b:main:cb
 Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
 Lexema: ca:main
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: []
-Atributo: atributos Valor: [a, b]
+Atributo: atributos Valor: [a]
+Atributo: niveles_herencia Valor: 2
+Atributo: token Valor: 257
+Lexema: c:main:cc
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: cx:main
+Atributo: uso Valor: nombre_clase
+Atributo: atributos Valor: [x]
 Atributo: niveles_herencia Valor: 0
-Atributo: token Valor: 257
-Lexema: b:main:ca
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
-Atributo: token Valor: 257
-Lexema: c:main:cb
-Atributo: uso Valor: atributo
-Atributo: tipo Valor: INT
 Atributo: token Valor: 257
 Lexema: cb:main
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: []
-Atributo: atributos Valor: [b, c]
-Atributo: niveles_herencia Valor: 0
-Atributo: token Valor: 257
-Lexema: m:main:cb
-Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: false
+Atributo: atributos Valor: [b]
+Atributo: niveles_herencia Valor: 1
 Atributo: token Valor: 257
 Lexema: a:main:ca
 Atributo: uso Valor: atributo
 Atributo: tipo Valor: INT
 Atributo: token Valor: 257
-Lexema: m:main:ca
-Atributo: uso Valor: nombre_metodo
-Atributo: tiene_param Valor: false
+Lexema: cx:main:ca
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: cx
 Atributo: token Valor: 257
-Lexema: cb
+Lexema: cc:main:ca
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: cc
+Atributo: token Valor: 257
+Lexema: cc:main
+Atributo: uso Valor: nombre_clase
+Atributo: atributos Valor: [c]
+Atributo: niveles_herencia Valor: 0
+Atributo: token Valor: 257
+Lexema: cc:main:cb
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: cc
 Atributo: token Valor: 257

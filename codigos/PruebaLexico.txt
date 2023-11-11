@@ -1,16 +1,21 @@
 {
-
-	CLASS cb {
-		INT c,
-		INT b,
-		VOID m() { RETURN, } 
+	CLASS cx {
+    	INT x,
 	}
-
+	
+	CLASS cc {
+		INT c,
+	}
+	
+	CLASS cb {
+		INT b,
+    	cc,
+	}
+	
 	CLASS ca {
 		INT a,
-		INT b,
-		VOID m() { RETURN, } 
-		cb,
+     	cb,
+     	cx,
+     	cc,
 	}
-
 }
