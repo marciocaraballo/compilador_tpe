@@ -65,22 +65,9 @@ public class TablaDeSimbolos {
 		if (has(lexema)) {
 			HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
 			if (nombre_atributo.equals(Constantes.METODOS) || nombre_atributo.equals(Constantes.ATRIBUTOS)) {
-
-				HashSet<String> aux;
-
-				if (nombre_atributo.equals(Constantes.METODOS)) {
-					aux = (HashSet<String>) atributos.get(Constantes.METODOS);
-				} else {
-					aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);
-				}
-
-				aux.add((String) valor);
-
-				if (nombre_atributo.equals(Constantes.METODOS)) {
-					atributos.put(Constantes.METODOS, aux);
-				} else {
-					atributos.put(Constantes.ATRIBUTOS, aux);
-				}
+				HashSet<String> atributoLista = (HashSet<String>) atributos.get(nombre_atributo);
+				atributoLista.add((String) valor);
+				atributos.put(nombre_atributo, atributoLista);
 			} else {
 				atributos.put(nombre_atributo, valor);
 			}
