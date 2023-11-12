@@ -65,18 +65,26 @@ public class TablaDeSimbolos {
 					aux = new HashSet<String>();
 				}
 
-				aux.add((String) valor);
+				if (valor != null) {
+					aux.add((String) valor);
+				}
+
 				atributos.put(Constantes.METODOS, aux);
 
 			} else {
 				if (nombre_atributo.equals(Constantes.ATRIBUTOS)) {
 					HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);
-					if (aux == null)
-						atributos.put(Constantes.ATRIBUTOS, new HashSet<>());
-					else {
-						aux.add((String) valor);
-						atributos.put(Constantes.ATRIBUTOS, aux);
+					
+					if (aux == null) {
+						aux = new HashSet<String>();
 					}
+
+					if (valor != null) {
+						aux.add((String) valor);
+					}
+
+					atributos.put(Constantes.ATRIBUTOS, aux);
+
 				} else {
 					atributos.put(nombre_atributo, valor);
 				}

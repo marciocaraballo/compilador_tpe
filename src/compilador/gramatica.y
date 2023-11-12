@@ -501,7 +501,14 @@ declaracion_interfaz:
 		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada");
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	} |
-	declaracion_interfaz_encabezado '}'  { logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); }
+	declaracion_interfaz_encabezado '{' '}' { 
+		logger.logError("[Parser] Se esperaban metodos en la declaracion de INTERFACE");
+		genCodigoIntermedio.clearAmbitoClaseInterfaz();
+	} |
+	declaracion_interfaz_encabezado '}'  { 
+		logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); 
+		genCodigoIntermedio.clearAmbitoClaseInterfaz();
+	}
 ;
 
 bloque_encabezado_funcion_declaracion_interfaz:

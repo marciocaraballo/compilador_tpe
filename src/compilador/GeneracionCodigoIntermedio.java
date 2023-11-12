@@ -216,6 +216,7 @@ public class GeneracionCodigoIntermedio {
     public void agregarAtributoMetodos(String identificadorMetodo) {
         String aux = ambitoClaseInterfaz;
         ambitoClaseInterfaz = "";
+        System.out.println(identificadorMetodo);
         TS.agregarAtributo(aux + generarAmbito(), Constantes.METODOS, identificadorMetodo);
         ambitoClaseInterfaz = aux;
     }
