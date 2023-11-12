@@ -312,6 +312,8 @@ sentencia_invocacion_funcion:
 						salto = genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1];
 						String parametro = genCodigoIntermedio.obtenerParametroDelMetodoLlamado($1.sval);
 						polaca.agregarElemento(parametro + genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1]);
+						TS.removeLexema(cadena[0]);
+						TS.removeLexema(cadena[1]);
 					}
 					else {
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
@@ -367,6 +369,8 @@ sentencia_invocacion_funcion:
 					if (cadena.length == 2){
 						String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
 						salto = genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1];
+						TS.removeLexema(cadena[0]);
+						TS.removeLexema(cadena[1]);
 					}
 					else
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
