@@ -663,6 +663,8 @@ declaracion_clase_encabezado:
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
 		}
+		TS.removeLexema($2.sval);
+		TS.removeLexema($4.sval);
 	} |
 	CLASS { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
 	CLASS IMPLEMENT ID { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); } |
