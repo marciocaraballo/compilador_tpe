@@ -435,21 +435,31 @@ sentencia_asignacion:
 
 					TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
 					TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
-
 					String tipoInstancia = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
 					String tipoAtributoInstancia = (String) TS.getAtributo(partes[1] + ambito + ":" + tipoInstancia, Constantes.TYPE);
-
 					TS.agregarAtributo(nuevoLexema, Constantes.TYPE, tipoAtributoInstancia);
 					polaca.agregarElemento(nuevoLexema);
-
 					polaca.agregarElemento("=");
 					TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
-					TS.removeLexema(partes[0]);
-					TS.removeLexema(partes[1]);
 				} else {
-					//@TODO implementar para cadenas mas largas
+					/** c1.cb.b */
+					if (partes.length == 3) {
+						String nuevoLexema = partes[2] + ambito + ":" + partes[0] + ":" + partes[1];
+						TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
+						TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
+						TS.agregarAtributo(nuevoLexema, Constantes.TYPE, (String) TS.getAtributo(partes[2] + ambito + ":" + partes[1], Constantes.TYPE));
+						polaca.agregarElemento(nuevoLexema);
+						polaca.agregarElemento("=");
+					} else {
+						/** c1.cb.cc.b */
+						String nuevoLexema = partes[3] + ambito + ":" + partes[0] + ":" + partes[1] + ":" + partes[2];
+						TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
+						TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
+						TS.agregarAtributo(nuevoLexema, Constantes.TYPE, (String) TS.getAtributo(partes[3] + ambito + ":" + partes[2], Constantes.TYPE));
+						polaca.agregarElemento(nuevoLexema);
+						polaca.agregarElemento("=");
+					}
 				}
-
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida en una asignacion");
 			}
