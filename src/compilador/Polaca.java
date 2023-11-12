@@ -5,6 +5,8 @@ import java.util.*;
 public class Polaca {
 
     static private HashMap<String, ArrayList<String>> polaca = new HashMap<>();
+    static private HashMap<String, ArrayList<Boolean>> marcas_label = new HashMap<>();
+    boolean siguiente = false;
     static private HashMap<String, Stack<Integer>> pila = new HashMap<>();
     private int contador = 0;
     private static Polaca instance = null;
@@ -18,32 +20,30 @@ public class Polaca {
             polaca.put(":main", aux);
             Stack<Integer> aux_pila = new Stack<>();
             pila.put(":main", aux_pila);
+            ArrayList<Boolean> direcciones = new ArrayList<>();
+            marcas_label.put(":main", direcciones);
         }
         return instance;
     }
 
     public void agregarElemento(String elemento) {
         incrementarContador();
+        ArrayList<Boolean> posicion_aux = marcas_label.get(genCodigoIntermedio.generarAmbito().toString());
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.add(elemento);
+        posicion_aux.add(siguiente);
+        if (siguiente)
+            siguiente = false;
     }
 
     public void apilar(int posicion) {
         pila.get(genCodigoIntermedio.generarAmbito().toString()).push(posicion - 1);
     }
 
-    public Integer getTope() {
-        return pila.get(genCodigoIntermedio.generarAmbito().toString()).peek();
-    }
-
     public Integer desapilar() {
         ultimo_desapilado = pila.get(genCodigoIntermedio.generarAmbito().toString()).pop();
         return ultimo_desapilado;
     }
-
-    //public void guardarPosicion(int i){
-    //    posicion_aux.push(i);
-    //}
 
     public int getPosicion(){
         return ultimo_desapilado;
@@ -58,9 +58,12 @@ public class Polaca {
 
     public void completarPasoIncompleto() {
         int posicion = desapilar();
+
         ArrayList<String>  polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(posicion);
         polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));
+
+        siguiente = true;
     }
 
     public void completarPasoIncompletoIteracion() {
@@ -68,7 +71,17 @@ public class Polaca {
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, String.valueOf(posicion));
+        ArrayList<Boolean> posicion_aux = marcas_label.get(genCodigoIntermedio.generarAmbito().toString());
+        posicion_aux.remove(posicion);
+        posicion_aux.add(posicion, true);
     }
+
+    public void completarPasoIncompletoInvocacion(String etiqueta){
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
+        polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
+        polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
+    }
+
 
     public int polacaSize() {
         return polaca.get(genCodigoIntermedio.generarAmbito().toString()).size();
@@ -79,11 +92,6 @@ public class Polaca {
         agregarElemento(aux);
     }
 
-    public void completarPasoIncompletoInvocacion(String etiqueta){
-        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
-        polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
-        polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
-    }
 
     public void removeElementos(){
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
@@ -110,7 +118,7 @@ public class Polaca {
         for (String nombre_polaca : polaca.keySet()) {
             Logger.getInstance().logSuccess("NOMBRE POLACA: " + nombre_polaca);
             for (int i = 0; i < polaca.get(nombre_polaca).size(); i++) {
-                System.out.println("[" + i + "] " + polaca.get(nombre_polaca).get(i));
+                System.out.println("[" + i + "] " + polaca.get(nombre_polaca).get(i) + " " + marcas_label.get(nombre_polaca).get(i));
             }
             System.out.println("----------------------------------------------------------");
         }
@@ -121,4 +129,7 @@ public class Polaca {
     }
 
 
+    public boolean esLabel(int i) {
+        return marcas_label.get(":main").get(i);
+    }
 }

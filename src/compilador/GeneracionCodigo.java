@@ -12,7 +12,11 @@ public class GeneracionCodigo {
 
     public GeneracionCodigo() {
         generarCabecera();
-        for (String token : Polaca.getInstance().getPolaca())
+        int i = 0;
+        for (String token : Polaca.getInstance().getPolaca()) {
+            if (Polaca.getInstance().esLabel(i)) { // Verifico si es una posicion a la cual debo saltar
+                codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
+            }
             switch (token) {
                 case "+", "-", "*", "/", "<", ">", ">=", "<=", "=", "!!", "==" -> generarOperador(token);
                 case "BI" -> generarSalto("BI");
@@ -20,6 +24,8 @@ public class GeneracionCodigo {
                 case "CALL" -> generarLlamadaAFuncion();
                 default -> tokens.push(token);
             }
+            i++;
+        }
         codigo_assembler.append("invoke ExitProcess, 0").append('\n');
         codigo_assembler.append("end start");
         showAssembler();
@@ -94,32 +100,32 @@ public class GeneracionCodigo {
             case "<" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                tipo_salto = "JL";
+                tipo_salto = "JGE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case ">" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                tipo_salto = "JG";
+                tipo_salto = "JLE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case ">=" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                tipo_salto = "JGE";
+                tipo_salto = "JL"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "<=" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                tipo_salto = "JLE";
+                tipo_salto = "JG"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "!!" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                tipo_salto = "JNE";
+                tipo_salto = "JE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "==" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
-                tipo_salto = "JE";
+                tipo_salto = "JNE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "=" -> {
                 codigo_assembler.append("MV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de
