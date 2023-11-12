@@ -50,6 +50,11 @@ public class TablaDeSimbolos {
 		tabla_simbolos.put(lexema, atributos);
 	}
 
+	public void iniciarAtributoLista(String lexema, String nombre_atributo) {
+		HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
+		atributos.put(nombre_atributo, new HashSet<String>());
+	}
+
 	public void agregarAtributo(String lexema, String nombre_atributo, Object valor) {
 		/**
 		 * En algunos casos puede que se llegue a este punto y el lexema no exista
@@ -59,35 +64,25 @@ public class TablaDeSimbolos {
 		 */
 		if (has(lexema)) {
 			HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
-			if (nombre_atributo.equals(Constantes.METODOS)) {
-				HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.METODOS);
-				if (aux == null) {
-					aux = new HashSet<String>();
-				}
+			if (nombre_atributo.equals(Constantes.METODOS) || nombre_atributo.equals(Constantes.ATRIBUTOS)) {
 
-				if (valor != null) {
-					aux.add((String) valor);
-				}
+				HashSet<String> aux;
 
-				atributos.put(Constantes.METODOS, aux);
-
-			} else {
-				if (nombre_atributo.equals(Constantes.ATRIBUTOS)) {
-					HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);
-
-					if (aux == null) {
-						aux = new HashSet<String>();
-					}
-
-					if (valor != null) {
-						aux.add((String) valor);
-					}
-
-					atributos.put(Constantes.ATRIBUTOS, aux);
-
+				if (nombre_atributo.equals(Constantes.METODOS)) {
+					aux = (HashSet<String>) atributos.get(Constantes.METODOS);
 				} else {
-					atributos.put(nombre_atributo, valor);
+					aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);
 				}
+
+				aux.add((String) valor);
+
+				if (nombre_atributo.equals(Constantes.METODOS)) {
+					atributos.put(Constantes.METODOS, aux);
+				} else {
+					atributos.put(Constantes.ATRIBUTOS, aux);
+				}
+			} else {
+				atributos.put(nombre_atributo, valor);
 			}
 		}
 	}

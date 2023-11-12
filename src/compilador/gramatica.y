@@ -508,7 +508,7 @@ declaracion_interfaz_encabezado:
 	INTERFACE ID {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($2.sval).isEmpty()) {
 			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_INTERFAZ);
-			TS.agregarAtributo($2.sval, Constantes.METODOS, null);
+			TS.iniciarAtributoLista($2.sval, Constantes.METODOS);
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 		} else {
@@ -637,7 +637,7 @@ declaracion_clase_encabezado:
 		if (!TS.has($2.sval + genCodigoIntermedio.generarAmbito())) {
 			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_CLASE);
 			TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, null);
-			TS.agregarAtributo($2.sval, Constantes.ATRIBUTOS, null);
+			TS.iniciarAtributoLista($2.sval, Constantes.ATRIBUTOS);
 			TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
@@ -657,7 +657,8 @@ declaracion_clase_encabezado:
 				logger.logSuccess("[Codigo Intermedio] El identificador " + $4.sval + " esta declarado");
 				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($4.sval + ambitoIdentificadorInterfaz, Constantes.NOMBRE_INTERFAZ)) {
 					TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_CLASE);
-					TS.agregarAtributo($2.sval, Constantes.METODOS, null);
+					TS.iniciarAtributoLista($2.sval, Constantes.METODOS);
+					TS.iniciarAtributoLista($2.sval, Constantes.ATRIBUTOS);
 					TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
 					TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, $4.sval);
 					TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
