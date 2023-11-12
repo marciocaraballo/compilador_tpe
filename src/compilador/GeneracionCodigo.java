@@ -45,7 +45,23 @@ public class GeneracionCodigo {
         }
     }
 
+    private boolean cumple_condicion(String lexema){
+        String uso = (String) TS.getAtributo(lexema, Constantes.USE);
+        if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA)) {
+            return false;
+        }
+        if (uso != null){
+            return uso.equals("nombre_funcion") ||
+                    uso.equals("nombre_clase");
+        }
+        return true;
+
+    }
+
     private String getAtributos(String lexema) {
+        if (cumple_condicion(lexema)){
+            return null;
+        }
         StringBuilder dato = new StringBuilder(lexema);
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA))
             dato.append(" DB");
