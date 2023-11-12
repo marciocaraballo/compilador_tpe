@@ -490,6 +490,7 @@ declaracion_interfaz_encabezado:
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
+			TS.removeLexema($2.sval);
 		}
 	} |
 	INTERFACE { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
@@ -696,8 +697,6 @@ encabezado_funcion:
 		}
 	}|
 	encabezado_funcion_nombre '(' ')' {
-		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
-
 		String ambitoCompleto = genCodigoIntermedio.generarAmbito().toString();
 
 		if (!TS.has($1.sval + ambitoCompleto)) {
