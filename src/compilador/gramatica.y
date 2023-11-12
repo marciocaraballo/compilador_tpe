@@ -310,9 +310,16 @@ sentencia_invocacion_funcion:
 					if (cadena.length == 2){
 						String ambito = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(cadena[0]);
 						salto = genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1];
+						String parametro = genCodigoIntermedio.obtenerParametroDelMetodoLlamado($1.sval);
+						polaca.agregarElemento(parametro + genCodigoIntermedio.generarAmbito() + ":" + TS.getAtributo(cadena[0] + ambito, Constantes.TYPE) + ":" + cadena[cadena.length - 1]);
 					}
-					else
+					else {
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
+						String parametro = genCodigoIntermedio.obtenerParametroDelMetodoLlamado($1.sval);
+						polaca.agregarElemento(parametro + genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1]);
+					}
+					
+					polaca.agregarElemento("=");
 					polaca.generarPasoIncompleto("CALL");
 					polaca.completarPasoIncompletoInvocacion(salto + ":TAG");
 				} else {
@@ -664,6 +671,7 @@ encabezado_funcion:
 
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
+				TS.agregarAtributo($1.sval, Constantes.PARAMETRO, $3.sval);
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
 				TS.swapLexemas($1.sval, nuevoLexema);
 				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
