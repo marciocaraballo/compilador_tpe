@@ -449,4 +449,12 @@ public class GeneracionCodigoIntermedio {
                     usoEsperado);
         }
     }
+
+    public void removerLexemasCadenaInvalida(String cadenaLlamados) {
+        String[] partes = cadenaLlamados.split("\\.");
+
+        for (int i = 0; i < partes.length; i++) {
+            TS.removeLexema(partes[i]);
+        }
+    }
 }

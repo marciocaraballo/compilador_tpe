@@ -450,6 +450,7 @@ sentencia_asignacion:
 
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida en una asignacion");
+				genCodigoIntermedio.removerLexemasCadenaInvalida($1.sval);
 			}
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
