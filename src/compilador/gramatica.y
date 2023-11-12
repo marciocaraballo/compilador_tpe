@@ -400,6 +400,7 @@ sentencia_invocacion_funcion:
 			} else {
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
+			TS.removeLexema($1.sval);
 		}
 	} |
 	sentencia_objeto_identificador '(' expresion ',' lista_expresiones_invocacion_funcion_exceso ')' ',' { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); } |
