@@ -52,7 +52,8 @@ public class GeneracionCodigo {
         }
         if (uso != null){
             return uso.equals("nombre_funcion") ||
-                    uso.equals("nombre_clase");
+                    uso.equals("nombre_clase") ||
+                    uso.equals("nombre_metodo");
         }
         return true;
 
@@ -64,7 +65,7 @@ public class GeneracionCodigo {
         }
         StringBuilder dato = new StringBuilder(lexema);
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA))
-            dato.append(" DB");
+            dato.append(" DB ").append(lexema.replace("%", "\"")).append(", 0");
         else{
             String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
             if (tipo != null) {
@@ -88,8 +89,14 @@ public class GeneracionCodigo {
             case "BF" -> generarSalto("BF");
             case "CALL" -> generarLlamadaAFuncion();
             case "RETURN" -> codigo_assembler.append("RET").append('\n');
+            case "PRINT" -> generarImpresionPantalla();
             default -> tokens.push(token);
         }
+    }
+
+    private void generarImpresionPantalla() {
+        String mje = tokens.pop();
+        codigo_assembler.append("invoke MessageBox, NULL, addr ").append(mje).append(", addr ").append(mje).append(", MB_OK").append('\n');
     }
 
     private void generarCabecera() {
