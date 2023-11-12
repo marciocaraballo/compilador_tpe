@@ -21,14 +21,14 @@ public class TablaPalabrasReservadas {
 		palabras_reservadas.put("DO", Parser.DO);
 		palabras_reservadas.put("INTERFACE", Parser.INTERFACE);
 		palabras_reservadas.put("IMPLEMENT", Parser.IMPLEMENT);
-		palabras_reservadas.put("INT", Parser.INT);
-		palabras_reservadas.put("ULONG", Parser.ULONG);
+		palabras_reservadas.put(Constantes.TYPE_INT, Parser.INT);
+		palabras_reservadas.put(Constantes.TYPE_ULONG, Parser.ULONG);
 		palabras_reservadas.put(">=", Parser.COMP_MAYOR_IGUAL);
 		palabras_reservadas.put("<=", Parser.COMP_MENOR_IGUAL);
 		palabras_reservadas.put("==", Parser.COMP_IGUAL);
 		palabras_reservadas.put("!!", Parser.COMP_DISTINTO);
 		palabras_reservadas.put("--", Parser.OPERADOR_MENOS);
-		palabras_reservadas.put("FLOAT", Parser.FLOAT);
+		palabras_reservadas.put(Constantes.TYPE_FLOAT, Parser.FLOAT);
 		palabras_reservadas.put("RETURN", Parser.RETURN);
 	}
 

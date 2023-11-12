@@ -66,9 +66,9 @@ public class AS5 extends AccionSemantica {
 			TS.putLexema(lexema.toString(), Constantes.CONSTANTE);
 
 			if (lexema.toString().contains("_i")) {
-				TS.agregarAtributo(lexema.toString(), Constantes.TYPE, "INT");
+				TS.agregarAtributo(lexema.toString(), Constantes.TYPE, Constantes.TYPE_INT);
 			} else {
-				TS.agregarAtributo(lexema.toString(), Constantes.TYPE,"ULONG");
+				TS.agregarAtributo(lexema.toString(), Constantes.TYPE, Constantes.TYPE_ULONG);
 			}
 
 			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);

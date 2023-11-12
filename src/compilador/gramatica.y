@@ -955,9 +955,9 @@ factor:
 				String valorResta = "";
 
 				switch (tipo) {
-            case "INT": { valorResta = "1_i"; break; }
-            case "ULONG": { valorResta = "1_ul"; break; }
-            case "FLOAT": { valorResta = "1.0"; break; }
+            case Constantes.TYPE_INT: { valorResta = "1_i"; break; }
+            case Constantes.TYPE_ULONG: { valorResta = "1_ul"; break; }
+            case Constantes.TYPE_FLOAT: { valorResta = "1.0"; break; }
             default: { valorResta = ""; break; }
         }
 

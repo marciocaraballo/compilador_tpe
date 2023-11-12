@@ -12,7 +12,7 @@ public class GeneracionCodigo {
 
     public GeneracionCodigo() {
         generarCabecera();
-        for (String token: Polaca.getInstance().getPolaca())
+        for (String token : Polaca.getInstance().getPolaca())
             switch (token) {
                 case "+", "-", "*", "/", "<", ">", ">=", "<=", "=", "!!", "==" -> generarOperador(token);
                 case "BI" -> generarSalto("BI");
@@ -42,15 +42,14 @@ public class GeneracionCodigo {
     private void generarOperador(String token) {
         String op2 = tokens.pop();
         String op1 = tokens.pop();
-        if (!TS.getAtributo(op1, Constantes.TYPE).equals(TS.getAtributo(op2, Constantes.TYPE))){
+        if (!TS.getAtributo(op1, Constantes.TYPE).equals(TS.getAtributo(op2, Constantes.TYPE))) {
             Logger.getInstance().logError("[Generacion codigo] Error, tipos incompatibles");
-        }
-        else {
+        } else {
             String tipo = (String) TS.getAtributo(op1, Constantes.TYPE);
             switch (tipo) {
-                case "INT" -> generarInstruccionesEnteros(op1, op2, token);
-                case "FLOAT" -> generarInstruccionesFlotantes(op1, op2, token);
-                case "ULONG" -> generarInstruccionesULong(op1, op2, token);
+                case Constantes.TYPE_INT -> generarInstruccionesEnteros(op1, op2, token);
+                case Constantes.TYPE_FLOAT -> generarInstruccionesFlotantes(op1, op2, token);
+                case Constantes.TYPE_ULONG -> generarInstruccionesULong(op1, op2, token);
             }
         }
     }
@@ -59,33 +58,37 @@ public class GeneracionCodigo {
         String variable_auxiliar;
         switch (operador) {
             case "+" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("INT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("ADD AX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("INT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("SUB AX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "*" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("INT");
-                codigo_assembler.append("MV AX, ").append(op1).append("\n"); //EN MULTIPLICACION SOLO PUEDO UTILIZAR REG AX
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
+                codigo_assembler.append("MV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
+                                                                             // REG AX
                 codigo_assembler.append("MULI AX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "/" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("INT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
                 codigo_assembler.append("XOR DX, DX").append('\n'); // INICIALIZO DX EN 0,
                 codigo_assembler.append("MV AX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
                 codigo_assembler.append("MV BX, ").append(op2).append('\n');
-                codigo_assembler.append("IDIV BX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX = resultado
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE QUEDO EN AX A VAR AUX
+                codigo_assembler.append("IDIV BX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
+                                                                 // = resultado
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE
+                                                                                                      // QUEDO EN AX A
+                                                                                                      // VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
@@ -108,7 +111,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JLE";
             }
-            case"!!" -> {
+            case "!!" -> {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JNE";
@@ -119,8 +122,10 @@ public class GeneracionCodigo {
                 tipo_salto = "JE";
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
-                codigo_assembler.append("MV ").append(op2).append(", AX").append("\n"); // Almacento guardado en AX en la var del lado izquierdo
+                codigo_assembler.append("MV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de
+                                                                                  // lado derecho
+                codigo_assembler.append("MV ").append(op2).append(", AX").append("\n"); // Almacento guardado en AX en
+                                                                                        // la var del lado izquierdo
             }
         }
     }
@@ -129,33 +134,37 @@ public class GeneracionCodigo {
         String variable_auxiliar;
         switch (operador) {
             case "+" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
                 codigo_assembler.append("MV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("ADD EAX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
                 codigo_assembler.append("MV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("SUB EAX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "*" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n"); //EN MULTIPLICACION SOLO PUEDO UTILIZAR REG EAX
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
+                codigo_assembler.append("MV EAX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
+                                                                              // REG EAX
                 codigo_assembler.append("MUL EAX, ").append(op2).append("\n");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "/" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("ULONG");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
                 codigo_assembler.append("XOR EDX, EDX").append('\n'); // INICIALIZO DX EN 0,
                 codigo_assembler.append("MV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
                 codigo_assembler.append("MV EBX, ").append(op2).append('\n');
-                codigo_assembler.append("IDIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX = resultado
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE QUEDO EN AX A VAR AUX
+                codigo_assembler.append("IDIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
+                                                                  // = resultado
+                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE
+                                                                                                       // QUEDO EN AX A
+                                                                                                       // VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
@@ -178,7 +187,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JBE";
             }
-            case"!!" -> {
+            case "!!" -> {
                 codigo_assembler.append("MV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JNE";
@@ -189,13 +198,15 @@ public class GeneracionCodigo {
                 tipo_salto = "JE";
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
-                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en la var del lado izquierdo
+                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de
+                                                                                   // lado derecho
+                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en
+                                                                                         // la var del lado izquierdo
             }
         }
     }
 
-    public void comparacionesParaFlotantes(String op1, String op2){
+    public void comparacionesParaFlotantes(String op1, String op2) {
         codigo_assembler.append("FLD ").append(op2).append("\n");
         codigo_assembler.append("FCOM ").append(op1).append("\n");
         codigo_assembler.append("FSTSW aux_mem").append(op1).append("\n");
@@ -207,7 +218,7 @@ public class GeneracionCodigo {
         String variable_auxiliar;
         switch (operador) {
             case "+" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
@@ -215,7 +226,7 @@ public class GeneracionCodigo {
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FSUB ").append('\n');
@@ -223,7 +234,7 @@ public class GeneracionCodigo {
                 tokens.push(variable_auxiliar);
             }
             case "*" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FMUL ").append('\n');
@@ -231,7 +242,7 @@ public class GeneracionCodigo {
                 tokens.push(variable_auxiliar);
             }
             case "/" -> {
-                variable_auxiliar = nuevaVariableAuxiliar("FLOAT");
+                variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FDIV ").append('\n');
@@ -253,7 +264,7 @@ public class GeneracionCodigo {
                 comparacionesParaFlotantes(op1, op2);
                 tipo_salto = "JBE";
             }
-            case"!!" -> {
+            case "!!" -> {
                 comparacionesParaFlotantes(op1, op2);
                 tipo_salto = "JNE";
             }
@@ -262,12 +273,13 @@ public class GeneracionCodigo {
                 tipo_salto = "JE";
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de lado derecho
-                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en la var del lado izquierdo
+                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de
+                                                                                   // lado derecho
+                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en
+                                                                                         // la var del lado izquierdo
             }
         }
     }
-
 
     private void generarLlamadaAFuncion() {
     }
@@ -288,7 +300,7 @@ public class GeneracionCodigo {
         return retorno;
     }
 
-    public void showAssembler(){
+    public void showAssembler() {
         System.out.println(codigo_assembler);
     }
 }

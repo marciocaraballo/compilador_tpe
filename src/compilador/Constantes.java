@@ -1,11 +1,14 @@
 package compilador;
 
 public class Constantes {
-
     public static final int IDENTIFICADOR = 257;
     public static final int CONSTANTE = 258;
     public static final int CADENA = 259;
-    /* Keys de atributos */
+    /** Tipos validos */
+    public static final String TYPE_INT = "INT";
+    public static final String TYPE_FLOAT = "FLOAT";
+    public static final String TYPE_ULONG = "ULONG";
+    /** Keys de atributos */
     public static final String TOKEN = "token";
     public static final String TYPE = "tipo";
     public static final String USE = "uso";

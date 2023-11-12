@@ -31,13 +31,13 @@ public class TablaDeSimbolos {
 			instance = new TablaDeSimbolos();
 
 			instance.putLexema("1_i", Constantes.CONSTANTE);
-			instance.agregarAtributo("1_i", Constantes.TYPE, "INT");
+			instance.agregarAtributo("1_i", Constantes.TYPE, Constantes.TYPE_INT);
 
 			instance.putLexema("1_ul", Constantes.CONSTANTE);
-			instance.agregarAtributo("1_ul", Constantes.TYPE, "ULONG");
+			instance.agregarAtributo("1_ul", Constantes.TYPE, Constantes.TYPE_ULONG);
 
 			instance.putLexema("1.0", Constantes.CONSTANTE);
-			instance.agregarAtributo("1.0", Constantes.TYPE, "FLOAT");
+			instance.agregarAtributo("1.0", Constantes.TYPE, Constantes.TYPE_FLOAT);
 		}
 
 		return instance;
@@ -74,7 +74,7 @@ public class TablaDeSimbolos {
 			} else {
 				if (nombre_atributo.equals(Constantes.ATRIBUTOS)) {
 					HashSet<String> aux = (HashSet<String>) atributos.get(Constantes.ATRIBUTOS);
-					
+
 					if (aux == null) {
 						aux = new HashSet<String>();
 					}

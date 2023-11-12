@@ -34,7 +34,7 @@ public class AS8 extends AccionSemantica {
 			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		} else {
 			TS.putLexema(lexema.toString(), Constantes.CONSTANTE);
-			TS.agregarAtributo(lexema.toString(), Constantes.TYPE, "FLOAT");
+			TS.agregarAtributo(lexema.toString(), Constantes.TYPE, Constantes.TYPE_FLOAT);
 			return (int) TS.getAtributo(lexema.toString(), Constantes.TOKEN);
 		}
 	}
