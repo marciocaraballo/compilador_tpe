@@ -17,7 +17,7 @@ package compilador;
 
 
 
-//#line 2 "gramatica.y"
+//#line 2 "./src/compilador/gramatica.y"
 import java.io.File;
 //#line 19 "Parser.java"
 
@@ -1179,7 +1179,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 1039 "gramatica.y"
+//#line 1040 "./src/compilador/gramatica.y"
 
 public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
@@ -1423,56 +1423,56 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 17 "gramatica.y"
+//#line 17 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Programa correcto detectado");
 		polaca.agregarElemento("END"); /* Agrego este elemento para el caso de que un salto vaya al final del programa*/
 	}
 break;
 case 2:
-//#line 21 "gramatica.y"
+//#line 21 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba simbolo '{' al principio del programa"); }
 break;
 case 3:
-//#line 22 "gramatica.y"
+//#line 22 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba simbolo '}' al final del programa"); }
 break;
 case 4:
-//#line 23 "gramatica.y"
+//#line 23 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Programa vacio"); }
 break;
 case 5:
-//#line 24 "gramatica.y"
+//#line 24 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Programa vacio"); }
 break;
 case 9:
-//#line 34 "gramatica.y"
+//#line 34 "./src/compilador/gramatica.y"
 { polaca.resetContador(); }
 break;
 case 10:
-//#line 35 "gramatica.y"
+//#line 35 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Error de sintaxis en la sentencia"); }
 break;
 case 16:
-//#line 44 "gramatica.y"
+//#line 44 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Sentencia RETURN fuera de funcion"); }
 break;
 case 20:
-//#line 54 "gramatica.y"
+//#line 54 "./src/compilador/gramatica.y"
 {polaca.resetContador();}
 break;
 case 26:
-//#line 66 "gramatica.y"
+//#line 66 "./src/compilador/gramatica.y"
 { 
 		polaca.agregarElemento("RETURN");
 	}
 break;
 case 27:
-//#line 69 "gramatica.y"
+//#line 69 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' luego del RETURN"); }
 break;
 case 28:
-//#line 73 "gramatica.y"
+//#line 73 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada"); 
 		polaca.generarPasoIncompleto("BI");
@@ -1481,47 +1481,47 @@ case 28:
 		}
 break;
 case 29:
-//#line 79 "gramatica.y"
+//#line 79 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
 break;
 case 30:
-//#line 80 "gramatica.y"
+//#line 80 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 31:
-//#line 81 "gramatica.y"
+//#line 81 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 32:
-//#line 82 "gramatica.y"
+//#line 82 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); }
 break;
 case 33:
-//#line 83 "gramatica.y"
+//#line 83 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 34:
-//#line 84 "gramatica.y"
+//#line 84 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 35:
-//#line 85 "gramatica.y"
+//#line 85 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 36:
-//#line 86 "gramatica.y"
+//#line 86 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 37:
-//#line 87 "gramatica.y"
+//#line 87 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 38:
-//#line 88 "gramatica.y"
+//#line 88 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 39:
-//#line 92 "gramatica.y"
+//#line 92 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia iterativa DO WHILE detectada");
 		polaca.generarPasoIncompleto("BI");
@@ -1530,131 +1530,131 @@ case 39:
 	}
 break;
 case 40:
-//#line 98 "gramatica.y"
+//#line 98 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba ',' luego de sentencia DO WHILE"); }
 break;
 case 41:
-//#line 99 "gramatica.y"
+//#line 99 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 42:
-//#line 100 "gramatica.y"
+//#line 100 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 43:
-//#line 101 "gramatica.y"
+//#line 101 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba WHILE en sentencia DO WHILE"); }
 break;
 case 44:
-//#line 102 "gramatica.y"
+//#line 102 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 45:
-//#line 103 "gramatica.y"
+//#line 103 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia DO WHILE"); }
 break;
 case 46:
-//#line 104 "gramatica.y"
+//#line 104 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 47:
-//#line 105 "gramatica.y"
+//#line 105 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 48:
-//#line 106 "gramatica.y"
+//#line 106 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 49:
-//#line 107 "gramatica.y"
+//#line 107 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia DO WHILE"); }
 break;
 case 50:
-//#line 111 "gramatica.y"
+//#line 111 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); 
 		polaca.completarPasoIncompleto();
 	}
 break;
 case 51:
-//#line 115 "gramatica.y"
+//#line 115 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada"); 
 		polaca.completarPasoIncompleto(); /* ESTA BIEN QUE APAREZCA BIFURCACION INCONDICIONAL ACA?*/
 	}
 break;
 case 52:
-//#line 119 "gramatica.y"
+//#line 119 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); }
 break;
 case 53:
-//#line 120 "gramatica.y"
+//#line 120 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
 break;
 case 54:
-//#line 121 "gramatica.y"
+//#line 121 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); }
 break;
 case 55:
-//#line 122 "gramatica.y"
+//#line 122 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); }
 break;
 case 56:
-//#line 123 "gramatica.y"
+//#line 123 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 57:
-//#line 124 "gramatica.y"
+//#line 124 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 58:
-//#line 125 "gramatica.y"
+//#line 125 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 break;
 case 59:
-//#line 129 "gramatica.y"
+//#line 129 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia seleccion IF ELSE detectada"); 
 		polaca.completarPasoIncompleto();
 	}
 break;
 case 60:
-//#line 133 "gramatica.y"
+//#line 133 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Sentencia seleccion IF sin ELSE detectada");
 		polaca.completarPasoIncompleto();
 	}
 break;
 case 61:
-//#line 137 "gramatica.y"
+//#line 137 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF ELSE"); }
 break;
 case 62:
-//#line 138 "gramatica.y"
+//#line 138 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba ',' luego de sentencia IF sin ELSE"); }
 break;
 case 63:
-//#line 139 "gramatica.y"
+//#line 139 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia IF ELSE"); }
 break;
 case 64:
-//#line 140 "gramatica.y"
+//#line 140 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba condicion en sentencia IF"); }
 break;
 case 65:
-//#line 141 "gramatica.y"
+//#line 141 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 66:
-//#line 142 "gramatica.y"
+//#line 142 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF ELSE"); }
 break;
 case 67:
-//#line 143 "gramatica.y"
+//#line 143 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en sentencia IF"); }
 break;
 case 68:
-//#line 147 "gramatica.y"
+//#line 147 "./src/compilador/gramatica.y"
 {
 		/* EN LAS FILMINAS ESTA INVERTIDO ... */
 		polaca.generarPasoIncompleto("BI");
@@ -1663,7 +1663,7 @@ case 68:
 	}
 break;
 case 69:
-//#line 153 "gramatica.y"
+//#line 153 "./src/compilador/gramatica.y"
 {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
@@ -1671,39 +1671,39 @@ case 69:
 	}
 break;
 case 70:
-//#line 158 "gramatica.y"
+//#line 158 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 71:
-//#line 159 "gramatica.y"
+//#line 159 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 72:
-//#line 160 "gramatica.y"
+//#line 160 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); }
 break;
 case 73:
-//#line 161 "gramatica.y"
+//#line 161 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 break;
 case 76:
-//#line 167 "gramatica.y"
+//#line 167 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 77:
-//#line 168 "gramatica.y"
+//#line 168 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 78:
-//#line 169 "gramatica.y"
+//#line 169 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); }
 break;
 case 79:
-//#line 170 "gramatica.y"
+//#line 170 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 break;
 case 80:
-//#line 174 "gramatica.y"
+//#line 174 "./src/compilador/gramatica.y"
 {
 		if (val_peek(0).sval.equals("DO")){
 			polaca.apilar(polaca.getPosicion() + 1);
@@ -1715,7 +1715,7 @@ case 80:
 	}
 break;
 case 81:
-//#line 185 "gramatica.y"
+//#line 185 "./src/compilador/gramatica.y"
 {
 		if (val_peek(0).sval.equals("DO"))
 			polaca.apilar(polaca.getPosicion() + 1);
@@ -1725,23 +1725,23 @@ case 81:
 	}
 break;
 case 84:
-//#line 196 "gramatica.y"
+//#line 196 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 85:
-//#line 197 "gramatica.y"
+//#line 197 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 86:
-//#line 198 "gramatica.y"
+//#line 198 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables dentro del bloque"); }
 break;
 case 87:
-//#line 199 "gramatica.y"
+//#line 199 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 break;
 case 88:
-//#line 203 "gramatica.y"
+//#line 203 "./src/compilador/gramatica.y"
 {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
@@ -1749,11 +1749,11 @@ case 88:
 	}
 break;
 case 90:
-//#line 209 "gramatica.y"
+//#line 209 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 break;
 case 91:
-//#line 210 "gramatica.y"
+//#line 210 "./src/compilador/gramatica.y"
 {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
@@ -1761,7 +1761,7 @@ case 91:
 	}
 break;
 case 92:
-//#line 215 "gramatica.y"
+//#line 215 "./src/compilador/gramatica.y"
 {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
@@ -1769,7 +1769,7 @@ case 92:
 	}
 break;
 case 93:
-//#line 220 "gramatica.y"
+//#line 220 "./src/compilador/gramatica.y"
 {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
@@ -1777,99 +1777,99 @@ case 93:
 	}
 break;
 case 94:
-//#line 225 "gramatica.y"
+//#line 225 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 95:
-//#line 226 "gramatica.y"
+//#line 226 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 96:
-//#line 227 "gramatica.y"
+//#line 227 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 97:
-//#line 228 "gramatica.y"
+//#line 228 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 98:
-//#line 229 "gramatica.y"
+//#line 229 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 break;
 case 101:
-//#line 235 "gramatica.y"
+//#line 235 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 break;
 case 105:
-//#line 239 "gramatica.y"
+//#line 239 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 106:
-//#line 240 "gramatica.y"
+//#line 240 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 107:
-//#line 241 "gramatica.y"
+//#line 241 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 108:
-//#line 242 "gramatica.y"
+//#line 242 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 109:
-//#line 243 "gramatica.y"
+//#line 243 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 break;
 case 112:
-//#line 249 "gramatica.y"
+//#line 249 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); }
 break;
 case 116:
-//#line 253 "gramatica.y"
+//#line 253 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 117:
-//#line 254 "gramatica.y"
+//#line 254 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); }
 break;
 case 118:
-//#line 255 "gramatica.y"
+//#line 255 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 119:
-//#line 256 "gramatica.y"
+//#line 256 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); }
 break;
 case 120:
-//#line 257 "gramatica.y"
+//#line 257 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaban sentencias ejecutables en bloque de sentencias ejecutables"); }
 break;
 case 121:
-//#line 261 "gramatica.y"
+//#line 261 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
 break;
 case 122:
-//#line 262 "gramatica.y"
+//#line 262 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
 break;
 case 127:
-//#line 273 "gramatica.y"
+//#line 273 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); }
 break;
 case 128:
-//#line 274 "gramatica.y"
+//#line 274 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); }
 break;
 case 131:
-//#line 280 "gramatica.y"
+//#line 280 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); }
 break;
 case 132:
-//#line 281 "gramatica.y"
+//#line 281 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se aceptan declaraciones de variables en sentencias ejecutables"); }
 break;
 case 133:
-//#line 285 "gramatica.y"
+//#line 285 "./src/compilador/gramatica.y"
 {
 		logger.logSuccess("[Parser] Sentencia PRINT detectada");
 		val_peek(1).sval = val_peek(1).sval.replace("% ", "").replace("%", "");
@@ -1878,31 +1878,31 @@ case 133:
 	}
 break;
 case 134:
-//#line 291 "gramatica.y"
+//#line 291 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en Sentencia PRINT"); }
 break;
 case 135:
-//#line 292 "gramatica.y"
+//#line 292 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba CADENA en Sentencia PRINT"); }
 break;
 case 136:
-//#line 293 "gramatica.y"
+//#line 293 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una CADENA y se encontro un IDENTIFICADOR en sentencia PRINT"); }
 break;
 case 137:
-//#line 294 "gramatica.y"
+//#line 294 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia PRINT"); }
 break;
 case 138:
-//#line 295 "gramatica.y"
+//#line 295 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una CADENA y se encontro una constante en sentencia PRINT"); }
 break;
 case 139:
-//#line 296 "gramatica.y"
+//#line 296 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia PRINT"); }
 break;
 case 140:
-//#line 301 "gramatica.y"
+//#line 301 "./src/compilador/gramatica.y"
 { 
 
 		if (val_peek(4).sval.contains(".")) {
@@ -1962,7 +1962,7 @@ case 140:
 	}
 break;
 case 141:
-//#line 358 "gramatica.y"
+//#line 358 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Invocacion de funcion sin expresion detectada");
 
@@ -2020,23 +2020,23 @@ case 141:
 	}
 break;
 case 142:
-//#line 413 "gramatica.y"
+//#line 413 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Invocacion de funcion con multiples expresiones detectada, se preserva solo la primera expresion"); }
 break;
 case 143:
-//#line 414 "gramatica.y"
+//#line 414 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 144:
-//#line 415 "gramatica.y"
+//#line 415 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 145:
-//#line 416 "gramatica.y"
+//#line 416 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en invocacion de funcion"); }
 break;
 case 148:
-//#line 425 "gramatica.y"
+//#line 425 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Asignacion detectada");
 		/** Se llama a miembro de clase */ 
@@ -2106,27 +2106,27 @@ case 148:
 	}
 break;
 case 149:
-//#line 492 "gramatica.y"
+//#line 492 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); }
 break;
 case 150:
-//#line 493 "gramatica.y"
+//#line 493 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba expresion del lado derecho en sentencia asignacion"); }
 break;
 case 151:
-//#line 497 "gramatica.y"
+//#line 497 "./src/compilador/gramatica.y"
 {
 		yyval.sval = val_peek(0).sval;
 	}
 break;
 case 152:
-//#line 500 "gramatica.y"
+//#line 500 "./src/compilador/gramatica.y"
 {
 		yyval.sval = val_peek(2).sval + "." + val_peek(0).sval;
 	}
 break;
 case 157:
-//#line 513 "gramatica.y"
+//#line 513 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables detectado");
 		genCodigoIntermedio.agregarTipoAListaDeVariables(val_peek(2).sval);
@@ -2136,15 +2136,15 @@ case 157:
 	}
 break;
 case 158:
-//#line 520 "gramatica.y"
+//#line 520 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia declaracion de variables"); }
 break;
 case 159:
-//#line 521 "gramatica.y"
+//#line 521 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una lista de variables en sentencia declaracion de variables"); }
 break;
 case 160:
-//#line 525 "gramatica.y"
+//#line 525 "./src/compilador/gramatica.y"
 {
 		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval).isEmpty()) {
 			TS.agregarAtributo(val_peek(0).sval, Constantes.USE, Constantes.NOMBRE_INTERFAZ);
@@ -2158,36 +2158,36 @@ case 160:
 	}
 break;
 case 161:
-//#line 536 "gramatica.y"
+//#line 536 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
 break;
 case 162:
-//#line 540 "gramatica.y"
+//#line 540 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de INTERFACE detectada");
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 break;
 case 163:
-//#line 544 "gramatica.y"
+//#line 544 "./src/compilador/gramatica.y"
 { 
 		logger.logError("[Parser] Se esperaban metodos en la declaracion de INTERFACE");
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 break;
 case 164:
-//#line 548 "gramatica.y"
+//#line 548 "./src/compilador/gramatica.y"
 { 
 		logger.logError("[Parser] Se esperaba un simbolo '{' en declaracion de INTERFACE"); 
 		genCodigoIntermedio.clearAmbitoClaseInterfaz();
 	}
 break;
 case 168:
-//#line 561 "gramatica.y"
+//#line 561 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de metodo en CLASS"); }
 break;
 case 169:
-//#line 565 "gramatica.y"
+//#line 565 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); 
 
@@ -2207,15 +2207,15 @@ case 169:
 	}
 break;
 case 170:
-//#line 582 "gramatica.y"
+//#line 582 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); }
 break;
 case 172:
-//#line 584 "gramatica.y"
+//#line 584 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se encontro un simbolo inesperado ',' en declaracion de funcion en CLASS"); }
 break;
 case 173:
-//#line 585 "gramatica.y"
+//#line 585 "./src/compilador/gramatica.y"
 {
 		/** Una clase no puede heredar de si misma */
 		if (val_peek(1).sval.equals(genCodigoIntermedio.getAmbitoClaseInterfaz())) {
@@ -2265,7 +2265,7 @@ case 173:
 	}
 break;
 case 174:
-//#line 635 "gramatica.y"
+//#line 635 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de clase CLASS detectado");
 		
@@ -2282,7 +2282,7 @@ case 174:
 	}
 break;
 case 175:
-//#line 652 "gramatica.y"
+//#line 652 "./src/compilador/gramatica.y"
 { 
 		/*CHEQUEO QUE CLASE NO HAYA SIDO DECLARADA (DEBERIA CHEQUEAR USO, XQ PUEDE QUE IDENTIF PERTENEZCA A OTRA USO)*/
 		if (!TS.has(val_peek(0).sval + genCodigoIntermedio.generarAmbito())) {
@@ -2301,7 +2301,7 @@ case 175:
 	}
 break;
 case 176:
-//#line 668 "gramatica.y"
+//#line 668 "./src/compilador/gramatica.y"
 {
 		/*CHEQUEO QUE CLASE NO HAYA SIDO DECLARADA (DEBERIA CHEQUEAR USO, XQ PUEDE QUE IDENTIF PERTENEZCA A OTRA USO)*/
 		if (!TS.has(val_peek(2).sval + genCodigoIntermedio.generarAmbito())) {
@@ -2334,23 +2334,23 @@ case 176:
 	}
 break;
 case 177:
-//#line 698 "gramatica.y"
+//#line 698 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 178:
-//#line 699 "gramatica.y"
+//#line 699 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 179:
-//#line 700 "gramatica.y"
+//#line 700 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en IMPLEMENT de clase"); }
 break;
 case 180:
-//#line 701 "gramatica.y"
+//#line 701 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en declaracion de clase"); }
 break;
 case 183:
-//#line 710 "gramatica.y"
+//#line 710 "./src/compilador/gramatica.y"
 { 
 		logger.logSuccess("[Parser] Declaracion de funcion detectado");
 		if (genCodigoIntermedio.isPuedoDesapilar()){
@@ -2367,7 +2367,7 @@ case 183:
 	}
 break;
 case 184:
-//#line 727 "gramatica.y"
+//#line 727 "./src/compilador/gramatica.y"
 {
 		if (!TS.has(val_peek(3).sval + genCodigoIntermedio.generarAmbito())) {
 
@@ -2403,7 +2403,7 @@ case 184:
 	}
 break;
 case 185:
-//#line 760 "gramatica.y"
+//#line 760 "./src/compilador/gramatica.y"
 {
 		String ambitoCompleto = genCodigoIntermedio.generarAmbito().toString();
 
@@ -2446,31 +2446,31 @@ case 185:
 	}
 break;
 case 186:
-//#line 800 "gramatica.y"
+//#line 800 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 187:
-//#line 801 "gramatica.y"
+//#line 801 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 188:
-//#line 802 "gramatica.y"
+//#line 802 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 189:
-//#line 806 "gramatica.y"
+//#line 806 "./src/compilador/gramatica.y"
 {
 		yyval.sval = val_peek(0).sval;
 	}
 break;
 case 190:
-//#line 809 "gramatica.y"
+//#line 809 "./src/compilador/gramatica.y"
 {
 		logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); 
 	}
 break;
 case 191:
-//#line 815 "gramatica.y"
+//#line 815 "./src/compilador/gramatica.y"
 { 
 		String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 		/** 
@@ -2493,7 +2493,7 @@ case 191:
 	}
 break;
 case 192:
-//#line 835 "gramatica.y"
+//#line 835 "./src/compilador/gramatica.y"
 { 
 		String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
 		/** 
@@ -2515,71 +2515,71 @@ case 192:
 	}
 break;
 case 193:
-//#line 854 "gramatica.y"
+//#line 854 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 194:
-//#line 855 "gramatica.y"
+//#line 855 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); }
 break;
 case 195:
-//#line 856 "gramatica.y"
+//#line 856 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); }
 break;
 case 196:
-//#line 857 "gramatica.y"
+//#line 857 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un identificador en el encabezado de la funcion"); }
 break;
 case 197:
-//#line 858 "gramatica.y"
+//#line 858 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 198:
-//#line 859 "gramatica.y"
+//#line 859 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '(' en el encabezado de la funcion"); }
 break;
 case 203:
-//#line 867 "gramatica.y"
+//#line 867 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); }
 break;
 case 204:
-//#line 868 "gramatica.y"
+//#line 868 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); }
 break;
 case 205:
-//#line 869 "gramatica.y"
+//#line 869 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 206:
-//#line 870 "gramatica.y"
+//#line 870 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 207:
-//#line 871 "gramatica.y"
+//#line 871 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 208:
-//#line 872 "gramatica.y"
+//#line 872 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 209:
-//#line 873 "gramatica.y"
+//#line 873 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 210:
-//#line 874 "gramatica.y"
+//#line 874 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); }
 break;
 case 211:
-//#line 878 "gramatica.y"
+//#line 878 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
 break;
 case 212:
-//#line 879 "gramatica.y"
+//#line 879 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Codigo inalcanzable luego del RETURN, se ignorara"); }
 break;
 case 219:
-//#line 895 "gramatica.y"
+//#line 895 "./src/compilador/gramatica.y"
 { 
 		yyval.sval = val_peek(0).sval;
 		TS.agregarAtributo(val_peek(0).sval, Constantes.USE, Constantes.NOMBRE_PARAMETRO);
@@ -2587,7 +2587,7 @@ case 219:
 	}
 break;
 case 220:
-//#line 903 "gramatica.y"
+//#line 903 "./src/compilador/gramatica.y"
 { 
 		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
@@ -2597,7 +2597,7 @@ case 220:
 	}
 break;
 case 221:
-//#line 910 "gramatica.y"
+//#line 910 "./src/compilador/gramatica.y"
 { 
 		if (!genCodigoIntermedio.variableRedeclarada(val_peek(0).sval)) {
 			genCodigoIntermedio.agregarVariableADeclarar(val_peek(0).sval);
@@ -2607,7 +2607,7 @@ case 221:
 	}
 break;
 case 225:
-//#line 923 "gramatica.y"
+//#line 923 "./src/compilador/gramatica.y"
 {
 
 		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval);
@@ -2626,7 +2626,7 @@ case 225:
 	}
 break;
 case 226:
-//#line 942 "gramatica.y"
+//#line 942 "./src/compilador/gramatica.y"
 {
 		polaca.agregarElemento(val_peek(1).sval);
 		polaca.generarPasoIncompleto("BF");
@@ -2634,37 +2634,37 @@ case 226:
 	}
 break;
 case 227:
-//#line 947 "gramatica.y"
+//#line 947 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
 break;
 case 228:
-//#line 948 "gramatica.y"
+//#line 948 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 break;
 case 229:
-//#line 949 "gramatica.y"
+//#line 949 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
 break;
 case 236:
-//#line 962 "gramatica.y"
+//#line 962 "./src/compilador/gramatica.y"
 {
 		polaca.agregarElemento(val_peek(1).sval);}
 break;
 case 237:
-//#line 964 "gramatica.y"
+//#line 964 "./src/compilador/gramatica.y"
 {
 		polaca.agregarElemento(val_peek(1).sval);}
 break;
 case 239:
-//#line 970 "gramatica.y"
+//#line 970 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(1).sval); }
 break;
 case 240:
-//#line 971 "gramatica.y"
+//#line 971 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(1).sval); }
 break;
 case 242:
-//#line 976 "gramatica.y"
+//#line 976 "./src/compilador/gramatica.y"
 {
 
 		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval);
@@ -2672,8 +2672,9 @@ case 242:
 		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + val_peek(0).sval + " esta declarado");
 
-			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(val_peek(0).sval + ambito, Constantes.USO_VARIABLE)) {
-				logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no es una variable");
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(val_peek(0).sval + ambito, Constantes.USO_VARIABLE) &&
+				!genCodigoIntermedio.verificaUsoCorrectoIdentificador(val_peek(0).sval + ambito, Constantes.NOMBRE_PARAMETRO)) {
+					logger.logError("[Codigo Intermedio] El identificador jeje " + val_peek(0).sval + " no es una variable o parametro");
 			} else {
 				polaca.agregarElemento(val_peek(0).sval + ambito);
 			}
@@ -2685,7 +2686,7 @@ case 242:
 	}
 break;
 case 243:
-//#line 994 "gramatica.y"
+//#line 995 "./src/compilador/gramatica.y"
 {
 
 		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval);
@@ -2723,22 +2724,22 @@ case 243:
 	}
 break;
 case 244:
-//#line 1029 "gramatica.y"
+//#line 1030 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(0).sval);}
 break;
 case 245:
-//#line 1030 "gramatica.y"
+//#line 1031 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 246:
-//#line 1034 "gramatica.y"
+//#line 1035 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 247:
-//#line 1035 "gramatica.y"
+//#line 1036 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2664 "Parser.java"
+//#line 2665 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
