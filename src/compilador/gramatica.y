@@ -753,28 +753,43 @@ encabezado_funcion_nombre:
 
 encabezado_funcion_interfaz:
 	VOID ID '(' parametro_funcion ')' { 
-
 		String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
-		String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
-		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
-
-		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_METODO);
-		TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , true);
-		TS.swapLexemas($2.sval, nuevoLexema);
-		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
-		TS.swapLexemas($4.sval, $4.sval + ambitoClaseDefinidaActual + ":" + $2.sval);
+		/** 
+		*	Puede que haya fallado la definicion de la interfaz anteriormente, por ejemplo si el 
+		* identificador que se intento usar ya estaba definido en el ambito
+		*/
+		if (!claseActual.isEmpty()) {
+			String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+			String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+			String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
+			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_METODO);
+			TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , true);
+			TS.swapLexemas($2.sval, nuevoLexema);
+			genCodigoIntermedio.agregarAtributoMetodos($2.sval);
+			TS.swapLexemas($4.sval, $4.sval + ambitoClaseDefinidaActual + ":" + $2.sval);
+		} else {
+			TS.removeLexema($2.sval);
+			TS.removeLexema($4.sval);
+		}
 	} |
 	VOID ID '(' ')' { 
 		String claseActual = genCodigoIntermedio.getAmbitoClaseInterfaz();
-		String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
-		String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
-		String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
+		/** 
+		*	Puede que haya fallado la definicion de la interfaz anteriormente, por ejemplo si el 
+		* identificador que se intento usar ya estaba definido en el ambito
+		*/
+		if (!claseActual.isEmpty()) {
+			String ambitoClaseActual = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(claseActual);
+			String ambitoClaseDefinidaActual = ambitoClaseActual + ":" + claseActual;
+			String nuevoLexema = $2.sval + ambitoClaseDefinidaActual;
 
-		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_METODO);
-		TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , false);
-		TS.swapLexemas($2.sval, nuevoLexema);
-		genCodigoIntermedio.agregarAtributoMetodos($2.sval);
+			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_METODO);
+			TS.agregarAtributo($2.sval, Constantes.TIENE_PARAMETRO , false);
+			TS.swapLexemas($2.sval, nuevoLexema);
+			genCodigoIntermedio.agregarAtributoMetodos($2.sval);
+		} else {
+			TS.removeLexema($2.sval);
+		}
 	} |
 	VOID ID '(' parametro_funcion ',' lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
 	VOID ID '(' parametro_funcion lista_parametros_funcion_exceso ')' { logger.logError("[Parser] Encabezado de funcion con mas de 1 parametro detectado, se preserva solo el primer parametro"); } |
