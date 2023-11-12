@@ -483,11 +483,14 @@ declaracion_variable:
 
 declaracion_interfaz_encabezado:
 	INTERFACE ID {
-		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_INTERFAZ);
-		TS.agregarAtributo($2.sval, Constantes.METODOS, null);
-		//Agrego Ambito a identificador
-		TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
-		genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+		if (genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($2.sval).isEmpty()) {
+			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_INTERFAZ);
+			TS.agregarAtributo($2.sval, Constantes.METODOS, null);
+			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
+			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
+		} else {
+			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
+		}
 	} |
 	INTERFACE { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
 ;
@@ -817,7 +820,6 @@ parametro_funcion:
 	tipo ID { 
 		$$.sval = $2.sval;
 		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_PARAMETRO);
-		// Agrego tipo a parametro de funcion
 		TS.agregarAtributo($2.sval, Constantes.TYPE, $1.sval);
 	}
 ;
