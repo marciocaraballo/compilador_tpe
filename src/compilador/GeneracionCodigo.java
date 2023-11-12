@@ -13,6 +13,7 @@ public class GeneracionCodigo {
     public GeneracionCodigo() {
         generarCabecera();
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas generadas
+            codigo_assembler.append("-------------------------- ESTO ES PARA MEJORAR VISUALIZACION -----------------");
             codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
             int i = 0;
 
@@ -42,6 +43,7 @@ public class GeneracionCodigo {
             case "BI" -> generarSalto("BI");
             case "BF" -> generarSalto("BF");
             case "CALL" -> generarLlamadaAFuncion();
+            case "RETURN" -> codigo_assembler.append("RET").append('\n');
             default -> tokens.push(token);
         }
     }

@@ -14,7 +14,10 @@ CLASS WHILE DO INTERFACE IMPLEMENT INT ULONG FLOAT OPERADOR_MENOS
 %%
 
 programa:
-	'{' sentencias '}' { logger.logSuccess("[Parser] Programa correcto detectado"); } |
+	'{' sentencias '}' { 
+		logger.logSuccess("[Parser] Programa correcto detectado");
+		polaca.agregarElemento("END"); // Agrego este elemento para el caso de que un salto vaya al final del programa
+	} |
 	sentencias '}' { logger.logError("[Parser] Se esperaba simbolo '{' al principio del programa"); } |
 	'{' sentencias { logger.logError("[Parser] Se esperaba simbolo '}' al final del programa"); } |
 	'{' '}' { logger.logError("[Parser] Programa vacio"); } |
@@ -60,7 +63,9 @@ sentencia_ejecutable_funcion:
 ;
 
 sentencia_return:
-	RETURN ',' | 
+	RETURN ',' { 
+		polaca.agregarElemento("RETURN");
+	}| 
 	RETURN { logger.logError("[Parser] Se esperaba un simbolo ',' luego del RETURN"); }
 ;
 
