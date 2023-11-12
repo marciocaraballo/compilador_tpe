@@ -1168,7 +1168,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 969 "./src/compilador/gramatica.y"
+//#line 970 "./src/compilador/gramatica.y"
 
 public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
@@ -2535,10 +2535,11 @@ case 224:
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + val_peek(0).sval + " no esta declarado");
 		}
+		TS.removeLexema(val_peek(0).sval);
 	}
 break;
 case 225:
-//#line 872 "./src/compilador/gramatica.y"
+//#line 873 "./src/compilador/gramatica.y"
 {
 		polaca.agregarElemento(val_peek(1).sval);
 		polaca.generarPasoIncompleto("BF");
@@ -2546,37 +2547,37 @@ case 225:
 	}
 break;
 case 226:
-//#line 877 "./src/compilador/gramatica.y"
+//#line 878 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); }
 break;
 case 227:
-//#line 878 "./src/compilador/gramatica.y"
+//#line 879 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); }
 break;
 case 228:
-//#line 879 "./src/compilador/gramatica.y"
+//#line 880 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] Se esperaba un comparador valido en la comparacion"); }
 break;
 case 235:
-//#line 892 "./src/compilador/gramatica.y"
+//#line 893 "./src/compilador/gramatica.y"
 {
 		polaca.agregarElemento(val_peek(1).sval);}
 break;
 case 236:
-//#line 894 "./src/compilador/gramatica.y"
+//#line 895 "./src/compilador/gramatica.y"
 {
 		polaca.agregarElemento(val_peek(1).sval);}
 break;
 case 238:
-//#line 900 "./src/compilador/gramatica.y"
-{ polaca.agregarElemento(val_peek(1).sval); }
-break;
-case 239:
 //#line 901 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(1).sval); }
 break;
+case 239:
+//#line 902 "./src/compilador/gramatica.y"
+{ polaca.agregarElemento(val_peek(1).sval); }
+break;
 case 241:
-//#line 906 "./src/compilador/gramatica.y"
+//#line 907 "./src/compilador/gramatica.y"
 {
 
 		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(0).sval);
@@ -2597,7 +2598,7 @@ case 241:
 	}
 break;
 case 242:
-//#line 924 "./src/compilador/gramatica.y"
+//#line 925 "./src/compilador/gramatica.y"
 {
 
 		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(val_peek(1).sval);
@@ -2635,22 +2636,22 @@ case 242:
 	}
 break;
 case 243:
-//#line 959 "./src/compilador/gramatica.y"
+//#line 960 "./src/compilador/gramatica.y"
 { polaca.agregarElemento(val_peek(0).sval);}
 break;
 case 244:
-//#line 960 "./src/compilador/gramatica.y"
+//#line 961 "./src/compilador/gramatica.y"
 { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
 break;
 case 245:
-//#line 964 "./src/compilador/gramatica.y"
+//#line 965 "./src/compilador/gramatica.y"
 { corregirConstantePositivaEntera(val_peek(0).sval); }
 break;
 case 246:
-//#line 965 "./src/compilador/gramatica.y"
+//#line 966 "./src/compilador/gramatica.y"
 { constanteConSigno(val_peek(0).sval); }
 break;
-//#line 2576 "Parser.java"
+//#line 2577 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
