@@ -12,23 +12,38 @@ public class GeneracionCodigo {
 
     public GeneracionCodigo() {
         generarCabecera();
-        int i = 0;
-        for (String token : Polaca.getInstance().getPolaca()) {
-            if (Polaca.getInstance().esLabel(i)) { // Verifico si es una posicion a la cual debo saltar
-                codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
+        for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas generadas
+            codigo_assembler.append(nombre_polaca.substring(1).toUpperCase()).append(":").append('\n');
+            int i = 0;
+
+            for (String token : Polaca.getInstance().getPolaca(nombre_polaca)){
+                if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo agregar etiqueta
+                    codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
+                }
+                generarInstrucciones(token);
+                i++;
             }
-            switch (token) {
-                case "+", "-", "*", "/", "<", ">", ">=", "<=", "=", "!!", "==" -> generarOperador(token);
-                case "BI" -> generarSalto("BI");
-                case "BF" -> generarSalto("BF");
-                case "CALL" -> generarLlamadaAFuncion();
-                default -> tokens.push(token);
+
+
+            if (nombre_polaca.equals(":main")){
+                codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+                codigo_assembler.append("end ").append(nombre_polaca.toUpperCase());
             }
-            i++;
+            else
+                codigo_assembler.append("end");
         }
-        codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-        codigo_assembler.append("end start");
+
         showAssembler();
+    }
+
+    private void generarInstrucciones(String token) {
+        switch (token) {
+            case "+", "-", "*", "/", "<", ">", ">=", "<=", "=", "!!", "==" -> generarOperador(token);
+            case "BI" -> generarSalto("BI");
+            case "BF" -> generarSalto("BF");
+            case "CALL" -> generarLlamadaAFuncion();
+            default -> tokens.push(token);
+        }
     }
 
     private void generarCabecera() {
@@ -42,7 +57,6 @@ public class GeneracionCodigo {
         codigo_assembler.append("includelib \\masm32\\lib\\user32.lib").append('\n');
         codigo_assembler.append(".data").append('\n');
         codigo_assembler.append(".code").append('\n');
-        codigo_assembler.append("start:").append('\n');
     }
 
     private void generarOperador(String token) {
@@ -288,6 +302,7 @@ public class GeneracionCodigo {
     }
 
     private void generarLlamadaAFuncion() {
+        codigo_assembler.append("CALL ").append(tokens.pop().substring(1).toUpperCase()).append('\n');
     }
 
     private void generarSalto(String tipo) {

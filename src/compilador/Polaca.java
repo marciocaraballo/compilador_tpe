@@ -6,7 +6,7 @@ public class Polaca {
 
     static private HashMap<String, ArrayList<String>> polaca = new HashMap<>();
     static private HashMap<String, ArrayList<Boolean>> marcas_label = new HashMap<>();
-    boolean siguiente = false;
+    boolean es_label = false;
     static private HashMap<String, Stack<Integer>> pila = new HashMap<>();
     private int contador = 0;
     private static Polaca instance = null;
@@ -31,9 +31,9 @@ public class Polaca {
         ArrayList<Boolean> posicion_aux = marcas_label.get(genCodigoIntermedio.generarAmbito().toString());
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.add(elemento);
-        posicion_aux.add(siguiente);
-        if (siguiente)
-            siguiente = false;
+        posicion_aux.add(es_label);
+        if (es_label)
+            es_label = false;
     }
 
     public void apilar(int posicion) {
@@ -52,8 +52,10 @@ public class Polaca {
     public void crearPolacaAmbitoNuevo(String identificador){
         ArrayList<String> polaca_auxiliar = new ArrayList<>();
         Stack<Integer> pila_auxiliar = new Stack<>();
+        ArrayList<Boolean> marcas_aux = new ArrayList<>();
         polaca.put(identificador, polaca_auxiliar);
         pila.put(identificador, pila_auxiliar);
+        marcas_label.put(identificador, marcas_aux);
     }
 
     public void completarPasoIncompleto() {
@@ -63,7 +65,7 @@ public class Polaca {
         polaca_auxiliar.remove(posicion);
         polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));
 
-        siguiente = true;
+        es_label = true;
     }
 
     public void completarPasoIncompletoIteracion() {
@@ -124,12 +126,15 @@ public class Polaca {
         }
     }
 
-    public ArrayList<String> getPolaca(){
-        return polaca.get(":main");
+    public Set<String> getNombresPolaca(){
+        return polaca.keySet();
+    }
+    public ArrayList<String> getPolaca(String nombre){
+        return polaca.get(nombre);
     }
 
 
-    public boolean esLabel(int i) {
-        return marcas_label.get(":main").get(i);
+    public boolean esLabel(int i, String nombre_polaca) {
+        return marcas_label.get(nombre_polaca).get(i);
     }
 }

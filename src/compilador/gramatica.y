@@ -323,7 +323,7 @@ sentencia_invocacion_funcion:
 					
 					polaca.agregarElemento("=");
 					polaca.generarPasoIncompleto("CALL");
-					polaca.completarPasoIncompletoInvocacion(salto + ":TAG");
+					polaca.completarPasoIncompletoInvocacion(salto);
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " sin parametro");
 				}
@@ -345,7 +345,7 @@ sentencia_invocacion_funcion:
 					polaca.agregarElemento("=");
 
 					polaca.generarPasoIncompleto("CALL");
-					polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG");
+					polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval);
 				}
 			}
 		}
@@ -377,7 +377,7 @@ sentencia_invocacion_funcion:
 						salto = genCodigoIntermedio.generarAmbito() + ":" + cadena[cadena.length - 2] + ":" + cadena[cadena.length - 1];
 					
 					polaca.generarPasoIncompleto("CALL");
-					polaca.completarPasoIncompletoInvocacion(salto + ":TAG");
+					polaca.completarPasoIncompletoInvocacion(salto);
 				} else {
 					logger.logError("[Codigo Intermedio] Se esperaba llamar al metodo " + $1.sval + " con un parametro");
 				}
@@ -394,7 +394,7 @@ sentencia_invocacion_funcion:
 					}
 					else{
 						polaca.generarPasoIncompleto("CALL");
-						polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG");
+						polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval);
 					}
 				} else {
 					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no es una funcion");
@@ -975,7 +975,7 @@ factor:
 		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
 
-			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.USO_VARIABLE)) {
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.USO_VARIABLE)) {
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una variable");
 			} else {
 				polaca.agregarElemento($1.sval + ambito);
