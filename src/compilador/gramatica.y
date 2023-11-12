@@ -547,11 +547,20 @@ encabezado_funcion_declaracion_interfaz:
 sentencia_declarativa_clase:
 	tipo lista_de_variables ',' { 
 		logger.logSuccess("[Parser] Declaracion de lista de variables en CLASS detectado"); 
-		genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
-		genCodigoIntermedio.agregarUsoAListaDeVariables(Constantes.USO_ATRIBUTO);
-		genCodigoIntermedio.agregarAmbitoAListaDeAtributos();
-		genCodigoIntermedio.agregarListaDeVariablesComoAtributos();
-		genCodigoIntermedio.removerListaVariablesADeclarar();
+
+		/**
+		*	Si falla la declaracion de la clase, por ejemplo si se define con IMPLEMENT z
+		* y z no existe o no es una interfaz, no se continua con la definicion de la class,
+		* por lo que no estara el nombre de clase seteado. No se debe intentar proceder
+		* en la definicion del cuerpo.
+		*/
+		if (!genCodigoIntermedio.getAmbitoClaseInterfaz().isEmpty()) {
+			genCodigoIntermedio.agregarTipoAListaDeVariables($1.sval);
+			genCodigoIntermedio.agregarUsoAListaDeVariables(Constantes.USO_ATRIBUTO);
+			genCodigoIntermedio.agregarAmbitoAListaDeAtributos();
+			genCodigoIntermedio.agregarListaDeVariablesComoAtributos();
+			genCodigoIntermedio.removerListaVariablesADeclarar();
+		}
 	} |
 	tipo lista_de_variables { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de lista de variables en CLASS"); } |
 	declaracion_funcion |
