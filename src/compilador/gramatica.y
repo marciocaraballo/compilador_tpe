@@ -610,6 +610,7 @@ sentencia_declarativa_clase:
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
 		}
+		TS.removeLexema($1.sval);
 	}
 ;
 
