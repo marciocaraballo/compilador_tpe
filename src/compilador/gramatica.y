@@ -330,6 +330,7 @@ sentencia_invocacion_funcion:
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida como llamado a metodo");
 			}
+			genCodigoIntermedio.removerLexemasCadenaInvalida($1.sval);
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 			if (!ambito.isEmpty()){
@@ -383,6 +384,7 @@ sentencia_invocacion_funcion:
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida como llamado a metodo");
 			}
+			genCodigoIntermedio.removerLexemasCadenaInvalida($1.sval);
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 			if (!ambito.isEmpty()) {
@@ -450,8 +452,8 @@ sentencia_asignacion:
 
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida en una asignacion");
-				genCodigoIntermedio.removerLexemasCadenaInvalida($1.sval);
 			}
+			genCodigoIntermedio.removerLexemasCadenaInvalida($1.sval);
 		} else {
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 
@@ -469,7 +471,6 @@ sentencia_asignacion:
 				polaca.removeElementos();
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
-
 			TS.removeLexema($1.sval);
 		}
 	} |
