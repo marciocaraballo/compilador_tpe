@@ -422,9 +422,25 @@ sentencia_asignacion:
 				String[] partes = $1.sval.split("\\."); 
 				String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor(partes[0]);
 
-				polaca.agregarElemento($1.sval);
-				polaca.agregarElemento($2.sval);
-				TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
+				if (partes.length == 2) {
+
+					String nuevoLexema = partes[1] + ambito + ":" + partes[0];
+
+					TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
+					TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
+
+					String tipoInstancia = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
+					String tipoAtributoInstancia = (String) TS.getAtributo(partes[1] + ambito + ":" + tipoInstancia, Constantes.TYPE);
+
+					TS.agregarAtributo(nuevoLexema, Constantes.TYPE, tipoAtributoInstancia);
+					polaca.agregarElemento(nuevoLexema);
+
+					polaca.agregarElemento("=");
+					TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
+				} else {
+					//@TODO implementar para cadenas mas largas
+				}
+
 			} else {
 				logger.logError("[Codigo Intermedio] La cadena de llamados " + $1.sval + " no es valida en una asignacion");
 			}
