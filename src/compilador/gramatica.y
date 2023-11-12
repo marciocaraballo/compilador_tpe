@@ -897,13 +897,13 @@ factor:
 			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + genCodigoIntermedio.generarAmbito(), Constantes.USO_VARIABLE)) {
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una variable");
 			} else {
-				TS.removeLexema($1.sval);
 				polaca.agregarElemento($1.sval + ambito);
 			}
 		} else {
 			polaca.removeElementos();
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
+		TS.removeLexema($1.sval);
 	} |
 	ID OPERADOR_MENOS {
 
@@ -938,6 +938,7 @@ factor:
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
+		TS.removeLexema($1.sval);
 	} |
 	constante { polaca.agregarElemento($1.sval);} |
 	'(' expresion ')' { logger.logError("[Parser] No se admiten expresiones entre parentesis"); }
