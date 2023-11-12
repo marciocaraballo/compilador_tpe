@@ -445,6 +445,8 @@ sentencia_asignacion:
 				polaca.removeElementos();
 				logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no esta declarado");
 			}
+
+			TS.removeLexema($1.sval);
 		}
 	} |
 	sentencia_objeto_identificador '=' expresion { logger.logError("[Parser] Se esperaba un simbolo ',' en sentencia asignacion"); } |
