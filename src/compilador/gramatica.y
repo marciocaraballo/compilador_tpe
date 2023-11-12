@@ -328,6 +328,12 @@ sentencia_invocacion_funcion:
 					logger.logError("[Generacion codigo] Cantidad de parametros incorrecta para la funcion " + $1.sval);
 				}
 				else {
+
+					String parametro = (String)TS.getAtributo($1.sval + ambito, Constantes.PARAMETRO);
+
+					polaca.agregarElemento(parametro + ambito + ":" + $1.sval);
+					polaca.agregarElemento("=");
+
 					polaca.generarPasoIncompleto("CALL");
 					polaca.completarPasoIncompletoInvocacion(ambito + ":" + $1.sval + ":TAG");
 				}
@@ -419,10 +425,11 @@ sentencia_asignacion:
 			String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
 
 			if (!ambito.isEmpty()) {
-				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.USO_VARIABLE)) {
-					polaca.agregarElemento($1.sval + ambito);
-					polaca.agregarElemento($2.sval);
-					TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
+				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.USO_VARIABLE) ||
+					genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.NOMBRE_PARAMETRO)) {
+						polaca.agregarElemento($1.sval + ambito);
+						polaca.agregarElemento($2.sval);
+						TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
 				} else {
 					polaca.removeElementos();
 					logger.logError("[Codigo intermedio] El identificador " + $1.sval + " no es una variable");
@@ -644,7 +651,6 @@ declaracion_funcion:
 
 encabezado_funcion:
 	encabezado_funcion_nombre '(' parametro_funcion ')' {
-		// CHEQUEO QUE LA FUNCION NO ESTE DECLARADA
 		if (!TS.has($1.sval + genCodigoIntermedio.generarAmbito())) {
 
 			if (genCodigoIntermedio.esDefinicionDeClase()) {
@@ -659,18 +665,14 @@ encabezado_funcion:
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_METODO);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
 				genCodigoIntermedio.agregarAtributoMetodos($1.sval);
-				// Agrego Ambito a metodo
 				TS.swapLexemas($1.sval, nuevoLexema);
-				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + ambitoClaseDefinidaActual + ":" + $1.sval);
 				
 			} else {
 				TS.agregarAtributo($1.sval, Constantes.USE, Constantes.NOMBRE_FUNCION);
 				TS.agregarAtributo($1.sval, Constantes.TIENE_PARAMETRO, true);
-				//Agrego Ambito a identificador
+				TS.agregarAtributo($1.sval, Constantes.PARAMETRO, $3.sval);
 				TS.swapLexemas($1.sval, $1.sval + genCodigoIntermedio.generarAmbito());
-				
-				//Agrego Ambito a identificador
 				TS.swapLexemas($3.sval, $3.sval + genCodigoIntermedio.generarAmbito()+ ":" + $1.sval);
 				polaca.crearPolacaAmbitoNuevo(genCodigoIntermedio.generarAmbito() + ":" + $1.sval);
 			}
@@ -804,7 +806,7 @@ lista_parametros_funcion_exceso:
 parametro_funcion:
 	tipo ID { 
 		$$.sval = $2.sval;
-		TS.agregarAtributo($2.sval, Constantes.USE, "nombre_parametro");
+		TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_PARAMETRO);
 		// Agrego tipo a parametro de funcion
 		TS.agregarAtributo($2.sval, Constantes.TYPE, $1.sval);
 	}
