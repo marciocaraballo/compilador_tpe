@@ -81,6 +81,10 @@ public class TablaDeSimbolos {
 		return null;
 	}
 
+	public Set<String> getLexemas(){
+		return tabla_simbolos.keySet();
+	}
+
 	public boolean has(String lexema) {
 		return tabla_simbolos.containsKey(lexema);
 	}

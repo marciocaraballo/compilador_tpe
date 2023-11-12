@@ -16,7 +16,6 @@ public class GeneracionCodigo {
             codigo_assembler.append("-------------------------- ESTO ES PARA MEJORAR VISUALIZACION -----------------");
             codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
             int i = 0;
-
             for (String token : Polaca.getInstance().getPolaca(nombre_polaca)){
                 if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo agregar etiqueta
                     codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
@@ -25,7 +24,6 @@ public class GeneracionCodigo {
                 i++;
             }
 
-
             if (nombre_polaca.equals(":main")){
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
@@ -33,8 +31,38 @@ public class GeneracionCodigo {
             else
                 codigo_assembler.append("end");
         }
-
+        generarData();
         showAssembler();
+    }
+
+    private void generarData() {
+        int posicion_data = codigo_assembler.indexOf(".code");
+        codigo_assembler.insert(posicion_data, '\n');
+        for (String lexema: TablaDeSimbolos.getInstance().getLexemas()){
+            String dato = getAtributos(lexema);
+            if (dato != null)
+                codigo_assembler.insert(posicion_data, dato + '\n');
+        }
+    }
+
+    private String getAtributos(String lexema) {
+        StringBuilder dato = new StringBuilder(lexema);
+        if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA))
+            dato.append(" DB");
+        else{
+            String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
+            if (tipo != null) {
+                if (tipo.equals("INT"))
+                    dato.append(" DW ?");
+                else if (tipo.equals("ULONG"))
+                    dato.append(" DD ?");
+                else
+                    dato.append(" DT ?");
+            }
+        }
+
+        return String.valueOf(dato);
+
     }
 
     private void generarInstrucciones(String token) {

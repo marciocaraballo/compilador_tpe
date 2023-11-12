@@ -1,5 +1,6 @@
 package compilador;
 
+import javax.security.auth.login.LoginException;
 import java.util.*;
 
 public class Polaca {
@@ -37,6 +38,7 @@ public class Polaca {
     }
 
     public void apilar(int posicion) {
+        Logger.getInstance().logWarning("QUe esta apilando esto? " + posicion);
         pila.get(genCodigoIntermedio.generarAmbito().toString()).push(posicion - 1);
     }
 
@@ -74,6 +76,7 @@ public class Polaca {
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, String.valueOf(posicion));
         ArrayList<Boolean> posicion_aux = marcas_label.get(genCodigoIntermedio.generarAmbito().toString());
+
         posicion_aux.remove(posicion);
         posicion_aux.add(posicion, true);
     }

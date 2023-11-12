@@ -65,6 +65,7 @@ sentencia_ejecutable_funcion:
 sentencia_return:
 	RETURN ',' { 
 		polaca.agregarElemento("RETURN");
+		polaca.resetContador();
 	}| 
 	RETURN { logger.logError("[Parser] Se esperaba un simbolo ',' luego del RETURN"); }
 ;
