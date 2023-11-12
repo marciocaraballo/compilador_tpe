@@ -437,6 +437,8 @@ sentencia_asignacion:
 
 					polaca.agregarElemento("=");
 					TS.agregarAtributo(partes[0] + ambito, Constantes.COMPROBACION_USO, true);
+					TS.removeLexema(partes[0]);
+					TS.removeLexema(partes[1]);
 				} else {
 					//@TODO implementar para cadenas mas largas
 				}
