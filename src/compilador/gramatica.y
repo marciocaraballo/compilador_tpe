@@ -638,6 +638,7 @@ declaracion_clase_encabezado:
 			TS.agregarAtributo($2.sval, Constantes.USE, Constantes.NOMBRE_CLASE);
 			TS.agregarAtributo($2.sval, Constantes.IMPLEMENTA, null);
 			TS.iniciarAtributoLista($2.sval, Constantes.ATRIBUTOS);
+			TS.iniciarAtributoLista($2.sval, Constantes.METODOS);
 			TS.agregarAtributo($2.sval, Constantes.NIVELES_HERENCIA, 0);
 			TS.swapLexemas($2.sval, $2.sval + genCodigoIntermedio.generarAmbito());
 			genCodigoIntermedio.setAmbitoClaseInterfaz($2.sval);
