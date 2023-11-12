@@ -16,12 +16,6 @@ public class TablaDeSimbolos {
 	private static TablaDeSimbolos instance = null;
 
 	private HashMap<String, HashMap<String, Object>> tabla_simbolos = new HashMap<String, HashMap<String, Object>>();
-	/** Keys de atributos */
-	public static final String USE = "uso";
-	public static final String COMPROBACION_USO = "comp_uso";
-	public static final String TIENE_PARAMETRO = "tiene_param";
-	public static final String METODOS_A_IMPLEMENTAR = "metodos_iter";
-	public static final String CLASES_A_EXTENDER = "clases_extend";
 
 	TablaDeSimbolos() {
 	};
@@ -128,7 +122,7 @@ public class TablaDeSimbolos {
 				String attributeKey = attributesIterator.next();
 				Object attributeValue = attributes.get(attributeKey);
 				if (attributeValue != null) {
-					if (attributeKey.equals(COMPROBACION_USO) && (Boolean) attributeValue == false)
+					if (attributeKey.equals(Constantes.COMPROBACION_USO) && (Boolean) attributeValue == false)
 						Logger.getInstance()
 								.logWarning("La variable " + lexema + " no se uso del lado izquierdo en asignacion");
 
