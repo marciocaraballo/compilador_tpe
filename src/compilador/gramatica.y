@@ -860,8 +860,16 @@ tipo:
 	ULONG |
 	FLOAT |
 	ID {
-		if (!genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval).isEmpty()) {
+
+		String ambito = genCodigoIntermedio.existeIdentificadorEnAlgunAmbitoContenedor($1.sval);
+
+		if (!ambito.isEmpty()) {
 			logger.logSuccess("[Codigo Intermedio] El identificador " + $1.sval + " esta declarado");
+
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.NOMBRE_CLASE)) {
+				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es un nombre de clase");
+			}
+
 		} else {
 			logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no esta declarado");
 		}
