@@ -13,7 +13,7 @@ public class GeneracionCodigo {
     public GeneracionCodigo() {
         generarCabecera();
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas generadas
-            codigo_assembler.append(nombre_polaca.substring(1).toUpperCase()).append(":").append('\n');
+            codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
             int i = 0;
 
             for (String token : Polaca.getInstance().getPolaca(nombre_polaca)){
@@ -27,7 +27,7 @@ public class GeneracionCodigo {
 
             if (nombre_polaca.equals(":main")){
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-                codigo_assembler.append("end ").append(nombre_polaca.toUpperCase());
+                codigo_assembler.append("end ").append("main").append('\n');
             }
             else
                 codigo_assembler.append("end");
@@ -302,7 +302,7 @@ public class GeneracionCodigo {
     }
 
     private void generarLlamadaAFuncion() {
-        codigo_assembler.append("CALL ").append(tokens.pop().substring(1).toUpperCase()).append('\n');
+        codigo_assembler.append("CALL ").append(tokens.pop().substring(1)).append('\n');
     }
 
     private void generarSalto(String tipo) {
