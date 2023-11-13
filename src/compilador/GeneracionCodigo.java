@@ -12,23 +12,24 @@ public class GeneracionCodigo {
 
     public GeneracionCodigo() {
         generarCabecera();
-        for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas generadas
+        for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
+                                                                               // generadas
             codigo_assembler.append("-------------------------- ESTO ES PARA MEJORAR VISUALIZACION -----------------");
             codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
             int i = 0;
-            for (String token : Polaca.getInstance().getPolaca(nombre_polaca)){
-                if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo agregar etiqueta
+            for (String token : Polaca.getInstance().getPolaca(nombre_polaca)) {
+                if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo
+                                                                      // agregar etiqueta
                     codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
                 }
                 generarInstrucciones(token);
                 i++;
             }
 
-            if (nombre_polaca.equals(":main")){
+            if (nombre_polaca.equals(":main")) {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
-            }
-            else
+            } else
                 codigo_assembler.append("end");
         }
         generarData();
@@ -38,19 +39,19 @@ public class GeneracionCodigo {
     private void generarData() {
         int posicion_data = codigo_assembler.indexOf(".code");
         codigo_assembler.insert(posicion_data, '\n');
-        for (String lexema: TablaDeSimbolos.getInstance().getLexemas()){
+        for (String lexema : TablaDeSimbolos.getInstance().getLexemas()) {
             String dato = getAtributos(lexema);
             if (dato != null)
                 codigo_assembler.insert(posicion_data, dato + '\n');
         }
     }
 
-    private boolean cumple_condicion(String lexema){
+    private boolean cumple_condicion(String lexema) {
         String uso = (String) TS.getAtributo(lexema, Constantes.USE);
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA)) {
             return false;
         }
-        if (uso != null){
+        if (uso != null) {
             return uso.equals("nombre_funcion") ||
                     uso.equals("nombre_clase") ||
                     uso.equals("nombre_metodo");
@@ -60,13 +61,13 @@ public class GeneracionCodigo {
     }
 
     private String getAtributos(String lexema) {
-        if (cumple_condicion(lexema)){
+        if (cumple_condicion(lexema)) {
             return null;
         }
         StringBuilder dato = new StringBuilder(lexema);
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA))
             dato.append(" DB ").append(lexema.replace("%", "\"")).append(", 0");
-        else{
+        else {
             String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
             if (tipo != null) {
                 if (tipo.equals("INT"))
@@ -96,7 +97,8 @@ public class GeneracionCodigo {
 
     private void generarImpresionPantalla() {
         String mje = tokens.pop();
-        codigo_assembler.append("invoke MessageBox, NULL, addr ").append(mje).append(", addr ").append(mje).append(", MB_OK").append('\n');
+        codigo_assembler.append("invoke MessageBox, NULL, addr ").append(mje).append(", addr ").append(mje)
+                .append(", MB_OK").append('\n');
     }
 
     private void generarCabecera() {
@@ -116,7 +118,8 @@ public class GeneracionCodigo {
         String op2 = tokens.pop();
         String op1 = tokens.pop();
         if (!TS.getAtributo(op1, Constantes.TYPE).equals(TS.getAtributo(op2, Constantes.TYPE))) {
-            Logger.getInstance().logError("[Generacion codigo] Error, tipos incompatibles");
+            Logger.getInstance().logError("[Generacion codigo] Tipos incompatibles "
+                    + TS.getAtributo(op1, Constantes.TYPE) + "/" + TS.getAtributo(op2, Constantes.TYPE));
         } else {
             String tipo = (String) TS.getAtributo(op1, Constantes.TYPE);
             switch (tipo) {
