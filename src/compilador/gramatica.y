@@ -558,7 +558,9 @@ bloque_encabezado_funcion_declaracion_interfaz:
 
 encabezado_funcion_declaracion_interfaz:
 	encabezado_funcion_interfaz ',' |
-	encabezado_funcion_interfaz { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de metodo en CLASS"); }
+	encabezado_funcion_interfaz { logger.logError("[Parser] Se esperaba un simbolo ',' en declaracion de metodo en INTERFACE"); } |
+	tipo lista_de_variables ',' { logger.logError("[Parser] No se aceptan sentencias declarativas de atributos en INTERFACE"); } |
+	tipo lista_de_variables { logger.logError("[Parser] No se aceptan sentencias declarativas de atributos en INTERFACE"); }
 ;
  
 sentencia_declarativa_clase:
