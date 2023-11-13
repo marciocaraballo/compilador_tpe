@@ -18,7 +18,7 @@ public class GeneracionCodigo {
         generarCabecera();
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
                                                                                // generadas
-            codigo_assembler.append("-------------------------- ESTO ES PARA MEJORAR VISUALIZACION -----------------");
+            codigo_assembler.append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
             codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
             int i = 0;
             for (String token : Polaca.getInstance().getPolaca(nombre_polaca)) {
@@ -319,7 +319,7 @@ public class GeneracionCodigo {
         codigo_assembler.append("FLD ").append(op2).append("\n");
         codigo_assembler.append("FCOM ").append(op1).append("\n");
         codigo_assembler.append("FSTSW aux_mem").append(op1).append("\n");
-        codigo_assembler.append("MOV AX, aux_mem").append(op1).append("\n");
+        codigo_assembler.append("MOV EAX, aux_mem").append(op1).append("\n");
         codigo_assembler.append("SAHF").append(op1).append("\n");
     }
 
@@ -332,11 +332,11 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
 
-
+                codigo_assembler.append("FCOM 15h");
                 codigo_assembler.append("FSTSW aux_mem").append('\n');
-                codigo_assembler.append("MV AX, aux_mem").append('\n');
+                codigo_assembler.append("MV EAX, aux_mem").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
-                codigo_assembler.append("JNO CONTINUAR_EJECUCION").append('\n');
+                codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
 
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
@@ -377,6 +377,7 @@ public class GeneracionCodigo {
             }
             case ">" -> {
                 comparacionesParaFlotantes(op1, op2);
+                tipo_salto = "JA";
             }
             case ">=" -> {
                 comparacionesParaFlotantes(op1, op2);
