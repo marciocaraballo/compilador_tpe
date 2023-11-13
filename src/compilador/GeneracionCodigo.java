@@ -10,6 +10,10 @@ public class GeneracionCodigo {
     private int numero_var_auxiliar = 0;
     private String tipo_salto;
 
+    private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
+    private final String ERROR_OVERFLOW_SUMA_FLOTANTES = "overflow_flotantes";
+    private final String ERROR_RECURSIVIDAD = "error_recursividad";
+
     public GeneracionCodigo() {
         generarCabecera();
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
@@ -38,7 +42,9 @@ public class GeneracionCodigo {
 
     private void generarData() {
         int posicion_data = codigo_assembler.indexOf(".code");
-        codigo_assembler.insert(posicion_data, '\n');
+        codigo_assembler.insert(posicion_data,ERROR_OVERFLOW_PRODUCTO_ENTEROS + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
+        codigo_assembler.insert(posicion_data,ERROR_OVERFLOW_SUMA_FLOTANTES + " db \" La suma de los valores ha sobrepasado el rango \" , 0" + '\n');
+        codigo_assembler.insert(posicion_data,ERROR_RECURSIVIDAD + " db \" No se admite recursividad de invocación a funciones \" , 0" + '\n');
         for (String lexema : TablaDeSimbolos.getInstance().getLexemas()) {
             String dato = getAtributos(lexema);
             if (dato != null)
@@ -167,6 +173,18 @@ public class GeneracionCodigo {
                 codigo_assembler.append("MV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
                                                                              // REG AX
                 codigo_assembler.append("MULI AX, ").append(op2).append("\n");
+                /* Si la multiplicacion se excede de rango, se setea el flag OF en 1, luego la instruccion 'JNO' salta o no dependiendo
+                del valor del flag */
+                codigo_assembler.append("JNO CONTINUAR_EJECUCION ").append('\n');
+
+                // Si hay overflow, muestro el error por pantalla y finalizo ejecucion
+                codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_PRODUCTO_ENTEROS)
+                        .append(", addr ").append(ERROR_OVERFLOW_PRODUCTO_ENTEROS)
+                        .append(", MB_OK").append('\n');
+                codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+
+                // Si no hay overflow, continuo normalmente la ejecucion
+                codigo_assembler.append("CONTINUAR_EJECUCION: ");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
@@ -313,6 +331,19 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
+
+                // CARGO LOS VALORES DE LOS FLAGS
+                codigo_assembler.append("FSTSW aux_mem").append('\n');
+                codigo_assembler.append("MV AX, aux_mem").append('\n');
+                codigo_assembler.append("SAHF").append('\n');
+                codigo_assembler.append("JNO CONTINUAR_EJECUCION").append('\n');
+
+                codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
+                        .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
+                        .append(", MB_OK").append('\n');
+                codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+
+                codigo_assembler.append("CONTINUAR_EJECUCION:");
                 codigo_assembler.append("FSTP ").append(variable_auxiliar);
                 tokens.push(variable_auxiliar);
             }
