@@ -184,7 +184,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
 
                 // Si no hay overflow, continuo normalmente la ejecucion
-                codigo_assembler.append("CONTINUAR_EJECUCION: ");
+                codigo_assembler.append("CONTINUAR_EJECUCION:");
                 codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
@@ -332,7 +332,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
 
-                // CARGO LOS VALORES DE LOS FLAGS
+
                 codigo_assembler.append("FSTSW aux_mem").append('\n');
                 codigo_assembler.append("MV AX, aux_mem").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
@@ -343,8 +343,8 @@ public class GeneracionCodigo {
                         .append(", MB_OK").append('\n');
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
 
-                codigo_assembler.append("CONTINUAR_EJECUCION:");
-                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                codigo_assembler.append("CONTINUAR_EJECUCION: ");
+                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
@@ -352,7 +352,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FSUB ").append('\n');
-                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
                 tokens.push(variable_auxiliar);
             }
             case "*" -> {
@@ -360,7 +360,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FMUL ").append('\n');
-                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
                 tokens.push(variable_auxiliar);
             }
             case "/" -> {
@@ -368,7 +368,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FDIV ").append('\n');
-                codigo_assembler.append("FSTP ").append(variable_auxiliar);
+                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
@@ -395,10 +395,7 @@ public class GeneracionCodigo {
                 tipo_salto = "JE";
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de
-                                                                                   // lado derecho
-                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en
-                                                                                         // la var del lado izquierdo
+                codigo_assembler.append("FSTP ").append(op2).append("\n");
             }
         }
     }
