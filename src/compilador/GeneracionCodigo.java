@@ -64,10 +64,14 @@ public class GeneracionCodigo {
         if (cumple_condicion(lexema)) {
             return null;
         }
-        StringBuilder dato = new StringBuilder(lexema);
-        if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA))
-            dato.append(" DB ").append(lexema.replace("%", "\"")).append(", 0");
+        StringBuilder dato = new StringBuilder();
+        if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA)) {
+            dato.append(lexema.replace(" ", "").replace("%", ""));
+            dato.append(" DB ");
+            dato.append(lexema.replace("%", "\"")).append(", 0");
+        }
         else {
+            dato.append(lexema);
             String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
             if (tipo != null) {
                 if (tipo.equals("INT"))
@@ -97,6 +101,7 @@ public class GeneracionCodigo {
 
     private void generarImpresionPantalla() {
         String mje = tokens.pop();
+        mje = mje.replace("%", "").replace(" ", "");
         codigo_assembler.append("invoke MessageBox, NULL, addr ").append(mje).append(", addr ").append(mje)
                 .append(", MB_OK").append('\n');
     }
@@ -123,9 +128,19 @@ public class GeneracionCodigo {
         } else {
             String tipo = (String) TS.getAtributo(op1, Constantes.TYPE);
             switch (tipo) {
-                case Constantes.TYPE_INT -> generarInstruccionesEnteros(op1, op2, token);
-                case Constantes.TYPE_FLOAT -> generarInstruccionesFlotantes(op1, op2, token);
-                case Constantes.TYPE_ULONG -> generarInstruccionesULong(op1, op2, token);
+                case Constantes.TYPE_INT -> {
+                    op1 = op1.replace("_i", "");
+                    op2 = op2.replace("_i", "");
+                    generarInstruccionesEnteros(op1, op2, token);
+                }
+                case Constantes.TYPE_FLOAT -> {
+                    generarInstruccionesFlotantes(op1, op2, token);
+                }
+                case Constantes.TYPE_ULONG -> {
+                    op1 = op1.replace("_ul", "");
+                    op2 = op2.replace("_ul", "");
+                    generarInstruccionesULong(op1, op2, token);
+                }
             }
         }
     }
