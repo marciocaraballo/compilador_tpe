@@ -13,6 +13,7 @@ public class GeneracionCodigo {
     private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
     private final String ERROR_OVERFLOW_SUMA_FLOTANTES = "overflow_flotantes";
     private final String ERROR_RECURSIVIDAD = "error_recursividad";
+    private int flag_recursion = 1;
 
     public GeneracionCodigo() {
         generarCabecera();
@@ -20,6 +21,9 @@ public class GeneracionCodigo {
                                                                                // generadas
             codigo_assembler.append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
             codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
+            if (!nombre_polaca.equals(":main")) {
+                generarInstruccionesChequeoRecursividad();
+            }
             int i = 0;
             for (String token : Polaca.getInstance().getPolaca(nombre_polaca)) {
                 if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo
@@ -33,11 +37,25 @@ public class GeneracionCodigo {
             if (nombre_polaca.equals(":main")) {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
-            } else
+            } else {
+                codigo_assembler.append("MV recursion_flag, 0").append('\n'); // Indico que la funcion ya termino su ejecucion
                 codigo_assembler.append("end");
+            }
         }
         generarData();
         showAssembler();
+    }
+
+    private void generarInstruccionesChequeoRecursividad() {
+        codigo_assembler.append("CMP recursion_flag, ").append(flag_recursion).append('\n');
+        codigo_assembler.append("JNE CONTINUAR_EJECUCION \n"); // Si el flag de recursion es distinto de 'flag_recursion' continuo la ejecucion
+        codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_RECURSIVIDAD)
+                .append(", addr ").append(ERROR_RECURSIVIDAD)
+                .append(", MB_OK").append('\n');
+        codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+        codigo_assembler.append("CONTINUAR_EJECUCION: ").append('\n');
+        codigo_assembler.append("MV recusion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion esta siendo ejecutada
+        flag_recursion += 1;
     }
 
     private void generarData() {
@@ -45,6 +63,7 @@ public class GeneracionCodigo {
         codigo_assembler.insert(posicion_data,ERROR_OVERFLOW_PRODUCTO_ENTEROS + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
         codigo_assembler.insert(posicion_data,ERROR_OVERFLOW_SUMA_FLOTANTES + " db \" La suma de los valores ha sobrepasado el rango \" , 0" + '\n');
         codigo_assembler.insert(posicion_data,ERROR_RECURSIVIDAD + " db \" No se admite recursividad de invocación a funciones \" , 0" + '\n');
+        codigo_assembler.insert(posicion_data, "recursion_flag DW 0 \n");
         for (String lexema : TablaDeSimbolos.getInstance().getLexemas()) {
             String dato = getAtributos(lexema);
             if (dato != null)
@@ -129,8 +148,10 @@ public class GeneracionCodigo {
         String op2 = tokens.pop();
         String op1 = tokens.pop();
         if (!TS.getAtributo(op1, Constantes.TYPE).equals(TS.getAtributo(op2, Constantes.TYPE))) {
+            tokens.push(op2);
+            tokens.push(op1);
             Logger.getInstance().logError("[Generacion codigo] Tipos incompatibles "
-                    + TS.getAtributo(op1, Constantes.TYPE) + "/" + TS.getAtributo(op2, Constantes.TYPE));
+                    + op1 + ": " + TS.getAtributo(op1, Constantes.TYPE) + "/" + op2 + ": " + TS.getAtributo(op2, Constantes.TYPE));
         } else {
             String tipo = (String) TS.getAtributo(op1, Constantes.TYPE);
             switch (tipo) {
