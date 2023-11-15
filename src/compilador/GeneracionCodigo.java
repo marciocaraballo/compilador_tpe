@@ -379,7 +379,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
 
-                codigo_assembler.append("FCOM 15h");
+                codigo_assembler.append("FCOM 15h").append('\n');
                 codigo_assembler.append("FSTSW aux_mem").append('\n');
                 codigo_assembler.append("MOV EAX, aux_mem").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
@@ -443,6 +443,7 @@ public class GeneracionCodigo {
                 tipo_salto = "JE";
             }
             case "=" -> {
+                codigo_assembler.append("FLD ").append(op1).append("\n");
                 codigo_assembler.append("FSTP ").append(op2).append("\n");
             }
         }
