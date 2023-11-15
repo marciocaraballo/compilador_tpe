@@ -465,6 +465,7 @@ public class GeneracionCodigo {
         String retorno = "@aux" + numero_var_auxiliar;
         TS.putLexema(retorno, Constantes.IDENTIFICADOR);
         TS.agregarAtributo(retorno, Constantes.TYPE, tipo);
+        TS.agregarAtributo(retorno, Constantes.USE, "variable");
         numero_var_auxiliar += 1;
         return retorno;
     }
