@@ -133,7 +133,7 @@ public class GeneracionCodigo {
 
     private void generarCabecera() {
         codigo_assembler.append(".386").append('\n');
-        codigo_assembler.append(".model flat, stdcall");
+        codigo_assembler.append(".model flat, stdcall").append('\n');
         codigo_assembler.append("option casemap :none").append('\n');
         codigo_assembler.append("include \\masm32\\include\\windows.inc").append('\n');
         codigo_assembler.append("include \\masm32\\include\\kernel32.inc").append('\n');
