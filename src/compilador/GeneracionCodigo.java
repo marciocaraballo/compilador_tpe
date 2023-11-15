@@ -38,7 +38,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
             } else {
-                codigo_assembler.append("MV recursion_flag, 0").append('\n'); // Indico que la funcion ya termino su ejecucion
+                codigo_assembler.append("MOV recursion_flag, 0").append('\n'); // Indico que la funcion ya termino su ejecucion
                 codigo_assembler.append("end");
             }
         }
@@ -54,7 +54,7 @@ public class GeneracionCodigo {
                 .append(", MB_OK").append('\n');
         codigo_assembler.append("invoke ExitProcess, 0").append('\n');
         codigo_assembler.append("CONTINUAR_EJECUCION: ").append('\n');
-        codigo_assembler.append("MV recusion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion esta siendo ejecutada
+        codigo_assembler.append("MOV recusion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion esta siendo ejecutada
         flag_recursion += 1;
     }
 
@@ -177,21 +177,21 @@ public class GeneracionCodigo {
         switch (operador) {
             case "+" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("ADD AX, ").append(op2).append("\n");
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("SUB AX, ").append(op2).append("\n");
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
-                codigo_assembler.append("MV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
                                                                              // REG AX
                 codigo_assembler.append("MULI AX, ").append(op2).append("\n");
                 /* Si la multiplicacion se excede de rango, se setea el flag OF en 1, luego la instruccion 'JNO' salta o no dependiendo
@@ -206,55 +206,55 @@ public class GeneracionCodigo {
 
                 // Si no hay overflow, continuo normalmente la ejecucion
                 codigo_assembler.append("CONTINUAR_EJECUCION:");
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "/" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
                 codigo_assembler.append("XOR DX, DX").append('\n'); // INICIALIZO DX EN 0,
-                codigo_assembler.append("MV AX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
-                codigo_assembler.append("MV BX, ").append(op2).append('\n');
+                codigo_assembler.append("MOV AX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
+                codigo_assembler.append("MOV BX, ").append(op2).append('\n');
                 codigo_assembler.append("IDIV BX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
                                                                  // = resultado
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE
                                                                                                       // QUEDO EN AX A
                                                                                                       // VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JGE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case ">" -> {
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JLE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case ">=" -> {
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JL"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "<=" -> {
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JG"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "!!" -> {
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "==" -> {
-                codigo_assembler.append("MV AX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV AX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP AX, ").append(op2).append("\n");
                 tipo_salto = "JNE"; // El tipo de salto debe ser la negacion, ya que siempre bifurco por falso
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de
+                codigo_assembler.append("MOV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de
                                                                                   // lado derecho
-                codigo_assembler.append("MV ").append(op2).append(", AX").append("\n"); // Almacento guardado en AX en
+                codigo_assembler.append("MOV ").append(op2).append(", AX").append("\n"); // Almacento guardado en AX en
                                                                                         // la var del lado izquierdo
             }
         }
@@ -265,72 +265,72 @@ public class GeneracionCodigo {
         switch (operador) {
             case "+" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("ADD EAX, ").append(op2).append("\n");
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append("\n");
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", EAX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("SUB EAX, ").append(op2).append("\n");
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append("\n");
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", EAX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
                                                                               // REG EAX
                 codigo_assembler.append("MUL EAX, ").append(op2).append("\n");
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", AX").append("\n");
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }
             case "/" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
                 codigo_assembler.append("XOR EDX, EDX").append('\n'); // INICIALIZO DX EN 0,
-                codigo_assembler.append("MV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
-                codigo_assembler.append("MV EBX, ").append(op2).append('\n');
+                codigo_assembler.append("MOV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
+                codigo_assembler.append("MOV EBX, ").append(op2).append('\n');
                 codigo_assembler.append("IDIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
                                                                   // = resultado
-                codigo_assembler.append("MV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE
+                codigo_assembler.append("MOV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE
                                                                                                        // QUEDO EN AX A
                                                                                                        // VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JB";
             }
             case ">" -> {
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JA";
             }
             case ">=" -> {
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JAE";
             }
             case "<=" -> {
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JBE";
             }
             case "!!" -> {
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JNE";
             }
             case "==" -> {
-                codigo_assembler.append("MV EAX, ").append(op1).append("\n");
+                codigo_assembler.append("MOV EAX, ").append(op1).append("\n");
                 codigo_assembler.append("CMP EAX, ").append(op2).append("\n");
                 tipo_salto = "JE";
             }
             case "=" -> {
-                codigo_assembler.append("MV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de
+                codigo_assembler.append("MOV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de
                                                                                    // lado derecho
-                codigo_assembler.append("MV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en
+                codigo_assembler.append("MOV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en
                                                                                          // la var del lado izquierdo
             }
         }
@@ -355,7 +355,7 @@ public class GeneracionCodigo {
 
                 codigo_assembler.append("FCOM 15h");
                 codigo_assembler.append("FSTSW aux_mem").append('\n');
-                codigo_assembler.append("MV EAX, aux_mem").append('\n');
+                codigo_assembler.append("MOV EAX, aux_mem").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
                 codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
 
