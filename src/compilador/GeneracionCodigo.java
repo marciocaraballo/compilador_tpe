@@ -215,7 +215,7 @@ public class GeneracionCodigo {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
                 codigo_assembler.append("MOV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
                                                                               // REG AX
-                codigo_assembler.append("MULI AX, ").append(op2).append("\n");
+                codigo_assembler.append("IMUL AX, ").append(op2).append("\n");
                 /*
                  * Si la multiplicacion se excede de rango, se setea el flag OF en 1, luego la
                  * instruccion 'JNO' salta o no dependiendo
