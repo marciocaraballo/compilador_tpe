@@ -55,6 +55,7 @@ public class TablaDeSimbolos {
 		 * definicion,
 		 * puede que luego se intente agregar algun atributo pero no existe en la TS
 		 */
+		System.out.println(has(lexema));
 		if (has(lexema)) {
 			HashMap<String, Object> atributos = tabla_simbolos.get(lexema);
 			if (nombre_atributo.equals(Constantes.METODOS) || nombre_atributo.equals(Constantes.ATRIBUTOS)) {
@@ -62,6 +63,7 @@ public class TablaDeSimbolos {
 				atributoLista.add((String) valor);
 				atributos.put(nombre_atributo, atributoLista);
 			} else {
+				System.out.println(nombre_atributo + " " + valor);
 				atributos.put(nombre_atributo, valor);
 			}
 		}
@@ -81,7 +83,7 @@ public class TablaDeSimbolos {
 		return null;
 	}
 
-	public Set<String> getLexemas(){
+	public Set<String> getLexemas() {
 		return tabla_simbolos.keySet();
 	}
 

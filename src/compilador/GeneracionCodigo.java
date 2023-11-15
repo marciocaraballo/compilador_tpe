@@ -8,6 +8,7 @@ public class GeneracionCodigo {
     private TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
     private StringBuilder codigo_assembler = new StringBuilder();
     private int numero_var_auxiliar = 0;
+    private int numero_var_real = 1;
     private String tipo_salto;
 
     private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
@@ -64,6 +65,8 @@ public class GeneracionCodigo {
 
     private void generarData() {
         int posicion_data = codigo_assembler.indexOf(".code");
+        codigo_assembler.insert(posicion_data, "aux_mem DW ?" + '\n');
+        codigo_assembler.insert(posicion_data, "maximo_rango_positivo DT " + 3.40282347E+38 + '\n');
         codigo_assembler.insert(posicion_data, ERROR_OVERFLOW_PRODUCTO_ENTEROS
                 + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
         codigo_assembler.insert(posicion_data,
@@ -80,9 +83,17 @@ public class GeneracionCodigo {
 
     private boolean cumple_condicion(String lexema) {
         String uso = (String) TS.getAtributo(lexema, Constantes.USE);
+        String type = (String) TS.getAtributo(lexema, Constantes.TYPE);
+
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA)) {
             return false;
         }
+
+        if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CONSTANTE) &&
+                type == Constantes.TYPE_FLOAT) {
+            return false;
+        }
+
         if (uso != null) {
             return uso.equals("nombre_funcion") ||
                     uso.equals("nombre_clase") ||
@@ -102,15 +113,23 @@ public class GeneracionCodigo {
             dato.append(" DB ");
             dato.append(lexema.replace("%", "\"")).append(", 0");
         } else {
-            dato.append(lexema.replaceAll("\\:", "_"));
-            String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
-            if (tipo != null) {
-                if (tipo.equals("INT"))
-                    dato.append(" DW ?");
-                else if (tipo.equals("ULONG"))
-                    dato.append(" DD ?");
-                else
-                    dato.append(" DT ?");
+
+            if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CONSTANTE) &&
+                    TS.getAtributo(lexema, Constantes.TYPE).equals(Constantes.TYPE_FLOAT)) {
+
+                String varRealAsociada = (String) TS.getAtributo(lexema, "variable_real_nombre");
+                dato.append(varRealAsociada + " DT " + lexema);
+            } else {
+                dato.append(lexema.replaceAll("\\:", "_"));
+                String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
+                if (tipo != null) {
+                    if (tipo.equals("INT"))
+                        dato.append(" DW ?");
+                    else if (tipo.equals("ULONG"))
+                        dato.append(" DD ?");
+                    else
+                        dato.append(" DT ?");
+                }
             }
         }
 
@@ -317,7 +336,7 @@ public class GeneracionCodigo {
                                                                                // DX:AX
                 codigo_assembler.append("MOV EBX, ").append(op2).append('\n');
                 codigo_assembler.append("DIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
-                                                                  // = resultado
+                                                                 // = resultado
                 codigo_assembler.append("MOV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE
                                                                                                         // QUEDO EN AX A
                                                                                                         // VAR AUX
@@ -372,23 +391,38 @@ public class GeneracionCodigo {
 
     private void generarInstruccionesFlotantes(String op1, String op2, String operador) {
         String variable_auxiliar;
+
         switch (operador) {
             case "+" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
-                codigo_assembler.append("FLD ").append(op2).append('\n');
-                codigo_assembler.append("FLD ").append(op1).append('\n');
+
+                if (TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
+                    TS.agregarAtributo(op2, "variable_real_nombre", "variable_real_" + op2.replace(".", "_"));
+                    codigo_assembler.append("FLD ").append(TS.getAtributo(op2, "variable_real_nombre")).append('\n');
+                } else {
+                    codigo_assembler.append("FLD ").append(op2).append('\n');
+                }
+
+                if (TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
+                    TS.agregarAtributo(op1, "variable_real_nombre", "variable_real_" + op1.replace(".", "_"));
+                    codigo_assembler.append("FLD ").append(TS.getAtributo(op1, "variable_real_nombre")).append('\n');
+                } else {
+                    codigo_assembler.append("FLD ").append(op1).append('\n');
+                }
+
                 codigo_assembler.append("FADD ").append('\n');
+                // codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
+                // codigo_assembler.append("FCOMPP ").append('\n');
+                // codigo_assembler.append("FSTSW aux_mem").append('\n');
+                // codigo_assembler.append("MOV AX, aux_mem").append('\n');
+                // codigo_assembler.append("SAHF").append('\n');
+                // codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
 
-                codigo_assembler.append("FCOM 15h").append('\n');
-                codigo_assembler.append("FSTSW aux_mem").append('\n');
-                codigo_assembler.append("MOV EAX, aux_mem").append('\n');
-                codigo_assembler.append("SAHF").append('\n');
-                codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
-
-                codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
-                        .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
-                        .append(", MB_OK").append('\n');
-                codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+                // codigo_assembler.append("invoke MessageBox, NULL, addr
+                // ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
+                // .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
+                // .append(", MB_OK").append('\n');
+                // codigo_assembler.append("invoke ExitProcess, 0").append('\n');
 
                 codigo_assembler.append("CONTINUAR_EJECUCION: ");
                 codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
