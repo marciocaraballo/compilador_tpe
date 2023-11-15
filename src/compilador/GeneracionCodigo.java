@@ -19,7 +19,8 @@ public class GeneracionCodigo {
         generarCabecera();
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
                                                                                // generadas
-            codigo_assembler.append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
+            codigo_assembler
+                    .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
             codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
             if (!nombre_polaca.equals(":main")) {
                 generarInstruccionesChequeoRecursividad();
@@ -38,7 +39,8 @@ public class GeneracionCodigo {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
             } else {
-                codigo_assembler.append("MOV recursion_flag, 0").append('\n'); // Indico que la funcion ya termino su ejecucion
+                codigo_assembler.append("MOV recursion_flag, 0").append('\n'); // Indico que la funcion ya termino su
+                                                                               // ejecucion
                 codigo_assembler.append("end");
             }
         }
@@ -48,21 +50,26 @@ public class GeneracionCodigo {
 
     private void generarInstruccionesChequeoRecursividad() {
         codigo_assembler.append("CMP recursion_flag, ").append(flag_recursion).append('\n');
-        codigo_assembler.append("JNE CONTINUAR_EJECUCION \n"); // Si el flag de recursion es distinto de 'flag_recursion' continuo la ejecucion
+        codigo_assembler.append("JNE CONTINUAR_EJECUCION \n"); // Si el flag de recursion es distinto de
+                                                               // 'flag_recursion' continuo la ejecucion
         codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_RECURSIVIDAD)
                 .append(", addr ").append(ERROR_RECURSIVIDAD)
                 .append(", MB_OK").append('\n');
         codigo_assembler.append("invoke ExitProcess, 0").append('\n');
         codigo_assembler.append("CONTINUAR_EJECUCION: ").append('\n');
-        codigo_assembler.append("MOV recusion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion esta siendo ejecutada
+        codigo_assembler.append("MOV recusion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion
+                                                                                            // esta siendo ejecutada
         flag_recursion += 1;
     }
 
     private void generarData() {
         int posicion_data = codigo_assembler.indexOf(".code");
-        codigo_assembler.insert(posicion_data,ERROR_OVERFLOW_PRODUCTO_ENTEROS + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
-        codigo_assembler.insert(posicion_data,ERROR_OVERFLOW_SUMA_FLOTANTES + " db \" La suma de los valores ha sobrepasado el rango \" , 0" + '\n');
-        codigo_assembler.insert(posicion_data,ERROR_RECURSIVIDAD + " db \" No se admite recursividad de invocación a funciones \" , 0" + '\n');
+        codigo_assembler.insert(posicion_data, ERROR_OVERFLOW_PRODUCTO_ENTEROS
+                + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
+        codigo_assembler.insert(posicion_data,
+                ERROR_OVERFLOW_SUMA_FLOTANTES + " db \" La suma de los valores ha sobrepasado el rango \" , 0" + '\n');
+        codigo_assembler.insert(posicion_data,
+                ERROR_RECURSIVIDAD + " db \" No se admite recursividad de invocación a funciones \" , 0" + '\n');
         codigo_assembler.insert(posicion_data, "recursion_flag DW 0 \n");
         for (String lexema : TablaDeSimbolos.getInstance().getLexemas()) {
             String dato = getAtributos(lexema);
@@ -94,9 +101,8 @@ public class GeneracionCodigo {
             dato.append(lexema.replace(" ", "").replace("%", ""));
             dato.append(" DB ");
             dato.append(lexema.replace("%", "\"")).append(", 0");
-        }
-        else {
-            dato.append(lexema);
+        } else {
+            dato.append(lexema.replaceAll("\\:", "_"));
             String tipo = (String) TS.getAtributo(lexema, Constantes.TYPE);
             if (tipo != null) {
                 if (tipo.equals("INT"))
@@ -151,13 +157,29 @@ public class GeneracionCodigo {
             tokens.push(op2);
             tokens.push(op1);
             Logger.getInstance().logError("[Generacion codigo] Tipos incompatibles "
-                    + op1 + ": " + TS.getAtributo(op1, Constantes.TYPE) + "/" + op2 + ": " + TS.getAtributo(op2, Constantes.TYPE));
+                    + op1 + ": " + TS.getAtributo(op1, Constantes.TYPE) + "/" + op2 + ": "
+                    + TS.getAtributo(op2, Constantes.TYPE));
         } else {
             String tipo = (String) TS.getAtributo(op1, Constantes.TYPE);
+
+            Integer tipoTokenOp1 = (Integer) TS.getAtributo(op1, Constantes.TOKEN);
+
+            if (tipoTokenOp1 == Constantes.IDENTIFICADOR) {
+                op1 = op1.replaceAll("\\:", "_");
+            } else {
+                op1 = op1.replace("_i", "");
+            }
+
+            Integer tipoTokenOp2 = (Integer) TS.getAtributo(op2, Constantes.TOKEN);
+
+            if (tipoTokenOp2 == Constantes.IDENTIFICADOR) {
+                op2 = op2.replaceAll("\\:", "_");
+            } else {
+                op2 = op2.replace("_i", "");
+            }
+
             switch (tipo) {
                 case Constantes.TYPE_INT -> {
-                    op1 = op1.replace("_i", "");
-                    op2 = op2.replace("_i", "");
                     generarInstruccionesEnteros(op1, op2, token);
                 }
                 case Constantes.TYPE_FLOAT -> {
@@ -192,10 +214,13 @@ public class GeneracionCodigo {
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
                 codigo_assembler.append("MOV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
-                                                                             // REG AX
+                                                                              // REG AX
                 codigo_assembler.append("MULI AX, ").append(op2).append("\n");
-                /* Si la multiplicacion se excede de rango, se setea el flag OF en 1, luego la instruccion 'JNO' salta o no dependiendo
-                del valor del flag */
+                /*
+                 * Si la multiplicacion se excede de rango, se setea el flag OF en 1, luego la
+                 * instruccion 'JNO' salta o no dependiendo
+                 * del valor del flag
+                 */
                 codigo_assembler.append("JNO CONTINUAR_EJECUCION ").append('\n');
 
                 // Si hay overflow, muestro el error por pantalla y finalizo ejecucion
@@ -217,8 +242,8 @@ public class GeneracionCodigo {
                 codigo_assembler.append("IDIV BX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
                                                                  // = resultado
                 codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append('\n'); // MUEVO LO QUE
-                                                                                                      // QUEDO EN AX A
-                                                                                                      // VAR AUX
+                                                                                                       // QUEDO EN AX A
+                                                                                                       // VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
@@ -253,9 +278,9 @@ public class GeneracionCodigo {
             }
             case "=" -> {
                 codigo_assembler.append("MOV " + "AX, ").append(op1).append("\n"); // Guardo valor de la expresion de
-                                                                                  // lado derecho
+                                                                                   // lado derecho
                 codigo_assembler.append("MOV ").append(op2).append(", AX").append("\n"); // Almacento guardado en AX en
-                                                                                        // la var del lado izquierdo
+                                                                                         // la var del lado izquierdo
             }
         }
     }
@@ -280,7 +305,7 @@ public class GeneracionCodigo {
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
                 codigo_assembler.append("MOV EAX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
-                                                                              // REG EAX
+                                                                               // REG EAX
                 codigo_assembler.append("MUL EAX, ").append(op2).append("\n");
                 codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
@@ -288,13 +313,14 @@ public class GeneracionCodigo {
             case "/" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_ULONG);
                 codigo_assembler.append("XOR EDX, EDX").append('\n'); // INICIALIZO DX EN 0,
-                codigo_assembler.append("MOV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR DX:AX
+                codigo_assembler.append("MOV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR
+                                                                               // DX:AX
                 codigo_assembler.append("MOV EBX, ").append(op2).append('\n');
                 codigo_assembler.append("IDIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
                                                                   // = resultado
                 codigo_assembler.append("MOV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE
-                                                                                                       // QUEDO EN AX A
-                                                                                                       // VAR AUX
+                                                                                                        // QUEDO EN AX A
+                                                                                                        // VAR AUX
                 tokens.push(variable_auxiliar);
             }
             case "<" -> {
@@ -329,9 +355,9 @@ public class GeneracionCodigo {
             }
             case "=" -> {
                 codigo_assembler.append("MOV " + "EAX, ").append(op1).append("\n"); // Guardo valor de la expresion de
-                                                                                   // lado derecho
+                                                                                    // lado derecho
                 codigo_assembler.append("MOV ").append(op2).append(", EAX").append("\n"); // Almacento guardado en AX en
-                                                                                         // la var del lado izquierdo
+                                                                                          // la var del lado izquierdo
             }
         }
     }
