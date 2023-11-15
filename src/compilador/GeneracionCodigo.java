@@ -316,7 +316,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("MOV EAX, ").append(op1).append('\n'); // EL DIVIDENDO DEBE ESTAR EN EL PAR
                                                                                // DX:AX
                 codigo_assembler.append("MOV EBX, ").append(op2).append('\n');
-                codigo_assembler.append("IDIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
+                codigo_assembler.append("DIV EBX").append('\n'); // DIVIDO LO QUE HAY DE DX:AX POR BX -> DX = resto, AX
                                                                   // = resultado
                 codigo_assembler.append("MOV ").append(variable_auxiliar).append(", EAX").append('\n'); // MUEVO LO QUE
                                                                                                         // QUEDO EN AX A
