@@ -644,7 +644,7 @@ declaracion_clase:
 			}
 			else{
 				logger.logError("[Codigo Intermedio] No fueron implementados correctamente todos los metodos de la interfaz para la clase " + $1.sval);
-				polaca.eliminarPolaca($1.sval);
+				polaca.eliminarPolacaClase($1.sval);
 			}
 		}
 		
@@ -724,6 +724,9 @@ declaracion_funcion:
 		}
 		else 
 			genCodigoIntermedio.setPuedoDesapilar();
+		if (polaca.deboEliminarFuncion()){
+			polaca.eliminarPolacaFuncion($1.sval);
+		}
 	}
 ;
 
@@ -868,8 +871,12 @@ cuerpo_funcion:
 	'{' sentencia_return '}'|
 	'{' sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' |
 	'{' sentencia_return sentencias_funcion_inalcanzable '}' |
-	'{' sentencias_funcion '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
-	'{' '}' { logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
+	'{' sentencias_funcion '}' { 
+		polaca.eliminarFuncion();
+		logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
+	'{' '}' { 
+		polaca.eliminarFuncion();
+		logger.logError("[Parser] Se esperaba una sentencia RETURN al final de la funcion"); } |
  	sentencias_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); } |
 	sentencia_return '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); } |
 	sentencias_funcion sentencia_return sentencias_funcion_inalcanzable '}' { logger.logError("[Parser] Se esperaba un simbolo '{' en el cuerpo de la funcion"); } |

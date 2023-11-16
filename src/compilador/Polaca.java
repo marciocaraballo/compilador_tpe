@@ -12,6 +12,7 @@ public class Polaca {
     private static Polaca instance = null;
     GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
     int ultimo_desapilado;
+    boolean eliminar_polaca = false;
 
     public static Polaca getInstance() {
         if (instance == null) {
@@ -132,13 +133,30 @@ public class Polaca {
         return polacaCompleta;
     }
 
-    public void eliminarPolaca(String lexema){
+    public void eliminarPolacaClase(String lexema){
         String nombre_clase = lexema + genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema);
         HashSet<String> metodos = (HashSet<String>) TablaDeSimbolos.getInstance().getAtributo(nombre_clase, Constantes.METODOS);
         for (String m : metodos){
             polaca.remove(genCodigoIntermedio.generarAmbito() + ":" + m);
             marcas_label.remove(genCodigoIntermedio.generarAmbito() + ":" + m);
         }
+    }
+
+    public void eliminarPolacaFuncion(String lexema){
+        String nombre_funcion = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema) + ":" + lexema;
+        Logger.getInstance().logWarning(nombre_funcion);
+        polaca.remove(nombre_funcion);
+        marcas_label.remove(nombre_funcion);
+    }
+
+    public void eliminarFuncion(){
+        eliminar_polaca = true;
+    }
+
+    public boolean deboEliminarFuncion(){
+        boolean retorno = eliminar_polaca;
+        eliminar_polaca = false;
+        return retorno;
     }
 
     public Set<String> getNombresPolaca() {
