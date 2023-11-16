@@ -19,7 +19,7 @@ public class Constantes {
     public static final String METODOS = "metodos";
     public static final String NIVELES_HERENCIA = "niveles_herencia";
     public static final String ATRIBUTOS = "atributos";
-    public static final String VAR_REAL_NOMBRE = "variable_real_nombre";
+    public static final String VAR_ASSEMBLER_NOMBRE = "variable_assembler_nombre";
     /* Valores de atributos */
     public static final String NOMBRE_PARAMETRO = "nombre_parametro";
     public static final String NOMBRE_METODO = "nombre_metodo";

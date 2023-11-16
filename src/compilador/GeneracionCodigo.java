@@ -124,7 +124,7 @@ public class GeneracionCodigo {
             if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CONSTANTE) &&
                     TS.getAtributo(lexema, Constantes.TYPE).equals(Constantes.TYPE_FLOAT)) {
 
-                String varRealAsociada = (String) TS.getAtributo(lexema, Constantes.VAR_REAL_NOMBRE);
+                String varRealAsociada = (String) TS.getAtributo(lexema, Constantes.VAR_ASSEMBLER_NOMBRE);
 
                 if (varRealAsociada != null) {
                     dato.append(varRealAsociada + " DT " + lexema);
@@ -408,16 +408,16 @@ public class GeneracionCodigo {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
 
                 if (TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-                    TS.agregarAtributo(op2, Constantes.VAR_REAL_NOMBRE, "variable_real_" + op2.replace(".", "_"));
-                    codigo_assembler.append("FLD ").append(TS.getAtributo(op2, Constantes.VAR_REAL_NOMBRE))
+                    TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op2.replace(".", "_"));
+                    codigo_assembler.append("FLD ").append(TS.getAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE))
                             .append('\n');
                 } else {
                     codigo_assembler.append("FLD ").append(op2).append('\n');
                 }
 
                 if (TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-                    TS.agregarAtributo(op1, Constantes.VAR_REAL_NOMBRE, "variable_real_" + op1.replace(".", "_"));
-                    codigo_assembler.append("FLD ").append(TS.getAtributo(op1, Constantes.VAR_REAL_NOMBRE))
+                    TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op1.replace(".", "_"));
+                    codigo_assembler.append("FLD ").append(TS.getAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE))
                             .append('\n');
                 } else {
                     codigo_assembler.append("FLD ").append(op1).append('\n');

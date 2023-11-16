@@ -6,10 +6,12 @@ Atributo: tipo Valor: FLOAT
 Atributo: token Valor: 258
 Lexema: ca:main
 Atributo: uso Valor: nombre_clase
-Atributo: metodos Valor: []
+Atributo: metodos Valor: [m]
 Atributo: atributos Valor: [a]
 Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
+Lexema: % LLAME A m() %
+Atributo: token Valor: 259
 Lexema: 1_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258
@@ -20,6 +22,10 @@ Atributo: token Valor: 257
 Lexema: a:main:c1
 Atributo: uso Valor: atributo_variable
 Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: m:main:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
 Atributo: token Valor: 257
 Lexema: 3_i
 Atributo: tipo Valor: INT

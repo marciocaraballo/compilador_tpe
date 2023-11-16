@@ -4,6 +4,10 @@
 	 *{ Implementar una INTERFACE, se reconoce como valida }*
     CLASS ca {
         INT a,
+        VOID m() { 
+        	PRINT % LLAME A m() %,
+        	RETURN, 
+        }
     }
     
     ca c1,
