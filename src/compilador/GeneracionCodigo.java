@@ -415,26 +415,22 @@ public class GeneracionCodigo {
     private void generarInstruccionesFlotantes(String op1, String op2, String operador) {
         String variable_auxiliar;
 
+        if (TS.has(op2) && TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
+            TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op2.replace(".", "_"));
+            op2 = "variable_real_" + op2.replace(".", "_");
+        }
+
+        if (TS.has(op1) && TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
+            TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op1.replace(".", "_"));
+            op1 = "variable_real_" + op1.replace(".", "_");
+        }
+
         switch (operador) {
             case "+" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
 
-                if (TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-                    TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op2.replace(".", "_"));
-                    codigo_assembler.append("FLD ").append(TS.getAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE))
-                            .append('\n');
-                } else {
-                    codigo_assembler.append("FLD ").append(op2).append('\n');
-                }
-
-                if (TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-                    TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op1.replace(".", "_"));
-                    codigo_assembler.append("FLD ").append(TS.getAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE))
-                            .append('\n');
-                } else {
-                    codigo_assembler.append("FLD ").append(op1).append('\n');
-                }
-
+                codigo_assembler.append("FLD ").append(op2).append('\n');
+                codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
                 // codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
                 // codigo_assembler.append("FCOMPP ").append('\n');

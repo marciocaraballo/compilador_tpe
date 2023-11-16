@@ -1,10 +1,13 @@
-NOMBRE POLACA: :main:ca:m
-[0] % LLAME A m() % false
-[1] PRINT false
-[2] RETURN false
-----------------------------------------------------------
 NOMBRE POLACA: :main
-[0] :main:ca:m false
-[1] CALL false
-[2] END false
+[0] 1.0 false
+[1] 2.0 false
+[2] - false
+[3] a:main false
+[4] = false
+[5] a:main false
+[6] 1.0 false
+[7] + false
+[8] a:main false
+[9] = false
+[10] END false
 ----------------------------------------------------------

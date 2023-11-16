@@ -1,16 +1,9 @@
 *{ Prueba de codigo de CLASS e INTERFACE }*
 {
 
-	 *{ Implementar una INTERFACE, se reconoce como valida }*
-    CLASS ca {
-        INT a,
-        VOID m() { 
-        	PRINT % LLAME A m() %,
-        	RETURN, 
-        }
-    }
-    
-    ca c1,
-    
-    c1.m(),
+	FLOAT a,
+	
+	a = 1.0 - 2.0,
+	
+	a = a + 1.0,
 }

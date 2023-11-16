@@ -7,8 +7,11 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-variable_print_0 DB " LLAME A m() ", 0
-
+@aux0 DT ?
+@aux1 DT ?
+a_main DT ?
+variable_real_2_0 DT 2.0
+variable_real_1_0 DT 1.0
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -17,18 +20,18 @@ maximo_rango_positivo DT 3.40282347E38
 aux_mem DW ?
 .code
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
-main_ca_m:
-CMP recursion_flag, 1
-JNE CONTINUAR_EJECUCION 
-invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
-invoke ExitProcess, 0
-CONTINUAR_EJECUCION: 
-MOV recursion_flag, 1
-invoke MessageBox, NULL, addr variable_print_0, addr variable_print_0, MB_OK
-RET
-MOV recursion_flag, 0
-end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
-CALL main_ca_m
+FLD variable_real_2_0
+FLD variable_real_1_0
+FSUB 
+FSTP @aux0
+FLD @aux0
+FSTP a_main
+FLD variable_real_1_0
+FLD a_main
+FADD 
+CONTINUAR_EJECUCION: FSTP @aux1
+FLD @aux1
+FSTP a_main
 invoke ExitProcess, 0
 end main
