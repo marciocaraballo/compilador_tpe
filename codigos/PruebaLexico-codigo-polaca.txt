@@ -1,0 +1,10 @@
+NOMBRE POLACA: :main
+[0] 2.0 false
+[1] 2.0 false
+[2] + false
+[3] 1.0 false
+[4] + false
+[5] d:main false
+[6] = false
+[7] END false
+----------------------------------------------------------

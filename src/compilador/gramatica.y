@@ -1119,11 +1119,12 @@ public static void main(String[] args) {
 	        
 	    out.saveFile("codigo-lexico.txt", logger.getLexico());
 			out.saveFile("codigo-sintactico.txt", logger.getSintactico());
+      out.saveFile("codigo-polaca.txt", polaca.showPolaca());
 			out.saveFile("tabla-de-simbolos.txt", TS.print());
 
-			polaca.showPolaca();
+      GeneracionCodigo gc = new GeneracionCodigo();
 
-			GeneracionCodigo gc = new GeneracionCodigo();
+      out.saveFile("codigo-assembler.txt", gc.showAssembler());
 		}
 	}
 }

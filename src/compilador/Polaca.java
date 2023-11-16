@@ -46,11 +46,11 @@ public class Polaca {
         return ultimo_desapilado;
     }
 
-    public int getPosicion(){
+    public int getPosicion() {
         return ultimo_desapilado;
     }
 
-    public void crearPolacaAmbitoNuevo(String identificador){
+    public void crearPolacaAmbitoNuevo(String identificador) {
         ArrayList<String> polaca_auxiliar = new ArrayList<>();
         Stack<Integer> pila_auxiliar = new Stack<>();
         ArrayList<Boolean> marcas_aux = new ArrayList<>();
@@ -62,7 +62,7 @@ public class Polaca {
     public void completarPasoIncompleto() {
         int posicion = desapilar();
 
-        ArrayList<String>  polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
+        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(posicion);
         polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));
 
@@ -80,12 +80,11 @@ public class Polaca {
         posicion_aux.add(posicion, true);
     }
 
-    public void completarPasoIncompletoInvocacion(String etiqueta){
+    public void completarPasoIncompletoInvocacion(String etiqueta) {
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(polaca_auxiliar.size() - 2);
         polaca_auxiliar.add(polaca_auxiliar.size() - 1, etiqueta);
     }
-
 
     public int polacaSize() {
         return polaca.get(genCodigoIntermedio.generarAmbito().toString()).size();
@@ -96,11 +95,10 @@ public class Polaca {
         agregarElemento(aux);
     }
 
-
-    public void removeElementos(){
+    public void removeElementos() {
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         int cantidad_elementos = polacaSize() - getContador();
-        if (polacaSize() + 1> cantidad_elementos) {
+        if (polacaSize() + 1 > cantidad_elementos) {
             polaca_auxiliar.subList(cantidad_elementos, polacaSize()).clear();
         }
     }
@@ -117,24 +115,30 @@ public class Polaca {
         return contador;
     }
 
-
-    public void showPolaca() {
+    public String showPolaca() {
+        String polacaCompleta = "";
         for (String nombre_polaca : polaca.keySet()) {
+            polacaCompleta += "NOMBRE POLACA: " + nombre_polaca + "\n";
             Logger.getInstance().logSuccess("NOMBRE POLACA: " + nombre_polaca);
             for (int i = 0; i < polaca.get(nombre_polaca).size(); i++) {
-                System.out.println("[" + i + "] " + polaca.get(nombre_polaca).get(i) + " " + marcas_label.get(nombre_polaca).get(i));
+                String polacaElement = "[" + i + "] " + polaca.get(nombre_polaca).get(i) + " "
+                        + marcas_label.get(nombre_polaca).get(i);
+                polacaCompleta += polacaElement + "\n";
+                System.out.println(polacaElement);
             }
+            polacaCompleta += "----------------------------------------------------------" + "\n";
             System.out.println("----------------------------------------------------------");
         }
+        return polacaCompleta;
     }
 
-    public Set<String> getNombresPolaca(){
+    public Set<String> getNombresPolaca() {
         return polaca.keySet();
     }
-    public ArrayList<String> getPolaca(String nombre){
+
+    public ArrayList<String> getPolaca(String nombre) {
         return polaca.get(nombre);
     }
-
 
     public boolean esLabel(int i, String nombre_polaca) {
         return marcas_label.get(nombre_polaca).get(i);

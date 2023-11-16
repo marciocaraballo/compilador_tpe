@@ -8,7 +8,6 @@ public class GeneracionCodigo {
     private TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
     private StringBuilder codigo_assembler = new StringBuilder();
     private int numero_var_auxiliar = 0;
-    private int numero_var_real = 1;
     private String tipo_salto;
 
     private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
@@ -46,7 +45,6 @@ public class GeneracionCodigo {
             }
         }
         generarData();
-        showAssembler();
     }
 
     private void generarInstruccionesChequeoRecursividad() {
@@ -504,7 +502,8 @@ public class GeneracionCodigo {
         return retorno;
     }
 
-    public void showAssembler() {
+    public String showAssembler() {
         System.out.println(codigo_assembler);
+        return codigo_assembler.toString();
     }
 }
