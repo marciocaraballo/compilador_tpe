@@ -7,9 +7,8 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-@aux0 DW ?
-a_main DW ?
-null DT 1.0
+a_main_c1 DW ?
+
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -19,13 +18,7 @@ aux_mem DW ?
 .code
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
-MOV AX, -2500
-IMUL AX, 2
-JNO CONTINUAR_EJECUCION 
-invoke MessageBox, NULL, addr overflow_enteros, addr overflow_enteros, MB_OK
-invoke ExitProcess, 0
-CONTINUAR_EJECUCION:MOV @aux0, AX
-MOV AX, @aux0
-MOV a_main, AX
+MOV AX, 3
+MOV a_main_c1, AX
 invoke ExitProcess, 0
 end main

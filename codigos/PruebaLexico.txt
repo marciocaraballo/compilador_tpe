@@ -1,6 +1,12 @@
+*{ Prueba de codigo de CLASS e INTERFACE }*
 {
 
-    INT a,
+	 *{ Implementar una INTERFACE, se reconoce como valida }*
+    CLASS ca {
+        INT a,
+    }
     
-    a = -25000_i * 2_i,
+    ca c1,
+    
+    c1.a = 3_i,
 }

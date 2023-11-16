@@ -1,8 +1,6 @@
 NOMBRE POLACA: :main
-[0] -2500_i false
-[1] 2_i false
-[2] * false
-[3] a:main false
-[4] = false
-[5] END false
+[0] 3_i false
+[1] a:main:c1 false
+[2] = false
+[3] END false
 ----------------------------------------------------------

@@ -1275,11 +1275,11 @@ public static void main(String[] args) {
 	    out.saveFile("codigo-lexico.txt", logger.getLexico());
 			out.saveFile("codigo-sintactico.txt", logger.getSintactico());
       out.saveFile("codigo-polaca.txt", polaca.showPolaca());
-			out.saveFile("tabla-de-simbolos.txt", TS.print());
 
       GeneracionCodigo gc = new GeneracionCodigo();
 
       out.saveFile("codigo-assembler.txt", gc.showAssembler());
+			out.saveFile("tabla-de-simbolos.txt", TS.print());
 		}
 	}
 }
@@ -2069,7 +2069,7 @@ case 148:
 					String nuevoLexema = partes[1] + ambito + ":" + partes[0];
 
 					TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
-					TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
+					TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO_VARIABLE);
 					String tipoInstancia = (String) TS.getAtributo(partes[0] + ambito, Constantes.TYPE);
 					String tipoAtributoInstancia = (String) TS.getAtributo(partes[1] + ambito + ":" + tipoInstancia, Constantes.TYPE);
 					TS.agregarAtributo(nuevoLexema, Constantes.TYPE, tipoAtributoInstancia);
@@ -2081,7 +2081,7 @@ case 148:
 					if (partes.length == 3) {
 						String nuevoLexema = partes[2] + ambito + ":" + partes[0] + ":" + partes[1];
 						TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
-						TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
+						TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO_VARIABLE);
 						TS.agregarAtributo(nuevoLexema, Constantes.TYPE, (String) TS.getAtributo(partes[2] + ambito + ":" + partes[1], Constantes.TYPE));
 						polaca.agregarElemento(nuevoLexema);
 						polaca.agregarElemento("=");
@@ -2089,7 +2089,7 @@ case 148:
 						/** c1.cb.cc.b */
 						String nuevoLexema = partes[3] + ambito + ":" + partes[0] + ":" + partes[1] + ":" + partes[2];
 						TS.putLexema(nuevoLexema, Constantes.IDENTIFICADOR);
-						TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO);
+						TS.agregarAtributo(nuevoLexema, Constantes.USE, Constantes.USO_ATRIBUTO_VARIABLE);
 						TS.agregarAtributo(nuevoLexema, Constantes.TYPE, (String) TS.getAtributo(partes[3] + ambito + ":" + partes[2], Constantes.TYPE));
 						polaca.agregarElemento(nuevoLexema);
 						polaca.agregarElemento("=");
