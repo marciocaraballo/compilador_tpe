@@ -1,30 +1,24 @@
 {
     INT a,
     INT b,
-
-    VOID f2(){
-        a = 3_i,
-        RETURN,
+    
+    CLASS ca {
+    	VOID m() {
+    	
+    		a = 1_i,
+    		b = 5_i,
+    		
+    		DO {
+    			PRINT "% ESTOY EN M PAPU %",
+    			a = a + 1_i,
+    		} WHILE (a < b),
+    	
+    		RETURN,
+    	}
     }
+    
+    ca c1,
+    
+    c1.m(),
 
-    VOID f1(){
-        VOID f3(){
-        	PRINT % ESTOY EN F1:F3%,
-            RETURN,
-        }
-        f3(),
-        a = 2_i,
-        RETURN,
-    }
-
-    VOID mae(){
-    	PRINT % ESTOY EN MAE:F3%,
-        a = 999_i,
-        RETURN,
-    }
-
-    b = 4_i,
-
-	f1(),
-	mae(),
 }

@@ -1,16 +1,20 @@
 [Success] Linea 2: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
-[Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 8: [Parser] Declaracion de funcion detectado
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 9: [Parser] Asignacion detectada
 [Success] Linea 12: [Parser] Sentencia PRINT detectada
-[Success] Linea 14: [Parser] Declaracion de funcion detectado
-[Success] Linea 15: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 16: [Parser] Asignacion detectada
-[Success] Linea 18: [Parser] Declaracion de funcion detectado
-[Success] Linea 21: [Parser] Sentencia PRINT detectada
-[Success] Linea 22: [Parser] Asignacion detectada
-[Success] Linea 24: [Parser] Declaracion de funcion detectado
-[Success] Linea 26: [Parser] Asignacion detectada
-[Success] Linea 28: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 29: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 30: [Parser] Programa correcto detectado
+[WARNING] Linea 12: QUe esta apilando esto? 7
+[Success] Linea 13: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 13: [Parser] Asignacion detectada
+[Success] Linea 14: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 14: [Codigo Intermedio] El identificador b esta declarado
+[WARNING] Linea 14: QUe esta apilando esto? 17
+[Success] Linea 14: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 17: [Parser] Declaracion de funcion detectado
+[Success] Linea 18: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 20: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 20: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 22: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 22: [Codigo Intermedio] La cadena de llamadas c1.m es valida 
+[Success] Linea 22: [Codigo Intermedio] Se llamo al metodo c1.m correctamente sin parametro
+[Success] Linea 24: [Parser] Programa correcto detectado
