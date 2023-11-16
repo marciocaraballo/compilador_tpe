@@ -7,11 +7,9 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-@aux0 DT ?
-variable_real_1 DT 1.17549435E-38
-a_main DT ?
+a_main DW ?
 
-variable_real_0 DT 0.0
+b_main DW ?
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -21,29 +19,55 @@ maximo_rango_positivo DT 3.40282347E+38
 aux_mem DW ?
 .code
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
-main:
-FLD variable_real_0
-FLD variable_real_1
-FADD 
-FSTP @aux0
-FLD @aux0
-FLD maximo_rango_positivo
-FCOMPP
-FSTSW AX
-SAHF
-JB ERROR_SUMA_FLOTANTE
-FLD @aux0
-FLD minimo_rango_positivo
-FCOMPP
-FSTSW AX
-SAHF
-JA ERROR_SUMA_FLOTANTE
-JMP FIN_SUMA
-ERROR_SUMA_FLOTANTE:
-invoke MessageBox, NULL, addr overflow_flotantes, addr overflow_flotantes, MB_OK
+main_mae:
+CMP recursion_flag, 1
+JNE CONTINUAR_EJECUCION 
+invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
-FIN_SUMA:
-FLD @aux0
-FSTP a_main
+CONTINUAR_EJECUCION: 
+MOV recursion_flag, 1
+MOV AX, 999
+MOV a_main, AX
+RET
+MOV recursion_flag, 0
+end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main_f1_f3:
+CMP recursion_flag, 2
+JNE CONTINUAR_EJECUCION 
+invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
+invoke ExitProcess, 0
+CONTINUAR_EJECUCION: 
+MOV recursion_flag, 2
+RET
+MOV recursion_flag, 0
+end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main_f1:
+CMP recursion_flag, 3
+JNE CONTINUAR_EJECUCION 
+invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
+invoke ExitProcess, 0
+CONTINUAR_EJECUCION: 
+MOV recursion_flag, 3
+CALL main_f1_f3
+MOV AX, 2
+MOV a_main, AX
+RET
+MOV recursion_flag, 0
+end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main_f2:
+CMP recursion_flag, 4
+JNE CONTINUAR_EJECUCION 
+invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
+invoke ExitProcess, 0
+CONTINUAR_EJECUCION: 
+MOV recursion_flag, 4
+MOV AX, 3
+MOV a_main, AX
+RET
+MOV recursion_flag, 0
+end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main:
+MOV AX, 4
+MOV b_main, AX
 invoke ExitProcess, 0
 end main

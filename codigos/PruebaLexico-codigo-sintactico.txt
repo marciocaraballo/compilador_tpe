@@ -1,3 +1,12 @@
-[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 2: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 6: [Parser] Asignacion detectada
-[Success] Linea 7: [Parser] Programa correcto detectado
+[Success] Linea 8: [Parser] Declaracion de funcion detectado
+[Success] Linea 13: [Parser] Declaracion de funcion detectado
+[Success] Linea 14: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 15: [Parser] Asignacion detectada
+[Success] Linea 17: [Parser] Declaracion de funcion detectado
+[Success] Linea 20: [Parser] Asignacion detectada
+[Success] Linea 22: [Parser] Declaracion de funcion detectado
+[Success] Linea 24: [Parser] Asignacion detectada
+[Success] Linea 26: [Parser] Programa correcto detectado

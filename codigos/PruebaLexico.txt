@@ -1,7 +1,26 @@
-*{ Prueba de codigo de CLASS e INTERFACE }*
 {
+    INT a,
+    INT b,
 
-	FLOAT a,
-	
-	a = 1.17549435E-38 + 0.0,
+    VOID f2(){
+        a = 3_i,
+        RETURN,
+    }
+
+    VOID f1(){
+        VOID f3(){
+            RETURN,
+        }
+        f3(),
+        a = 2_i,
+        RETURN,
+    }
+
+    VOID mae(){
+        a = 999_i,
+        RETURN,
+    }
+
+    b = 4_i,
+
 }
