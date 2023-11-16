@@ -132,6 +132,15 @@ public class Polaca {
         return polacaCompleta;
     }
 
+    public void eliminarPolaca(String lexema){
+        String nombre_clase = lexema + genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema);
+        HashSet<String> metodos = (HashSet<String>) TablaDeSimbolos.getInstance().getAtributo(nombre_clase, Constantes.METODOS);
+        for (String m : metodos){
+            polaca.remove(genCodigoIntermedio.generarAmbito() + ":" + m);
+            marcas_label.remove(genCodigoIntermedio.generarAmbito() + ":" + m);
+        }
+    }
+
     public Set<String> getNombresPolaca() {
         return polaca.keySet();
     }

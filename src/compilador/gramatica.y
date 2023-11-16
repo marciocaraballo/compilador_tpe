@@ -474,7 +474,8 @@ sentencia_asignacion:
 
 			if (!ambito.isEmpty()) {
 				if (genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.USO_VARIABLE) ||
-					genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.NOMBRE_PARAMETRO)) {
+					genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.NOMBRE_PARAMETRO) ||
+					genCodigoIntermedio.verificaUsoCorrectoIdentificador($1.sval + ambito, Constantes.USO_ATRIBUTO)) {
 						polaca.agregarElemento($1.sval + ambito);
 						polaca.agregarElemento($2.sval);
 						TS.agregarAtributo($1.sval + ambito, Constantes.COMPROBACION_USO, true);
@@ -643,6 +644,7 @@ declaracion_clase:
 			}
 			else{
 				logger.logError("[Codigo Intermedio] No fueron implementados correctamente todos los metodos de la interfaz para la clase " + $1.sval);
+				polaca.eliminarPolaca($1.sval);
 			}
 		}
 		
@@ -1003,7 +1005,9 @@ factor:
 
 			String identificadorAmbito = $1.sval + genCodigoIntermedio.generarAmbito();
 
-			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_VARIABLE)) {
+			if (!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_VARIABLE) ||
+				!genCodigoIntermedio.verificaUsoCorrectoIdentificador(identificadorAmbito, Constantes.USO_ATRIBUTO)
+			) {
 				logger.logError("[Codigo Intermedio] El identificador " + $1.sval + " no es una variable");
 			} else {
 				polaca.agregarElemento(identificadorAmbito);
