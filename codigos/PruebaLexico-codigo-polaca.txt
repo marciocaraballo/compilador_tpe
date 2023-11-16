@@ -2,7 +2,11 @@ NOMBRE POLACA: :main
 [0] 4_i false
 [1] b:main false
 [2] = false
-[3] END false
+[3] :main:f1 false
+[4] CALL false
+[5] :main:mae false
+[6] CALL false
+[7] END false
 ----------------------------------------------------------
 NOMBRE POLACA: :main:f1
 [0] :main:f1:f3 false
@@ -13,10 +17,12 @@ NOMBRE POLACA: :main:f1
 [5] RETURN false
 ----------------------------------------------------------
 NOMBRE POLACA: :main:mae
-[0] 999_i false
-[1] a:main false
-[2] = false
-[3] RETURN false
+[0] % ESTOY EN MAE:F3% false
+[1] PRINT false
+[2] 999_i false
+[3] a:main false
+[4] = false
+[5] RETURN false
 ----------------------------------------------------------
 NOMBRE POLACA: :main:f2
 [0] 3_i false
@@ -25,5 +31,7 @@ NOMBRE POLACA: :main:f2
 [3] RETURN false
 ----------------------------------------------------------
 NOMBRE POLACA: :main:f1:f3
-[0] RETURN false
+[0] % ESTOY EN F1:F3% false
+[1] PRINT false
+[2] RETURN false
 ----------------------------------------------------------

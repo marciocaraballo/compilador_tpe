@@ -2,11 +2,15 @@
 [Success] Linea 3: [Parser] Declaracion de lista de variables detectado
 [Success] Linea 6: [Parser] Asignacion detectada
 [Success] Linea 8: [Parser] Declaracion de funcion detectado
-[Success] Linea 13: [Parser] Declaracion de funcion detectado
-[Success] Linea 14: [Parser] Invocacion de funcion sin expresion detectada
-[Success] Linea 15: [Parser] Asignacion detectada
-[Success] Linea 17: [Parser] Declaracion de funcion detectado
-[Success] Linea 20: [Parser] Asignacion detectada
-[Success] Linea 22: [Parser] Declaracion de funcion detectado
-[Success] Linea 24: [Parser] Asignacion detectada
-[Success] Linea 26: [Parser] Programa correcto detectado
+[Success] Linea 12: [Parser] Sentencia PRINT detectada
+[Success] Linea 14: [Parser] Declaracion de funcion detectado
+[Success] Linea 15: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 16: [Parser] Asignacion detectada
+[Success] Linea 18: [Parser] Declaracion de funcion detectado
+[Success] Linea 21: [Parser] Sentencia PRINT detectada
+[Success] Linea 22: [Parser] Asignacion detectada
+[Success] Linea 24: [Parser] Declaracion de funcion detectado
+[Success] Linea 26: [Parser] Asignacion detectada
+[Success] Linea 28: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 29: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 30: [Parser] Programa correcto detectado

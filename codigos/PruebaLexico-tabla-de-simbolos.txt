@@ -10,6 +10,9 @@ Atributo: token Valor: 257
 Lexema: 1_ul
 Atributo: tipo Valor: ULONG
 Atributo: token Valor: 258
+Lexema: % ESTOY EN MAE:F3%
+Atributo: variable_assembler_nombre Valor: variable_print_0
+Atributo: token Valor: 259
 Lexema: 1.0
 Atributo: tipo Valor: FLOAT
 Atributo: token Valor: 258
@@ -42,6 +45,9 @@ Atributo: token Valor: 258
 Lexema: 999_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258
+Lexema: % ESTOY EN F1:F3%
+Atributo: variable_assembler_nombre Valor: variable_print_1
+Atributo: token Valor: 259
 Lexema: 4_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258

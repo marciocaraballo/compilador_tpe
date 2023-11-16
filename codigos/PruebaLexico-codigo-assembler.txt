@@ -7,8 +7,10 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
+variable_print_1 DB " ESTOY EN F1:F3", 0
 a_main DW ?
 
+variable_print_0 DB " ESTOY EN MAE:F3", 0
 b_main DW ?
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
@@ -21,53 +23,57 @@ aux_mem DW ?
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main_mae:
 CMP recursion_flag, 1
-JNE CONTINUAR_EJECUCION 
+JNE CONTINUAR_EJECUCION_MAIN_MAE 
 invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
-CONTINUAR_EJECUCION: 
+CONTINUAR_EJECUCION_MAIN_MAE: 
 MOV recursion_flag, 1
+invoke MessageBox, NULL, addr variable_print_0, addr variable_print_0, MB_OK
 MOV AX, 999
 MOV a_main, AX
 RET
 MOV recursion_flag, 0
-end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main_f1_f3:
 CMP recursion_flag, 2
-JNE CONTINUAR_EJECUCION 
+JNE CONTINUAR_EJECUCION_MAIN_F1_F3 
 invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
-CONTINUAR_EJECUCION: 
+CONTINUAR_EJECUCION_MAIN_F1_F3: 
 MOV recursion_flag, 2
+invoke MessageBox, NULL, addr variable_print_1, addr variable_print_1, MB_OK
 RET
 MOV recursion_flag, 0
-end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main_f1:
 CMP recursion_flag, 3
-JNE CONTINUAR_EJECUCION 
+JNE CONTINUAR_EJECUCION_MAIN_F1 
 invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
-CONTINUAR_EJECUCION: 
+CONTINUAR_EJECUCION_MAIN_F1: 
 MOV recursion_flag, 3
 CALL main_f1_f3
 MOV AX, 2
 MOV a_main, AX
 RET
 MOV recursion_flag, 0
-end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main_f2:
 CMP recursion_flag, 4
-JNE CONTINUAR_EJECUCION 
+JNE CONTINUAR_EJECUCION_MAIN_F2 
 invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
-CONTINUAR_EJECUCION: 
+CONTINUAR_EJECUCION_MAIN_F2: 
 MOV recursion_flag, 4
 MOV AX, 3
 MOV a_main, AX
 RET
 MOV recursion_flag, 0
-end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
 MOV AX, 4
 MOV b_main, AX
+CALL main_f1
+CALL main_mae
 invoke ExitProcess, 0
 end main

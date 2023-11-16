@@ -24,13 +24,13 @@ public class GeneracionCodigo {
         generarCabecera();
 
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
-         // generadas
+            // generadas
             codigo_assembler
                     .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
 
             codigo_assembler.append(nombre_polaca.substring(1).replace(":", "_")).append(":").append('\n');
             if (!nombre_polaca.equals(":main")) {
-                generarInstruccionesChequeoRecursividad();
+                generarInstruccionesChequeoRecursividad(nombre_polaca.substring(1).replace(":", "_"));
             }
             int i = 0;
             for (String token : Polaca.getInstance().getPolaca(nombre_polaca)) {
@@ -52,15 +52,15 @@ public class GeneracionCodigo {
         generarData();
     }
 
-    private void generarInstruccionesChequeoRecursividad() {
+    private void generarInstruccionesChequeoRecursividad(String nombre_polaca_parsed) {
         codigo_assembler.append("CMP recursion_flag, ").append(flag_recursion).append('\n');
-        codigo_assembler.append("JNE CONTINUAR_EJECUCION \n"); // Si el flag de recursion es distinto de
+        codigo_assembler.append("JNE CONTINUAR_EJECUCION_" + nombre_polaca_parsed.toUpperCase() + " \n"); // Si el flag de recursion es distinto de
                                                                // 'flag_recursion' continuo la ejecucion
         codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_RECURSIVIDAD)
                 .append(", addr ").append(ERROR_RECURSIVIDAD)
                 .append(", MB_OK").append('\n');
         codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-        codigo_assembler.append("CONTINUAR_EJECUCION: ").append('\n');
+        codigo_assembler.append("CONTINUAR_EJECUCION_" + nombre_polaca_parsed.toUpperCase()+ ": ").append('\n');
         codigo_assembler.append("MOV recursion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion
                                                                                              // esta siendo ejecutada
         flag_recursion += 1;

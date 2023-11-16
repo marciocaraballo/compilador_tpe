@@ -9,6 +9,7 @@
 
     VOID f1(){
         VOID f3(){
+        	PRINT % ESTOY EN F1:F3%,
             RETURN,
         }
         f3(),
@@ -17,10 +18,13 @@
     }
 
     VOID mae(){
+    	PRINT % ESTOY EN MAE:F3%,
         a = 999_i,
         RETURN,
     }
 
     b = 4_i,
 
+	f1(),
+	mae(),
 }
