@@ -8,6 +8,7 @@ public class GeneracionCodigo {
     private TablaDeSimbolos TS = TablaDeSimbolos.getInstance();
     private StringBuilder codigo_assembler = new StringBuilder();
     private int numero_var_auxiliar = 0;
+    private int numero_var_print = 0;
     private String tipo_salto;
 
     private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
@@ -116,7 +117,10 @@ public class GeneracionCodigo {
         }
         StringBuilder dato = new StringBuilder();
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA)) {
-            dato.append(lexema.replace(" ", "").replace("%", ""));
+
+            String variableNombre = (String) TS.getAtributo(lexema, Constantes.VAR_ASSEMBLER_NOMBRE);
+
+            dato.append(variableNombre);
             dato.append(" DB ");
             dato.append(lexema.replace("%", "\"")).append(", 0");
         } else {
@@ -161,9 +165,16 @@ public class GeneracionCodigo {
     }
 
     private void generarImpresionPantalla() {
-        String mje = tokens.pop();
-        mje = mje.replace("%", "").replace(" ", "");
-        codigo_assembler.append("invoke MessageBox, NULL, addr ").append(mje).append(", addr ").append(mje)
+        String cadena = tokens.pop();
+
+        String variableNombre = "variable_print_" + numero_var_print;
+        numero_var_print++;
+
+        TS.agregarAtributo(cadena, Constantes.VAR_ASSEMBLER_NOMBRE, variableNombre);
+
+        // cadena = cadena.replace("%", "").replace(" ", "");
+        codigo_assembler.append("invoke MessageBox, NULL, addr ").append(variableNombre).append(", addr ")
+                .append(variableNombre)
                 .append(", MB_OK").append('\n');
     }
 

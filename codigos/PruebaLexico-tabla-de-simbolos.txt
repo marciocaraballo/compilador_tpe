@@ -11,6 +11,7 @@ Atributo: atributos Valor: [a]
 Atributo: niveles_herencia Valor: 0
 Atributo: token Valor: 257
 Lexema: % LLAME A m() %
+Atributo: variable_assembler_nombre Valor: variable_print_0
 Atributo: token Valor: 259
 Lexema: 1_i
 Atributo: tipo Valor: INT
