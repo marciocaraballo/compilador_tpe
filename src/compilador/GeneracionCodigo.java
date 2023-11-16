@@ -46,9 +46,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
             } else {
-                codigo_assembler.append("MOV recursion_flag, 0").append('\n'); // Indico que la funcion ya termino su
-                                                                               // ejecucion
-                codigo_assembler.append("end");
+                codigo_assembler.append("MOV recursion_flag, 0").append('\n');
             }
         }
         generarData();
