@@ -4,8 +4,7 @@ NOMBRE POLACA: :main:ca:m
 [2] RETURN false
 ----------------------------------------------------------
 NOMBRE POLACA: :main
-[0] 3_i false
-[1] a:main:c1 false
-[2] = false
-[3] END false
+[0] :main:ca:m false
+[1] CALL false
+[2] END false
 ----------------------------------------------------------

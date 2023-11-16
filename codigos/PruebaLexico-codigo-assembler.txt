@@ -7,7 +7,6 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-a_main_c1 DW ?
 variable_print_0 DB " LLAME A m() ", 0
 
 recursion_flag DW 0 
@@ -18,19 +17,18 @@ maximo_rango_positivo DT 3.40282347E38
 aux_mem DW ?
 .code
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
-main:ca:m:
+main_ca_m:
 CMP recursion_flag, 1
 JNE CONTINUAR_EJECUCION 
 invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
 CONTINUAR_EJECUCION: 
-MOV recusion_flag, 1
+MOV recursion_flag, 1
 invoke MessageBox, NULL, addr variable_print_0, addr variable_print_0, MB_OK
 RET
 MOV recursion_flag, 0
 end;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
-MOV AX, 3
-MOV a_main_c1, AX
+CALL main_ca_m
 invoke ExitProcess, 0
 end main

@@ -22,8 +22,8 @@
 [Success] Linea 13: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 15: [Lexico] Se reconoce un token para c1 con el token 257
 [Success] Linea 15: [Lexico] Se reconoce un token para . con el token 46
-[Success] Linea 15: [Lexico] Se reconoce un token para a con el token 257
-[Success] Linea 15: [Lexico] Se reconoce un token para = con el token 61
-[Success] Linea 15: [Lexico] Se reconoce un token para 3_i con el token 258
+[Success] Linea 15: [Lexico] Se reconoce un token para m con el token 257
+[Success] Linea 15: [Lexico] Se reconoce un token para ( con el token 40
+[Success] Linea 15: [Lexico] Se reconoce un token para ) con el token 41
 [Success] Linea 15: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 16: [Lexico] Se reconoce un token para } con el token 125

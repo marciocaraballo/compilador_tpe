@@ -22,7 +22,8 @@ public class GeneracionCodigo {
                                                                                // generadas
             codigo_assembler
                     .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
-            codigo_assembler.append(nombre_polaca.substring(1)).append(":").append('\n');
+
+            codigo_assembler.append(nombre_polaca.substring(1).replace(":", "_")).append(":").append('\n');
             if (!nombre_polaca.equals(":main")) {
                 generarInstruccionesChequeoRecursividad();
             }
@@ -57,8 +58,8 @@ public class GeneracionCodigo {
                 .append(", MB_OK").append('\n');
         codigo_assembler.append("invoke ExitProcess, 0").append('\n');
         codigo_assembler.append("CONTINUAR_EJECUCION: ").append('\n');
-        codigo_assembler.append("MOV recusion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion
-                                                                                            // esta siendo ejecutada
+        codigo_assembler.append("MOV recursion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion
+                                                                                             // esta siendo ejecutada
         flag_recursion += 1;
     }
 
@@ -508,7 +509,7 @@ public class GeneracionCodigo {
     }
 
     private void generarLlamadaAFuncion() {
-        codigo_assembler.append("CALL ").append(tokens.pop().substring(1)).append('\n');
+        codigo_assembler.append("CALL ").append(tokens.pop().substring(1).replaceAll(":", "_")).append('\n');
     }
 
     private void generarSalto(String tipo) {
