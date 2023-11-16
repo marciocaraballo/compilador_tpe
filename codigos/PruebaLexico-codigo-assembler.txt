@@ -10,7 +10,8 @@ includelib \masm32\lib\user32.lib
 @aux0 DT ?
 a_main DT ?
 
-variable_real_0 DT 3.40282347E+38
+variable_real_0 DT 0.0
+variable_real_1 DT 3.40282347E+38
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -22,7 +23,7 @@ aux_mem DW ?
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
 FLD variable_real_0
-FLD variable_real_0
+FLD variable_real_1
 FADD 
 FSTP @aux0
 FLD @aux0
@@ -31,13 +32,14 @@ FCOMPP
 FSTSW AX
 SAHF
 JB ERROR_SUMA_FLOTANTE
-JMP CONTINUAR_EJECUCION
+FLD @aux0
+FLD variable_real_1
+JMP FIN_SUMA
 ERROR_SUMA_FLOTANTE:
 invoke MessageBox, NULL, addr overflow_flotantes, addr overflow_flotantes, MB_OK
 invoke ExitProcess, 0
 CONTINUAR_EJECUCION:
-FLD @aux0
-FLD variable_real_0
+FIN_SUMA:
 FLD @aux0
 FSTP a_main
 invoke ExitProcess, 0

@@ -457,7 +457,11 @@ public class GeneracionCodigo {
 
                 /* En teoria esto solo salta si el rango max < suma, o suma > rango max */
                 codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
-                codigo_assembler.append("JMP CONTINUAR_EJECUCION").append('\n');
+
+                codigo_assembler.append("FLD " + variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD " + op1).append('\n');
+                tokens.push(variable_auxiliar);
+                codigo_assembler.append("JMP FIN_SUMA").append('\n');
 
                 codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
@@ -465,9 +469,9 @@ public class GeneracionCodigo {
                         .append(", MB_OK").append('\n');
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("CONTINUAR_EJECUCION:").append('\n');
-                codigo_assembler.append("FLD " + variable_auxiliar).append('\n');
-                codigo_assembler.append("FLD " + op1).append('\n');
-                tokens.push(variable_auxiliar);
+
+                codigo_assembler.append("FIN_SUMA:").append('\n');
+                
             }
             case "-" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
