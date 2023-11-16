@@ -454,8 +454,11 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FCOMPP").append('\n');
                 codigo_assembler.append("FSTSW AX").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
+
+                /* En teoria esto solo salta si el rango max < suma, o suma > rango max */
                 codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
                 codigo_assembler.append("JMP CONTINUAR_EJECUCION").append('\n');
+
                 codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
