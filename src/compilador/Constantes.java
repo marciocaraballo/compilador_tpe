@@ -29,4 +29,6 @@ public class Constantes {
     public static final String USO_VARIABLE = "variable";
     public static final String USO_ATRIBUTO = "atributo";
     public static final String USO_ATRIBUTO_VARIABLE = "atributo_variable";
+    /* Utilities */
+    public static final String VARIABLE_REAL_PREFIX = "variable_real_";
 }

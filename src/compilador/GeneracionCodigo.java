@@ -416,13 +416,15 @@ public class GeneracionCodigo {
         String variable_auxiliar;
 
         if (TS.has(op2) && TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-            TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op2.replace(".", "_"));
-            op2 = "variable_real_" + op2.replace(".", "_");
+            String nuevoOp2 = Constantes.VARIABLE_REAL_PREFIX + op2.replace(".", "_");
+            TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp2);
+            op2 = nuevoOp2;
         }
 
         if (TS.has(op1) && TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-            TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, "variable_real_" + op1.replace(".", "_"));
-            op1 = "variable_real_" + op1.replace(".", "_");
+            String nuevoOp1 = Constantes.VARIABLE_REAL_PREFIX + op1.replace(".", "_");
+            TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp1);
+            op1 = nuevoOp1;
         }
 
         switch (operador) {
