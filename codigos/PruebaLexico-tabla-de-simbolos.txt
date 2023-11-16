@@ -4,14 +4,17 @@ Atributo: token Valor: 258
 Lexema: 1.0
 Atributo: tipo Valor: FLOAT
 Atributo: token Valor: 258
-Lexema: 2.0
-Atributo: tipo Valor: FLOAT
+Lexema: -2500_i
+Atributo: tipo Valor: INT
 Atributo: token Valor: 258
-Lexema: d:main
+Lexema: a:main
 Atributo: uso Valor: variable
-Atributo: tipo Valor: FLOAT
+Atributo: tipo Valor: INT
 Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
 Lexema: 1_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: 2_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258

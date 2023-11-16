@@ -1035,7 +1035,9 @@ factor:
 
 constante:
 	CTE { corregirConstantePositivaEntera($1.sval); } |
-	'-' CTE { constanteConSigno($2.sval); }
+	'-' CTE { 
+		$$.sval = constanteConSigno($2.sval); 
+	}
 ;
 
 %%
@@ -1070,20 +1072,23 @@ public void corregirConstantePositivaEntera(String constante) {
 	}
 }
 
-public void constanteConSigno(String constante) {
+public String constanteConSigno(String constante) {
 	/** Check de float negativos */
 	if (constante.contains(".")) {
 		String negConstante = "-"+constante;
 		TS.swapLexemas(constante, negConstante);
+		return negConstante;
 	} else {
 		if (constante.contains("_ul")) {
 			//se recibio un ULONG con signo negativo
 			logger.logWarning("[Parser] No se admiten ULONG con valores negativos: " + "-"+constante + ", se trunca a 0_ul");
 			TS.swapLexemas(constante, "0_ul");
+			return "0_ul";
 		} else {
 			// se recibio un INT negativo
 			String negConstante = "-"+constante;
 			TS.swapLexemas(constante, negConstante);
+			return negConstante;
 		}
 	}
 }	

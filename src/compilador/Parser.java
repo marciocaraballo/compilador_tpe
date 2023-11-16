@@ -1190,7 +1190,7 @@ final static String yyrule[] = {
 "constante : '-' CTE",
 };
 
-//#line 1042 "./src/compilador/gramatica.y"
+//#line 1044 "./src/compilador/gramatica.y"
 
 public static GeneracionCodigo genCodigo = null;
 public static AnalizadorLexico lexico = null;
@@ -1222,20 +1222,23 @@ public void corregirConstantePositivaEntera(String constante) {
 	}
 }
 
-public void constanteConSigno(String constante) {
+public String constanteConSigno(String constante) {
 	/** Check de float negativos */
 	if (constante.contains(".")) {
 		String negConstante = "-"+constante;
 		TS.swapLexemas(constante, negConstante);
+		return negConstante;
 	} else {
 		if (constante.contains("_ul")) {
 			//se recibio un ULONG con signo negativo
 			logger.logWarning("[Parser] No se admiten ULONG con valores negativos: " + "-"+constante + ", se trunca a 0_ul");
 			TS.swapLexemas(constante, "0_ul");
+			return "0_ul";
 		} else {
 			// se recibio un INT negativo
 			String negConstante = "-"+constante;
 			TS.swapLexemas(constante, negConstante);
+			return negConstante;
 		}
 	}
 }	
@@ -1280,7 +1283,7 @@ public static void main(String[] args) {
 		}
 	}
 }
-//#line 1211 "Parser.java"
+//#line 1214 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -2757,9 +2760,11 @@ case 248:
 break;
 case 249:
 //#line 1038 "./src/compilador/gramatica.y"
-{ constanteConSigno(val_peek(0).sval); }
+{ 
+		yyval.sval = constanteConSigno(val_peek(0).sval); 
+	}
 break;
-//#line 2685 "Parser.java"
+//#line 2690 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
