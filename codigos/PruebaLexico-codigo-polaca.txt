@@ -1,13 +1,11 @@
 NOMBRE POLACA: :main
-[0] 1.0 false
-[1] 2.0 false
-[2] - false
+[0] 3.40282347E+38 false
+[1] a:main false
+[2] = false
 [3] a:main false
-[4] = false
-[5] a:main false
-[6] 1.0 false
-[7] + false
-[8] a:main false
-[9] = false
-[10] END false
+[4] 1.0 false
+[5] + false
+[6] a:main false
+[7] = false
+[8] END false
 ----------------------------------------------------------

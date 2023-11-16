@@ -9,6 +9,7 @@ public class GeneracionCodigo {
     private StringBuilder codigo_assembler = new StringBuilder();
     private int numero_var_auxiliar = 0;
     private int numero_var_print = 0;
+    private int numero_var_real = 0;
     private String tipo_salto;
 
     private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
@@ -416,13 +417,15 @@ public class GeneracionCodigo {
         String variable_auxiliar;
 
         if (TS.has(op2) && TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-            String nuevoOp2 = Constantes.VARIABLE_REAL_PREFIX + op2.replace(".", "_");
+            String nuevoOp2 = Constantes.VARIABLE_REAL_PREFIX + numero_var_real;
+            numero_var_real++;
             TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp2);
             op2 = nuevoOp2;
         }
 
         if (TS.has(op1) && TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-            String nuevoOp1 = Constantes.VARIABLE_REAL_PREFIX + op1.replace(".", "_");
+            String nuevoOp1 = Constantes.VARIABLE_REAL_PREFIX + numero_var_real;
+            numero_var_real++;
             TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp1);
             op1 = nuevoOp1;
         }
@@ -434,18 +437,17 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op2).append('\n');
                 codigo_assembler.append("FLD ").append(op1).append('\n');
                 codigo_assembler.append("FADD ").append('\n');
-                // codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
-                // codigo_assembler.append("FCOMPP ").append('\n');
-                // codigo_assembler.append("FSTSW aux_mem").append('\n');
-                // codigo_assembler.append("MOV AX, aux_mem").append('\n');
-                // codigo_assembler.append("SAHF").append('\n');
-                // codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
+                codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
+                codigo_assembler.append("FCOMPP ").append('\n');
+                codigo_assembler.append("FSTSW aux_mem").append('\n');
+                codigo_assembler.append("MOV AX, aux_mem").append('\n');
+                codigo_assembler.append("SAHF").append('\n');
+                codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
 
-                // codigo_assembler.append("invoke MessageBox, NULL, addr
-                // ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
-                // .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
-                // .append(", MB_OK").append('\n');
-                // codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+                codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
+                        .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
+                        .append(", MB_OK").append('\n');
+                codigo_assembler.append("invoke ExitProcess, 0").append('\n');
 
                 codigo_assembler.append("CONTINUAR_EJECUCION: ");
                 codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
