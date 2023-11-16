@@ -67,7 +67,8 @@ public class GeneracionCodigo {
     private void generarData() {
         int posicion_data = codigo_assembler.indexOf(".code");
         codigo_assembler.insert(posicion_data, "aux_mem DW ?" + '\n');
-        codigo_assembler.insert(posicion_data, "maximo_rango_positivo DT " + 3.40282347E+38 + '\n');
+        codigo_assembler.insert(posicion_data, "maximo_rango_positivo DT 3.40282347E+38\n");
+        codigo_assembler.insert(posicion_data, "minimo_rango_positivo DT 1.17549435E-38\n");
         codigo_assembler.insert(posicion_data, ERROR_OVERFLOW_PRODUCTO_ENTEROS
                 + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
         codigo_assembler.insert(posicion_data,
@@ -408,8 +409,8 @@ public class GeneracionCodigo {
     public void comparacionesParaFlotantes(String op1, String op2) {
         codigo_assembler.append("FLD ").append(op2).append("\n");
         codigo_assembler.append("FCOM ").append(op1).append("\n");
-        codigo_assembler.append("FSTSW aux_mem").append(op1).append("\n");
-        codigo_assembler.append("MOV EAX, aux_mem").append(op1).append("\n");
+        codigo_assembler.append("FSTSW aux_mem ").append(op1).append("\n");
+        codigo_assembler.append("MOV EAX, aux_mem ").append(op1).append("\n");
         codigo_assembler.append("SAHF").append(op1).append("\n");
     }
 
@@ -417,16 +418,25 @@ public class GeneracionCodigo {
         String variable_auxiliar;
 
         if (TS.has(op2) && TS.getAtributo(op2, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-            String nuevoOp2 = Constantes.VARIABLE_REAL_PREFIX + numero_var_real;
-            numero_var_real++;
-            TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp2);
+
+            String nuevoOp2 = (String) TS.getAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE);
+
+            if (nuevoOp2 == null) {
+                nuevoOp2 = Constantes.VARIABLE_REAL_PREFIX + numero_var_real;
+                numero_var_real++;
+                TS.agregarAtributo(op2, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp2);
+            }
+
             op2 = nuevoOp2;
         }
 
         if (TS.has(op1) && TS.getAtributo(op1, Constantes.TOKEN).equals(Constantes.CONSTANTE)) {
-            String nuevoOp1 = Constantes.VARIABLE_REAL_PREFIX + numero_var_real;
-            numero_var_real++;
-            TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp1);
+            String nuevoOp1 = (String) TS.getAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE);
+            if (nuevoOp1 == null) {
+                nuevoOp1 = Constantes.VARIABLE_REAL_PREFIX + numero_var_real;
+                numero_var_real++;
+                TS.agregarAtributo(op1, Constantes.VAR_ASSEMBLER_NOMBRE, nuevoOp1);
+            }
             op1 = nuevoOp1;
         }
 
@@ -434,24 +444,34 @@ public class GeneracionCodigo {
             case "+" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
 
-                codigo_assembler.append("FLD ").append(op2).append('\n');
-                codigo_assembler.append("FLD ").append(op1).append('\n');
-                codigo_assembler.append("FADD ").append('\n');
-                codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
-                codigo_assembler.append("FCOMPP ").append('\n');
-                codigo_assembler.append("FSTSW aux_mem").append('\n');
-                codigo_assembler.append("MOV AX, aux_mem").append('\n');
-                codigo_assembler.append("SAHF").append('\n');
-                codigo_assembler.append("JA CONTINUAR_EJECUCION").append('\n');
+                // Cargar operandos y realizar la suma
+                codigo_assembler.append("FLD ").append(op2).append('\n'); // Cargar op2
+                codigo_assembler.append("FLD ").append(op1).append('\n'); // Cargar op1
+                codigo_assembler.append("FADD ").append('\n'); // Realizar la suma
+                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n'); // Guardar resultado en
+                                                                                         // variable auxiliar
 
+                // Comparar el resultado con maximo_rango_positivo
+                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n'); // Cargar resultado de la suma
+                codigo_assembler.append("FLD maximo_rango_positivo").append('\n'); // Cargar maximo_rango_positivo
+                codigo_assembler.append("FCOMPP").append('\n'); // Comparar y hacer pop de ambos valores
+                codigo_assembler.append("FSTSW AX").append('\n'); // Almacenar el resultado de la comparación en AX
+                codigo_assembler.append("SAHF").append('\n'); // Transferir flags a EFLAGS
+
+                // Saltar si el resultado es mayor (error de desbordamiento)
+                codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
+
+                // Continuar ejecución si está en rango
+                codigo_assembler.append("FLD " + variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD " + op1).append('\n');
+                tokens.push(variable_auxiliar);
+
+                // Manejo del error de desbordamiento
+                codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", MB_OK").append('\n');
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-
-                codigo_assembler.append("CONTINUAR_EJECUCION: ");
-                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
-                tokens.push(variable_auxiliar);
             }
             case "-" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
