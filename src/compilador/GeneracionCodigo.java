@@ -448,9 +448,10 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FLD ").append(op2).append('\n'); // Cargar op2
                 codigo_assembler.append("FLD ").append(op1).append('\n'); // Cargar op1
                 codigo_assembler.append("FADD ").append('\n'); // Realizar la suma
-                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n'); 
-                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n'); 
-                codigo_assembler.append("FLD maximo_rango_positivo").append('\n'); 
+                codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
+
+                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
                 codigo_assembler.append("FCOMPP").append('\n');
                 codigo_assembler.append("FSTSW AX").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
@@ -458,9 +459,13 @@ public class GeneracionCodigo {
                 /* En teoria esto solo salta si el rango max < suma, o suma > rango max */
                 codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
 
-                codigo_assembler.append("FLD " + variable_auxiliar).append('\n');
-                codigo_assembler.append("FLD " + op1).append('\n');
-                tokens.push(variable_auxiliar);
+                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD minimo_rango_positivo").append('\n');
+                codigo_assembler.append("FCOMPP").append('\n');
+                codigo_assembler.append("FSTSW AX").append('\n');
+                codigo_assembler.append("SAHF").append('\n');
+
+                codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
                 codigo_assembler.append("JMP FIN_SUMA").append('\n');
 
                 codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');
@@ -468,10 +473,9 @@ public class GeneracionCodigo {
                         .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", MB_OK").append('\n');
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-                codigo_assembler.append("CONTINUAR_EJECUCION:").append('\n');
 
                 codigo_assembler.append("FIN_SUMA:").append('\n');
-                
+                tokens.push(variable_auxiliar);
             }
             case "-" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);

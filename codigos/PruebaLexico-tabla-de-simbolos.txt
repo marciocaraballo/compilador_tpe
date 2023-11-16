@@ -1,7 +1,3 @@
-Lexema: 3.40282347E+38
-Atributo: variable_assembler_nombre Valor: variable_real_1
-Atributo: tipo Valor: FLOAT
-Atributo: token Valor: 258
 Lexema: 1_ul
 Atributo: tipo Valor: ULONG
 Atributo: token Valor: 258
@@ -17,6 +13,10 @@ Atributo: uso Valor: variable
 Atributo: tipo Valor: FLOAT
 Atributo: comp_uso Valor: true
 Atributo: token Valor: 257
+Lexema: 1.17549435E-38
+Atributo: variable_assembler_nombre Valor: variable_real_1
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
 Lexema: 1_i
 Atributo: tipo Valor: INT
 Atributo: token Valor: 258

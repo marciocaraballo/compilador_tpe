@@ -4,8 +4,7 @@
 [Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 6: [Lexico] Se reconoce un token para a con el token 257
 [Success] Linea 6: [Lexico] Se reconoce un token para = con el token 61
-[WARNING] Linea 6: [Lexico] Rango invalido para la constante: 3.50282347E+38, se trunca al rango permitido
-[Success] Linea 6: [Lexico] Se reconoce un token para 3.40282347E+38 con el token 258
+[Success] Linea 6: [Lexico] Se reconoce un token para 1.17549435E-38 con el token 258
 [Success] Linea 6: [Lexico] Se reconoce un token para + con el token 43
 [Success] Linea 6: [Lexico] Se reconoce un token para 0.0 con el token 258
 [Success] Linea 6: [Lexico] Se reconoce un token para , con el token 44
