@@ -1,5 +1,8 @@
 package compilador;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class GeneracionCodigo {
@@ -19,8 +22,9 @@ public class GeneracionCodigo {
 
     public GeneracionCodigo() {
         generarCabecera();
+
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
-                                                                               // generadas
+         // generadas
             codigo_assembler
                     .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
 
