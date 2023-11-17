@@ -1,8 +1,16 @@
-{ 
-	*{ Declaracion de variables }*
-    FLOAT a;b;d,
-    ULONG e,
-    INT c;z;x,
+{
 
-	x = 798789798_i,
+    FLOAT a;d,
+    ULONG b;e,
+    INT c,
+
+    DO {
+        IF ( a > d ){
+            c = 2_i,
+        }
+        ELSE
+            c = 9999_i,
+        END_IF,
+
+    } WHILE ( a > b ),
 }

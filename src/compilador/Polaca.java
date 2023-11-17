@@ -1,5 +1,6 @@
 package compilador;
 
+import javax.security.auth.login.LoginException;
 import java.util.*;
 
 public class Polaca {
@@ -62,7 +63,7 @@ public class Polaca {
 
     public void completarPasoIncompleto() {
         int posicion = desapilar();
-
+        Logger.getInstance().logWarning("asdasDas " + posicion);
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(posicion);
         polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));

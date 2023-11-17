@@ -1,6 +1,0 @@
-NOMBRE POLACA: :main
-[0] 32767_i false
-[1] x:main false
-[2] = false
-[3] END false
-----------------------------------------------------------
