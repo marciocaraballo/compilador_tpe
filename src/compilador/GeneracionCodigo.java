@@ -124,10 +124,11 @@ public class GeneracionCodigo {
         if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CADENA)) {
 
             String variableNombre = (String) TS.getAtributo(lexema, Constantes.VAR_ASSEMBLER_NOMBRE);
-
-            dato.append(variableNombre);
-            dato.append(" DB ");
-            dato.append(lexema.replace("%", "\"")).append(", 0");
+            if (!(variableNombre == null)) {
+                dato.append(variableNombre);
+                dato.append(" DB ");
+                dato.append(lexema.replace("%", "\"")).append(", 0");
+            }
         } else {
 
             if (TS.getAtributo(lexema, Constantes.TOKEN).equals(Constantes.CONSTANTE) &&
