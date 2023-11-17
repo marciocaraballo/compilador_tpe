@@ -136,11 +136,6 @@ public class Polaca {
         return polacaCompleta;
     }
 
-    public void removerUltimoElemento(){
-        ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
-        polaca_auxiliar.remove(polaca_auxiliar.size() - 1);
-    }
-
     public void eliminarPolacaClase(String lexema){
         String nombre_clase = lexema + genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema);
         HashSet<String> metodos = (HashSet<String>) TablaDeSimbolos.getInstance().getAtributo(nombre_clase, Constantes.METODOS);
