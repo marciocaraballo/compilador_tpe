@@ -217,6 +217,7 @@ bloque_sentencias_ejecutables_then_funcion:
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
+		polaca.resetContadorEliminar();
 	}|
 	sentencia_return |
 	sentencia_declarativa { logger.logError("[Parser] No se permiten declaraciones de variables dentro de bloque de sentencias ejecutables"); } |
@@ -224,16 +225,19 @@ bloque_sentencias_ejecutables_then_funcion:
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
+		polaca.resetContadorEliminar();
 	}|
 	'{' sentencias_ejecutables_funcion sentencia_return '}' {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
+		polaca.resetContadorEliminar();
 	}|
 	'{' sentencias_ejecutables_funcion sentencia_return sentencias_ejecutables_funcion_inalcanzable '}' {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
+		polaca.resetContadorEliminar();
 	}|
 	sentencias_ejecutables_funcion '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
 	sentencias_ejecutables_funcion sentencia_return '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
