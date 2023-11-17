@@ -1046,7 +1046,7 @@ factor:
 ;
 
 constante:
-	CTE { corregirConstantePositivaEntera($1.sval); } |
+	CTE { $$.sval = corregirConstantePositivaEntera($1.sval); } |
 	'-' CTE { 
 		$$.sval = constanteConSigno($2.sval); 
 	}
@@ -1064,7 +1064,7 @@ public static Parser parser = null;
 public static int MAX_INT_VALUE = (int) (Math.pow(2, 15) - 1);
 
 /** Chequea, para los INT, que el valor positivo no supere el valor maximo */
-public void corregirConstantePositivaEntera(String constante) {
+public String corregirConstantePositivaEntera(String constante) {
 	if (constante.contains("_i")) {
 		//se recibio un INT con signo positivo
 		boolean exceptionOutOfRange = false;
@@ -1080,8 +1080,10 @@ public void corregirConstantePositivaEntera(String constante) {
 		if (cte > MAX_INT_VALUE || exceptionOutOfRange) {
 			logger.logWarning("[Parser] Rango invalido para la constante: " + constante + ", se trunca al valor " + MAX_INT_VALUE + "_i");
 			TS.swapLexemas(constante, MAX_INT_VALUE + "_i");
+			return MAX_INT_VALUE + "_i";
 		}
 	}
+	return constante;
 }
 
 public String constanteConSigno(String constante) {

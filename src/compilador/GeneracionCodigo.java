@@ -200,6 +200,8 @@ public class GeneracionCodigo {
     private void generarOperador(String token) {
         String op2 = tokens.pop();
         String op1 = tokens.pop();
+        System.out.println(op2);
+        System.out.println(op1);
         if (!TS.getAtributo(op1, Constantes.TYPE).equals(TS.getAtributo(op2, Constantes.TYPE))) {
             tokens.push(op2);
             tokens.push(op1);

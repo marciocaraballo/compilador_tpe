@@ -1,32 +1,6 @@
-NOMBRE POLACA: :main:ca:m
-[0] % HOLA % false
-[1] PRINT false
-[2] RETURN false
-----------------------------------------------------------
-NOMBRE POLACA: :main:cb:n
-[0] % HOLA % false
-[1] PRINT false
-[2] RETURN false
-----------------------------------------------------------
 NOMBRE POLACA: :main
-[0] 3_i false
-[1] w:main:a1 false
+[0] 32767_i false
+[1] x:main false
 [2] = false
-[3] 3_i false
-[4] w:main:b1:ca false
-[5] = false
-[6] 2.3 false
-[7] a:main:b1 false
-[8] = false
-[9] 1.2 false
-[10] b:main:b1 false
-[11] = false
-[12] 1_i false
-[13] c:main:b1:ca false
-[14] = false
-[15] :main:ca:m false
-[16] CALL false
-[17] :main:cb:n false
-[18] CALL false
-[19] END false
+[3] END false
 ----------------------------------------------------------
