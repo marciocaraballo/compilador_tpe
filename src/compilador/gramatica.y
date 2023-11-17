@@ -150,13 +150,13 @@ bloque_sentencias_ejecutables_then:
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
-		polaca.resetContador();
-	}|
+		polaca.resetContadorEliminar();
+	} |
 	'{' sentencias_ejecutables '}' {
 		polaca.generarPasoIncompleto("BI");
 		polaca.completarPasoIncompleto();
 		polaca.apilar(polaca.polacaSize() - 1);
-		polaca.resetContador();
+		polaca.resetContadorEliminar();
 	}|
 	'{' sentencias_ejecutables  { logger.logError("[Parser] Se esperaban un simbolo '}' en el bloque"); } |
 	sentencias_ejecutables '}' { logger.logError("[Parser] Se esperaban un simbolo '{' en el bloque"); } |
@@ -534,6 +534,7 @@ declaracion_interfaz_encabezado:
 		} else {
 			logger.logError("[Codigo intermedio] Se intento volver a declarar el identificador " + $2.sval);
 			TS.removeLexema($2.sval);
+			polaca.resetContador();
 		}
 	} |
 	INTERFACE { logger.logError("[Parser] Se esperaba un identificador en declaracion de INTERFACE"); }
@@ -956,7 +957,7 @@ condicion:
 		polaca.agregarElemento($2.sval);
 		polaca.generarPasoIncompleto("BF");
 		polaca.apilar(polaca.polacaSize() - 1);
-		polaca.resetContador();
+		polaca.resetContadorEliminar();
 	} |
 	expresion comparador { logger.logError("[Parser] Se esperaba una expresion del lado derecho de la comparacion"); } |
 	comparador expresion { logger.logError("[Parser] Se esperaba una expresion del lado izquierdo de la comparacion"); } |

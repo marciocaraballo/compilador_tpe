@@ -10,6 +10,7 @@ public class Polaca {
     boolean es_label = false;
     static private HashMap<String, Stack<Integer>> pila = new HashMap<>();
     private int contador = 0;
+    private int contador_eliminar = 0;
     private static Polaca instance = null;
     GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
     int ultimo_desapilado;
@@ -99,7 +100,7 @@ public class Polaca {
 
     public void removeElementos() {
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
-        int cantidad_elementos = polacaSize() - getContador();
+        int cantidad_elementos = polacaSize() - getContadorEliminar();
         if (polacaSize() + 1 > cantidad_elementos) {
             polaca_auxiliar.subList(cantidad_elementos, polacaSize()).clear();
         }
@@ -107,14 +108,23 @@ public class Polaca {
 
     public void incrementarContador() {
         contador++;
+        contador_eliminar++;
     }
 
     public void resetContador() {
         contador = 0;
     }
 
+    public void resetContadorEliminar(){
+        contador_eliminar = 0;
+    }
+
     public int getContador() {
         return contador;
+    }
+
+    public int getContadorEliminar() {
+        return contador_eliminar;
     }
 
     public String showPolaca() {
