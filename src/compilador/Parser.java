@@ -1281,7 +1281,7 @@ public static void main(String[] args) {
 
       GeneracionCodigo gc = new GeneracionCodigo();
 
-      out.saveFile("codigo-assembler.txt", gc.showAssembler());
+      out.saveFile("codigo-assembler.asm", gc.showAssembler());
 			out.saveFile("tabla-de-simbolos.txt", TS.print());
 		}
 	}

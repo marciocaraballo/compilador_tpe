@@ -1,0 +1,6 @@
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 5: [Parser] Declaracion de lista de variables detectado
+[WARNING] Linea 7: [Parser] Rango invalido para la constante: 32768_i, se trunca al valor 32767_i
+[Success] Linea 7: [Parser] Asignacion detectada
+[Success] Linea 9: [Parser] Programa correcto detectado

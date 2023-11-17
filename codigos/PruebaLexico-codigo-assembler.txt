@@ -1,0 +1,44 @@
+.386
+.model flat, stdcall
+option casemap :none
+include \masm32\include\windows.inc
+include \masm32\include\kernel32.inc
+include \masm32\include\user32.inc
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\user32.lib
+.data
+a_main DT ?
+e_main DD ?
+
+x_main DW ?
+b_main DT ?
+z_main DW ?
+d_main DT ?
+c_main DW ?
+recursion_flag DW 0 
+error_recursividad db " No se admite recursividad de invocación a funciones " , 0
+overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
+overflow_enteros db " El producto de los valores ha sobrepasado el rango " , 0
+minimo_rango_positivo DT 1.17549435E-38
+maximo_rango_positivo DT 3.40282347E+38
+aux_mem DW ?
+.code
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main:
+MOV AX, 32767
+MOV x_main, AX
+FLD b_main
+FCOM a_main
+FSTSW aux_mem a_main
+MOV EAX, aux_mem a_main
+SAHFa_main
+JA L13
+MOV AX, 32767
+MOV x_main, AX
+JMP L19
+L13: MOV AX, 500
+MOV z_main, AX
+MOV AX, 500
+MOV z_main, AX
+L19: invoke ExitProcess, 0
+end main

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
 
     FLOAT a;d,
@@ -14,3 +15,14 @@
 
     } WHILE ( a > b ),
 }
+=======
+{ 
+	*{ Declaracion de variables }*
+    FLOAT a;b;d,
+    ULONG e,
+    INT c;z,
+
+    x = 798789798_i,
+    
+}
+>>>>>>> Stashed changes
