@@ -31,7 +31,9 @@ sentencias:
 
 sentencia:
 	sentencia_declarativa |
-	sentencia_ejecutable { polaca.resetContador(); } |
+	sentencia_ejecutable {
+		polaca.resetContador();
+		polaca.resetContadorEliminar();} |
 	error ',' { logger.logError("[Parser] Error de sintaxis en la sentencia"); }
 ;
 
@@ -179,9 +181,13 @@ primer_sentencia:
 			polaca.apilar(polaca.getPosicion() + 1);
 		}
 		else{
-			polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+			if (!polaca.deboCambiarPosicion())
+				polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+			else
+				polaca.apilar(polaca.polacaSize() - polaca.getContador() + 2);
 		}
 		polaca.resetContador();
+		polaca.resetContadorEliminar();
 	}
 
 primer_sentencia_funcion:
@@ -189,8 +195,12 @@ primer_sentencia_funcion:
 		if ($1.sval.equals("DO"))
 			polaca.apilar(polaca.getPosicion() + 1);
 		else
-			polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+			if (!polaca.deboCambiarPosicion())
+				polaca.apilar(polaca.polacaSize() - polaca.getContador() + 1);
+			else
+				polaca.apilar(polaca.polacaSize() - polaca.getContador() + 2);
 		polaca.resetContador();
+		polaca.resetContadorEliminar();
 	}
 
 bloque_sentencias_ejecutables:

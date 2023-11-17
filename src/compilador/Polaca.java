@@ -40,7 +40,6 @@ public class Polaca {
     }
 
     public void apilar(int posicion) {
-        Logger.getInstance().logWarning("QUe esta apilando esto? " + posicion);
         pila.get(genCodigoIntermedio.generarAmbito().toString()).push(posicion - 1);
     }
 
@@ -64,7 +63,6 @@ public class Polaca {
 
     public void completarPasoIncompleto() {
         int posicion = desapilar();
-        Logger.getInstance().logWarning("asdasDas " + posicion);
         ArrayList<String> polaca_auxiliar = polaca.get(genCodigoIntermedio.generarAmbito().toString());
         polaca_auxiliar.remove(posicion);
         polaca_auxiliar.add(posicion, String.valueOf(polaca_auxiliar.size() + 1));
@@ -104,6 +102,7 @@ public class Polaca {
         if (polacaSize() + 1 > cantidad_elementos) {
             polaca_auxiliar.subList(cantidad_elementos, polacaSize()).clear();
         }
+        cambio_posicion = true;
     }
 
     public void incrementarContador() {
@@ -155,7 +154,6 @@ public class Polaca {
 
     public void eliminarPolacaFuncion(String lexema){
         String nombre_funcion = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema) + ":" + lexema;
-        Logger.getInstance().logWarning(nombre_funcion);
         polaca.remove(nombre_funcion);
         marcas_label.remove(nombre_funcion);
     }
@@ -167,6 +165,13 @@ public class Polaca {
     public boolean deboEliminarFuncion(){
         boolean retorno = eliminar_polaca;
         eliminar_polaca = false;
+        return retorno;
+    }
+
+    private boolean cambio_posicion = false;
+    public boolean deboCambiarPosicion(){
+        boolean retorno = cambio_posicion;
+        cambio_posicion = false;
         return retorno;
     }
 
