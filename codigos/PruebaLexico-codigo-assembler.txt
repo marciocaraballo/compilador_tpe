@@ -7,11 +7,15 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-@aux0 DW ?
-b_main DW ?
-variable_print_0 DB " ESTOY EN M PAPU ", 0
-a_main DW ?
+variable_real_0 DT 2.3
+variable_real_1 DT 1.2
 
+variable_print_1 DB " HOLA ", 0
+a_main_b1 DT ?
+c_main_b1_ca DW ?
+b_main_b1 DT ?
+w_main_b1_ca DW ?
+w_main_a1 DW ?
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -28,24 +32,33 @@ invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
 invoke ExitProcess, 0
 CONTINUAR_EJECUCION_MAIN_CA_M: 
 MOV recursion_flag, 1
-MOV AX, 1
-MOV a_main, AX
-MOV AX, 5
-MOV b_main, AX
-L6: invoke MessageBox, NULL, addr variable_print_0, addr variable_print_0, MB_OK
-MOV AX, a_main
-ADD AX, 1
-MOV @aux0, AX
-MOV AX, @aux0
-MOV a_main, AX
-MOV AX, a_main
-CMP AX, b_main
-JGE L20
-JMP L6
-L20: RET
+invoke MessageBox, NULL, addr variable_print_0, addr variable_print_0, MB_OK
+RET
+MOV recursion_flag, 0
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main_cb_n:
+CMP recursion_flag, 2
+JNE CONTINUAR_EJECUCION_MAIN_CB_N 
+invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
+invoke ExitProcess, 0
+CONTINUAR_EJECUCION_MAIN_CB_N: 
+MOV recursion_flag, 2
+invoke MessageBox, NULL, addr variable_print_1, addr variable_print_1, MB_OK
+RET
 MOV recursion_flag, 0
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
+MOV AX, 3
+MOV w_main_a1, AX
+MOV AX, 3
+MOV w_main_b1_ca, AX
+FLD variable_real_0
+FSTP a_main_b1
+FLD variable_real_1
+FSTP b_main_b1
+MOV AX, 1
+MOV c_main_b1_ca, AX
 CALL main_ca_m
+CALL main_cb_n
 invoke ExitProcess, 0
 end main

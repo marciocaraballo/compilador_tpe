@@ -1,24 +1,37 @@
+*{ Prueba de codigo de Herencia por composicion }*
 {
-    INT a,
-    INT b,
-    
+	*{ Defincion de clase, se reconoce }*
     CLASS ca {
-    	VOID m() {
-    	
-    		a = 1_i,
-    		b = 5_i,
-    		
-    		DO {
-    			PRINT "% ESTOY EN M PAPU %",
-    			a = a + 1_i,
-    		} WHILE (a < b),
-    	
-    		RETURN,
-    	}
+        INT w;c,
+        VOID m() {
+            PRINT % HOLA %,
+            RETURN,
+        }
     }
-    
-    ca c1,
-    
-    c1.m(),
 
+	*{ Defincion de clase, se reconoce }*
+    CLASS cb {
+        FLOAT b,
+        FLOAT a,
+        VOID n() {
+            PRINT % HOLA %,
+            RETURN,
+        }
+        ca,
+    }
+
+	*{ Declaracion de variables }*
+    ca a1; a2,
+    cb b1; b2; b3,
+
+	*{ Asignacion de valores a atributos }*
+    a1.w = 3_i,
+    b1.ca.w = 3_i,
+    b1.a = 2.3, 
+    b1.b = 1.2, 
+    b1.ca.c = 1_i, 
+    
+    *{ Invocacion de metodos de clase }* 
+    b1.ca.m(), 
+    b1.n(),
 }
