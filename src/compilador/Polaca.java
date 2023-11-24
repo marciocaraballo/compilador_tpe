@@ -15,6 +15,7 @@ public class Polaca {
     GeneracionCodigoIntermedio genCodigoIntermedio = GeneracionCodigoIntermedio.getInstance();
     int ultimo_desapilado;
     boolean eliminar_polaca = false;
+    static private ArrayList<String> nombres_polaca = new ArrayList<>();
 
     public static Polaca getInstance() {
         if (instance == null) {
@@ -25,6 +26,7 @@ public class Polaca {
             pila.put(":main", aux_pila);
             ArrayList<Boolean> direcciones = new ArrayList<>();
             marcas_label.put(":main", direcciones);
+            nombres_polaca.add(":main");
         }
         return instance;
     }
@@ -59,6 +61,7 @@ public class Polaca {
         polaca.put(identificador, polaca_auxiliar);
         pila.put(identificador, pila_auxiliar);
         marcas_label.put(identificador, marcas_aux);
+        nombres_polaca.add(0, identificador);
     }
 
     public void completarPasoIncompleto() {
@@ -177,9 +180,9 @@ public class Polaca {
         return retorno;
     }
 
-    public Set<String> getNombresPolaca() {
+    public ArrayList<String> getNombresPolaca() {
 
-        return polaca.keySet();
+        return new ArrayList<>(nombres_polaca);
     }
 
     public ArrayList<String> getPolaca(String nombre) {
