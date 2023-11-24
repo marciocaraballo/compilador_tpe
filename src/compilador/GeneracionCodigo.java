@@ -23,7 +23,7 @@ public class GeneracionCodigo {
 
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
             // generadas
-            if (Polaca.getInstance().getPolaca(nombre_polaca).isEmpty()) {
+            if (!Polaca.getInstance().getPolaca(nombre_polaca).isEmpty()) {
                 codigo_assembler
                         .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
 
