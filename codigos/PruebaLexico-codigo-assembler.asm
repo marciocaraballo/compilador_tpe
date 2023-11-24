@@ -8,10 +8,12 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
 @aux0 REAL4 ?
-variable_real_0 REAL4 1.40282347E+38
+@aux1 REAL4 ?
+@aux2 REAL4 ?
 a_main REAL4 ?
 variable_real_1 REAL4 -3.40282347E+38
 
+variable_real_0 REAL4 3.40282347E+38
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -34,36 +36,78 @@ FLD zero
 FCOMPP
 FSTSW AX
 SAHF
-JE FIN_SUMA
+JE FIN_SUMA_1
 FLD @aux0
 FLD maximo_rango_positivo
 FCOMPP
 FSTSW AX
 SAHF
-JB ERROR_SUMA_FLOTANTE
+JB ERROR_SUMA_FLOTANTE_1
 FLD @aux0
 FLD minimo_rango_negativo
 FCOMPP
 FSTSW AX
 SAHF
-JA ERROR_SUMA_FLOTANTE
+JA ERROR_SUMA_FLOTANTE_1
 FLD @aux0
 FLD maximo_rango_negativo
 FCOMPP
 FSTSW AX
 SAHF
-JA FIN_SUMA
+JA FIN_SUMA_1
 FLD @aux0
 FLD minimo_rango_positivo
 FCOMPP
 FSTSW AX
 SAHF
-JB FIN_SUMA
-ERROR_SUMA_FLOTANTE:
+JB FIN_SUMA_1
+ERROR_SUMA_FLOTANTE_1:
 invoke MessageBox, NULL, addr overflow_flotantes, addr overflow_flotantes, MB_OK
 invoke ExitProcess, 0
-FIN_SUMA:
+FIN_SUMA_1:
+FLD variable_real_0
 FLD @aux0
+FADD 
+FSTP @aux1
+FLD @aux1
+FLD zero
+FCOMPP
+FSTSW AX
+SAHF
+JE FIN_SUMA_2
+FLD @aux1
+FLD maximo_rango_positivo
+FCOMPP
+FSTSW AX
+SAHF
+JB ERROR_SUMA_FLOTANTE_2
+FLD @aux1
+FLD minimo_rango_negativo
+FCOMPP
+FSTSW AX
+SAHF
+JA ERROR_SUMA_FLOTANTE_2
+FLD @aux1
+FLD maximo_rango_negativo
+FCOMPP
+FSTSW AX
+SAHF
+JA FIN_SUMA_2
+FLD @aux1
+FLD minimo_rango_positivo
+FCOMPP
+FSTSW AX
+SAHF
+JB FIN_SUMA_2
+ERROR_SUMA_FLOTANTE_2:
+invoke MessageBox, NULL, addr overflow_flotantes, addr overflow_flotantes, MB_OK
+invoke ExitProcess, 0
+FIN_SUMA_2:
+FLD variable_real_0
+FLD @aux1
+FSUB 
+FSTP @aux2
+FLD @aux2
 FSTP a_main
 invoke ExitProcess, 0
 end main

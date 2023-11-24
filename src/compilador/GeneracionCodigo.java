@@ -13,6 +13,7 @@ public class GeneracionCodigo {
     private int numero_var_auxiliar = 0;
     private int numero_var_print = 0;
     private int numero_var_real = 0;
+    private int suma_label = 0;
     private String tipo_salto;
 
     private final String ERROR_OVERFLOW_PRODUCTO_ENTEROS = "overflow_enteros";
@@ -455,6 +456,7 @@ public class GeneracionCodigo {
         switch (operador) {
             case "+" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_FLOAT);
+                suma_label++;
 
                 // Cargar operandos y realizar la suma
                 codigo_assembler.append("FLD ").append(op2).append('\n'); // Cargar op2
@@ -470,7 +472,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("SAHF").append('\n');
                 // Resultado dio equals a 0.0 -> termina la suma correctamente, si no, sigue
                 // validando
-                codigo_assembler.append("JE FIN_SUMA").append('\n');
+                codigo_assembler.append("JE FIN_SUMA_" + suma_label).append('\n');
 
                 // Verifica si se pasa de 3.40282347E+38
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
@@ -480,7 +482,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("SAHF").append('\n');
 
                 // Resultado dio mayor a 3.40282347E+38 -> se salta a error de overflow
-                codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
+                codigo_assembler.append("JB ERROR_SUMA_FLOTANTE_" + suma_label).append('\n');
 
                 // Verifica si es menor a -3.40282347E+38
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
@@ -490,7 +492,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("SAHF").append('\n');
 
                 // Reesultado dio menor a -3.40282347E+38 -> se salta a error de overflow
-                codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
+                codigo_assembler.append("JA ERROR_SUMA_FLOTANTE_" + suma_label).append('\n');
 
                 // Verifica si es menor a -1.17549435E-38
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
@@ -499,8 +501,9 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FSTSW AX").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
 
-                // Reesultado dio menor a -1.17549435E-38 -> se va al final porque valor es valido
-                codigo_assembler.append("JA FIN_SUMA").append('\n');
+                // Reesultado dio menor a -1.17549435E-38 -> se va al final porque valor es
+                // valido
+                codigo_assembler.append("JA FIN_SUMA_" + suma_label).append('\n');
 
                 // Verifica si es mayor de 1.17549435E-38
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
@@ -510,15 +513,15 @@ public class GeneracionCodigo {
                 codigo_assembler.append("SAHF").append('\n');
 
                 // Resultado dio mayor a 1.17549435E-38 -> se va al final porque valor es valido
-                codigo_assembler.append("JB FIN_SUMA").append('\n');
+                codigo_assembler.append("JB FIN_SUMA_" + suma_label).append('\n');
 
-                codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');
+                codigo_assembler.append("ERROR_SUMA_FLOTANTE_" + suma_label + ":").append('\n');
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)
                         .append(", MB_OK").append('\n');
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
 
-                codigo_assembler.append("FIN_SUMA:").append('\n');
+                codigo_assembler.append("FIN_SUMA_" + suma_label + ":").append('\n');
                 tokens.push(variable_auxiliar);
             }
             case "-" -> {
