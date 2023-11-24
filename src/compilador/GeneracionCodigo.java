@@ -1,8 +1,5 @@
 package compilador;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Stack;
 
 public class GeneracionCodigo {
@@ -271,6 +268,7 @@ public class GeneracionCodigo {
             }
             case "*" -> {
                 variable_auxiliar = nuevaVariableAuxiliar(Constantes.TYPE_INT);
+                suma_label++;
                 codigo_assembler.append("MOV AX, ").append(op1).append("\n"); // EN MULTIPLICACION SOLO PUEDO UTILIZAR
                                                                               // REG AX
                 codigo_assembler.append("IMUL AX, ").append(op2).append("\n");
@@ -279,7 +277,7 @@ public class GeneracionCodigo {
                  * instruccion 'JNO' salta o no dependiendo
                  * del valor del flag
                  */
-                codigo_assembler.append("JNO CONTINUAR_EJECUCION ").append('\n');
+                codigo_assembler.append("JNO CONTINUAR_EJECUCION_" + suma_label).append('\n');
 
                 // Si hay overflow, muestro el error por pantalla y finalizo ejecucion
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_PRODUCTO_ENTEROS)
@@ -288,7 +286,7 @@ public class GeneracionCodigo {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
 
                 // Si no hay overflow, continuo normalmente la ejecucion
-                codigo_assembler.append("CONTINUAR_EJECUCION:");
+                codigo_assembler.append("CONTINUAR_EJECUCION_" + suma_label + ":");
                 codigo_assembler.append("MOV ").append(variable_auxiliar).append(", AX").append("\n");
                 tokens.push(variable_auxiliar);
             }

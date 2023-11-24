@@ -114,7 +114,7 @@ public class Polaca {
         contador = 0;
     }
 
-    public void resetContadorEliminar(){
+    public void resetContadorEliminar() {
         contador_eliminar = 0;
     }
 
@@ -132,8 +132,7 @@ public class Polaca {
             polacaCompleta += "NOMBRE POLACA: " + nombre_polaca + "\n";
             Logger.getInstance().logSuccess("NOMBRE POLACA: " + nombre_polaca);
             for (int i = 0; i < polaca.get(nombre_polaca).size(); i++) {
-                String polacaElement = "[" + i + "] " + polaca.get(nombre_polaca).get(i) + " "
-                        + marcas_label.get(nombre_polaca).get(i);
+                String polacaElement = "[" + i + "] " + polaca.get(nombre_polaca).get(i);
                 polacaCompleta += polacaElement + "\n";
                 System.out.println(polacaElement);
             }
@@ -143,33 +142,36 @@ public class Polaca {
         return polacaCompleta;
     }
 
-    public void eliminarPolacaClase(String lexema){
+    public void eliminarPolacaClase(String lexema) {
         String nombre_clase = lexema + genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema);
-        HashSet<String> metodos = (HashSet<String>) TablaDeSimbolos.getInstance().getAtributo(nombre_clase, Constantes.METODOS);
-        for (String m : metodos){
+        HashSet<String> metodos = (HashSet<String>) TablaDeSimbolos.getInstance().getAtributo(nombre_clase,
+                Constantes.METODOS);
+        for (String m : metodos) {
             polaca.remove(genCodigoIntermedio.generarAmbito() + ":" + m);
             marcas_label.remove(genCodigoIntermedio.generarAmbito() + ":" + m);
         }
     }
 
-    public void eliminarPolacaFuncion(String lexema){
-        String nombre_funcion = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema) + ":" + lexema;
+    public void eliminarPolacaFuncion(String lexema) {
+        String nombre_funcion = genCodigoIntermedio.existeIdentificadorDeClaseEnAlgunAmbitoContenedor(lexema) + ":"
+                + lexema;
         polaca.remove(nombre_funcion);
         marcas_label.remove(nombre_funcion);
     }
 
-    public void eliminarFuncion(){
+    public void eliminarFuncion() {
         eliminar_polaca = true;
     }
 
-    public boolean deboEliminarFuncion(){
+    public boolean deboEliminarFuncion() {
         boolean retorno = eliminar_polaca;
         eliminar_polaca = false;
         return retorno;
     }
 
     private boolean cambio_posicion = false;
-    public boolean deboCambiarPosicion(){
+
+    public boolean deboCambiarPosicion() {
         boolean retorno = cambio_posicion;
         cambio_posicion = false;
         return retorno;

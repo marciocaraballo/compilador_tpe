@@ -1,0 +1,11 @@
+[Success] Linea 3: [Lexico] Se reconoce un token para { con el token 123
+[Success] Linea 4: [Lexico] Se reconoce un token para INT con el token 275
+[Success] Linea 4: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 6: [Lexico] Se reconoce un token para a con el token 257
+[Success] Linea 6: [Lexico] Se reconoce un token para = con el token 61
+[Success] Linea 6: [Lexico] Se reconoce un token para 32767_i con el token 258
+[Success] Linea 6: [Lexico] Se reconoce un token para * con el token 42
+[Success] Linea 6: [Lexico] Se reconoce un token para 2_i con el token 258
+[Success] Linea 6: [Lexico] Se reconoce un token para , con el token 44
+[Success] Linea 7: [Lexico] Se reconoce un token para } con el token 125
