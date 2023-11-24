@@ -7,13 +7,9 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-@aux0 DW ?
-@aux1 DW ?
-@aux2 DW ?
-a_main DW ?
 
 recursion_flag DW 0 
-error_recursividad db " No se admite recursividad de invocaciÃ³n a funciones " , 0
+error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
 overflow_enteros db " El producto de los valores ha sobrepasado el rango " , 0
 zero REAL4 0.0
@@ -24,25 +20,18 @@ maximo_rango_positivo REAL4 3.40282347E+38
 aux_mem REAL4 ?
 .code
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
+main_fun1:
+CMP recursion_flag, 1
+JNE CONTINUAR_EJECUCION_MAIN_FUN1 
+invoke MessageBox, NULL, addr error_recursividad, addr error_recursividad, MB_OK
+invoke ExitProcess, 0
+CONTINUAR_EJECUCION_MAIN_FUN1: 
+MOV recursion_flag, 1
+CALL main_fun1
+MOV recursion_flag, 0
+RET
+;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
-MOV AX, 32767
-IMUL AX, 2
-JNO CONTINUAR_EJECUCION_1
-invoke MessageBox, NULL, addr overflow_enteros, addr overflow_enteros, MB_OK
-invoke ExitProcess, 0
-CONTINUAR_EJECUCION_1:MOV @aux0, AX
-MOV AX, @aux0
-IMUL AX, 5
-JNO CONTINUAR_EJECUCION_2
-invoke MessageBox, NULL, addr overflow_enteros, addr overflow_enteros, MB_OK
-invoke ExitProcess, 0
-CONTINUAR_EJECUCION_2:MOV @aux1, AX
-XOR DX, DX
-MOV AX, @aux1
-MOV BX, 3
-IDIV BX
-MOV @aux2, AX
-MOV AX, @aux2
-MOV a_main, AX
+CALL main_fun1
 invoke ExitProcess, 0
 end main

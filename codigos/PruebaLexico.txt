@@ -1,7 +1,45 @@
+*{ Prueba de codigo de CLASS e INTERFACE }*
 {
-  INT a,
 
-  a = 32767_i * 2_i * 5_i / 3_i,
+    *{ Comprobaciones de uso de variables  }*
+    CLASS ca { 
+        FLOAT a, 
+        VOID m() { 
+            FLOAT xx, 
+            VOID fun1() { 
+                FLOAT zz, 
+                FLOAT ww, 
+                ww = zz + xx + a, 
+                
+                PRINT % HOLA desde fun1() en m() en ca % ,
+            
+            	RETURN,
+            } 
+            
+            fun1(),
+            
+            RETURN,
+        } 
+    }
+
+     *{ Definicion de una INTERFACE, se reconoce como valida }*
+    INTERFACE z {
+        VOID q(),
+        VOID s(),
+    }
+
+	 *{ Implementar una INTERFACE, se reconoce como valida }*
+    CLASS a IMPLEMENT z {
+        VOID q() { PRINT % HOLA DESDE q() %, RETURN, }
+        VOID s() { PRINT % HOLA DESDE s() %, RETURN, }
+    }
+    
+    a a1,
+    
+    a1.q(),
+    a1.s(),
+    
+    ca ca1,
+    
+    ca1.m(),
 }
-
-

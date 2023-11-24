@@ -1,0 +1,36 @@
+NOMBRE POLACA: :main:ca:m
+[0] :main:ca:m:fun1
+[1] CALL
+[2] RETURN
+----------------------------------------------------------
+NOMBRE POLACA: :main:a:q
+[0] % HOLA DESDE q() %
+[1] PRINT
+[2] RETURN
+----------------------------------------------------------
+NOMBRE POLACA: :main
+[0] :main:a:q
+[1] CALL
+[2] :main:a:s
+[3] CALL
+[4] :main:ca:m
+[5] CALL
+[6] END
+----------------------------------------------------------
+NOMBRE POLACA: :main:ca:m:fun1
+[0] zz:main:ca:m:fun1
+[1] xx:main:ca:m
+[2] +
+[3] a:main:ca
+[4] +
+[5] ww:main:ca:m:fun1
+[6] =
+[7] % HOLA desde fun1() en m() en ca %
+[8] PRINT
+[9] RETURN
+----------------------------------------------------------
+NOMBRE POLACA: :main:a:s
+[0] % HOLA DESDE s() %
+[1] PRINT
+[2] RETURN
+----------------------------------------------------------

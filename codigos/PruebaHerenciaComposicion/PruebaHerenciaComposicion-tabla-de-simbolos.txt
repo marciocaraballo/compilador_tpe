@@ -1,0 +1,111 @@
+Lexema: a:main:a1
+Atributo: uso Valor: atributo_variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: ca:main:cb
+Atributo: uso Valor: nombre_clase
+Atributo: tipo Valor: ca
+Atributo: token Valor: 257
+Lexema: n:main:cb
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: b3:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: cb
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: a2:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ca
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: b:main:cb
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: 1_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: a:main:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: cb:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: [n]
+Atributo: atributos Valor: [b, d]
+Atributo: niveles_herencia Valor: 1
+Atributo: token Valor: 257
+Lexema: m:main:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: 3_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: d:main:b1
+Atributo: uso Valor: atributo_variable
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: b1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: cb
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: % HOLA ca %
+Atributo: variable_assembler_nombre Valor: variable_print_0
+Atributo: token Valor: 259
+Lexema: % HOLA cb %
+Atributo: variable_assembler_nombre Valor: variable_print_1
+Atributo: token Valor: 259
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: [m]
+Atributo: atributos Valor: [a, c]
+Atributo: niveles_herencia Valor: 0
+Atributo: token Valor: 257
+Lexema: b:main:b1
+Atributo: uso Valor: atributo_variable
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: c:main:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: c:main:b1:ca
+Atributo: uso Valor: atributo_variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: d:main:cb
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: a:main:b1:ca
+Atributo: uso Valor: atributo_variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: 1_ul
+Atributo: tipo Valor: ULONG
+Atributo: token Valor: 258
+Lexema: 1.0
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
+Lexema: 1.2
+Atributo: variable_assembler_nombre Valor: variable_real_1
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
+Lexema: 2.3
+Atributo: variable_assembler_nombre Valor: variable_real_0
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
+Lexema: b2:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: cb
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: a1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ca
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257

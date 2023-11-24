@@ -1,0 +1,35 @@
+[Success] Linea 6: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 8: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 10: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 11: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 12: [Codigo Intermedio] El identificador zz esta declarado
+[Success] Linea 12: [Codigo Intermedio] El identificador xx esta declarado
+[Success] Linea 12: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 12: [Parser] Asignacion detectada
+[Success] Linea 14: [Parser] Sentencia PRINT detectada
+[Success] Linea 17: [Parser] Declaracion de funcion detectado
+[Success] Linea 19: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 22: [Parser] Declaracion de funcion detectado
+[Success] Linea 23: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 29: [Parser] Declaracion de INTERFACE detectada
+[Success] Linea 32: [Codigo Intermedio] El identificador z esta declarado
+[Success] Linea 33: [Parser] Sentencia PRINT detectada
+[Success] Linea 33: [Parser] Declaracion de funcion detectado
+[Success] Linea 34: [Parser] Sentencia PRINT detectada
+[Success] Linea 34: [Parser] Declaracion de funcion detectado
+[Success] Linea 35: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 35: [Codigo Intermedio] Metodos declarados en interfaz fueron implementados correctamente para la clase a
+[Success] Linea 37: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 37: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 39: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 39: [Codigo Intermedio] La cadena de llamadas a1.q es valida 
+[Success] Linea 39: [Codigo Intermedio] Se llamo al metodo a1.q correctamente sin parametro
+[Success] Linea 40: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 40: [Codigo Intermedio] La cadena de llamadas a1.s es valida 
+[Success] Linea 40: [Codigo Intermedio] Se llamo al metodo a1.s correctamente sin parametro
+[Success] Linea 42: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 42: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 44: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 44: [Codigo Intermedio] La cadena de llamadas ca1.m es valida 
+[Success] Linea 44: [Codigo Intermedio] Se llamo al metodo ca1.m correctamente sin parametro
+[Success] Linea 45: [Parser] Programa correcto detectado

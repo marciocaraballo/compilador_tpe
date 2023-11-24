@@ -104,8 +104,8 @@ public class GeneracionCodigo {
         if (uso != null) {
             if (uso.equals("nombre_funcion") ||
                     uso.equals("nombre_clase") ||
-                    uso.equals("nombre_metodo") ||
-                    uso.equals("atributo")) {
+                    uso.equals("nombre_interfaz") ||
+                    uso.equals("nombre_metodo")) {
                 return true;
             } else {
                 if (uso.equals("variable") && (!type.equals("INT") && !type.equals("FLOAT") && !type.equals("ULONG"))) {

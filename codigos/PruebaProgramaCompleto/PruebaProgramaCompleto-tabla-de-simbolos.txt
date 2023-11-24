@@ -1,0 +1,78 @@
+Lexema: e:main:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: c:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: [m]
+Atributo: atributos Valor: [e]
+Atributo: niveles_herencia Valor: 0
+Atributo: token Valor: 257
+Lexema: b:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: c1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ca
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: 1_ul
+Atributo: tipo Valor: ULONG
+Atributo: token Valor: 258
+Lexema: c:main:fun1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: 1.0
+Atributo: variable_assembler_nombre Valor: variable_real_0
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
+Lexema: % Se llamo a fun1() de de main %
+Atributo: variable_assembler_nombre Valor: variable_print_1
+Atributo: token Valor: 259
+Lexema: a:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: % Se llamo a m() de la CLASS ca %
+Atributo: variable_assembler_nombre Valor: variable_print_0
+Atributo: token Valor: 259
+Lexema: 1_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: fun1:main
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: m:main:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: 3_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: 10_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: @aux1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257
+Lexema: f:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: @aux0
+Atributo: uso Valor: variable
+Atributo: tipo Valor: INT
+Atributo: token Valor: 257

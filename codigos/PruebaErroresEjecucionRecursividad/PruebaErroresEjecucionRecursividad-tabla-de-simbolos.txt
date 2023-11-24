@@ -1,0 +1,13 @@
+Lexema: 1_ul
+Atributo: tipo Valor: ULONG
+Atributo: token Valor: 258
+Lexema: 1.0
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
+Lexema: 1_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: fun1:main
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257

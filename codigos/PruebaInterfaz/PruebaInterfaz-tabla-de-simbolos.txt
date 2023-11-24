@@ -1,0 +1,96 @@
+Lexema: ca:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: [m]
+Atributo: atributos Valor: [a]
+Atributo: niveles_herencia Valor: 0
+Atributo: token Valor: 257
+Lexema: z:main
+Atributo: uso Valor: nombre_interfaz
+Atributo: metodos Valor: [q, s]
+Atributo: token Valor: 257
+Lexema: xx:main:ca:m
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: zz:main:ca:m:fun1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: 1_ul
+Atributo: tipo Valor: ULONG
+Atributo: token Valor: 258
+Lexema: ca1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: ca
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: 1.0
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 258
+Lexema: q:main:z
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: a:main
+Atributo: uso Valor: nombre_clase
+Atributo: metodos Valor: [q, s]
+Atributo: atributos Valor: []
+Atributo: niveles_herencia Valor: 0
+Atributo: implementa Valor: z
+Atributo: token Valor: 257
+Lexema: s:main:z
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: % HOLA DESDE s() %
+Atributo: variable_assembler_nombre Valor: variable_print_2
+Atributo: token Valor: 259
+Lexema: 1_i
+Atributo: tipo Valor: INT
+Atributo: token Valor: 258
+Lexema: a:main:ca
+Atributo: uso Valor: atributo
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: ww:main:ca:m:fun1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: comp_uso Valor: true
+Atributo: token Valor: 257
+Lexema: % HOLA DESDE q() %
+Atributo: variable_assembler_nombre Valor: variable_print_0
+Atributo: token Valor: 259
+Lexema: m:main:ca
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: fun1:main:ca:m
+Atributo: uso Valor: nombre_funcion
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: % HOLA desde fun1() en m() en ca %
+Atributo: variable_assembler_nombre Valor: variable_print_1
+Atributo: token Valor: 259
+Lexema: a1:main
+Atributo: uso Valor: variable
+Atributo: tipo Valor: a
+Atributo: comp_uso Valor: false
+Atributo: token Valor: 257
+Lexema: s:main:a
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: @aux1
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257
+Lexema: q:main:a
+Atributo: uso Valor: nombre_metodo
+Atributo: tiene_param Valor: false
+Atributo: token Valor: 257
+Lexema: @aux0
+Atributo: uso Valor: variable
+Atributo: tipo Valor: FLOAT
+Atributo: token Valor: 257

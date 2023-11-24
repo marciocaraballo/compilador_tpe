@@ -1,0 +1,26 @@
+[Success] Linea 5: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 7: [Parser] Sentencia PRINT detectada
+[Success] Linea 9: [Parser] Declaracion de funcion detectado
+[Success] Linea 10: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 14: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 15: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 17: [Parser] Sentencia PRINT detectada
+[Success] Linea 19: [Parser] Declaracion de funcion detectado
+[Success] Linea 20: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 21: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 24: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 24: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 25: [Codigo Intermedio] El identificador cb esta declarado
+[Success] Linea 25: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 28: [Parser] Asignacion detectada
+[Success] Linea 29: [Parser] Asignacion detectada
+[Success] Linea 30: [Parser] Asignacion detectada
+[Success] Linea 31: [Parser] Asignacion detectada
+[Success] Linea 32: [Parser] Asignacion detectada
+[Success] Linea 35: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 35: [Codigo Intermedio] La cadena de llamadas b1.ca.m es valida 
+[Success] Linea 35: [Codigo Intermedio] Se llamo al metodo b1.ca.m correctamente sin parametro
+[Success] Linea 36: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 36: [Codigo Intermedio] La cadena de llamadas b1.n es valida 
+[Success] Linea 36: [Codigo Intermedio] Se llamo al metodo b1.n correctamente sin parametro
+[Success] Linea 37: [Parser] Programa correcto detectado

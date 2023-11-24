@@ -1,0 +1,12 @@
+*{ Se emite un mensaje de error porque a no implementa s() }*
+{
+	INTERFACE z { 
+	    VOID q(), 
+	    VOID s(), 
+	} 
+
+	CLASS a IMPLEMENT z { 
+	   VOID q() { RETURN, }
+	} 
+}
+

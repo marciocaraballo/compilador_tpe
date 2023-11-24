@@ -4,7 +4,7 @@
     CLASS ca {
         INT a;c,
         VOID m() {
-            PRINT % HOLA %,
+            PRINT % HOLA ca %,
             RETURN,
         }
     }
@@ -12,9 +12,9 @@
 	*{ Defincion de clase, se reconoce }*
     CLASS cb {
         FLOAT b,
-        FLOAT a,
+        FLOAT d,
         VOID n() {
-            PRINT % HOLA %,
+            PRINT % HOLA cb %,
             RETURN,
         }
         ca,
@@ -27,7 +27,7 @@
 	*{ Asignacion de valores a atributos }*
     a1.a = 3_i,
     b1.ca.a = 3_i,
-    b1.a = 2.3, 
+    b1.d = 2.3, 
     b1.b = 1.2, 
     b1.ca.c = 1_i, 
     

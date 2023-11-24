@@ -1,0 +1,27 @@
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 4: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 7: [Parser] Declaracion de lista de variables en CLASS detectado
+[Success] Linea 9: [Parser] Asignacion detectada
+[Success] Linea 10: [Parser] Sentencia PRINT detectada
+[Success] Linea 12: [Parser] Declaracion de funcion detectado
+[Success] Linea 13: [Parser] Declaracion de clase CLASS detectado
+[Success] Linea 16: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 17: [Parser] Asignacion detectada
+[Success] Linea 18: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 18: [Codigo Intermedio] El identificador c esta declarado
+[Success] Linea 18: [Parser] Asignacion detectada
+[Success] Linea 19: [Parser] Sentencia PRINT detectada
+[Success] Linea 21: [Parser] Declaracion de funcion detectado
+[Success] Linea 23: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 25: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 26: [Parser] Asignacion detectada
+[Success] Linea 28: [Codigo Intermedio] El identificador ca esta declarado
+[Success] Linea 28: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 32: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 33: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 33: [Codigo Intermedio] La cadena de llamadas c1.m es valida 
+[Success] Linea 33: [Codigo Intermedio] Se llamo al metodo c1.m correctamente sin parametro
+[Success] Linea 34: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 34: [Codigo Intermedio] El identificador f esta declarado
+[Success] Linea 34: [Parser] Sentencia iterativa DO WHILE detectada
+[Success] Linea 35: [Parser] Programa correcto detectado

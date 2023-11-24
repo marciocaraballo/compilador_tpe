@@ -1,0 +1,7 @@
+[Success] Linea 3: [Parser] Declaracion de lista de variables detectado
+[Success] Linea 5: [Parser] Asignacion detectada
+[Success] Linea 6: [Parser] Asignacion detectada
+[Success] Linea 8: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 8: [Codigo Intermedio] El identificador a esta declarado
+[Success] Linea 8: [Parser] Asignacion detectada
+[Success] Linea 9: [Parser] Programa correcto detectado

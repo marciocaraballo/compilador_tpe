@@ -1,0 +1,4 @@
+[Success] Linea 4: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 6: [Parser] Declaracion de funcion detectado
+[Success] Linea 8: [Parser] Invocacion de funcion sin expresion detectada
+[Success] Linea 9: [Parser] Programa correcto detectado
