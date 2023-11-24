@@ -23,26 +23,28 @@ public class GeneracionCodigo {
 
         for (String nombre_polaca : Polaca.getInstance().getNombresPolaca()) { // Recorro las diferentes polacas
             // generadas
-            codigo_assembler
-                    .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
+            if (Polaca.getInstance().getPolaca(nombre_polaca).isEmpty()) {
+                codigo_assembler
+                        .append(";-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- \n");
 
-            codigo_assembler.append(nombre_polaca.substring(1).replace(":", "_")).append(":").append('\n');
-            if (!nombre_polaca.equals(":main")) {
-                generarInstruccionesChequeoRecursividad(nombre_polaca.substring(1).replace(":", "_"));
-            }
-            int i = 0;
-            for (String token : Polaca.getInstance().getPolaca(nombre_polaca)) {
-                if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo
-                                                                      // agregar etiqueta
-                    codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
+                codigo_assembler.append(nombre_polaca.substring(1).replace(":", "_")).append(":").append('\n');
+                if (!nombre_polaca.equals(":main")) {
+                    generarInstruccionesChequeoRecursividad(nombre_polaca.substring(1).replace(":", "_"));
                 }
-                generarInstrucciones(token);
-                i++;
-            }
+                int i = 0;
+                for (String token : Polaca.getInstance().getPolaca(nombre_polaca)) {
+                    if (Polaca.getInstance().esLabel(i, nombre_polaca)) { // Verifico si es una posicion a la cual debo
+                        // agregar etiqueta
+                        codigo_assembler.append("L").append(i).append(": "); // Agrego la etiqueta
+                    }
+                    generarInstrucciones(token);
+                    i++;
+                }
 
-            if (nombre_polaca.equals(":main")) {
-                codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-                codigo_assembler.append("end ").append("main").append('\n');
+                if (nombre_polaca.equals(":main")) {
+                    codigo_assembler.append("invoke ExitProcess, 0").append('\n');
+                    codigo_assembler.append("end ").append("main").append('\n');
+                }
             }
         }
         generarData();
