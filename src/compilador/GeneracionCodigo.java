@@ -462,48 +462,55 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FADD ").append('\n'); // Realizar la suma
                 codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
 
+                // Valida que el resultado es 0.0 (valor valido)
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
                 codigo_assembler.append("FLD zero").append('\n');
                 codigo_assembler.append("FCOMPP").append('\n');
                 codigo_assembler.append("FSTSW AX").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
-
+                // Resultado dio equals a 0.0 -> termina la suma correctamente, si no, sigue
+                // validando
                 codigo_assembler.append("JE FIN_SUMA").append('\n');
 
+                // Verifica si se pasa de 3.40282347E+38
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
                 codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
                 codigo_assembler.append("FCOMPP").append('\n');
                 codigo_assembler.append("FSTSW AX").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
 
-                /* En teoria esto solo salta si el rango max < suma, o suma > rango max */
+                // Resultado dio mayor a 3.40282347E+38 -> se salta a error de overflow
                 codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
 
+                // Verifica si es menor a -3.40282347E+38
+                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD minimo_rango_negativo").append('\n');
+                codigo_assembler.append("FCOMPP").append('\n');
+                codigo_assembler.append("FSTSW AX").append('\n');
+                codigo_assembler.append("SAHF").append('\n');
+
+                // Reesultado dio menor a -3.40282347E+38 -> se salta a error de overflow
+                codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
+
+                // Verifica si es menor a -1.17549435E-38
+                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD maximo_rango_negativo").append('\n');
+                codigo_assembler.append("FCOMPP").append('\n');
+                codigo_assembler.append("FSTSW AX").append('\n');
+                codigo_assembler.append("SAHF").append('\n');
+
+                // Reesultado dio menor a -1.17549435E-38 -> se va al final porque valor es valido
+                codigo_assembler.append("JA FIN_SUMA").append('\n');
+
+                // Verifica si es mayor de 1.17549435E-38
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
                 codigo_assembler.append("FLD minimo_rango_positivo").append('\n');
                 codigo_assembler.append("FCOMPP").append('\n');
                 codigo_assembler.append("FSTSW AX").append('\n');
                 codigo_assembler.append("SAHF").append('\n');
 
-                codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
-
-                // codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
-                // codigo_assembler.append("FLD maximo_rango_negativo").append('\n');
-                // codigo_assembler.append("FCOMPP").append('\n');
-                // codigo_assembler.append("FSTSW AX").append('\n');
-                // codigo_assembler.append("SAHF").append('\n');
-
-                // codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
-
-                // codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
-                // codigo_assembler.append("FLD minimo_rango_negativo").append('\n');
-                // codigo_assembler.append("FCOMPP").append('\n');
-                // codigo_assembler.append("FSTSW AX").append('\n');
-                // codigo_assembler.append("SAHF").append('\n');
-
-                // codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
-
-                codigo_assembler.append("JMP FIN_SUMA").append('\n');
+                // Resultado dio mayor a 1.17549435E-38 -> se va al final porque valor es valido
+                codigo_assembler.append("JB FIN_SUMA").append('\n');
 
                 codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');
                 codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_OVERFLOW_SUMA_FLOTANTES)

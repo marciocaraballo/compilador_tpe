@@ -4,8 +4,9 @@
 [Success] Linea 2: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 4: [Lexico] Se reconoce un token para a con el token 257
 [Success] Linea 4: [Lexico] Se reconoce un token para = con el token 61
+[Success] Linea 4: [Lexico] Se reconoce un token para - con el token 45
 [Success] Linea 4: [Lexico] Se reconoce un token para 3.40282347E+38 con el token 258
 [Success] Linea 4: [Lexico] Se reconoce un token para + con el token 43
-[Success] Linea 4: [Lexico] Se reconoce un token para 3.40282347E+38 con el token 258
+[Success] Linea 4: [Lexico] Se reconoce un token para 1.40282347E+38 con el token 258
 [Success] Linea 4: [Lexico] Se reconoce un token para , con el token 44
 [Success] Linea 5: [Lexico] Se reconoce un token para } con el token 125

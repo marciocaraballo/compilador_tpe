@@ -8,9 +8,10 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
 @aux0 REAL4 ?
+variable_real_0 REAL4 1.40282347E+38
 a_main REAL4 ?
+variable_real_1 REAL4 -3.40282347E+38
 
-variable_real_0 REAL4 3.40282347E+38
 recursion_flag DW 0 
 error_recursividad db " No se admite recursividad de invocación a funciones " , 0
 overflow_flotantes db " La suma de los valores ha sobrepasado el rango " , 0
@@ -25,7 +26,7 @@ aux_mem REAL4 ?
 ;-------------------------- ESTO ES PARA MEJORAR VISUALIZACION ----------------- 
 main:
 FLD variable_real_0
-FLD variable_real_0
+FLD variable_real_1
 FADD 
 FSTP @aux0
 FLD @aux0
@@ -41,12 +42,23 @@ FSTSW AX
 SAHF
 JB ERROR_SUMA_FLOTANTE
 FLD @aux0
-FLD minimo_rango_positivo
+FLD minimo_rango_negativo
 FCOMPP
 FSTSW AX
 SAHF
 JA ERROR_SUMA_FLOTANTE
-JMP FIN_SUMA
+FLD @aux0
+FLD maximo_rango_negativo
+FCOMPP
+FSTSW AX
+SAHF
+JA FIN_SUMA
+FLD @aux0
+FLD minimo_rango_positivo
+FCOMPP
+FSTSW AX
+SAHF
+JB FIN_SUMA
 ERROR_SUMA_FLOTANTE:
 invoke MessageBox, NULL, addr overflow_flotantes, addr overflow_flotantes, MB_OK
 invoke ExitProcess, 0
