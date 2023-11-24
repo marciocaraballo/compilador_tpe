@@ -1,0 +1,7 @@
+*{ Se emitira por pantalla un error dado que se sobrepasa el limite valido para 
+INT con el resultado de la multiplicacion }*
+{
+  INT a,
+
+  a = 32767_i * 2_i,
+}

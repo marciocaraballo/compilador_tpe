@@ -1,2 +1,0 @@
-[Success] Linea 3: [Parser] Sentencia PRINT detectada
-[Success] Linea 7: [Parser] Sentencia PRINT detectada

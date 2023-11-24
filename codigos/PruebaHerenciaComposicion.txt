@@ -5,6 +5,7 @@
         INT a;c,
         VOID m() {
             PRINT % HOLA %,
+            RETURN,
         }
     }
 

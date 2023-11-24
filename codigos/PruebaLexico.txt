@@ -1,6 +1,14 @@
+*{ Se emitira un error por estar z() definida dentro de n() dentro de ca.m() }*
 {
-	FLOAT a,
-	
-	a = -3.40282347E+38 + 3.40282347E+38 + 3.40282347E+38 - 3.40282347E+38,
+	CLASS ca {
+		INT a,
+		VOID m() {
+			VOID n() {
+				VOID z() { RETURN, }
+				RETURN,
+			}
+			RETURN,
+		}
+	}
 }
 

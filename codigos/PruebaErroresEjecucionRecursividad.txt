@@ -1,0 +1,9 @@
+*{ Se emite por pantalla un error por intento de llamar recursivamente a fun1 }*
+{
+  VOID fun1(){
+      fun1(),
+      RETURN,
+  }
+
+  fun1(),
+}

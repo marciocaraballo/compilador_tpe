@@ -1,0 +1,16 @@
+*{ Se emitira un error por intentar sobreescribir b en ca }*
+{
+	CLASS cb {
+		INT c,
+		INT b,
+		VOID m() { RETURN, } 
+	}
+
+	CLASS ca {
+		INT a,
+		INT b,
+		VOID m() { RETURN, } 
+		cb,
+	}
+}
+

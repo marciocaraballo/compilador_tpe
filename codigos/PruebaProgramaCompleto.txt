@@ -1,0 +1,35 @@
+*{ Se ven algunas sentencicas validas }*
+{
+  INT a,
+  FLOAT b;c,
+
+  CLASS ca {
+    INT e,
+    VOID m() {
+      b = 1.0,
+      PRINT % Se llamo a m() de la CLASS ca %,
+      RETURN,
+    }
+  }
+
+  VOID fun1() {
+    INT c,
+    c = 3_i,
+    a = a + c + 1_i,
+    PRINT % Se llamo a fun1() de de main %, 
+    RETURN,
+  }
+
+  fun1(),
+
+  INT f,
+  f = 10_i,
+  
+  ca c1,
+
+  *{ Deberia iterar 2 veces }*
+  DO {
+    fun1(),
+    c1.m(),
+  } WHILE (a < f),
+}

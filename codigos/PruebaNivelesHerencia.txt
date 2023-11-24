@@ -1,0 +1,22 @@
+*{ Se emitira un error de la etapa de generacion de codigo intermedio }*
+{
+	CLASS cx {
+    		INT x,
+	}
+	
+	CLASS cc {
+		INT c,
+		cx,
+	}
+	
+	CLASS cb {
+		INT b,
+    		cc,
+	}
+	
+	CLASS ca {
+		INT a,
+		cb,
+	}
+}
+

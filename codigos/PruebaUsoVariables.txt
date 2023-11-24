@@ -1,0 +1,14 @@
+*{ Se emitira un error por estar z() definida dentro de n() dentro de ca.m() }*
+{
+	CLASS ca {
+		INT a,
+		VOID m() {
+			VOID n() {
+				VOID z() { RETURN, }
+				RETURN,
+			}
+			RETURN,
+		}
+	}
+}
+

@@ -1,0 +1,9 @@
+*{ En este caso, se emitira por pantalla un error de rango sobrepasado para suma de FLOAT }*
+{
+  FLOAT a; b,
+
+  a = 3.40282347E+38,
+  b = 3.40282347E+38,
+
+  b = a + a,
+}
