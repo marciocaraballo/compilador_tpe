@@ -46,8 +46,6 @@ public class GeneracionCodigo {
             if (nombre_polaca.equals(":main")) {
                 codigo_assembler.append("invoke ExitProcess, 0").append('\n');
                 codigo_assembler.append("end ").append("main").append('\n');
-            } else {
-                codigo_assembler.append("MOV recursion_flag, 0").append('\n');
             }
         }
         generarData();
@@ -172,7 +170,10 @@ public class GeneracionCodigo {
             case "BI" -> generarSalto("BI");
             case "BF" -> generarSalto("BF");
             case "CALL" -> generarLlamadaAFuncion();
-            case "RETURN" -> codigo_assembler.append("RET").append('\n');
+            case "RETURN" -> {
+                codigo_assembler.append("MOV recursion_flag, 0").append('\n');
+                codigo_assembler.append("RET").append('\n');
+            }
             case "PRINT" -> generarImpresionPantalla();
             default -> tokens.push(token);
         }
