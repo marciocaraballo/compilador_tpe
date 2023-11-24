@@ -186,6 +186,9 @@ public class Polaca {
     }
 
     public ArrayList<String> getPolaca(String nombre) {
+        if (polaca.get(nombre) == null){
+            return new ArrayList<>();
+        }
         return polaca.get(nombre);
     }
 
