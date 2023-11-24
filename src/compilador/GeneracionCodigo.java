@@ -54,13 +54,17 @@ public class GeneracionCodigo {
 
     private void generarInstruccionesChequeoRecursividad(String nombre_polaca_parsed) {
         codigo_assembler.append("CMP recursion_flag, ").append(flag_recursion).append('\n');
-        codigo_assembler.append("JNE CONTINUAR_EJECUCION_" + nombre_polaca_parsed.toUpperCase() + " \n"); // Si el flag de recursion es distinto de
-                                                               // 'flag_recursion' continuo la ejecucion
+        codigo_assembler.append("JNE CONTINUAR_EJECUCION_" + nombre_polaca_parsed.toUpperCase() + " \n"); // Si el flag
+                                                                                                          // de
+                                                                                                          // recursion
+                                                                                                          // es distinto
+                                                                                                          // de
+        // 'flag_recursion' continuo la ejecucion
         codigo_assembler.append("invoke MessageBox, NULL, addr ").append(ERROR_RECURSIVIDAD)
                 .append(", addr ").append(ERROR_RECURSIVIDAD)
                 .append(", MB_OK").append('\n');
         codigo_assembler.append("invoke ExitProcess, 0").append('\n');
-        codigo_assembler.append("CONTINUAR_EJECUCION_" + nombre_polaca_parsed.toUpperCase()+ ": ").append('\n');
+        codigo_assembler.append("CONTINUAR_EJECUCION_" + nombre_polaca_parsed.toUpperCase() + ": ").append('\n');
         codigo_assembler.append("MOV recursion_flag, ").append(flag_recursion).append('\n'); // Indico que la funcion
                                                                                              // esta siendo ejecutada
         flag_recursion += 1;
@@ -68,9 +72,12 @@ public class GeneracionCodigo {
 
     private void generarData() {
         int posicion_data = codigo_assembler.indexOf(".code");
-        codigo_assembler.insert(posicion_data, "aux_mem DW ?" + '\n');
-        codigo_assembler.insert(posicion_data, "maximo_rango_positivo DT 3.40282347E+38\n");
-        codigo_assembler.insert(posicion_data, "minimo_rango_positivo DT 1.17549435E-38\n");
+        codigo_assembler.insert(posicion_data, "aux_mem REAL4 ?" + '\n');
+        codigo_assembler.insert(posicion_data, "maximo_rango_positivo REAL4 3.40282347E+38\n");
+        codigo_assembler.insert(posicion_data, "minimo_rango_positivo REAL4 1.17549435E-38\n");
+        codigo_assembler.insert(posicion_data, "maximo_rango_negativo REAL4 -1.17549435E-38\n");
+        codigo_assembler.insert(posicion_data, "minimo_rango_negativo REAL4 -3.40282347E+38\n");
+        codigo_assembler.insert(posicion_data, "zero REAL4 0.0\n");
         codigo_assembler.insert(posicion_data, ERROR_OVERFLOW_PRODUCTO_ENTEROS
                 + " db \" El producto de los valores ha sobrepasado el rango \" , 0" + '\n');
         codigo_assembler.insert(posicion_data,
@@ -137,7 +144,7 @@ public class GeneracionCodigo {
                 String varRealAsociada = (String) TS.getAtributo(lexema, Constantes.VAR_ASSEMBLER_NOMBRE);
 
                 if (varRealAsociada != null) {
-                    dato.append(varRealAsociada + " DT " + lexema);
+                    dato.append(varRealAsociada + " REAL4 " + lexema);
                 }
             } else {
                 dato.append(lexema.replaceAll("\\:", "_"));
@@ -148,7 +155,7 @@ public class GeneracionCodigo {
                     else if (tipo.equals("ULONG"))
                         dato.append(" DD ?");
                     else if (tipo.equals("FLOAT")) {
-                        dato.append(" DT ?");
+                        dato.append(" REAL4 ?");
                     }
                 }
             }
@@ -456,6 +463,14 @@ public class GeneracionCodigo {
                 codigo_assembler.append("FSTP ").append(variable_auxiliar).append('\n');
 
                 codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                codigo_assembler.append("FLD zero").append('\n');
+                codigo_assembler.append("FCOMPP").append('\n');
+                codigo_assembler.append("FSTSW AX").append('\n');
+                codigo_assembler.append("SAHF").append('\n');
+
+                codigo_assembler.append("JE FIN_SUMA").append('\n');
+
+                codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
                 codigo_assembler.append("FLD maximo_rango_positivo").append('\n');
                 codigo_assembler.append("FCOMPP").append('\n');
                 codigo_assembler.append("FSTSW AX").append('\n');
@@ -471,6 +486,23 @@ public class GeneracionCodigo {
                 codigo_assembler.append("SAHF").append('\n');
 
                 codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
+
+                // codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                // codigo_assembler.append("FLD maximo_rango_negativo").append('\n');
+                // codigo_assembler.append("FCOMPP").append('\n');
+                // codigo_assembler.append("FSTSW AX").append('\n');
+                // codigo_assembler.append("SAHF").append('\n');
+
+                // codigo_assembler.append("JB ERROR_SUMA_FLOTANTE").append('\n');
+
+                // codigo_assembler.append("FLD ").append(variable_auxiliar).append('\n');
+                // codigo_assembler.append("FLD minimo_rango_negativo").append('\n');
+                // codigo_assembler.append("FCOMPP").append('\n');
+                // codigo_assembler.append("FSTSW AX").append('\n');
+                // codigo_assembler.append("SAHF").append('\n');
+
+                // codigo_assembler.append("JA ERROR_SUMA_FLOTANTE").append('\n');
+
                 codigo_assembler.append("JMP FIN_SUMA").append('\n');
 
                 codigo_assembler.append("ERROR_SUMA_FLOTANTE:").append('\n');

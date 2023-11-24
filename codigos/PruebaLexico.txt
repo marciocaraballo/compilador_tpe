@@ -1,28 +1,6 @@
-<<<<<<< Updated upstream
 {
-
-    FLOAT a;d,
-    ULONG b;e,
-    INT c,
-
-    DO {
-        IF ( a > d ){
-            c = 2_i,
-        }
-        ELSE
-            c = 9999_i,
-        END_IF,
-
-    } WHILE ( a > b ),
+	FLOAT a,
+	
+	a = 3.40282347E+38 + 3.40282347E+38,
 }
-=======
-{ 
-	*{ Declaracion de variables }*
-    FLOAT a;b;d,
-    ULONG e,
-    INT c;z,
 
-    x = 798789798_i,
-    
-}
->>>>>>> Stashed changes
